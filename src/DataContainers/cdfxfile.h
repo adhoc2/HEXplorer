@@ -23,9 +23,9 @@
 #include <QObject>
 #include <QDomDocument>
 
-#include "node.h"
-#include "datacontainer.h"
-#include "workproject.h"
+#include "ASAP2/node.h"
+#include "DataContainers/datacontainer.h"
+#include "WidgetsViews/workproject.h"
 
 QT_BEGIN_NAMESPACE
 class QDomNode;

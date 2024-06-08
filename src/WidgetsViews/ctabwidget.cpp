@@ -17,24 +17,31 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
+#include "ctabwidget.h"
 
-#include <QApplication>
-#include "ui_forms/mdimain.h"
-
-
-int main(int argc, char *argv[])
+CTabWidget::CTabWidget(QWidget *parent) : QTabWidget(parent)
 {
-
-    QApplication app(argc, argv);
-
-    app.setOrganizationName("Ch.Hoel");
-    app.setApplicationName("HEXplorer");
-    app.setApplicationVersion("1.0.5");
-
-    app.setStyle("Fusion");
-
-    MDImain w;
-    w.showMaximized();
-    return app.exec();
+    setAcceptDrops(true);
 }
 
+void CTabWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasFormat("text/plain"))
+    {
+        event->acceptProposedAction();
+    }
+}
+
+
+void CTabWidget::dropEvent(QDropEvent *event)
+{
+    QString text;
+    if (event->mimeData()->hasText())
+    {
+       text = event->mimeData()->text();
+    }
+
+    event->acceptProposedAction();
+
+    emit textDropped(text);
+}

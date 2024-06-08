@@ -25,7 +25,7 @@
 #include <QMessageBox>
 #include <QtAlgorithms>
 #include <QFileInfo>
-#include <workproject.h>
+#include <WidgetsViews/workproject.h>
 #include <typeinfo>
 #include <math.h>
 #include <limits.h>
@@ -47,8 +47,8 @@
 #include "Nodes/function.h"
 #include "Nodes/group.h"
 #include "data.h"
-#include "graphverify.h"
-#include "formcompare.h"
+#include "ui_forms/graphverify.h"
+#include "ui_forms/formcompare.h"
 #include "stdint.h"
 #include "stdio.h"
 

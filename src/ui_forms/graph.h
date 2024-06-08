@@ -17,24 +17,48 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
+#ifndef GRAPH_H
+#define GRAPH_H
 
-#include <QApplication>
-#include "ui_forms/mdimain.h"
+#include "ui_graph.h"
+#include <QMainWindow>
+#include "data.h"
+#include "PlotGraph/plot.h"
+#include <QTableView>
+#include "DataModels/graphmodel.h"
+#include "WidgetsViews/spreadsheetview.h"
+class CanvasPicker;
 
+class Data;
 
-int main(int argc, char *argv[])
+class Graph : public QMainWindow, private Ui::Graph
 {
+    Q_OBJECT
 
-    QApplication app(argc, argv);
+public:
+    explicit Graph(QWidget *parent = 0, Data *data = 0);
+    ~Graph();
 
-    app.setOrganizationName("Ch.Hoel");
-    app.setApplicationName("HEXplorer");
-    app.setApplicationVersion("1.0.5");
+    void selectIndexTable(QModelIndex index);
 
-    app.setStyle("Fusion");
+private:
+    GraphModel *model;
+    Data *data;
+    Plot *plotXZ;
+    Plot *plotYZ;
+    void showInfo(QString text = QString());
+    void createButtons();
+    SpreadsheetView *table;
+    CanvasPicker *canvasXZ;
+    CanvasPicker *canvasYZ;
 
-    MDImain w;
-    w.showMaximized();
-    return app.exec();
-}
 
+signals:
+
+private slots:
+    void plot3D_q3dsurface();
+    void showData(bool);
+    void invertXY(bool);
+};
+
+#endif // GRAPH_H

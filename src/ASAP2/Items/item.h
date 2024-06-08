@@ -17,24 +17,39 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
+#ifndef ITEM_H
+#define ITEM_H
 
-#include <QApplication>
-#include "ui_forms/mdimain.h"
+#include <QMap>
+#include "lexer.h"
+#include "QMutex"
 
+class Node;
 
-int main(int argc, char *argv[])
+class Item
 {
+    public:
+        Item(Node *parentNod);
+        virtual ~Item();
 
-    QApplication app(argc, argv);
+        virtual QMap<std::string, std::string> getParameters()
+        {
+            QMap<std::string, std::string> map;
+            return map;
+        }
+        TokenTyp nextToken();
+        void parseFixPar(QList<TokenTyp> *typePar);
+        std::string getName() const
+        {
+            std::string str = name;
+            return str;
+        }
+        char* name;
 
-    app.setOrganizationName("Ch.Hoel");
-    app.setApplicationName("HEXplorer");
-    app.setApplicationVersion("1.0.5");
+    protected:
+        Node *parentNode;
+        void showError(QString str);
+        QList<char*> parameters;
+    };
 
-    app.setStyle("Fusion");
-
-    MDImain w;
-    w.showMaximized();
-    return app.exec();
-}
-
+#endif // ITEM_H

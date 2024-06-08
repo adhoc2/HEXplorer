@@ -22,7 +22,7 @@
 #include "data.h"
 #include "lexer.h"
 #include "lexerDcm.h"
-#include "formcompare.h"
+#include "ui_forms/formcompare.h"
 #include "qdebug.h"
 #include <QtCore/qmath.h>
 #include <QFileInfo>

@@ -17,24 +17,41 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
+#ifndef PLOT_H
+#define PLOT_H
 
-#include <QApplication>
-#include "ui_forms/mdimain.h"
+#include <qwt_plot.h>
+#include <qwt_plot_marker.h>
+#include <qwt_plot_curve.h>
+#include <qwt_legend.h>
+#include <qwt_text.h>
+#include <qwt_math.h>
+#include <math.h>
+#include "data.h"
+#include "DataModels/graphmodel.h"
+#include "DataModels/sptablemodel.h"
 
-
-int main(int argc, char *argv[])
+class Plot : public QwtPlot
 {
+    Q_OBJECT
 
-    QApplication app(argc, argv);
+public:
+    Plot(GraphModel *model, QString type = "XZ");
+    ~Plot();
 
-    app.setOrganizationName("Ch.Hoel");
-    app.setApplicationName("HEXplorer");
-    app.setApplicationVersion("1.0.5");
+    GraphModel * getModel();
+    void invertXY(bool inverted);
 
-    app.setStyle("Fusion");
+private:
+    int nPointsX;
+    int nPointsY;
+    GraphModel *model;
 
-    MDImain w;
-    w.showMaximized();
-    return app.exec();
-}
+    void plotXZ();
+    void plotYZ();
 
+public slots:
+    void printPlot();
+};
+
+#endif // PLOT_H

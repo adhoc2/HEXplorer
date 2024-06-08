@@ -30,9 +30,9 @@
 #include <math.h>
 #include <QMessageBox>
 #include <limits.h>
-#include "graph.h"
-#include "workproject.h"
-#include "dialogexceedwb.h"
+#include "ui_forms/graph.h"
+#include "WidgetsViews/workproject.h"
+#include "ui_forms/dialogexceedwb.h"
 #include "csv.h"
 #include "cdfxfile.h"
 #include "dcmfile.h"

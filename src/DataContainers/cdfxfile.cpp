@@ -35,7 +35,7 @@
 #include <typeinfo>
 #include <QtMessageHandler>
 #include "data.h"
-#include "formcompare.h"
+#include "ui_forms/formcompare.h"
 #include "qdebug.h"
 
 bool compar(Data *a, Data *b)

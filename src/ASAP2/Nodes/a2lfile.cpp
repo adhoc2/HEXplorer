@@ -17,7 +17,7 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 #include "Nodes/a2lfile.h"
-#include "workproject.h"
+#include "WidgetsViews/workproject.h"
 #include <QMessageBox>
 #include "qdebug.h"
 

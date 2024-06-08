@@ -20,9 +20,9 @@
 #ifndef DCMFILE_H
 #define DCMFILE_H
 
-#include "node.h"
-#include "workproject.h"
-#include "datacontainer.h"
+#include "ASAP2/node.h"
+#include "WidgetsViews/workproject.h"
+#include "DataContainers/datacontainer.h"
 class Data;
 
 class Dcm : public QObject, public DataContainer

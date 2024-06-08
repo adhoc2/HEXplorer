@@ -17,24 +17,26 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
+#ifndef CTABWIDGET_H
+#define CTABWIDGET_H
 
-#include <QApplication>
-#include "ui_forms/mdimain.h"
+#include <QtWidgets>
 
-
-int main(int argc, char *argv[])
+class CTabWidget : public QTabWidget
 {
+    Q_OBJECT
 
-    QApplication app(argc, argv);
+public:
+    CTabWidget(QWidget *parent = 0);
 
-    app.setOrganizationName("Ch.Hoel");
-    app.setApplicationName("HEXplorer");
-    app.setApplicationVersion("1.0.5");
+private:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
 
-    app.setStyle("Fusion");
+signals:
+  void textDropped(QString );
 
-    MDImain w;
-    w.showMaximized();
-    return app.exec();
-}
 
+};
+
+#endif // CTABWIDGET_H
