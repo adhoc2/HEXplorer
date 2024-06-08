@@ -25,7 +25,7 @@
 #include <QFutureWatcher>
 #include <sys/stat.h>
 #ifdef WIN32
-   include <windows.h>
+   #include <windows.h>
 #endif
 #include "sptablemodel.h"
 #include "comparemodel.h"
