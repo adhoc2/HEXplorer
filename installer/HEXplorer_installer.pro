@@ -1,16 +1,7 @@
 TEMPLATE = aux
 
-# compile project to get an installer file
-# deploy repo on
-# C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen -p packages C:\Users\lmbhoc2\Documents\Code\HEXplorer\HEXplorer_repo
-# copy on distant distant_repo_path = https://lmbweb.liebherr.i/team/WS5/Shared/OBD/Sharepoint AC41/FaultCodeTable/OBD Calibration Tool/HEXplorer_repo
-
-# cd C:\Users\lmbhoc2\Documents\Code\HEXplorer\HEXplorer_installer_qt6
-# path\repogen.exe -p packages local_repo_path
-
-# when update components : update version in config.xml and package.xml
-# compile project to get an installer file
-# update the repo locally : C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen.exe --update-new-components -p packages C:\Users\lmbhoc2\Documents\Code\HEXplorer\HEXplorer_repo
+# C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen -p packages path\HEXplorer_repo
+# C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen.exe --update-new-components -p packages packages path\HEXplorer_repo
 
 INSTALLER = HEXplorer_online_installer
 
@@ -24,12 +15,12 @@ QMAKE_EXTRA_COMPILERS += HEXplorer_online_installer
 OTHER_FILES = README
 
 DISTFILES += \
-    packages/com.liebherr.hexplorer/meta/package.xml \
-    packages/com.liebherr.hexplorer/meta/GNU_license.txt \
-    packages/com.liebherr.hexplorer/meta/installscript.qs
+    packages/com.adhoc2.hexplorer/meta/package.xml \
+    packages/com.adhoc2.hexplorer/meta/GNU_license.txt \
+    packages/com.adhoc2.hexplorer/meta/installscript.qs
 
 FORMS += \
-    packages/com.liebherr.hexplorer/meta/page.ui
+    packages/com.adhoc2.hexplorer/meta/page.ui
 
 RESOURCES += \
     toto.qrc

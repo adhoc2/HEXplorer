@@ -8,7 +8,7 @@
     <TargetDir>@HomeDir@/HEXplorer</TargetDir>
     <RemoteRepositories>
         <Repository>
-            <Url>https://lmbweb.liebherr.i/team/WS5/Shared/OBD/Sharepoint AC41/FaultCodeTable/OBD Calibration Tool/HEXplorer_repo/</Url>
+            <Url>https://to_be_defined/</Url>
         </Repository>
     </RemoteRepositories>
 </Installer>
