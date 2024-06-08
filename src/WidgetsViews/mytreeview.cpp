@@ -18,7 +18,7 @@
 // please contact the author at : christophe.hoel@gmail.com
 
 #include "mytreeview.h"
-#include "DataModels/a2ltreemodel.h"
+#include "a2ltreemodel.h"
 
 MyTreeView::MyTreeView(QWidget *parent) : QTreeView(parent)
 {

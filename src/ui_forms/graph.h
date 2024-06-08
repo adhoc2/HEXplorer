@@ -23,10 +23,10 @@
 #include "ui_graph.h"
 #include <QMainWindow>
 #include "data.h"
-#include "PlotGraph/plot.h"
+#include "plot.h"
 #include <QTableView>
-#include "DataModels/graphmodel.h"
-#include "WidgetsViews/spreadsheetview.h"
+#include "graphmodel.h"
+#include "spreadsheetview.h"
 class CanvasPicker;
 
 class Data;

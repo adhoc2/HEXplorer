@@ -26,12 +26,12 @@
 #include <qwt_counter.h>
 #include <qwt_plot_zoomer.h>
 #include <qstatusbar.h>
-#include "PlotGraph/canvaspicker.h"
+#include "canvaspicker.h"
 #include <qmessagebox.h>
 #include <QHeaderView>
 #include "qdebug.h"
 
-#include "PlotGraph/surfacegraph.h"
+#include "surfacegraph.h"
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>

@@ -19,11 +19,11 @@
 
 #include "chooselabel.h"
 #include "ui_chooselabel.h"
-#include "Nodes/a2lfile.h"
+#include "a2lfile.h"
 #include "hexfile.h"
 #include "csv.h"
 #include "dcmfile.h"
-#include "Nodes/def_characteristic.h"
+#include "def_characteristic.h"
 #include "formcompare.h"
 #include "mdimain.h"
 #include "cdfxfile.h"

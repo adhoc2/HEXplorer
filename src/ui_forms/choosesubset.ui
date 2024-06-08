@@ -78,7 +78,7 @@
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="icones.qrc">
+          <iconset resource="../icones.qrc">
            <normaloff>:/icones/rightarrow.png</normaloff>:/icones/rightarrow.png</iconset>
          </property>
         </widget>
@@ -89,7 +89,7 @@
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="icones.qrc">
+          <iconset resource="../icones.qrc">
            <normaloff>:/icones/leftarrow.png</normaloff>:/icones/leftarrow.png</iconset>
          </property>
         </widget>
@@ -176,7 +176,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="icones.qrc"/>
+  <include location="../icones.qrc"/>
  </resources>
  <connections>
   <connection>

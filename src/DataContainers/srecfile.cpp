@@ -1670,7 +1670,15 @@ void SrecFile::setValues(unsigned int IAddr, QStringList hexList, int nByte, QSt
 
 void SrecFile::hex2MemBlock(Data *data)
 {
-    QString type = typeid(*data->getA2lNode()).name();
+    //QString type = typeid(*data->getA2lNode()).name();
+    QString type;
+    Node* _model = data->getA2lNode();
+    if (_model)
+        type = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (type.endsWith("CHARACTERISTIC"))
     {
         CHARACTERISTIC *node = (CHARACTERISTIC*)data->getA2lNode();
@@ -1858,7 +1866,7 @@ QString SrecFile::checksum(QString values)
 
     //Return 256 - mod
     char hex[31];
-    sprintf(hex, "%X", 256 - mod - 1);
+    snprintf(hex, sizeof(hex), "%X", 256 - mod - 1);
 
     QString cks = hex;
     if (cks == "100")
@@ -1918,13 +1926,13 @@ QStringList SrecFile::block2list()
                 uint _myStartUint = _myStart.toUInt(&bl,16);
                 int tamere =  blockList[i]->start - _myStartUint + x * ( blockList[i]->lineLength - 5);
                 char hex[31];
-                sprintf(hex, "%X", tamere);
+                snprintf(hex, sizeof(hex), "%X", tamere);
                 address = hex;
                 while (address.length() < 4)
                     address = "0" + address;
 
                 //HEX: line length
-                sprintf(hex, "%X", line.length()/ 2 + 5);
+                snprintf(hex, sizeof(hex), "%X", uint(line.length()/ 2 + 5));
                 QString length = hex;
                 if (length.length() < 2)
                     length = "0" + length;
@@ -2349,23 +2357,23 @@ QString SrecFile::dec2hex(double dec, std::string type)
         {
             if (E < CHAR_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
 
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > CHAR_MIN)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
 
@@ -2379,22 +2387,22 @@ QString SrecFile::dec2hex(double dec, std::string type)
         {
             if (E < UCHAR_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(2);
@@ -2407,22 +2415,22 @@ QString SrecFile::dec2hex(double dec, std::string type)
         {
             if (E < SHRT_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > SHRT_MIN)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(4);
@@ -2435,22 +2443,22 @@ QString SrecFile::dec2hex(double dec, std::string type)
         {
             if (E < USHRT_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(4);
@@ -2463,22 +2471,22 @@ QString SrecFile::dec2hex(double dec, std::string type)
         {
             if (E < INT_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > INT_MIN)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(8);
@@ -2492,22 +2500,22 @@ QString SrecFile::dec2hex(double dec, std::string type)
         {
             if (E < (unsigned int)UINT_MAX)
             {
-                sprintf(hex, "%X", (unsigned int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (unsigned int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(8);
@@ -2517,7 +2525,7 @@ QString SrecFile::dec2hex(double dec, std::string type)
     else if(type == "FLOAT32_IEEE")
     {
         float f = (float)dec;
-        sprintf(hex, "%08X", *(int*)&f);
+        snprintf(hex, sizeof(hex), "%08X", *(int*)&f);
         qHex = QString(hex);
     }
 

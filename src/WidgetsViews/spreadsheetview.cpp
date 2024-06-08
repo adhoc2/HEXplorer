@@ -22,28 +22,25 @@
 #ifdef Q_WS_WIN32
     #include <QAxObject>
 #endif
-#include <bitset>
 #include <typeinfo>
 
 #include "spreadsheetview.h"
-#include "DataModels/sptablemodel.h"
-#include "DataModels/sptablemodelHex.h"
-#include "DataModels/comparemodel.h"
-#include "DataModels/graphmodel.h"
-#include "DataModels/obdMergeModel.h"
-#include "DataModels/comboboxdelegate.h"
-#include "ui_forms/dialogeditastext.h"
-#include "ui_forms/dialogbitdisplay.h"
+#include "sptablemodel.h"
+#include "sptablemodelHex.h"
+#include "comparemodel.h"
+#include "graphmodel.h"
+#include "obdMergeModel.h"
+#include "comboboxdelegate.h"
+#include "dialogeditastext.h"
+#include "dialogbitdisplay.h"
 #include "csv.h"
 #include "cdfxfile.h"
-#include "ui_forms/formcompare.h"
-#include "DataModels/measmodel.h"
-#include "DataModels/charmodel.h"
-#include "ui_forms/dialogdatadimension.h"
-#include "ui_forms/labelproperties.h"
-#include "DataModels/obdMergeModel.h"
-#include "DataModels/obdsortfilterproxymodel.h"
-#include "ui_forms/dialogchooseexportformat.h"
+#include "formcompare.h"
+#include "dialogdatadimension.h"
+#include "labelproperties.h"
+#include "obdMergeModel.h"
+#include "obdsortfilterproxymodel.h"
+#include "dialogchooseexportformat.h"
 
 
 //using namespace std;
@@ -255,7 +252,16 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
     {
         //get the selected data
         Data *data = 0;
-        QString name = typeid(*model()).name();
+        QString name;
+        QAbstractItemModel* _model = model();
+        if (_model)
+            name = typeid(*_model).name();
+        else
+        {
+            delete data;
+            return;
+        }
+
         if (name.toLower().endsWith("sptablemodel"))
         {
             SpTableModel *spModel = (SpTableModel*)model();
@@ -468,7 +474,14 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
     }
     else
     {
-        QString name = typeid(*model()).name();
+        QString name;
+        QAbstractItemModel* _model = model();
+        if (_model)
+            name = typeid(*_model).name();
+        else
+        {
+            return;
+        }
         if (name.toLower().endsWith("obdsortfilterproxymodel"))
              menu->addAction(resetAllFilters);
         else
@@ -513,7 +526,14 @@ void SpreadsheetView::findInObdView()
 
 void SpreadsheetView::resetAll_Filters()
 {
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("obdsortfilterproxymodel"))
     {
         obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
@@ -572,7 +592,14 @@ void SpreadsheetView::saveObdViewModifsAs()
     chooseFormat->exec();
 
     //get the hex and a2l nodes
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (exportFormat == "cdf" && name.toLower().endsWith("obdsortfilterproxymodel"))
     {
         obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model());
@@ -646,7 +673,14 @@ void SpreadsheetView::filterColumn(QString value, bool activate)
     QModelIndex index = indexList.at(0);
     if (index.isValid())
     {
-        QString name = typeid(*model()).name();
+        QString name;
+        QAbstractItemModel* _model = model();
+        if (_model)
+            name = typeid(*_model).name();
+        else
+        {
+            return;
+        }
         if (name.toLower().endsWith("obdsortfilterproxymodel"))
         {
             obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
@@ -681,7 +715,14 @@ void SpreadsheetView::setFilter_Pattern()
 
 void SpreadsheetView::filterColumn_Name(QString text)
 {
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("obdsortfilterproxymodel"))
     {
         obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
@@ -863,7 +904,14 @@ void SpreadsheetView::paste()
 
     // Paste value
     int maxRow = btmRightRow - topLeft.row() + 1;
-    QString name = typeid(*model()).name();  
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     for (int i = 0; i < maxRow; ++i)
     {
         QStringList columns = value.at(i);
@@ -938,7 +986,14 @@ void SpreadsheetView::factorM()
     if (indexList.isEmpty())
         return;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
 
     bool ok;
     QString valueStr  = QInputDialog::getText(this, tr("HEXplorer::multiply"),
@@ -991,7 +1046,14 @@ void SpreadsheetView::factorD()
     if (indexList.isEmpty())
         return;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("obdmergemodel"))
     {
         return;
@@ -1004,7 +1066,14 @@ void SpreadsheetView::factorD()
 
     if (ok && !valueStr.isEmpty())
     {
-        QString name = typeid(*model()).name();
+        QString name;
+        QAbstractItemModel* _model = model();
+        if (_model)
+            name = typeid(*_model).name();
+        else
+        {
+            return;
+        }
         foreach (QModelIndex index, indexList)
         {
             double val = this->model()->data(index, Qt::DisplayRole).toDouble();
@@ -1050,7 +1119,14 @@ void SpreadsheetView::offsetP()
     if (indexList.isEmpty())
         return;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("obdmergemodel"))
     {
         return;
@@ -1063,7 +1139,14 @@ void SpreadsheetView::offsetP()
 
     if (ok && !valueStr.isEmpty())
     {
-        QString name = typeid(*model()).name();
+        QString name;
+        QAbstractItemModel* _model = model();
+        if (_model)
+            name = typeid(*_model).name();
+        else
+        {
+            return;
+        }
         if (name.toLower().endsWith("obdsortfilterproxymodel"))
         {
             //identify source Index
@@ -1136,7 +1219,14 @@ void SpreadsheetView::offsetM()
     if (indexList.isEmpty())
         return;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
 
     bool ok;
     QString valueStr  = QInputDialog::getText(this, tr("HEXplorer::offset(-)"),
@@ -1208,7 +1298,14 @@ void SpreadsheetView::fillAll()
     if (indexList.isEmpty())
         return;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
 
     bool ok;
     QString valueStr  = QInputDialog::getText(this, tr("HEXplorer::setValue"),
@@ -1247,7 +1344,14 @@ void SpreadsheetView::resetM()
     QModelIndexList indexList = this->selectedIndexes();
     if (indexList.isEmpty())
         return;
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel") || name.toLower().endsWith("sptablemodelhex"))
     {
         SpTableModel *spModel = (SpTableModel*)model();
@@ -1290,7 +1394,14 @@ void SpreadsheetView::undoM()
     if (indexList.isEmpty())
         return;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel") || name.toLower().endsWith("sptablemodelhex"))
     {
         SpTableModel *spModel = (SpTableModel*)model();
@@ -1345,7 +1456,14 @@ void SpreadsheetView::plot()
 
     //get the label
     Data *data = 0;
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         SpTableModel *spModel = (SpTableModel*)model();
@@ -1374,7 +1492,14 @@ void SpreadsheetView::interpAxisX()
 
     QModelIndex topLeft = indexList.at(0);
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         // get the data
@@ -1491,7 +1616,14 @@ void SpreadsheetView::interpAxisY()
 
      QModelIndex topLeft = indexList.at(0);
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         // get the data
@@ -1610,7 +1742,14 @@ void SpreadsheetView::interpX()
     int numRows = btmRight.row() - topLeft.row() + 1;
     int numColumns = btmRight.column() - topLeft.column() + 1;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         // get the data
@@ -1734,7 +1873,14 @@ void SpreadsheetView::interpY()
     int numRows = btmRight.row() - topLeft.row() + 1;
     int numColumns = btmRight.column() - topLeft.column() + 1;
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         // get the data
@@ -1840,7 +1986,14 @@ void SpreadsheetView::editAsText()
 
 
     Data *data = NULL;
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         // get the data
@@ -1879,7 +2032,14 @@ void SpreadsheetView::editAsBit()
     // get the data
     QModelIndex index = indexList.at(0);
     Data *data = NULL;
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         data = ((SpTableModel*)model())->getLabel(index, Qt::EditRole);
@@ -1920,7 +2080,14 @@ void SpreadsheetView::editAsHex()
     // get the data
     QModelIndex index = indexList.at(0);
     Data *data = NULL;
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         data = ((SpTableModel*)model())->getLabel(index, Qt::EditRole);
@@ -1974,7 +2141,15 @@ void SpreadsheetView::editProp()
 
 
     Data *data = NULL;
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        delete data;
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         // get the data
@@ -2015,7 +2190,14 @@ void SpreadsheetView::selectAll_label()
        selectionModel()->select(index, QItemSelectionModel::Deselect);
     }
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel") || name.toLower().endsWith("sptablemodelhex"))
     {
         SpTableModel *spModel = (SpTableModel*)model();
@@ -2168,7 +2350,14 @@ void SpreadsheetView::changeLabelSize()
 
     QModelIndex topLeft = indexList.at(0);
 
-    QString name = typeid(*model()).name();
+    QString name;
+    QAbstractItemModel* _model = model();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("sptablemodel"))
     {
         // get the data
@@ -2311,9 +2500,9 @@ QString SpreadsheetView::getExcelCell(int row, int col)
     char sCell[18];
     memset(sCell, 0, 18);
     if (col <= 26)
-        sprintf(sCell, " %c", 'A' + col - 1);
+        snprintf(sCell, sizeof(sCell)," %c", 'A' + col - 1);
     else
-        sprintf(sCell, "%c%c", 'A' + col / 26 - 1, 'A' + col % 26 - 1);
+        snprintf(sCell, sizeof(sCell), "%c%c", 'A' + col / 26 - 1, 'A' + col % 26 - 1);
 
     QString cell = sCell;
     cell = cell.trimmed() + QString::number(row);
@@ -2338,7 +2527,14 @@ void SpreadsheetView::updateActions(QModelIndex index)
 {
     if (index.isValid())
     {
-        QString name = typeid(*model()).name();
+        QString name;
+        QAbstractItemModel* _model = model();
+        if (_model)
+            name = typeid(*_model).name();
+        else
+        {
+            return;
+        }
         if (name.toLower().endsWith("sptablemodel"))
         {
             export2Excel->setEnabled(false);

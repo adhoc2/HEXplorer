@@ -47,7 +47,15 @@ void ProjectListWidget::mouseMoveEvent(QMouseEvent *event)
 
 void ProjectListWidget::dragEnterEvent(QDragEnterEvent *event)
 {
-    QString name = typeid(*event->source()).name();
+    //QString name = typeid(*event->source()).name();
+    QString name;
+    QObject* _model = event->source();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("projectlistwidget"))
     {
         ProjectListWidget *source = qobject_cast<ProjectListWidget *>(event->source());
@@ -66,7 +74,15 @@ void ProjectListWidget::dragEnterEvent(QDragEnterEvent *event)
 
 void ProjectListWidget::dragMoveEvent(QDragMoveEvent *event)
 {
-    QString name = typeid(*event->source()).name();
+    //QString name = typeid(*event->source()).name();
+    QString name;
+    QObject* _model = event->source();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("projectlistwidget"))
     {
         ProjectListWidget *source =  qobject_cast<ProjectListWidget *>(event->source());
@@ -86,7 +102,15 @@ void ProjectListWidget::dragMoveEvent(QDragMoveEvent *event)
 
 void ProjectListWidget::dropEvent(QDropEvent *event)
 {
-    QString name = typeid(*event->source()).name();
+    //QString name = typeid(*event->source()).name();
+    QString name;
+    QObject* _model = event->source();
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("projectlistwidget"))
     {
         ProjectListWidget *source =  qobject_cast<ProjectListWidget *>(event->source());

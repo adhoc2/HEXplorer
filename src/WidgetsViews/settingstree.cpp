@@ -201,7 +201,7 @@ void SettingsTree::updateChildItems(QTreeWidgetItem *parent)
         }
 
         QVariant value = settings->value(key);
-        if (value.typeId() == QVariant::Invalid) {
+        if (value.typeId() == QMetaType::UnknownType) {
             child->setText(1, "Invalid");
         } else {
             child->setText(1, value.typeName());

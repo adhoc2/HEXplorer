@@ -19,9 +19,9 @@
 
 #include "qdebug.h"
 #include "datacontainer.h"
-#include "WidgetsViews/workproject.h"
-#include "WidgetsViews/spreadsheetview.h"
-#include "DataModels/sptablemodel.h"
+#include "workproject.h"
+#include "spreadsheetview.h"
+#include "sptablemodel.h"
 #include <QHeaderView>
 #include <QSettings>
 #include <QFileDialog>

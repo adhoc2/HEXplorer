@@ -5151,23 +5151,23 @@ QString Data::dec2hex(double dec, std::string type, int base)
         {
             if (E < CHAR_MAX)
             {
-                sprintf(hex, "%X", (int8_t)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int8_t)ceil(dec));
 
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > CHAR_MIN)
             {
-                sprintf(hex, "%X", (int8_t)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int8_t)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
 
@@ -5191,22 +5191,22 @@ QString Data::dec2hex(double dec, std::string type, int base)
         {
             if (E < UCHAR_MAX)
             {
-                sprintf(hex, "%X", (uint8_t)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (uint8_t)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (uint8_t)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (uint8_t)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(2);
@@ -5228,22 +5228,22 @@ QString Data::dec2hex(double dec, std::string type, int base)
         {
             if (E < SHRT_MAX)
             {
-                sprintf(hex, "%X", (int16_t)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int16_t)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > SHRT_MIN)
             {
-                sprintf(hex, "%X", (int16_t)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int16_t)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(4);
@@ -5265,22 +5265,22 @@ QString Data::dec2hex(double dec, std::string type, int base)
         {
             if (E < USHRT_MAX)
             {
-                sprintf(hex, "%X", (uint16_t)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (uint16_t)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (uint16_t)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (uint16_t)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(4);
@@ -5302,22 +5302,22 @@ QString Data::dec2hex(double dec, std::string type, int base)
         {
             if (E < INT_MAX)
             {
-                sprintf(hex, "%X", (int32_t)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int32_t)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > INT_MIN)
             {
-                sprintf(hex, "%X", (int32_t)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int32_t)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(8);
@@ -5340,22 +5340,22 @@ QString Data::dec2hex(double dec, std::string type, int base)
         {
             if (E < (unsigned int)UINT_MAX)
             {
-                sprintf(hex, "%X", (uint32_t)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (uint32_t)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (uint32_t)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (uint32_t)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(8);
@@ -5367,7 +5367,7 @@ QString Data::dec2hex(double dec, std::string type, int base)
     else if(type == "FLOAT32_IEEE")
     {
         float f = (float)dec;
-        sprintf(hex, "%08X", *(int*)&f);
+        snprintf(hex, sizeof(hex), "%08X", *(int*)&f);
         qHex = QString(hex);
 
         return qHex;

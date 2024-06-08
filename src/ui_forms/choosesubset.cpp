@@ -19,10 +19,10 @@
 
 #include "choosesubset.h"
 #include "ui_choosesubset.h"
-#include "Nodes/a2lfile.h"
+#include "a2lfile.h"
 #include "hexfile.h"
 #include "srecfile.h"
-#include "Nodes/def_characteristic.h"
+#include "def_characteristic.h"
 #include "formcompare.h"
 #include "mdimain.h"
 #include <QFileDialog>

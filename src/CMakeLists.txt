@@ -9,39 +9,40 @@ set(QSCINTILLA_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/libs/QScintilla_src-2.14.0/src)
 set(QWT_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/libs/qwt-6.2.0/src)
 
 include_directories(
-    .
-    ASAP2
-    ASAP2/Items
-    ASAP2/Nodes
-    ./A2lTreeview
-    ./DataContainers
-    ./DataModels
-    ./PlotGraph
-    ./WidgetViews
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/ASAP2
+    ${CMAKE_CURRENT_SOURCE_DIR}/ASAP2/Items
+    ${CMAKE_CURRENT_SOURCE_DIR}/ASAP2/Nodes
+    ${CMAKE_CURRENT_SOURCE_DIR}/DataContainers
+    ${CMAKE_CURRENT_SOURCE_DIR}/DataModels
+    ${CMAKE_CURRENT_SOURCE_DIR}/PlotGraph
+    ${CMAKE_CURRENT_SOURCE_DIR}/WidgetsViews
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui_forms
     ${QSCINTILLA_INCLUDE_DIR}
     ${QWT_INCLUDE_DIR}
     ${OMP_INCLUDE_DIR}
 )
 
 set(UI_FORMS
-ui_forms/chooselabel.cpp ui_forms/chooselabel.h ui_forms/chooselabel.ui
-ui_forms/choosesubset.cpp ui_forms/choosesubset.h ui_forms/choosesubset.ui
-ui_forms/deletefiledialog.cpp ui_forms/deletefiledialog.h ui_forms/deletefiledialog.ui
-ui_forms/dialog.cpp ui_forms/dialog.h ui_forms/dialog.ui
-ui_forms/dialogbitdisplay.cpp ui_forms/dialogbitdisplay.h ui_forms/dialogbitdisplay.ui
-ui_forms/dialogchooseexportformat.cpp ui_forms/dialogchooseexportformat.h ui_forms/dialogchooseexportformat.ui
-ui_forms/dialogchoosemodule.cpp ui_forms/dialogchoosemodule.h ui_forms/dialogchoosemodule.ui
-ui_forms/dialogcsv.cpp ui_forms/dialogcsv.h ui_forms/dialogcsv.ui
-ui_forms/dialogdatadimension.cpp ui_forms/dialogdatadimension.h ui_forms/dialogdatadimension.ui
-ui_forms/dialogeditastext.cpp ui_forms/dialogeditastext.h ui_forms/dialogeditastext.ui
-ui_forms/dialogexceedwb.cpp ui_forms/dialogexceedwb.h ui_forms/dialogexceedwb.ui
-ui_forms/dialogprogressdownload.cpp ui_forms/dialogprogressdownload.h ui_forms/dialogprogressdownload.ui
-ui_forms/formcompare.cpp ui_forms/formcompare.h ui_forms/formcompare.ui
-ui_forms/formeditor.cpp ui_forms/formeditor.h ui_forms/formeditor.ui
-ui_forms/graph.cpp ui_forms/graph.h ui_forms/graph.ui
-ui_forms/graphverify.cpp ui_forms/graphverify.h ui_forms/graphverify.ui
-ui_forms/labelproperties.cpp ui_forms/labelproperties.h ui_forms/labelproperties.ui
-ui_forms/mdimain.cpp ui_forms/mdimain.h ui_forms/mdimain.ui)
+    ui_forms/chooselabel.cpp ui_forms/chooselabel.h ui_forms/chooselabel.ui
+    ui_forms/choosesubset.cpp ui_forms/choosesubset.h ui_forms/choosesubset.ui
+    ui_forms/deletefiledialog.cpp ui_forms/deletefiledialog.h ui_forms/deletefiledialog.ui
+    ui_forms/dialog.cpp ui_forms/dialog.h ui_forms/dialog.ui
+    ui_forms/dialogbitdisplay.cpp ui_forms/dialogbitdisplay.h ui_forms/dialogbitdisplay.ui
+    ui_forms/dialogchooseexportformat.cpp ui_forms/dialogchooseexportformat.h ui_forms/dialogchooseexportformat.ui
+    ui_forms/dialogchoosemodule.cpp ui_forms/dialogchoosemodule.h ui_forms/dialogchoosemodule.ui
+    ui_forms/dialogcsv.cpp ui_forms/dialogcsv.h ui_forms/dialogcsv.ui
+    ui_forms/dialogdatadimension.cpp ui_forms/dialogdatadimension.h ui_forms/dialogdatadimension.ui
+    ui_forms/dialogeditastext.cpp ui_forms/dialogeditastext.h ui_forms/dialogeditastext.ui
+    ui_forms/dialogexceedwb.cpp ui_forms/dialogexceedwb.h ui_forms/dialogexceedwb.ui
+    ui_forms/dialogprogressdownload.cpp ui_forms/dialogprogressdownload.h ui_forms/dialogprogressdownload.ui
+    ui_forms/formcompare.cpp ui_forms/formcompare.h ui_forms/formcompare.ui
+    ui_forms/formeditor.cpp ui_forms/formeditor.h ui_forms/formeditor.ui
+    ui_forms/graph.cpp ui_forms/graph.h ui_forms/graph.ui
+    ui_forms/graphverify.cpp ui_forms/graphverify.h ui_forms/graphverify.ui
+    ui_forms/labelproperties.cpp ui_forms/labelproperties.h ui_forms/labelproperties.ui
+    ui_forms/mdimain.cpp ui_forms/mdimain.h ui_forms/mdimain.ui
+)
 
 
 set (SRCS_ITEMS
@@ -185,6 +186,7 @@ set(SRCS_DATAMODELS
     DataModels/treemodelcompleter.cpp    DataModels/treemodelcompleter.h)
 
 set(SRCS_WIDGETSVIEWS
+    WidgetsViews/ctabwidget.cpp WidgetsViews/ctabwidget.h
     WidgetsViews/mainwindow.cpp    WidgetsViews/mainwindow.h
     WidgetsViews/settingstree.cpp    WidgetsViews/settingstree.h
     WidgetsViews/treedirectory.cpp    WidgetsViews/treedirectory.h
@@ -192,17 +194,16 @@ set(SRCS_WIDGETSVIEWS
     WidgetsViews/workingdirectory.cpp    WidgetsViews/workingdirectory.h
     WidgetsViews/workproject.cpp    WidgetsViews/workproject.h
     WidgetsViews/chtextedit.cpp    WidgetsViews/chtextedit.h
-    WidgetsViews/ctabwidget.cpp WidgetsViews/ctabwidget.h
     WidgetsViews/dialoghttpupdate.cpp    WidgetsViews/dialoghttpupdate.h
     WidgetsViews/dialogupdate.cpp    WidgetsViews/dialogupdate.h
     WidgetsViews/finddialog.cpp    WidgetsViews/finddialog.h
-    WidgetsViews/freezetablewidget.cpp    WidgetsViews/freezetablewidget.h
     WidgetsViews/locationdialog.cpp   WidgetsViews/locationdialog.h
-    WidgetsViews/myqlineedit.cpp    WidgetsViews/myqlineedit.h
-    WidgetsViews/mytreeview.cpp    WidgetsViews/mytreeview.h
-    WidgetsViews/projectlistwidget.cpp    WidgetsViews/projectlistwidget.h
     WidgetsViews/scrollbar.cpp    WidgetsViews/scrollbar.h
-    WidgetsViews/spreadsheetview.cpp    WidgetsViews/spreadsheetview.h
+    WidgetsViews/freezetablewidget.cpp    WidgetsViews/freezetablewidget.h
+    WidgetsViews/myqlineedit.cpp    WidgetsViews/myqlineedit.h
+    WidgetsViews/projectlistwidget.cpp    WidgetsViews/projectlistwidget.h
+    WidgetsViews/mytreeview.cpp WidgetsViews/mytreeview.h
+    WidgetsViews/spreadsheetview.cpp   WidgetsViews/spreadsheetview.h
 )
 
 set(SRCS_PLOT
@@ -215,7 +216,6 @@ set(SRCS
     main.cpp
     icones.qrc
     myappicon.rc
-    resource.h
     space_shuttle.ico
 )
 

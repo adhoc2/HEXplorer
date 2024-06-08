@@ -350,13 +350,20 @@
      return QItemDelegate::createEditor(parent, option, index);
  }
 
- void ComboBoxDelegate::setEditorData(QWidget *editor,
-                                     const QModelIndex &index) const
+ void ComboBoxDelegate::setEditorData(QWidget *editor,  const QModelIndex &index) const
  {
      QString value = index.model()->data(index, Qt::EditRole).toString();
      QList<Data*> *dat = ((SpTableModel*)index.model())->getList();
 
-     QString name = typeid(*index.model()).name();
+     //QString name = typeid(*index.model()).name();
+     QString name;
+     const QAbstractItemModel* _model = index.model();
+     if (_model)
+         name = typeid(*_model).name();
+     else
+     {
+         return;
+     }
      if (name.toLower().endsWith("sptablemodel"))
      {
          // determine the label in function of the row
@@ -649,7 +656,14 @@
  {
      QList<Data*> *dat = ((SpTableModel*)index.model())->getList();
 
-     QString name = typeid(*index.model()).name();
+     QString name;
+     const QAbstractItemModel* _model = index.model();
+     if (_model)
+         name = typeid(*_model).name();
+     else
+     {
+         return;
+     }
      if (name.toLower().endsWith("sptablemodel"))
      {
          // determine the label in function of the row

@@ -193,10 +193,10 @@ void VariantDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
     QVariant value;
 
     switch (originalValue.typeId()) {
-    case QVariant::Char:
+    case QMetaType::Char:
         value = text.at(0);
         break;
-    case QVariant::Color:
+    case QMetaType::QColor:
         {
         //colorExp.exactMatch(text);
         QRegularExpressionMatch match = colorExp.match(text);
@@ -210,7 +210,7 @@ void VariantDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
         break;
         }
 
-    case QVariant::Date:
+    case QMetaType::QDate:
         {
             QDate date = QDate::fromString(text, Qt::ISODate);
             if (!date.isValid())
@@ -218,7 +218,7 @@ void VariantDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
             value = date;
         }
         break;
-    case QVariant::DateTime:
+    case QMetaType::QDateTime:
         {
             QDateTime dateTime = QDateTime::fromString(text, Qt::ISODate);
             if (!dateTime.isValid())
@@ -226,14 +226,14 @@ void VariantDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
             value = dateTime;
         }
         break;
-    case QVariant::Point:
+    case QMetaType::QPoint:
         {
             //pointExp.exactMatch(text);
             QRegularExpressionMatch match = pointExp.match(text);
             value = QPoint(match.captured(1).toInt(), match.captured(2).toInt());
             break;
         }
-    case QVariant::Rect:
+    case QMetaType::QRect:
         {
             //rectExp.exactMatch(text);
             QRegularExpressionMatch match = rectExp.match(text);
@@ -241,17 +241,18 @@ void VariantDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
                           match.captured(3).toInt(), match.captured(4).toInt());
             break;
         }
-    case QVariant::Size:
+    case QMetaType::QSize:
         {
             //sizeExp.exactMatch(text);
             QRegularExpressionMatch match = sizeExp.match(text);
             value = QSize(match.captured(1).toInt(), match.captured(2).toInt());
             break;
     }
-    case QVariant::StringList:
+    case QMetaType::QStringList:
         value = text.split(",");
         break;
-    case QVariant::Time:
+
+    case QMetaType::QTime:
         {
         QTime time = QTime::fromString(text, Qt::ISODate);
             if (!time.isValid())
@@ -302,49 +303,49 @@ bool VariantDelegate::isSupportedType(int type)
 QString VariantDelegate::displayText(const QVariant &value)
 {
     switch (value.typeId()) {
-    case QVariant::Bool:
-    case QVariant::ByteArray:
-    case QVariant::Char:
-    case QVariant::Double:
-    case QVariant::Int:
-    case QVariant::LongLong:
-    case QVariant::String:
-    case QVariant::UInt:
-    case QVariant::ULongLong:
+    case QMetaType::Bool:
+    case QMetaType::QByteArray:
+    case QMetaType::Char:
+    case QMetaType::Double:
+    case QMetaType::Int:
+    case QMetaType::LongLong:
+    case QMetaType::QString:
+    case QMetaType::UInt:
+    case QMetaType::ULongLong:
         return value.toString();
-    case QVariant::Color:
+    case QMetaType::QColor:
         {
             QColor color = qvariant_cast<QColor>(value);
             return QString("(%1,%2,%3,%4)")
                    .arg(color.red()).arg(color.green())
                    .arg(color.blue()).arg(color.alpha());
         }
-    case QVariant::Date:
+    case QMetaType::QDate:
         return value.toDate().toString(Qt::ISODate);
-    case QVariant::DateTime:
+    case QMetaType::QDateTime:
         return value.toDateTime().toString(Qt::ISODate);
-    case QVariant::Invalid:
+    case QMetaType::UnknownType:
         return "<Invalid>";
-    case QVariant::Point:
+    case QMetaType::QPoint:
         {
             QPoint point = value.toPoint();
             return QString("(%1,%2)").arg(point.x()).arg(point.y());
         }
-    case QVariant::Rect:
+    case QMetaType::QRect:
         {
             QRect rect = value.toRect();
             return QString("(%1,%2,%3,%4)")
                    .arg(rect.x()).arg(rect.y())
                    .arg(rect.width()).arg(rect.height());
         }
-    case QVariant::Size:
+    case QMetaType::QSize:
         {
             QSize size = value.toSize();
             return QString("(%1,%2)").arg(size.width()).arg(size.height());
         }
-    case QVariant::StringList:
+    case QMetaType::QStringList:
         return value.toStringList().join(",");
-    case QVariant::Time:
+    case QMetaType::QTime:
         return value.toTime().toString(Qt::ISODate);
     default:
         break;

@@ -41,11 +41,10 @@
 #include <functional>
 
 
-#include "Nodes/characteristic.h"
-#include "Nodes/compu_method.h"
-#include "Nodes/mod_common.h"
-#include "Nodes/axis_pts.h"
-#include "Nodes/function.h"
+#include "characteristic.h"
+#include "mod_common.h"
+#include "axis_pts.h"
+#include "function.h"
 #include "data.h"
 #include "ui_forms/graphverify.h"
 #include "ui_forms/formcompare.h"
@@ -325,7 +324,15 @@ bool HexFile::parseFile()
     fileLinesNum = lines.count();
 
     //get the length for the progressBar
-    QString name = typeid(*this->getParentNode()).name();
+    //QString name = typeid(*this->getParentNode()).name();
+    QString name;
+    Node* _node = this->getParentNode();
+    if (_node)
+        name = typeid(*_node).name();
+    else
+    {
+        return false;
+    }
     if (name.toLower().endsWith("workproject"))
     {
 //        A2LFILE *a2l = (A2LFILE*)this->getParentNode();
@@ -1552,7 +1559,15 @@ void HexFile::setValues(unsigned int IAddr, QStringList hexList, int nByte, QStr
 
 void HexFile::hex2MemBlock(Data *data)
 {
-    QString type = typeid(*data->getA2lNode()).name();
+    //QString type = typeid(*data->getA2lNode()).name();
+    QString type;
+    Node* _node = this->getParentNode();
+    if (_node)
+        type = typeid(*_node).name();
+    else
+    {
+        return;
+    }
     if (type.endsWith("CHARACTERISTIC"))
     {
         CHARACTERISTIC *node = (CHARACTERISTIC*)data->getA2lNode();
@@ -1739,7 +1754,7 @@ QString HexFile::checksum(QString values)
 
     //Return 256 - mod
     char hex[31];
-    sprintf(hex, "%X", 256 - mod);
+    snprintf(hex, sizeof(hex), "%X", 256 - mod);
 
     QString cks = hex;
     if (cks == "100")
@@ -1764,7 +1779,6 @@ QStringList HexFile::block2list()
     for (int i = 0; i < blockList.count(); i++)
     {
         QString cks = "";
-        int strt = 0;
         if (blockList[i]->uSBA.isEmpty())
         {
             cks = checksum(":02000004" + blockList[i]->uLBA);
@@ -1778,13 +1792,7 @@ QStringList HexFile::block2list()
 
         x = 0;
         j = 0;
-
-//        bool bl;
-//        QString start = blockList[i]->uLBA + "0000";
-//        strt = start.toUInt(&bl, 16);
-
-        strt = blockList[i]->start;
-
+        int strt = blockList[i]->start;
         int end = blockList[i]->length;
         while (j < end)
         {
@@ -1814,18 +1822,24 @@ QStringList HexFile::block2list()
                 //HEX: line address
                 int tamere =  blockList[i]->start - strt + x * blockList[i]->lineLength;
                 char hex[31];
-                sprintf(hex, "%X", tamere);
+                snprintf(hex, sizeof(hex), "%X", tamere);
                 address = hex;
                 while (address.length() < 4)
                     address = "0" + address;
 
                 //HEX: line length
-                sprintf(hex, "%X", line.length()/ 2);
+                snprintf(hex, sizeof(hex), "%X", uint(line.length()/ 2));
                 QString length = hex;
                 if (length.length() < 2)
                     length = "0" + length;
+
+                //create the line
                 QString str1 = ":" + length + address + "00" + line;
+
+                //calculate Checksum
                 cks = checksum(str1);
+
+                //append hex line
                 lineList.append((str1 + cks).toUpper());
                 x++;
                 line = "";
@@ -2224,23 +2238,23 @@ QString HexFile::dec2hex(double dec, std::string type)
         {
             if (E < CHAR_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex),"%X", (int)ceil(dec));
 
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > CHAR_MIN)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
 
@@ -2254,22 +2268,22 @@ QString HexFile::dec2hex(double dec, std::string type)
         {
             if (E < UCHAR_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(2);
@@ -2282,22 +2296,22 @@ QString HexFile::dec2hex(double dec, std::string type)
         {
             if (E < SHRT_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > SHRT_MIN)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(4);
@@ -2310,22 +2324,22 @@ QString HexFile::dec2hex(double dec, std::string type)
         {
             if (E < USHRT_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(4);
@@ -2338,22 +2352,22 @@ QString HexFile::dec2hex(double dec, std::string type)
         {
             if (E < INT_MAX)
             {
-                sprintf(hex, "%X", (int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > INT_MIN)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(8);
@@ -2367,22 +2381,22 @@ QString HexFile::dec2hex(double dec, std::string type)
         {
             if (E < (unsigned int)UINT_MAX)
             {
-                sprintf(hex, "%X", (unsigned int)ceil(dec));
+                snprintf(hex, sizeof(hex), "%X", (unsigned int)ceil(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         else
         {
             if (E > 0)
             {
-                sprintf(hex, "%X", (int)floor(dec));
+                snprintf(hex, sizeof(hex), "%X", (int)floor(dec));
             }
             else
             {
-                sprintf(hex, "%X", E);
+                snprintf(hex, sizeof(hex), "%X", E);
             }
         }
         qHex = QString(hex).right(8);
@@ -2392,7 +2406,7 @@ QString HexFile::dec2hex(double dec, std::string type)
     else if(type == "FLOAT32_IEEE")
     {
         float f = (float)dec;
-        sprintf(hex, "%08X", *(int*)&f);
+        snprintf(hex, sizeof(hex), "%08X", *(int*)&f);
         qHex = QString(hex);
     }
 

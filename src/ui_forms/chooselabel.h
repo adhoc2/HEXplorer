@@ -22,10 +22,10 @@
 
 #include <QTime>
 #include <QDialog>
-#include "DataModels/a2ltreemodel.h"
 #include <QListWidgetItem>
 #include "qtimer.h"
-#include "DataModels/treemodelcompleter.h"
+#include "treemodelcompleter.h"
+
 class QTreeView;
 class A2LFILE;
 class HexFile;

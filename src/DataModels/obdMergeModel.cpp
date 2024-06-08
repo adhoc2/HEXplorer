@@ -17,7 +17,7 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
-#include "ObdMergeModel.h"
+#include "DataModels/obdMergeModel.h"
 #include <QFont>
 #include <QList>
 #include "qdebug"

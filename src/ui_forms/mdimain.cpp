@@ -24,44 +24,46 @@
 #include <qtconcurrentrun.h>
 #include <QFutureWatcher>
 #include <sys/stat.h>
-#include <windows.h>
-#include "DataModels/sptablemodel.h"
-#include "DataModels/comparemodel.h"
-#include "DataModels/measmodel.h"
-#include "DataModels/charmodel.h"
-#include "DataModels/FandRmodel.h"
-#include "DataModels/obdMergeModel.h"
-#include "DataModels/obdsortfilterproxymodel.h"
-#include "DataModels/a2ltreemodel.h"
-#include "DataModels/treemodelcompleter.h"
-#include "DataModels/a2ltreemodel.h"
+#ifdef WIN32
+   include <windows.h>
+#endif
+#include "sptablemodel.h"
+#include "comparemodel.h"
+#include "measmodel.h"
+#include "charmodel.h"
+#include "FandRModel.h"
+#include "obdMergeModel.h"
+#include "obdsortfilterproxymodel.h"
+#include "a2ltreemodel.h"
+#include "treemodelcompleter.h"
+#include "a2ltreemodel.h"
 #include "mdimain.h"
 #include "ui_mdimain.h"
-#include "WidgetsViews/workproject.h"
-#include "WidgetsViews/chtextedit.h"
-#include "Nodes/a2lfile.h"
-#include "Nodes/dbfile.h"
-#include "WidgetsViews/chtextedit.h"
+#include "workproject.h"
+#include "chtextedit.h"
+#include "a2lfile.h"
+#include "dbfile.h"
+#include "chtextedit.h"
 #include "dialog.h"
 #include "formcompare.h"
 #include "data.h"
 #include "csv.h"
 #include "dcmfile.h"
 #include "dialogcsv.h"
-#include "WidgetsViews/dialogupdate.h"
-#include "WidgetsViews/mainwindow.h"
-#include "WidgetsViews/spreadsheetview.h"
+#include "dialogupdate.h"
+#include "mainwindow.h"
+#include "spreadsheetview.h"
 #include "dialogchoosemodule.h"
 #include <QtConcurrentRun>
 #include <Qsci/qscilexerjavascript.h>
 #include "cdfxfile.h"
 #include <Qsci/qscilexerxml.h>
-#include "ui_forms/choosesubset.h"
+#include "choosesubset.h"
 #include "dialogchooseexportformat.h"
-#include "WidgetsViews/dialoghttpupdate.h"
-#include "WidgetsViews/workingdirectory.h"
+#include "dialoghttpupdate.h"
+#include "workingdirectory.h"
 #include "deletefiledialog.h"
-#include "WidgetsViews/treedirectory.h"
+#include "treedirectory.h"
 #include "QKeySequence"
 #include "qdebug.h"
 
@@ -6219,7 +6221,15 @@ void MDImain::saveAs_CsvFile(QModelIndex index)
 
 void MDImain::saveAs_CdfxFile(QModelIndex index)
 {
-    QString name = typeid(*model->getNode(index)).name();
+    //QString name = typeid(*model->getNode(index)).name();
+    QString name;
+    Node* _model = model->getNode(index);
+    if (_model)
+        name = typeid(*_model).name();
+    else
+    {
+        return;
+    }
     if (name.toLower().endsWith("cdfxfile"))
     {
         // get the HexFile Node
@@ -6273,11 +6283,6 @@ void MDImain::saveAs_CdfxFile(QModelIndex index)
 
         // log
         writeOutput("action save as CDFX : performed with success ");
-    }
-    else
-    {
-        // log
-        writeOutput("action save as CDFX : NOT POSSIBLE for the moment!! ");
     }
 }
 
@@ -6928,10 +6933,9 @@ void MDImain::editInHDDrive()
 
     }
 #elif defined(Q_OS_MAC)
-    Q_UNUSED(parent)
     QStringList scriptArgs;
     scriptArgs << QLatin1String("-e")
-            << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"").arg(pathToReveal);
+            << QString::fromLatin1("tell application \"Finder\" to reveal POSIX file \"%1\"").arg(PathToReveal);
     QProcess::execute(QLatin1String("/usr/bin/osascript"), scriptArgs);
     scriptArgs.clear();
     scriptArgs << QLatin1String("-e")
@@ -7663,6 +7667,7 @@ void MDImain::setValueProgressBar(int n, int max)
 
 QString MDImain::getUserName()
 {
+#ifdef win32
     TCHAR userName[MAX_PATH];
     DWORD userNameSize = sizeof(userName) / sizeof(userName[0]);
     if (GetUserName(userName, &userNameSize)) {
@@ -7672,6 +7677,9 @@ QString MDImain::getUserName()
             qDebug() << "Failed to retrieve Windows username";
             return "";
         }
+#else
+    return "no username";
+#endif
 
 }
 
