@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>HEXplorer</Name>
+    <Version>1.0.5</Version>
+    <Title>HEXplorer online installation</Title>
+    <Publisher>Ch.HOEL</Publisher>
+    <StartMenuDir>HEXplorer</StartMenuDir>
+    <TargetDir>@HomeDir@/HEXplorer</TargetDir>
+    <RemoteRepositories>
+        <Repository>
+            <Url>https://lmbweb.liebherr.i/team/WS5/Shared/OBD/Sharepoint AC41/FaultCodeTable/OBD Calibration Tool/HEXplorer_repo/</Url>
+        </Repository>
+    </RemoteRepositories>
+</Installer>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\lmbhoc2\Documents\Code\HEXplorer\HEXplorer_qt5toqt6\libs\xerces-c-3.2.5\CMakeFiles\CMakeScratch\TryCompile-pp2dob\CheckIncludeFile.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{A7D1B261-9622-30F8-8C1F-9AA5C2592F98}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

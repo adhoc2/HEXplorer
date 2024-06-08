@@ -1,0 +1,626 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:211 (message)"
+      - "CMakeLists.txt:61 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:61 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/Qt/Tools/mingw1120_64/bin/gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+      La génération a démarré 03.05.2024 17:26:59.
+      
+      Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.vcxproj" sur le nœud 1 (cibles par défaut).
+      PrepareForBuild:
+        Création du répertoire "Debug\\".
+        Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+        Création du répertoire "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Création de "Debug\\CompilerIdC.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+        Mise à jour de l'horodatage "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+      ClCompile:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+        Mise à jour de l'horodatage "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\3.27.7\\CompilerIdC\\CompilerIdC.vcxproj" terminée (cibles par défaut).
+      
+      La génération a réussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps écoulé 00:00:00.65
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/3.27.7/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:61 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/Qt/Tools/mingw1120_64/bin/g++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+      La génération a démarré 03.05.2024 17:27:00.
+      
+      Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\3.27.7\\CompilerIdCXX\\CompilerIdCXX.vcxproj" sur le nœud 1 (cibles par défaut).
+      PrepareForBuild:
+        Création du répertoire "Debug\\".
+        Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+        Création du répertoire "Debug\\CompilerIdCXX.tlog\\".
+      InitializeBuildStatus:
+        Création de "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+        Mise à jour de l'horodatage "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      ClCompile:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\3.27.7\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Suppression du fichier "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+        Mise à jour de l'horodatage "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\3.27.7\\CompilerIdCXX\\CompilerIdCXX.vcxproj" terminée (cibles par défaut).
+      
+      La génération a réussi.
+          0 Avertissement(s)
+          0 Erreur(s)
+      
+      Temps écoulé 00:00:00.63
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/3.27.7/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:61 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-zgeo89"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-zgeo89"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-zgeo89'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_227a2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:01.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-zgeo89\\cmTC_227a2.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_227a2.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-zgeo89\\Debug\\".
+          Création du répertoire "cmTC_227a2.dir\\Debug\\cmTC_227a2.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_227a2.dir\\Debug\\cmTC_227a2.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_227a2.dir\\Debug\\cmTC_227a2.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_227a2.dir\\Debug\\\\" /Fd"cmTC_227a2.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Qt\\Tools\\CMake_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_227a2.dir\\Debug\\\\" /Fd"cmTC_227a2.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Qt\\Tools\\CMake_64\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          CMakeCCompilerABI.c
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-zgeo89\\Debug\\cmTC_227a2.exe" /INCREMENTAL /ILK:"cmTC_227a2.dir\\Debug\\cmTC_227a2.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-zgeo89/Debug/cmTC_227a2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-zgeo89/Debug/cmTC_227a2.lib" /MACHINE:X64  /machine:x64 cmTC_227a2.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_227a2.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-zgeo89\\Debug\\cmTC_227a2.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_227a2.dir\\Debug\\cmTC_227a2.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_227a2.dir\\Debug\\cmTC_227a2.tlog\\cmTC_227a2.lastbuildstate".
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-zgeo89\\cmTC_227a2.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.61
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:61 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-44hr98"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-44hr98"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-44hr98'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_c62ab.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:02.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-44hr98\\cmTC_c62ab.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_c62ab.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-44hr98\\Debug\\".
+          Création du répertoire "cmTC_c62ab.dir\\Debug\\cmTC_c62ab.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_c62ab.dir\\Debug\\cmTC_c62ab.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_c62ab.dir\\Debug\\cmTC_c62ab.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_c62ab.dir\\Debug\\\\" /Fd"cmTC_c62ab.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Qt\\Tools\\CMake_64\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_c62ab.dir\\Debug\\\\" /Fd"cmTC_c62ab.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Qt\\Tools\\CMake_64\\share\\cmake-3.27\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-44hr98\\Debug\\cmTC_c62ab.exe" /INCREMENTAL /ILK:"cmTC_c62ab.dir\\Debug\\cmTC_c62ab.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-44hr98/Debug/cmTC_c62ab.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-44hr98/Debug/cmTC_c62ab.lib" /MACHINE:X64  /machine:x64 cmTC_c62ab.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_c62ab.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-44hr98\\Debug\\cmTC_c62ab.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_c62ab.dir\\Debug\\cmTC_c62ab.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_c62ab.dir\\Debug\\cmTC_c62ab.tlog\\cmTC_c62ab.lastbuildstate".
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-44hr98\\cmTC_c62ab.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.61
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckCXXCompilerFlag.cmake:34 (cmake_check_compiler_flag)"
+      - "cmake/XercesWarnings.cmake:85 (CHECK_CXX_COMPILER_FLAG)"
+      - "CMakeLists.txt:107 (include)"
+    checks:
+      - "Performing Test CXX_FLAG_W3"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-k33exu"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-k33exu"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "CXX_FLAG_W3"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-k33exu'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_756ab.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:03.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-k33exu\\cmTC_756ab.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_756ab.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-k33exu\\Debug\\".
+          Création du répertoire "cmTC_756ab.dir\\Debug\\cmTC_756ab.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_756ab.dir\\Debug\\cmTC_756ab.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_756ab.dir\\Debug\\cmTC_756ab.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CXX_FLAG_W3 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_756ab.dir\\Debug\\\\" /Fd"cmTC_756ab.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-k33exu\\src.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CXX_FLAG_W3 /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_756ab.dir\\Debug\\\\" /Fd"cmTC_756ab.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-k33exu\\src.cxx"
+          src.cxx
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-k33exu\\Debug\\cmTC_756ab.exe" /INCREMENTAL /ILK:"cmTC_756ab.dir\\Debug\\cmTC_756ab.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-k33exu/Debug/cmTC_756ab.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-k33exu/Debug/cmTC_756ab.lib" /MACHINE:X64  /machine:x64 cmTC_756ab.dir\\Debug\\src.obj
+          cmTC_756ab.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-k33exu\\Debug\\cmTC_756ab.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_756ab.dir\\Debug\\cmTC_756ab.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_756ab.dir\\Debug\\cmTC_756ab.tlog\\cmTC_756ab.lastbuildstate".
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-k33exu\\cmTC_756ab.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.62
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckIncludeFileCXX.cmake:89 (try_compile)"
+      - "cmake/XercesIncludes.cmake:24 (check_include_file_cxx)"
+      - "CMakeLists.txt:108 (include)"
+    checks:
+      - "Looking for C++ include arpa/inet.h"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-5ei3o6"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-5ei3o6"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "HAVE_ARPA_INET_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-5ei3o6'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_65d92.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:04.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\cmTC_65d92.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_65d92.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\Debug\\".
+          Création du répertoire "cmTC_65d92.dir\\Debug\\cmTC_65d92.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_65d92.dir\\Debug\\cmTC_65d92.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_65d92.dir\\Debug\\cmTC_65d92.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_65d92.dir\\Debug\\\\" /Fd"cmTC_65d92.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\CheckIncludeFile.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_65d92.dir\\Debug\\\\" /Fd"cmTC_65d92.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\CheckIncludeFile.cxx"
+          CheckIncludeFile.cxx
+        C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\CheckIncludeFile.cxx(1,10): error C1083: Cannot open include file: 'arpa/inet.h': No such file or directory [C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\cmTC_65d92.vcxproj]
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\cmTC_65d92.vcxproj" terminée (cibles par défaut) -- ÉCHEC.
+        
+        ÉCHEC de la build.
+        
+        "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\cmTC_65d92.vcxproj" (cible par défaut) (1) ->
+        (ClCompile cible) -> 
+          C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\CheckIncludeFile.cxx(1,10): error C1083: Cannot open include file: 'arpa/inet.h': No such file or directory [C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-5ei3o6\\cmTC_65d92.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps écoulé 00:00:00.41
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckIncludeFileCXX.cmake:89 (try_compile)"
+      - "cmake/XercesIncludes.cmake:25 (check_include_file_cxx)"
+      - "CMakeLists.txt:108 (include)"
+    checks:
+      - "Looking for C++ include dlfcn.h"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-gyg7dl"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-gyg7dl"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "HAVE_DLFCN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-gyg7dl'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_fd7d2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:05.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\cmTC_fd7d2.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_fd7d2.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\Debug\\".
+          Création du répertoire "cmTC_fd7d2.dir\\Debug\\cmTC_fd7d2.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_fd7d2.dir\\Debug\\cmTC_fd7d2.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_fd7d2.dir\\Debug\\cmTC_fd7d2.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_fd7d2.dir\\Debug\\\\" /Fd"cmTC_fd7d2.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\CheckIncludeFile.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_fd7d2.dir\\Debug\\\\" /Fd"cmTC_fd7d2.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\CheckIncludeFile.cxx"
+          CheckIncludeFile.cxx
+        C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\CheckIncludeFile.cxx(1,10): error C1083: Cannot open include file: 'dlfcn.h': No such file or directory [C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\cmTC_fd7d2.vcxproj]
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\cmTC_fd7d2.vcxproj" terminée (cibles par défaut) -- ÉCHEC.
+        
+        ÉCHEC de la build.
+        
+        "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\cmTC_fd7d2.vcxproj" (cible par défaut) (1) ->
+        (ClCompile cible) -> 
+          C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\CheckIncludeFile.cxx(1,10): error C1083: Cannot open include file: 'dlfcn.h': No such file or directory [C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-gyg7dl\\cmTC_fd7d2.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps écoulé 00:00:00.42
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckIncludeFileCXX.cmake:89 (try_compile)"
+      - "cmake/XercesIncludes.cmake:26 (check_include_file_cxx)"
+      - "CMakeLists.txt:108 (include)"
+    checks:
+      - "Looking for C++ include fcntl.h"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-vwn0a1"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-vwn0a1"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "HAVE_FCNTL_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-vwn0a1'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2be2a.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:05.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-vwn0a1\\cmTC_2be2a.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_2be2a.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-vwn0a1\\Debug\\".
+          Création du répertoire "cmTC_2be2a.dir\\Debug\\cmTC_2be2a.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_2be2a.dir\\Debug\\cmTC_2be2a.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_2be2a.dir\\Debug\\cmTC_2be2a.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_2be2a.dir\\Debug\\\\" /Fd"cmTC_2be2a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-vwn0a1\\CheckIncludeFile.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_2be2a.dir\\Debug\\\\" /Fd"cmTC_2be2a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-vwn0a1\\CheckIncludeFile.cxx"
+          CheckIncludeFile.cxx
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-vwn0a1\\Debug\\cmTC_2be2a.exe" /INCREMENTAL /ILK:"cmTC_2be2a.dir\\Debug\\cmTC_2be2a.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-vwn0a1/Debug/cmTC_2be2a.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-vwn0a1/Debug/cmTC_2be2a.lib" /MACHINE:X64  /machine:x64 cmTC_2be2a.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_2be2a.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-vwn0a1\\Debug\\cmTC_2be2a.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_2be2a.dir\\Debug\\cmTC_2be2a.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_2be2a.dir\\Debug\\cmTC_2be2a.tlog\\cmTC_2be2a.lastbuildstate".
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-vwn0a1\\cmTC_2be2a.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.61
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckIncludeFileCXX.cmake:89 (try_compile)"
+      - "cmake/XercesIncludes.cmake:27 (check_include_file_cxx)"
+      - "CMakeLists.txt:108 (include)"
+    checks:
+      - "Looking for C++ include float.h"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-kvvuv3"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-kvvuv3"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "HAVE_FLOAT_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-kvvuv3'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2068e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:06.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-kvvuv3\\cmTC_2068e.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_2068e.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-kvvuv3\\Debug\\".
+          Création du répertoire "cmTC_2068e.dir\\Debug\\cmTC_2068e.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_2068e.dir\\Debug\\cmTC_2068e.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_2068e.dir\\Debug\\cmTC_2068e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_2068e.dir\\Debug\\\\" /Fd"cmTC_2068e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-kvvuv3\\CheckIncludeFile.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_2068e.dir\\Debug\\\\" /Fd"cmTC_2068e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-kvvuv3\\CheckIncludeFile.cxx"
+          CheckIncludeFile.cxx
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-kvvuv3\\Debug\\cmTC_2068e.exe" /INCREMENTAL /ILK:"cmTC_2068e.dir\\Debug\\cmTC_2068e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-kvvuv3/Debug/cmTC_2068e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-kvvuv3/Debug/cmTC_2068e.lib" /MACHINE:X64  /machine:x64 cmTC_2068e.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_2068e.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-kvvuv3\\Debug\\cmTC_2068e.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_2068e.dir\\Debug\\cmTC_2068e.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_2068e.dir\\Debug\\cmTC_2068e.tlog\\cmTC_2068e.lastbuildstate".
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-kvvuv3\\cmTC_2068e.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.62
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckIncludeFileCXX.cmake:89 (try_compile)"
+      - "cmake/XercesIncludes.cmake:28 (check_include_file_cxx)"
+      - "CMakeLists.txt:108 (include)"
+    checks:
+      - "Looking for C++ include langinfo.h"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-iuss4d"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-iuss4d"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "HAVE_LANGINFO_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-iuss4d'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_f4ee3.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:07.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\cmTC_f4ee3.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_f4ee3.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\Debug\\".
+          Création du répertoire "cmTC_f4ee3.dir\\Debug\\cmTC_f4ee3.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_f4ee3.dir\\Debug\\cmTC_f4ee3.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_f4ee3.dir\\Debug\\cmTC_f4ee3.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_f4ee3.dir\\Debug\\\\" /Fd"cmTC_f4ee3.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\CheckIncludeFile.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_f4ee3.dir\\Debug\\\\" /Fd"cmTC_f4ee3.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\CheckIncludeFile.cxx"
+          CheckIncludeFile.cxx
+        C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\CheckIncludeFile.cxx(1,10): error C1083: Cannot open include file: 'langinfo.h': No such file or directory [C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\cmTC_f4ee3.vcxproj]
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\cmTC_f4ee3.vcxproj" terminée (cibles par défaut) -- ÉCHEC.
+        
+        ÉCHEC de la build.
+        
+        "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\cmTC_f4ee3.vcxproj" (cible par défaut) (1) ->
+        (ClCompile cible) -> 
+          C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\CheckIncludeFile.cxx(1,10): error C1083: Cannot open include file: 'langinfo.h': No such file or directory [C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-iuss4d\\cmTC_f4ee3.vcxproj]
+        
+            0 Avertissement(s)
+            1 Erreur(s)
+        
+        Temps écoulé 00:00:00.43
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckIncludeFileCXX.cmake:89 (try_compile)"
+      - "cmake/XercesIncludes.cmake:29 (check_include_file_cxx)"
+      - "CMakeLists.txt:108 (include)"
+    checks:
+      - "Looking for C++ include limits.h"
+    directories:
+      source: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-lew1cz"
+      binary: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-lew1cz"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /W3"
+      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      CMAKE_MODULE_PATH: "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/cmake"
+    buildResult:
+      variable: "HAVE_LIMITS_H"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-lew1cz'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_56dc5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Version MSBuild 17.8.3+195e7f5a3 pour .NET Framework
+        La génération a démarré 03.05.2024 17:27:08.
+        
+        Projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-lew1cz\\cmTC_56dc5.vcxproj" sur le nœud 1 (cibles par défaut).
+        PrepareForBuild:
+          Création du répertoire "cmTC_56dc5.dir\\Debug\\".
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Création du répertoire "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-lew1cz\\Debug\\".
+          Création du répertoire "cmTC_56dc5.dir\\Debug\\cmTC_56dc5.tlog\\".
+        InitializeBuildStatus:
+          Création de "cmTC_56dc5.dir\\Debug\\cmTC_56dc5.tlog\\unsuccessfulbuild", car "AlwaysCreate" a été spécifié.
+          Mise à jour de l'horodatage "cmTC_56dc5.dir\\Debug\\cmTC_56dc5.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_56dc5.dir\\Debug\\\\" /Fd"cmTC_56dc5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-lew1cz\\CheckIncludeFile.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.38.33130 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++14 /Fo"cmTC_56dc5.dir\\Debug\\\\" /Fd"cmTC_56dc5.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-lew1cz\\CheckIncludeFile.cxx"
+          CheckIncludeFile.cxx
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.38.33130\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-lew1cz\\Debug\\cmTC_56dc5.exe" /INCREMENTAL /ILK:"cmTC_56dc5.dir\\Debug\\cmTC_56dc5.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-lew1cz/Debug/cmTC_56dc5.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-lew1cz/Debug/cmTC_56dc5.lib" /MACHINE:X64  /machine:x64 cmTC_56dc5.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_56dc5.vcxproj -> C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-lew1cz\\Debug\\cmTC_56dc5.exe
+        FinalizeBuildStatus:
+          Suppression du fichier "cmTC_56dc5.dir\\Debug\\cmTC_56dc5.tlog\\unsuccessfulbuild".
+          Mise à jour de l'horodatage "cmTC_56dc5.dir\\Debug\\cmTC_56dc5.tlog\\cmTC_56dc5.lastbuildstate".
+        Génération du projet "C:\\Users\\lmbhoc2\\Documents\\Code\\HEXplorer\\HEXplorer_qt5toqt6\\libs\\xerces-c-3.2.5\\CMakeFiles\\CMakeScratch\\TryCompile-lew1cz\\cmTC_56dc5.vcxproj" terminée (cibles par défaut).
+        
+        La génération a réussi.
+            0 Avertissement(s)
+            0 Erreur(s)
+        
+        Temps écoulé 00:00:00.62
+        
+      exitCode: 0

@@ -1,0 +1,12 @@
+
+*.user
+*.dll
+*.idx
+*.json
+build/
+libs/build/
+installer/release/
+.qtc_clangd/
+*.exe
+*.7z
+*.sha1

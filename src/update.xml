@@ -1,0 +1,240 @@
+<HEXplorer application="HEXplorer">
+    <revision version="1.0.1">https://api.github.com/repos/adhoc2/HEXplorer/releases/latest</revision>
+    <details>revision 1.0.1 (Q2/2024) :
+    - improvement : upgrade from Qt5 to Qt6.
+    - bug correction : divers...
+
+revision 0.7.15 (Q1/2019) :
+    - Bug fix : in case of incomplete a2l preventing from reading all labels, remove the labels to display. (reduced .a2l with missing COM_AXIS)
+
+revision 0.7.13 (Q4/2016) :
+    - improvement : automatic check for updates on Github.
+    - improvement : create persistent directory directly in treeView.
+    - improvement : copy/paste from a folder to another.
+    - improvement : compare a2l - measurement channels.
+    - improvement : manage better end of file in A2L.
+    - improvement : copy/paste dataset in treeview.
+    - improvement : function save dataset improved.
+    - improvement : action "duplicate" dataset, do no save changes in original file and paste new with differences.
+    - improvement : "save_as" dataset create a new node instead of renaming original.
+    - improvement : display files in treeview into OS harddisk file manager.
+    - improvement : shortcut "F5" for reload working directory.
+    - bug correction : CVX/CDFX with FIX_AXIS for curves and maps.
+    - bug correction : improve CVX parser to better fit to CVX_SPEC.DOC V2.1 and Inca format.
+    - bug correction : CDFX,DCM parsing errors.
+    - bug correction : A2L containing lots of blank lines (out of memory Quex).
+    - bug correction : duplicate dataset when changes are in.
+    - bug correction : display menu delete file when selecting a non-read data file.    
+    - bug correction : when "save as" data file, retrieve the correct treemodel path.
+    - bug correction : update workingdirectory and read a2l with char or meas edited from a2l previously read.
+
+revision 0.7.12 (Q3/2016) :
+    - bug correction : ensure files are still present on disk before parsing.
+    - bug correction : application crash when quicklook file after editing characterisitics of the related a2l.
+    - bug correction : prevent 2 different a2l files with the same fileName to have the same path in treeview model.
+    - bug correction : importing dcm where ST/X or ST/Y are splitted in more lines.
+    - bug correction : treeview display sorted when using subfolder.
+    - bug correction : quicklook cdfx point on cdfx and not dcm.
+    - Improvement : lineEdit for treeView search => expand corrisponding node.
+    - bug corection : edit label from diff label after compare.
+    - bug correction : read dcm file when label not in dataset available.
+    - bug correction : edit dcm file as text.
+    - Improvement : allow display folder under WorkProject in Treeview.
+    - Improvement : display characteristics and Measuring channels.
+    - bug correction : plot with csv.
+
+revision 0.7.11 (Q2/2016) :
+    - use of Qt5.7.0
+    - Improvement : read damos .dcm files.
+    - Improvement : modify the way a WorkingDirectory is open (Use of class QDir instead of QFileSystemModel).
+    - bug correction : when modifying a characteristic with compu_method = NO_COMPU_METHOD.
+    - bug correction : Group Cur or Map resizing.
+    - bug correction : treeView update issue => class WorkProject inheriting from class Node.
+    - bug correction : BIT_MASK usage with datatype LONG.
+    - bug correction : datatype bitwidth hardcoded instead of being read in a2l in ALIGNMENT_ORDER.
+
+
+revision 0.7.10 (06/2016) :
+    - bug correction : a2l parser for float interpretation
+    - bug correction : wrong value displayed in quicklook for VL_BLK and srec files.
+    - bug correction : compare hex/srec file and csv/cdfx whis a given list of labels with some missing into the .csv/.cdfx file
+    - bug correction : function "display as bit" when csv or cdfx file is open in quicklook.
+
+
+revision 0.7.9 (04/2016) :
+    - bug correction related to opening VSC in release 0.7.8.
+
+
+revision 0.7.8 (04/2016) :
+    - bug correction related too closing more WorkingDirectories at the same time
+    - precision error when converting a data from hex to phys with Mingw compiler
+
+revision 0.7.7 (04/2016) :
+    - bugs correction related to 3D openGL
+    - bugs correction related to opening an HEXfile when a2l file could not be read properly due t miising keywords.
+    - QwtPlot3D library "re-"added
+
+
+revision 0.7.6 (04/2016) :
+    - STATIC_RECORD_LAYOUT keyword added
+
+
+revision 0.7.1 (10/2015) :
+    - use of std::algorithms instead of qalgorithm
+
+
+revision 0.7.0 (09/2015) :
+    - use of Qt 5.5.0
+    - compiled with MinGW
+    - add new keywords to be more compliant with ASAP2
+    - implement openMP and lexer as app propriety
+    - bug corected wuth Quex exceptions a token is unknown
+    - replaced Qwtplot3D lib with MathGL library
+
+
+revision 0.6.11 (02/09/2012) :
+    - use of Qt 4.8.2
+    - A2L parser improvements (new keywords)
+    - import/export Srec files
+    - edit compared labels into context menu
+    - some bug fixes!
+
+revision 0.6.10 (02/04/2012) :
+    - bug fix : update in function verify
+
+revision 0.6.9 (04/12/2011) :
+        - bug fix : Quex lexer for indentifier with brackets
+        - add Root and Sub_Group nodes
+
+revision 0.6.8 (16/11/2011) :
+    - bug fix : edit value Val_Wu32
+
+revision 0.6.7 (18/10/2011) :
+    - HTTP updater
+    - proxy setting
+
+revision 0.6.6 (12/10/2011) :
+    - bug correction when no target Hex file defined to copy
+
+revision 0.6.5 (06/10/2011) :
+    - bug correction when reading Hex for DCU datsaset
+
+revision 0.6.4 (06/10/2011) :
+    - bug correction when importing DCU a2l (IF_DATA block)
+    - CHARACTERISTIC unit out of the name
+
+revision 0.6.3 (27/09/2011) :
+    - bug correction when mismatch A2L / Hex version
+
+revision 0.6.2 (22/09/2011) :
+    - Hex file import optimization
+
+revision 0.6.1 (21/09/2011) :
+    - bug fix when parsing String into A2L file (changes into Quex Regular expression)
+
+revision 0.6.0 (20/09/2011) :
+    - correction into a2l compare ("new subsets"...)
+    - speed improvement into import hex file
+
+revision 0.5.4 (19/09/2011) :
+    - bug fix (axis_pts from CSV with values higher than extended_limits)
+
+revision 0.5.3 (16/09/2011) :
+    - bug fix (modify ASCII data)
+    - bug fix (reference counting when close project)
+
+revision 0.5.2 (15/09/2011) :
+    - bug fix (change group Map and save hex file)
+
+revision 0.5.1 (14/09/2011) :
+    - bug fix
+    - read HEX file improvements
+
+revision 0.5.0 (09/09/2011) :
+    - use Qt 4.7.4
+    - speed improvements (Quex lexical analyser,...)
+    - bug fixes
+
+revision 0.4.23 (12/08/2011) :
+    - use Qwtplot 6.0.1
+    - set disable bits when display labels as bit
+
+revision 0.4.22 (19/07/2011) :
+    - bug fix  A2L compare
+
+revision 0.4.21 (19/07/2011) :
+    - bug fix when copy cdfx file into hex file
+
+revision 0.4.20 (18/07/2011) :
+    - compare A2L files
+    - cosmetics...
+
+revision 0.4.19 (24/05/2011) :
+    - upgrade to Qt 4.7.3
+    - legend into graph for verify corrected
+
+revision 0.4.18 (16/05/2011) :
+    - bug fix when reading Csv file when values are outside extended_limits
+    - bug fix into combobox delegate for source curve
+
+revision 0.4.17 (20/04/2011) :
+    - paste correction from excel
+
+revision 0.4.16 (15/04/2011) :
+    - correct bug when copy csv and resetView
+
+revision 0.4.15 (12/04/2011) :
+    - correct display color when change z value into map in formCompare
+    - copy/paste after ctrl-A into label corrected
+
+revision 0.4.14 (05/04/2011) :
+    - improve copy/paste
+    - resize more columns at once
+    - edit and change directly in hex values
+
+revision 0.4.13 (01/04/2011) :
+    - output log window resizeable
+    - paste from excel quicker
+    - remove quote from compu_vtab (easier when copy/paste into Excel)
+    - export not found label list at compare
+    - currentItem/SelecedItem after resetView()
+    - correct bug when right click into measModel
+    - edit characteristic list into view
+    - choose label into subset (example : /C101/Inj*map)
+
+revision 0.4.11 (29/03/2011) :
+    - do not display label as changed when set at original size
+
+revision 0.4.10 (25/03/2011) :
+    - release after new re-compilation to correct problem by "verify"
+
+revision 0.4.9 (24/03/2011) :
+    - improve search labels with description
+    - add / remove breakpoint menu activation
+    - compare / copy csv values when axis not defined
+
+revision 0.4.8 (16/03/2011) :
+    - use of Qt 4.7.2 new release
+
+revision 0.4.7 (15/03/2011) :
+    - possibility to add/remove breakpoints
+
+revision 0.4.6 (09/03/2011) :
+    - progress bar save as Hex file
+    - bug fix : Hex, Cdf and csv owners list when attach and detach
+
+revision 0.4.5 (09/03/2011) :
+    - display max label size when size is smaller than max size into ASAP file
+    - add ASAP file name into Csv export as comment
+    - save the csv or cdfxpath when export subset
+    - display different constant value bold
+
+revision 0.4.4 (01/03/2011) :
+    - item MAX_REFRESH added into ASAP file parser
+    - correct bug when import Csv values (destructor called twice)
+    - progressBar importing/exporting Csv
+
+revision 0.4.3 (25/02/2011) :
+    - bugs and error correction
+    </details>
+</HEXplorer>

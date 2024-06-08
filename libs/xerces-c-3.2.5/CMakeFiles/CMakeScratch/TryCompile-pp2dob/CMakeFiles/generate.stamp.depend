@@ -1,0 +1,22 @@
+# CMake generation dependency list for this directory.
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeRCInformation.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/MSVC-CXX.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/MSVC.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/HeaderpadWorkaround.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-Initialize.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-MSVC.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows.cmake
+C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/WindowsPaths.cmake
+C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake
+C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/3.27.7/CMakeRCCompiler.cmake
+C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/3.27.7/CMakeSystem.cmake
+C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt5toqt6/libs/xerces-c-3.2.5/CMakeFiles/CMakeScratch/TryCompile-pp2dob/CMakeLists.txt
