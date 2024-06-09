@@ -1,7 +1,7 @@
 TEMPLATE = aux
 
-# C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen -p packages path\HEXplorer_repo
-# C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen.exe --update-new-components -p packages packages path\HEXplorer_repo
+# C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen -p path\to\spackages path\HEXplorer_repo
+# C:\Qt\Tools\QtInstallerFramework\4.8\bin\repogen.exe --update-new-components -p path\to\packages  path\to\HEXplorer_repo
 
 INSTALLER = HEXplorer_online_installer
 
@@ -15,12 +15,12 @@ QMAKE_EXTRA_COMPILERS += HEXplorer_online_installer
 OTHER_FILES = README
 
 DISTFILES += \
-    packages/com.adhoc2.hexplorer/meta/package.xml \
-    packages/com.adhoc2.hexplorer/meta/GNU_license.txt \
-    packages/com.adhoc2.hexplorer/meta/installscript.qs
+    packages/com.liebherr.hexplorer/meta/package.xml \
+    packages/com.liebherr.hexplorer/meta/GNU_license.txt \
+    packages/com.liebherr.hexplorer/meta/installscript.qs
 
 FORMS += \
-    packages/com.adhoc2.hexplorer/meta/page.ui
+    packages/com.liebherr.hexplorer/meta/page.ui
 
 RESOURCES += \
     toto.qrc
