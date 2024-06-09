@@ -1,7 +1,7 @@
 #ifndef ZOOMER_H
 #define ZOOMER_H
 
-#include <QObject>
+
 #include "scrollzoomer.h"
 
 class Zoomer: public ScrollZoomer

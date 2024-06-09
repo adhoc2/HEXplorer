@@ -264,9 +264,12 @@ if(WIN32)
 
     # Link the custom library to your target
     target_link_libraries(
-        ${CMAKE_PROJECT_NAME} PRIVATE
+        ${CMAKE_PROJECT_NAME} PRIVATE Qt6::Widgets
         ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QSCINTILLA_LIB}
         ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QWT_LIB})
+
+    # Add preprocessor definitions
+    target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE QT_DLL QSCINTILLA_DLL QWT_DLL)
 
 elseif(APPLE)
     message(STATUS "Building on macOS")

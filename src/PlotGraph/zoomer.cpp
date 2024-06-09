@@ -1,20 +1,13 @@
 #include "zoomer.h"
-#include <qevent.h>
-#include <qwt_plot_canvas.h>
-#include <qwt_plot_layout.h>
-#include <qwt_scale_engine.h>
 #include <qwt_scale_widget.h>
 #include "QPen"
 
 const unsigned int c_rangeMax = 1000;
 
-Zoomer::Zoomer(QWidget *canvas) : ScrollZoomer(canvas) {
-#if 0
-                setRubberBandPen( QPen( Qt::red, 2, Qt::DotLine ) );
-#else
-        setRubberBandPen( QPen( Qt::red ) );
-#endif
-    }
+Zoomer::Zoomer(QWidget *canvas) : ScrollZoomer(canvas)
+{
+    setRubberBandPen( QPen( Qt::red ) );
+}
 
 QwtText Zoomer::trackerTextF( const QPointF &pos ) const
 {
@@ -39,8 +32,7 @@ void Zoomer::rescale()
         // So we better use a fixed extent.
 
         minExtent = sd->spacing() + sd->maxTickLength() + 1;
-        minExtent += sd->labelSize(
-                           scaleWidget->font(), c_rangeMax ).width();
+        minExtent += sd->labelSize(scaleWidget->font(), c_rangeMax ).width();
     }
 
     sd->setMinimumExtent( minExtent );
