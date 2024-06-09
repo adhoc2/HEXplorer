@@ -87,7 +87,7 @@ Data *DataContainer::getData(QString str)
 {
     Node node;
     node.name = new char[str.length() + 1];
-    strcpy(node.name, str.toLocal8Bit().data());
+    strcpy_s(node.name, str.length() + 1,  str.toLocal8Bit().data());
     Data dat(&node);
     //QList<Data*>::iterator i = qBinaryFind(listData.begin(), listData.end(), &dat, dataCompare);
     QList<Data*>::iterator i = std::lower_bound(listData.begin(), listData.end(), &dat, dataCompare);
@@ -161,7 +161,7 @@ void DataContainer::updateChildNodes(Data* data, bool add)
                 //create a new node subset
                 sub = new Node();
                 sub->name = new char[subsetName.toLocal8Bit().size() + 1];
-                strcpy(sub->name, subsetName.toLocal8Bit().data());
+                strcpy_s(sub->name, subsetName.toLocal8Bit().size() + 1, subsetName.toLocal8Bit().data());
                 this->insertChildNode(sub);
                 sub->setParentNode(this);
                 parentWp->treeModel->dataInserted(this, childNodes.indexOf(sub));

@@ -82,8 +82,9 @@ void A2l::setFullA2lFileName(QString str)
 void A2l::init()
 {
     A2LFILE *nodeA2l = new A2LFILE(fullA2lName);
-    nodeA2l->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
-    strcpy(nodeA2l->name, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+    int size = (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1;
+    nodeA2l->name = new char[size];
+    strcpy_s(nodeA2l->name, size, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
     a2lFile = nodeA2l;
 }
 
@@ -180,8 +181,9 @@ void A2l::parseSTA2l()
 
         //create an ASAP2 file Node to start parsing
         A2LFILE *nodeA2l = new A2LFILE(0, lexer, errorList, fullA2lName);
-        nodeA2l->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().length() + 1];
-        strcpy(nodeA2l->name, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+        QString filename = QFileInfo(fullA2lName).fileName();
+        nodeA2l->name = new char[filename.toLocal8Bit().length() + 1];
+        strcpy_s(nodeA2l->name, filename.toLocal8Bit().length() + 1, filename.toLocal8Bit().data());
         a2lFile = nodeA2l;
     }
 
@@ -292,7 +294,7 @@ bool A2l::parseOpenMPA2l()
 
                         // change the name
                         nodeA2l1->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
-                        strcpy(nodeA2l1->name, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+                        strcpy_s(nodeA2l1->name, (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
                     }
 
                     // stop timer
@@ -323,7 +325,7 @@ bool A2l::parseOpenMPA2l()
 
                         // change the name
                         nodeA2l2->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
-                        strcpy(nodeA2l2->name, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+                        strcpy_s(nodeA2l2->name, (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
                     }
 
                     // stop timer

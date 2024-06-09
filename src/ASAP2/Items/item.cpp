@@ -64,13 +64,13 @@ void Item::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i) || (token == Integer  && typePar->at(i) == Float))
         {
             char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy(c, parentNode->lex->getLexem().c_str());
+            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
             parameters.append(c);
         }
         else if (token == String && typePar->at(i) == StringFormat)
         {
             char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy(c, parentNode->lex->getLexem().c_str());
+            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
             parameters.append(c);
         }
         else

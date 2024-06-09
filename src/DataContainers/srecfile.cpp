@@ -65,7 +65,7 @@ SrecFile::SrecFile(QString fullSrecFileName, WorkProject *parentWP, QString modu
     //initialize
     fullSrecName = fullSrecFileName;
     name = new char[(QFileInfo(fullSrecName).fileName()).toLocal8Bit().size() + 1];
-    strcpy(name, (QFileInfo(fullSrecName).fileName()).toLocal8Bit().data());
+    strcpy_s(name, (QFileInfo(fullSrecName).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullSrecName).fileName()).toLocal8Bit().data());
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
@@ -186,7 +186,7 @@ SrecFile::SrecFile(QString fullSrecFileName, WorkProject *parentWP, QObject *par
     //initialize
     fullSrecName = fullSrecFileName;
     name = new char[(QFileInfo(fullSrecName).fileName()).toLocal8Bit().size() + 1];
-    strcpy(name, (QFileInfo(fullSrecName).fileName()).toLocal8Bit().data());
+    strcpy_s(name, (QFileInfo(fullSrecName).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullSrecName).fileName()).toLocal8Bit().data());
     //a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
@@ -243,8 +243,10 @@ bool SrecFile::parseFile()
     timer.start();
 
     // open file in binary format
-    FILE *fid = fopen(fullSrecName.toLocal8Bit(), "rb");
-    if (fid == NULL)
+    FILE *fid = nullptr;
+    errno_t err = fopen_s(&fid, fullSrecName.toLocal8Bit(), "rb");
+
+    if (fid == nullptr)
     {
         return false;
     }

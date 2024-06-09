@@ -1,76 +1,21 @@
+#include "canvaspicker.h"
 #include <qapplication.h>
 #include <qevent.h>
-#include <qwhatsthis.h>
-#include <qpainter.h>
-#include <qwt_plot.h>
 #include <qwt_symbol.h>
 #include <qwt_scale_map.h>
 #include <qwt_scale_widget.h>
-#include <qwt_scale_draw.h>
 #include <qwt_plot_canvas.h>
-#include <qwt_plot_curve.h>
-#include <qwt_plot_grid.h>
 #include <qwt_plot_directpainter.h>
-#include <qwt_plot_layout.h>
-#include "canvaspicker.h"
-#include "plot.h"
-#include "DataModels/graphmodel.h"
-#include "ui_forms/graph.h"
-#include "ui_forms/graphverify.h"
+#include "graphmodel.h"
+#include "graph.h"
+#include "graphverify.h"
+#include "zoomer.h"
 #include <qglobal.h>
 #include <qtimer.h>
-#include "scrollzoomer.h"
 #include <qdebug.h>
-
-const unsigned int c_rangeMax = 1000;
-
-class Zoomer: public ScrollZoomer
-{
-public:
-    Zoomer( QWidget *canvas ):
-        ScrollZoomer( canvas )
-    {
-#if 0
-        setRubberBandPen( QPen( Qt::red, 2, Qt::DotLine ) );
-#else
-        setRubberBandPen( QPen( Qt::red ) );
-#endif
-    }
-
-    virtual QwtText trackerTextF( const QPointF &pos ) const
-    {
-        QColor bg( Qt::white );
-
-        QwtText text = QwtPlotZoomer::trackerTextF( pos );
-        text.setBackgroundBrush( QBrush( bg ) );
-        return text;
-    }
-
-    virtual void rescale()
-    {
-        QwtScaleWidget *scaleWidget = plot()->axisWidget( yAxis() );
-        QwtScaleDraw *sd = scaleWidget->scaleDraw();
-
-        double minExtent = 0.0;
-        if ( zoomRectIndex() > 0 )
-        {
-            // When scrolling in vertical direction
-            // the plot is jumping in horizontal direction
-            // because of the different widths of the labels
-            // So we better use a fixed extent.
-
-            minExtent = sd->spacing() + sd->maxTickLength() + 1;
-            minExtent += sd->labelSize(
-                scaleWidget->font(), c_rangeMax ).width();
-        }
-
-        sd->setMinimumExtent( minExtent );
-
-        ScrollZoomer::rescale();
+#include "QObject"
 
 
-    }
-};
 
 CanvasPicker::CanvasPicker(Graph *parent, Plot *plot, bool inverted ): QObject( plot ),
     d_selectedCurve( NULL ),
@@ -127,11 +72,6 @@ CanvasPicker::CanvasPicker(GraphVerify *parent, Plot *plot, bool inverted):  QOb
 QwtPlot *CanvasPicker::plot()
 {
     return qobject_cast<QwtPlot *>( parent() );
-}
-
-const QwtPlot *CanvasPicker::plot() const
-{
-    return qobject_cast<const QwtPlot *>( parent() );
 }
 
 bool CanvasPicker::event( QEvent *ev )
@@ -511,7 +451,7 @@ void CanvasPicker::shiftPointCursor( bool up )
     if ( !d_selectedCurve )
         return;
 
-    int index = d_selectedPoint + ( up ? 1 : -1 );
+    qint64 index = d_selectedPoint + ( up ? 1 : -1 );
     index = ( index + d_selectedCurve->dataSize() ) % d_selectedCurve->dataSize();
 
     if ( index != d_selectedPoint )

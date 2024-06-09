@@ -35,12 +35,12 @@ WorkProject::WorkProject(QString fullFileName, A2lTreeModel *model, MDImain *par
     if (QString::compare(displayName, "") != 0)
     {
         name = new char[displayName.toLocal8Bit().size() + 1];
-        strcpy(name, displayName.toLocal8Bit().data());
+        strcpy_s(name, displayName.toLocal8Bit().size() + 1, displayName.toLocal8Bit().data());
     }
     else
     {
         name = new char[(QFileInfo(fullFileName).fileName()).toLocal8Bit().size() + 1];
-        strcpy(name, QFileInfo(fullFileName).fileName().toLocal8Bit().data());
+        strcpy_s(name, (QFileInfo(fullFileName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullFileName).fileName().toLocal8Bit().data());
     }
 
 }

@@ -93,7 +93,7 @@ void ANNOTATION_TEXT::parseFixPar(QList<TokenTyp> *typePar)
         }
         //parameters.append(str);
         char *c = new char[str.length()+1];
-        strcpy(c, str.c_str());
+        strcpy_s(c, str.length()+1, str.c_str());
         parameters.append(c);
     }
     else
@@ -225,7 +225,7 @@ TokenTyp ANNOTATION_TEXT::parseListString()
     }
 
     char *c = new char[str.length() + 1];
-    strcpy(c, str.toLocal8Bit().data());
+    strcpy_s(c, str.length()+1, str.toLocal8Bit().data());
     parameters.append(c);
     return token;
 }

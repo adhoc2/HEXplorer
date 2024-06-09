@@ -1449,7 +1449,7 @@ void FormCompare::on_compare_clicked()
                         // create a subset Node
                         Node *subset = new Node();
                         subset->name = new char[subsetName.toLocal8Bit().size() + 1];
-                        strcpy(subset->name, subsetName.toLocal8Bit().data());
+                        strcpy_s(subset->name, subsetName.toLocal8Bit().size() + 1, subsetName.toLocal8Bit().data());
 
                         // add the char to the subset
                         Node *node = new Node(data->name);
@@ -1500,7 +1500,7 @@ void FormCompare::on_compare_clicked()
                         // create a subset Node
                         Node *subset = new Node();
                         subset->name = new char[subsetName.toLocal8Bit().size() + 1];
-                        strcpy(subset->name, subsetName.toLocal8Bit().data());
+                        strcpy_s(subset->name, subsetName.toLocal8Bit().size() + 1, subsetName.toLocal8Bit().data());
                         rootNode1->addChildNode(subset);
                         subset->setParentNode(rootNode1);
                         rootNode1->sortChildrensName();
@@ -1549,7 +1549,7 @@ void FormCompare::on_compare_clicked()
                         // create a subset Node
                         Node *subset = new Node();
                         subset->name = new char[subsetName.toLocal8Bit().size() + 1];
-                        strcpy(subset->name, subsetName.toLocal8Bit().data());
+                        strcpy_s(subset->name, subsetName.toLocal8Bit().size() + 1, subsetName.toLocal8Bit().data());
                         rootNode2->addChildNode(subset);
                         subset->setParentNode(rootNode2);
                         rootNode2->sortChildrensName();

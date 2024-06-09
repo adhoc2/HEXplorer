@@ -97,14 +97,14 @@ void COMPU_METHOD::parseFixPar(QList<TokenTyp> *typePar)
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
             char *c = new char[lex->getLexem().length()+1];
-            strcpy(c, lex->getLexem().c_str());
+            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
             parameters.append(c);
         }
         else if (token == String && typePar->at(i) == StringFormat)
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
             char *c = new char[lex->getLexem().length()+1];
-            strcpy(c, lex->getLexem().c_str());
+            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
             parameters.append(c);
         }
         else

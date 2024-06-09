@@ -374,7 +374,7 @@ void A2lTreeModel::renameNode(QModelIndex index, QString newName)
 
         // change node's name
         node->name = new char[newName.toLocal8Bit().size() + 1];
-        strcpy(node->name, newName.toLocal8Bit().data());
+        strcpy_s(node->name, newName.toLocal8Bit().size() + 1, newName.toLocal8Bit().data());
 
         // add node to view with new name
         nodeParent->addChildNode(node);

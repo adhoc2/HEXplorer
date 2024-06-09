@@ -42,7 +42,6 @@ private:
     void enableZoomMode(bool on);
     QwtPlotCurve* selectCurve(int pos);
     QwtPlot *plot();
-    const QwtPlot *plot() const;
 
 public slots:
     void reDraw(QModelIndex topLeft,QModelIndex bottomRight);

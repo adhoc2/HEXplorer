@@ -659,7 +659,7 @@ void LexerDcm::initialize()
 
 void LexerDcm::backward(QTextStream &in)
 {
-    int l = lexem.length() + 1;
+    qint64 l = lexem.length() + 1;
     in.seek(in.pos() - l);
 }
 

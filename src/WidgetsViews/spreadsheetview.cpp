@@ -19,9 +19,6 @@
 
 #include <QtWidgets>
 #include <QTableWidgetSelectionRange>
-#ifdef Q_WS_WIN32
-    #include <QAxObject>
-#endif
 #include <typeinfo>
 
 #include "spreadsheetview.h"
@@ -43,14 +40,13 @@
 #include "dialogchooseexportformat.h"
 
 
-//using namespace std;
-
 SpreadsheetView::SpreadsheetView(QWidget *parent):QTableView(parent)
 {
     createActions();
     connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextMenuEvent(QPoint)));
     setContextMenuPolicy(Qt::CustomContextMenu);
-    setItemDelegate(new ComboBoxDelegate(this));
+    ComboBoxDelegate *combo = new ComboBoxDelegate(this);
+    setItemDelegate(combo);
 
     QHeaderView *header = horizontalHeader();
     connect(header, SIGNAL(sectionResized(int,int,int)), this, SLOT(myResize(int,int,int)));

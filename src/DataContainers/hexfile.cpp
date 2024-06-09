@@ -71,7 +71,7 @@ HexFile::HexFile(QString fullHexFileName, WorkProject *parentWP, QString module,
     //initialize
     fullHexName = fullHexFileName;
     name = new char[(QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1];
-    strcpy(name, (QFileInfo(fullHexName).fileName()).toLocal8Bit().data());
+    strcpy_s(name, (QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullHexName).fileName()).toLocal8Bit().data());
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
@@ -193,7 +193,7 @@ HexFile::HexFile(QString fullHexFileName, WorkProject *parentWP, QObject *parent
     //initialize
     fullHexName = fullHexFileName;
     name = new char[(QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1];
-    strcpy(name, (QFileInfo(fullHexName).fileName()).toLocal8Bit().data());
+    strcpy_s(name, (QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullHexName).fileName()).toLocal8Bit().data());
     //a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
@@ -278,9 +278,10 @@ bool HexFile::parseFile()
     timer.start();
 
     // open file in binary format
-    FILE *fid = fopen(fullHexName.toLocal8Bit(), "rb");
+    FILE *fid = nullptr;
+    errno_t err = fopen_s(&fid, fullHexName.toLocal8Bit(), "rb");
 
-    if (fid == NULL)
+    if (err != 0)
     {
         return false;
     }

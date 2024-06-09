@@ -105,7 +105,7 @@ void UNIT::parseFixPar(QList<TokenTyp> *typePar)
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
             char *c = new char[lex->getLexem().length()+1];
-            strcpy(c, lex->getLexem().c_str());
+            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
             parameters.append(c);
         }        
         else

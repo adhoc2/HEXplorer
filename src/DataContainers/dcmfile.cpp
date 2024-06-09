@@ -50,7 +50,7 @@ Dcm::Dcm(QString fullDcmFileName, WorkProject *parentWP, QString modName, QObjec
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     fullPath = fullDcmFileName;
     name = new char[(QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1];
-    strcpy(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
+    strcpy_s(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
     maxValueProgbar = 0;
     valueProgBar = 0;
     omp_init_lock(&lock);

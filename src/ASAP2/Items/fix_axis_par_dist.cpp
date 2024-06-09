@@ -44,27 +44,6 @@ FIX_AXIS_PAR_DIST::~FIX_AXIS_PAR_DIST()
     }
 }
 
-// void FIX_AXIS_PAR_DIST::parseFixPar(QList<TokenTyp> *typePar)
-// {
-//     //Mandatory PARAMETERS
-//     TokenTyp token;
-//     for (int i = 0; i < typePar->count(); i++)
-//     {
-//         token = this->nextToken();
-//         if (token == typePar->at(i))
-//         {
-//             char *c = new char[parentNode->lex->getLexem().length()+1];
-//             strcpy(c, parentNode->lex->getLexem().c_str());
-//             parameters.append(c);
-//         }
-//         else
-//         {
-//             QString t(this->parentNode->lex->toString(typePar->at(i)).c_str());
-//             QString s(this->parentNode->lex->toString(token).c_str());
-//             this->showError("expected token : " + t +"\nfind token : " + s);
-//         }
-//     }
-// }
 
 QMap<std::string, std::string> FIX_AXIS_PAR_DIST::getParameters()
 {

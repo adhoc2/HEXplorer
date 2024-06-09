@@ -2,7 +2,7 @@
 #include "workproject.h"
 #include "qdebug.h"
 #include <QStringList>
-#include <WidgetsViews/treedirectory.h>
+#include <treedirectory.h>
 
 
 WorkingDirectory::WorkingDirectory(QString rootPath, A2lTreeModel *model = NULL, MDImain *parent = 0 ) : Node()
@@ -12,7 +12,7 @@ WorkingDirectory::WorkingDirectory(QString rootPath, A2lTreeModel *model = NULL,
 
     //node name
     char* name = new char[(QFileInfo(rootPath).fileName()).toLocal8Bit().size() + 1];
-    strcpy(name, (QFileInfo(rootPath).fileName()).toLocal8Bit().data());
+    strcpy_s(name, (QFileInfo(rootPath).fileName()).toLocal8Bit().size() + 1, (QFileInfo(rootPath).fileName()).toLocal8Bit().data());
     this->name = name;
     this->rootPath = rootPath;
 
@@ -72,7 +72,7 @@ void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
 
         //create a node subFolder
         char* name = new char[dir.dirName().length() + 1];
-        strcpy(name, dir.dirName().toLocal8Bit().data());
+        strcpy_s(name, dir.dirName().length() + 1, dir.dirName().toLocal8Bit().data());
         subDir = new TreeDirectory(name);
         subDir->setPath(dirPath);
         subDir->setParentNode(wp);
@@ -94,13 +94,15 @@ void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
                //if wp does not exist creates a new WorkProject
                if (!wp)
                {
-                   //check if a wp has already the same name (fileName) to prevent unique path in treeview model
+                   //check if a wp has already the same name (fileName) to ensure unique path in treeview model
                    QString displayNameOrg = file.fileName();
                    QString displayName = file.fileName();
                    int i = 0;
-                   while (getNode(displayName))
+                   Node* node = getNode(displayName);
+                   while (node)
                    {
                        displayName = displayNameOrg + " (" + QString::number(i) + ")";
+                       node =  getNode(displayName);
                        i++;
                    }
 

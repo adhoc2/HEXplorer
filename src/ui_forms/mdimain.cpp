@@ -7350,7 +7350,7 @@ void MDImain::onCreateDirectory()
     else
     {
         char* name = new char[dirName.length() + 1];
-        strcpy(name, dirName.toLocal8Bit().data());
+        strcpy_s(name, dirName.length() + 1, dirName.toLocal8Bit().data());
         TreeDirectory *subDir = new TreeDirectory(name);
         subDir->setPath(dirPath);
 

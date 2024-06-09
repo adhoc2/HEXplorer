@@ -115,13 +115,13 @@ void AXIS_PTS::parseFixPar(QList<TokenTyp> *typePar)
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
             char *c = new char[lex->getLexem().length()+1];
-            strcpy(c, lex->getLexem().c_str());
+            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
             parameters.append(c);
         }
         else if(typePar->at(i) == Float && token == Integer)
         {
             char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy(c, parentNode->lex->getLexem().c_str());
+            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
             parameters.append(c);
         }
         else

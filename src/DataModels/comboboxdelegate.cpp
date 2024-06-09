@@ -36,7 +36,15 @@
  QWidget *ComboBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option,
                                          const QModelIndex &index) const
  {
-     QString name = typeid(index.model()).name();
+     //QString name = typeid(*index.model()).name();
+     QString name;
+     const QAbstractItemModel* _model = index.model();
+     if (_model)
+         name = typeid(*_model).name();
+     else
+     {
+         return QItemDelegate::createEditor(parent, option, index);
+     }
      if (name.toLower().endsWith("sptablemodel"))
      {
          QList<Data*> *dat = ((SpTableModel*)index.model())->getList();

@@ -149,7 +149,7 @@ CdfxFile::CdfxFile(QString fullCdfxFileFileName, WorkProject *parentWP, QString 
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     fullPath = fullCdfxFileFileName;
     name = new char[(QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1];
-    strcpy(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
+    strcpy_s(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1,  (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
 
     valueProgBar = 0;
     maxValueProgbar = 0;
@@ -391,7 +391,7 @@ void CdfxFile::parseMSRSW(QDomNode &node)
 
             //SW-SYSTEM (*)
             QDomNodeList listSwSystem = swSystems.elementsByTagName("SW-SYSTEM");
-            for (uint i = 0; i < listSwSystem.length(); i++)
+            for (int i = 0; i < listSwSystem.length(); i++)
             {
                 //parse the SW-SYSTEM
                 QDomNode qnode= listSwSystem.at(i);

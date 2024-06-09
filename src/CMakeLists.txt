@@ -1,3 +1,14 @@
+#display compiler name
+message(STATUS "Compiler being used: ${CMAKE_CXX_COMPILER_ID} - ${CMAKE_CXX_COMPILER} ")
+get_filename_component(compiler_path ${CMAKE_CXX_COMPILER} DIRECTORY)
+message(STATUS "Compiler directory: ${compiler_path}")
+
+# Find OpenMP
+find_package(OpenMP REQUIRED)
+message(STATUS "OpenMP_CXX_FOUND: ${OpenMP_CXX_FOUND}")
+message(STATUS "OpenMP_CXX_FLAGS: ${OpenMP_CXX_FLAGS}")
+message(STATUS "OpenMP_CXX_LIBRARIES: ${OpenMP_CXX_LIBRARIES}")
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
@@ -210,7 +221,8 @@ set(SRCS_PLOT
     PlotGraph/canvaspicker.cpp     PlotGraph/canvaspicker.h
     PlotGraph/plot.cpp    PlotGraph/plot.h
     PlotGraph/scrollzoomer.cpp    PlotGraph/scrollzoomer.h
-    PlotGraph/surfacegraph.cpp    PlotGraph/surfacegraph.h)
+    PlotGraph/surfacegraph.cpp    PlotGraph/surfacegraph.h
+    PlotGraph/zoomer.h PlotGraph/zoomer.cpp)
 
 set(SRCS 
     main.cpp
@@ -228,23 +240,27 @@ target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core 
 Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Concurrent Qt${QT_VERSION_MAJOR}::PrintSupport Qt${QT_VERSION_MAJOR}::DataVisualization
 OpenMP::OpenMP_CXX)
 
-# Set compiler options
-if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
-    #target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -Wno-deprecated-declarations)
-    #target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -w)
-elseif (MSVC)
-    target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE /std:c++17)
-    #target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE /W0)
-endif()
-
 if(WIN32)
     message(STATUS "Building on Windows")
 
-    # Specify the paths of the external libs
-    set(LIB_DIR "/libs/build/")
-    set(QSCINTILLA_LIB "libqscintilla2_qt6.a")
-    set(QWT_LIB "libqwt.a")
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+        target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
+
+        # Specify the paths of the external libs
+        set(LIB_DIR "/libs/build/mingw/")
+        set(QSCINTILLA_LIB "libqscintilla2_qt6.a")
+        set(QWT_LIB "libqwt.a")
+
+    elseif (MSVC)
+        target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE /std:c++17)
+
+        # Specify the paths of the external libs
+        set(LIB_DIR "/libs/build/msvc/")
+        set(QSCINTILLA_LIB "qscintilla2_qt6.lib")
+        set(QWT_LIB "qwt.lib")
+    endif()
+
+    link_directories(${CMAKE_SOURCE_DIR}/${LIB_DIR})
 
     # Link the custom library to your target
     target_link_libraries(
@@ -254,6 +270,11 @@ if(WIN32)
 
 elseif(APPLE)
     message(STATUS "Building on macOS")
+
+    # Set compiler options
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
+    endif()
 
     # Specify the paths of the external libs
     set(LIB_DIR "/libs/build/")

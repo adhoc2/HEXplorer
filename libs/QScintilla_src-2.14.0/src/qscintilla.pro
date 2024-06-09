@@ -22,6 +22,7 @@
 
 TEMPLATE = lib
 CONFIG += qt warn_off thread exceptions hide_symbols
+CONFIG += c++17
 
 CONFIG(debug, debug|release) {
     mac: {

@@ -8,9 +8,13 @@
 class ScrollData;
 class ScrollBar;
 
+
+
 class ScrollZoomer: public QwtPlotZoomer
 {
     Q_OBJECT
+
+
 public:
     enum ScrollBarPosition
     {
@@ -63,5 +67,6 @@ private:
     bool d_inZoom;
     bool d_alignCanvasToScales[ QwtPlot::axisCnt ];
 };
+
 
 #endif

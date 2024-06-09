@@ -100,7 +100,7 @@ void CALIBRATION_HANDLE::parseFixPar(QList<TokenTyp> *typePar)
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
             char *c = new char[lex->getLexem().length()+1];
-            strcpy(c, lex->getLexem().c_str());
+            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
             parameters.append(c);
         }
         else
@@ -122,7 +122,7 @@ TokenTyp CALIBRATION_HANDLE::parseOptPar(QMap<std::string, Occurence> *nameOptPa
         {
             // add the lexem to the list of Handle
             char *c = new char[lex->getLexem().length()+1];
-            strcpy(c, lex->getLexem().c_str());
+            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
             parameters.append(c);
         }
 

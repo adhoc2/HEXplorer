@@ -40,7 +40,7 @@ void IF_DATA::parse()
     if (token == Identifier)
     {
         name = new char[lex->getLexem().length() + 1];
-        strcpy(name, lex->getLexem().c_str());
+        strcpy_s(name, lex->getLexem().length() + 1, lex->getLexem().c_str());
     }
     else
     {

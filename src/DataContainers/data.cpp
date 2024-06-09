@@ -3988,7 +3988,7 @@ double Data::hex2dec(QString hex, std::string type,  int base)
         else if(type == "FLOAT32_IEEE")
         {
             float f;
-                    sscanf(hex.toLocal8Bit().data(), "%x", (int*) &f);
+                    sscanf_s(hex.toLocal8Bit().data(), "%x", (int*) &f);
             return f;
 
         }
@@ -4058,7 +4058,7 @@ QList<double> Data::hex2dec(QStringList listHex, std::string type,  int base)
         float f;
         for (int n = 0; n < listHex.count(); n++)
         {
-            sscanf(listHex.at(n).toLocal8Bit().data(), "%x", (int*) &f);
+            sscanf_s(listHex.at(n).toLocal8Bit().data(), "%x", (int*) &f);
             listDec.append(f);
         }
         return listDec;
