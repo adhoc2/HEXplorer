@@ -202,7 +202,8 @@ bool A2LFILE::isParsed()
 
 std::string A2LFILE::pixmap()
 {
-    return ":/icones/milky_cartable.png";
+    return ":/icones/binary.png";
+    //return ":/icones/milky_cartable.png";
 }
 
 QString A2LFILE::fullName()

@@ -17,6 +17,7 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
+#include "ui_forms/ui_mdimain.h"
 #include <QtWidgets>
 #include <QtCore>
 #include <omp.h>
@@ -1530,8 +1531,8 @@ void MDImain::on_actionSettings_triggered()
 void MDImain::on_actionAbout_triggered()
 {
     QByteArray compiler = "GNU compiler.";
-    #ifdef CL_COMPILER
-        compiler = "msvc2013.";
+    #if defined(_MSC_VER)
+        compiler = "MSVC compiler.";
     #endif
     QByteArray encodedString =
                    "build " + qApp->applicationVersion().toLocal8Bit() + " compiled with " + compiler + "\n\n"
@@ -1837,6 +1838,7 @@ void MDImain::openProject(QString &fullFileName)
     progBar->reset();
 
     //update the ui->treeView
+    wp->addA2lnode(wp->a2lFile->getProject(), wp);
     model->addNode2RootNode(wp);
     if (ui->treeView->model() != model)
         ui->treeView->setModel(model);
@@ -4816,6 +4818,8 @@ void MDImain::readA2l(WorkProject* wp)
 
     // parse the a2l file
     wp->parse();
+
+    wp->addA2lnode(wp->a2lFile->getProject() , wp);
 
     // hide the statusbar
     statusBar()->hide();

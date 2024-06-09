@@ -25,12 +25,10 @@
 #include <QRegularExpression>
 #include <QStringList>
 #include <QMap>
-#include <Nodes/a2lfile.h>
-#include <Nodes/dbfile.h>
+#include <a2lfile.h>
+#include <dbfile.h>
 #include <omp.h>
 class HexFile;
-
-//using namespace std;
 
 class A2l : public QObject
 {

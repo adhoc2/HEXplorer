@@ -120,6 +120,17 @@ void WorkProject::addHex(HexFile *hex, Node* subDir )
     hex->attach(this);
 }
 
+void WorkProject::addA2lnode(PROJECT *a2l, Node* subDir)
+{
+    // add hex to subDir childrenslist for treeView
+    subDir->addChildNode(a2l);
+    a2l->setParentNode(subDir);
+    subDir->sortChildrensName();
+
+    //treeModel->dataInserted(subDir, subDir->childNodes.indexOf(a2l));
+
+}
+
 void WorkProject::addSrec(SrecFile *srec, Node* subDir)
 {
     // add hex to subDir childrenslist for treeView

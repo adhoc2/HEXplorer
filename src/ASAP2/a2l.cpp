@@ -99,16 +99,12 @@ void A2l::parse()
 
     //parse in 1 or 2 threads based on processor architecture
     bool myDebug = 0;
-#ifdef MY_DEBUG
-    myDebug = 0;
-#endif
+    #ifdef MY_DEBUG
+        myDebug = 0;
+    #endif
     QString multiThread = "";
     QString lexerType = "";
     QSettings settings(qApp->organizationName(), qApp->applicationName());
-    if (settings.value("lexer") == "Quex")
-        lexerType = "Quex";
-    else
-        lexerType = "Lex";
 
     if (omp_get_num_procs() > 1 && !myDebug && settings.value("openMP") == true)
     {
@@ -135,7 +131,7 @@ void A2l::parse()
     double t = timer.elapsed();
     QString sec ;
     sec.setNum(t/1000);
-    this->outputList.append("elapsed time to parse(" + lexerType + "/" + multiThread + ") the A2L file = " + sec + " s");
+    this->outputList.append("elapsed time to parse(Lex/" + multiThread + ") the A2L file = " + sec + " s");
 
 }
 
@@ -179,7 +175,7 @@ void A2l::parseSTA2l()
         lexer->initialize();
         errorList = new QStringList();
 
-        //create an ASAP2 file Node to start parsing
+        //create an ASAP2 file Node to start parsing the complete a2l
         A2LFILE *nodeA2l = new A2LFILE(0, lexer, errorList, fullA2lName);
         QString filename = QFileInfo(fullA2lName).fileName();
         nodeA2l->name = new char[filename.toLocal8Bit().length() + 1];

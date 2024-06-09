@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     app.setOrganizationName("Ch.Hoel");
     app.setApplicationName("HEXplorer");
-    app.setApplicationVersion("1.0.6");
+    app.setApplicationVersion("1.0.7");
 
     app.setStyle("Fusion");
 

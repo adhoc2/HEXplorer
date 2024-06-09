@@ -39,6 +39,8 @@ class WorkProject :  public A2l, public Node
 
         void attach(QObject*o);
 
+        void addA2lnode(PROJECT *a2l, Node* subDir);
+
         QMap<QString, HexFile*> hexFiles();
         void addHex(HexFile *hex, Node *subDir);
         void removeHexFile(HexFile *hex);

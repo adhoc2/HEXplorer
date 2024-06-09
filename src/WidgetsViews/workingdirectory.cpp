@@ -113,7 +113,7 @@ void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
                    wp->attach(mdimain);
                    mdimain->insertWp(wp);
 
-                   //update the ui->treeView
+                   //update the ui->treeView                  
                    this->addChildNode(wp);
                    wp->setParentNode(this);
                    this->sortChildrensName();
