@@ -127,7 +127,7 @@ void WorkProject::addA2lnode(PROJECT *a2l, Node* subDir)
     a2l->setParentNode(subDir);
     subDir->sortChildrensName();
 
-    //treeModel->dataInserted(subDir, subDir->childNodes.indexOf(a2l));
+    treeModel->dataInserted(subDir, subDir->childNodes.indexOf(a2l));
 
 }
 

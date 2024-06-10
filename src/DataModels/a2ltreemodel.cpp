@@ -41,7 +41,7 @@ A2lTreeModel::~A2lTreeModel()
 
 void A2lTreeModel::createRootNode()
 {
-    rootNode = new Node();
+    rootNode = new Node(QString("rootNode").toLatin1().data());
 }
 
 void A2lTreeModel::addNode2RootNode(Node *node)
@@ -79,7 +79,8 @@ QModelIndex A2lTreeModel::getIndex(Node *node)
         return QModelIndex();
     }
 
-    int pos = node->getParentNode()->childNodes.indexOf(node);
+    Node *parentNode = node->getParentNode();
+    int pos = parentNode->childNodes.indexOf(node);
     return createIndex(pos, 0, node);
 }
 

@@ -6,6 +6,7 @@
 build/
 libs/build/
 installer/release/
+install/
 .qtc_clangd/
 *.exe
 *.7z

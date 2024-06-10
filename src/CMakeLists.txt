@@ -1,3 +1,11 @@
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+
+# Find the Qt6 components
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS REQUIRED Core Gui Widgets Xml Network Concurrent PrintSupport DataVisualization)
+
+qt_standard_project_setup()
+
 #display compiler name
 message(STATUS "Compiler being used: ${CMAKE_CXX_COMPILER_ID} - ${CMAKE_CXX_COMPILER} ")
 get_filename_component(compiler_path ${CMAKE_CXX_COMPILER} DIRECTORY)
@@ -8,12 +16,6 @@ find_package(OpenMP REQUIRED)
 message(STATUS "OpenMP_CXX_FOUND: ${OpenMP_CXX_FOUND}")
 message(STATUS "OpenMP_CXX_FLAGS: ${OpenMP_CXX_FLAGS}")
 message(STATUS "OpenMP_CXX_LIBRARIES: ${OpenMP_CXX_LIBRARIES}")
-
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-
-# Find the Qt6 components
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS REQUIRED Core Gui Widgets Xml Network Concurrent PrintSupport DataVisualization)
 
 # Specify the paths for the custom library
 set(QSCINTILLA_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/libs/QScintilla_src-2.14.0/src)
@@ -233,7 +235,12 @@ set(SRCS
 
 
 # Add the executable target
-add_executable(${CMAKE_PROJECT_NAME} ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
+if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    qt_add_executable(${CMAKE_PROJECT_NAME} MANUAL_FINALIZATION  ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
+else()
+    add_executable(${CMAKE_PROJECT_NAME} ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
+endif()
+
 
 # Link the Qt6 and openMP libraries to the executable
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Xml
@@ -245,16 +252,16 @@ if(WIN32)
 
     if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
         target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
-
-        # Specify the paths of the external libs
         set(LIB_DIR "/libs/build/mingw/")
         set(QSCINTILLA_LIB "libqscintilla2_qt6.a")
         set(QWT_LIB "libqwt.a")
-
+    elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+        target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
+        set(LIB_DIR "/libs/build/llvm/")
+        set(QSCINTILLA_LIB "libqscintilla2_qt6.a")
+        set(QWT_LIB "libqwt.a")
     elseif (MSVC)
         target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE /std:c++17)
-
-        # Specify the paths of the external libs
         set(LIB_DIR "/libs/build/msvc/")
         set(QSCINTILLA_LIB "qscintilla2_qt6.lib")
         set(QWT_LIB "qwt.lib")
@@ -264,7 +271,7 @@ if(WIN32)
 
     # Link the custom library to your target
     target_link_libraries(
-        ${CMAKE_PROJECT_NAME} PRIVATE Qt6::Widgets
+        ${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
         ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QSCINTILLA_LIB}
         ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QWT_LIB})
 
@@ -286,6 +293,7 @@ elseif(APPLE)
 
     # Link the custom library to your target
     target_link_libraries(
+        ${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
         ${CMAKE_PROJECT_NAME} PRIVATE
         ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QSCINTILLA_LIB}
         "-F${QWT_FRAMEWORK_PATH}/.." "-framework qwt"
@@ -311,7 +319,6 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
     #  3- install_name_tool -change "qwt.framework/Versions/6/qwt" "@executable_path/../Frameworks/qwt.framework/Versions/6/qwt" /Users/tof/Documents/Programmation/Qt/HEXplorer/HEXplorer_qt6/build/cmake/build-HEXplorer_qt6-Qt_6_7_1_for_macOS-Release/src/HEXplorer.app/Contents/MacOS/HEXplorer
 
 
-include(GNUInstallDirs)
 install(TARGETS ${CMAKE_PROJECT_NAME}
     BUNDLE DESTINATION .
     RESOURCE DESTINATION .
@@ -319,7 +326,20 @@ install(TARGETS ${CMAKE_PROJECT_NAME}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
+# Generate deployment script
+qt_generate_deploy_app_script(
+    TARGET ${CMAKE_PROJECT_NAME}
+    OUTPUT_SCRIPT deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+)
+install(SCRIPT ${deploy_script})
+
+message(STATUS "Deploy script: ${deploy_script} ")
+message(STATUS "Install bin dir: ${CMAKE_INSTALL_BINDIR} ")
+
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(${CMAKE_PROJECT_NAME})
 endif()
+
+
 

@@ -35,17 +35,7 @@
 #include "node.h"
 #include "item.h"
 #include "qapplication.h"
-//#include "threadparse.h"
-//#include "a2lgrammar.h"
-//#include <sstream>
-
-//#include <iostream>
-//#include <fstream>
 #include <string>
-
-
-//using namespace std;
-
 
 A2l::A2l(QString fullFileName, QObject *parent): QObject(parent)
 {
@@ -60,7 +50,7 @@ A2l::A2l(QString fullFileName, QObject *parent): QObject(parent)
 
 A2l::~A2l()
 {
-   delete a2lFile;
+   //delete a2lFile;
    omp_destroy_lock(&lockValue);
 }
 

@@ -1760,9 +1760,6 @@ void MDImain::on_actionUpdateWorkingDirectory_triggered()
         }
 
         //re-load working Directory
-//        WorkingDirectory* wd = openWorkingDirectory(fullPath);
-//        index = model->getIndex(wd);
-//        ui->treeView->expand(index);
         WorkingDirectory* wd = static_cast<WorkingDirectory*> (nodeWd);
         wd->parseDir(fullPath);
     }
@@ -1905,32 +1902,6 @@ void MDImain::on_actionOpen_Working_Directory_triggered()
     if (w.exec())
         pathList = w.selectedFiles();
 
-//    QString pathList = QFileDialog::getExistingDirectory(this, tr("please select directories"),
-//                                                    path,
-//                                                    QFileDialog::ShowDirsOnly
-//                                                    | QFileDialog::DontResolveSymlinks);
-//    QString pathList;
-
-//    QFileSystemModel *model = new QFileSystemModel();
-//    model->setRootPath(path);
-//    model->setFilter(QDir::Dirs | QDir::NoDotAndDotDot | QDir::NoSymLinks);
-
-//    QTreeView *tree = new QTreeView();
-//    tree->setModel(model);
-//    tree->setSelectionMode(QAbstractItemView::MultiSelection);
-
-//    const QModelIndex rootIndex = model->index(QDir::cleanPath(path));
-//    if (rootIndex.isValid())
-//        tree->setRootIndex(rootIndex);
-
-//    tree->setAnimated(false);
-//    tree->setIndentation(20);
-//    tree->setSortingEnabled(true);
-//    const QSize availableSize = QApplication::desktop()->availableGeometry(tree).size();
-//    tree->resize(availableSize / 2);
-//    tree->setColumnWidth(0, tree->width() / 3);
-//    tree->setWindowTitle(QObject::tr("Select Directories."));
-//    tree->show();
 
 
     if (pathList.isEmpty())
@@ -1966,7 +1937,6 @@ WorkingDirectory* MDImain::openWorkingDirectory(QString rootPath)
 {
     QStringList currentPathList = workingDirectory.split(";");
     QSettings settings(qApp->organizationName(), qApp->applicationName());
-
     if (!currentPathList.contains(rootPath))
     {
          workingDirectory.append(rootPath + ";");
@@ -1981,7 +1951,7 @@ WorkingDirectory* MDImain::openWorkingDirectory(QString rootPath)
     WorkingDirectory* nodeWd = new WorkingDirectory(rootPath, model, this);
 
     //update the model and treeview
-    model->addNode2RootNode(nodeWd);
+    //model->addNode2RootNode(nodeWd);
 
     //add model to treeview
     if (ui->treeView->model() != model)

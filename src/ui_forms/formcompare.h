@@ -101,9 +101,13 @@ class FormCompare : public QWidget
         void on_checkBoxSrc_clicked();
         void checkDroppedFile(QString );
         void checkDroppedFile_2(QString );
-        void on_choose_clicked();        
+        void on_choose_clicked();
 
-public slots:
+        void on_radioButton_Hex_clicked(bool checked);
+
+        void on_radioButton_Phys_clicked(bool checked);
+
+    public slots:
         void on_quicklook_clicked();
         void on_compare_clicked();
 

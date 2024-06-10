@@ -17,18 +17,16 @@ WorkingDirectory::WorkingDirectory(QString rootPath, A2lTreeModel *model = NULL,
     this->rootPath = rootPath;
 
     // set treeView model from mdiMain
-    mdimain = parent;
+    this->mdimain = parent;
     this->model = model;
 
-    //set parent of this Node WorkingDirectory
+    // Create rootNode of TreeView if does not exiat
     Node* rootNode = model->getRootNode();
     if (rootNode == NULL)
         model->createRootNode();
-    this->setParentNode(model->getRootNode());
 
-    //directory filters
-    //QStringList filters;
-    //filters << "*.a2l" << "*.hex" << "*.s19";
+    //set parent of this Node WorkingDirectory
+    model->addNode2RootNode(this);
 
     //parse rootPath
     parseDir(rootPath);
@@ -55,14 +53,9 @@ void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
     dir.setSorting(QDir::Name);
     QFileInfoList list = dir.entryInfoList();
 
-
-    //create a pointer to  WP
-    //WorkProject *wp = nullptr;
-
     //create a list to store .hex and .s19
     QFileInfoList listDatasets;
     QFileInfoList listDirs;
-
     TreeDirectory* subDir = nullptr;
 
     bool dirHasA2l = 0;
@@ -117,7 +110,8 @@ void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
                    this->addChildNode(wp);
                    wp->setParentNode(this);
                    this->sortChildrensName();
-                   model->dataInserted(this, this->childNodes.indexOf(wp));
+                   qsizetype index = this->childNodes.indexOf(wp);
+                   model->dataInserted(this, index);
 
                    listWorkProjects.append(dirPath);
                }

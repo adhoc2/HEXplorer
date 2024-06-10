@@ -2876,3 +2876,15 @@ Dcm *FormCompare::getDcm2()
 {
     return dcm2;
 }
+
+void FormCompare::on_radioButton_Hex_clicked(bool checked)
+{
+
+}
+
+
+void FormCompare::on_radioButton_Phys_clicked(bool checked)
+{
+
+}
+
