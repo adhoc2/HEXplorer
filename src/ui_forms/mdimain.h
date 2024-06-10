@@ -248,7 +248,7 @@ private slots:
      void on_actionback_to_the_white_side_of_the_moon_triggered();
      void on_actiondark_theme_triggered();
 
-public slots:
+ public slots:
     void resetAllTableView();
 
 signals:

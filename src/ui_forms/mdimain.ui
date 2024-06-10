@@ -259,20 +259,6 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="styleSheet">
-        <string notr="true">QLineEdit{
-	border: 1px solid gray;
-	border-radius: 10px;
-	padding: 0 8px;
-	background: white;
-	selection-background-color: darkgray;
-}
-	</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QTreeView" name="treeView">
        <property name="editTriggers">
         <set>QAbstractItemView::NoEditTriggers</set>
@@ -638,7 +624,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>listWidget</tabstop>
-  <tabstop>lineEdit</tabstop>
   <tabstop>treeView</tabstop>
   <tabstop>treeView_2</tabstop>
  </tabstops>

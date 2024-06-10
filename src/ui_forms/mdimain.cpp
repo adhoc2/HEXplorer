@@ -140,9 +140,6 @@ MDImain::MDImain(QWidget *parent) : QMainWindow(parent), ui(new Ui::MDImain)
     completer->setCompletionMode(QCompleter::PopupCompletion);
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     completer->setMaxVisibleItems(20);
-    ui->lineEdit->setCompleter(completer);
-    ui->lineEdit->setFocus();
-    connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(completerSelected()));
 
     //initialize pointers
     projectList = new QMultiMap<QString, WorkProject*>;
@@ -1767,9 +1764,7 @@ void MDImain::on_actionUpdateWorkingDirectory_triggered()
 
 void MDImain::completerSelected()
 {
-    Node *node = model->getRootNode()->getNode(ui->lineEdit->text());
-    if (node)
-        expandNode(node);
+
 }
 
 // ------------------ A2lFile ----------------------//
@@ -7668,3 +7663,4 @@ void MDImain::on_actiondark_theme_triggered()
 {
     this->setStyle("dark");
 }
+
