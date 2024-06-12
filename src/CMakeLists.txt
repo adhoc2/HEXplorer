@@ -123,6 +123,7 @@ set (SRCS_ITEMS
 set(SRCS_NODES
     ASAP2/a2l.cpp ASAP2/a2l.h
     ASAP2/node.cpp    ASAP2/node.h
+    ASAP2/worker.cpp  ASAP2/worker.h
     ASAP2/Nodes/a2lfile.cpp    ASAP2/Nodes/a2lfile.h
     ASAP2/Nodes/a2ml.cpp    ASAP2/Nodes/a2ml.h
     ASAP2/Nodes/annotation.cpp    ASAP2/Nodes/annotation.h
@@ -236,7 +237,7 @@ set(SRCS
 
 # Add the executable target
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(${CMAKE_PROJECT_NAME} MANUAL_FINALIZATION  ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
+    qt_add_executable(${CMAKE_PROJECT_NAME} MANUAL_FINALIZATION  ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS} )
 else()
     add_executable(${CMAKE_PROJECT_NAME} ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
 endif()

@@ -611,7 +611,6 @@ void SrecFile:: readAllData()
         QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)), &dialog, SLOT(setValue(int)));
 
         // Start the computation
-        //futureWatcher.setFuture(QtConcurrent::mapped(module->listChar, std::bind(&SrecFile::runCreateDataMapped, this, std::placeholders::_1)));
         QList<Node*> _myList;
         if (nodeChar)
             _myList << nodeChar->childNodes;
@@ -1547,7 +1546,6 @@ QStringList SrecFile::writeBlock2HexLines()
         return list;
     }
 }
-
 
 void SrecFile::setValue(unsigned int IAddr, QString hex,  int nByte, QString _byteOrder)
 {

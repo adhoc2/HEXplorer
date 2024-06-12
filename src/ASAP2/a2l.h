@@ -28,6 +28,9 @@
 #include <a2lfile.h>
 #include <dbfile.h>
 #include <omp.h>
+#include "worker.h"
+#include <QEventLoop>
+#include <QProgressDialog>
 class HexFile;
 
 class A2l : public QObject
@@ -38,6 +41,8 @@ class A2l : public QObject
         A2l(QString fullFileName, QObject *parent = 0);
         ~A2l();
 
+        void parseQThreadA2l(int);
+
         A2LFILE *a2lFile;
         DBFILE *dbFile;
         std::string getFullA2lFileName();
@@ -46,7 +51,7 @@ class A2l : public QObject
         QStringList _outputList();
         void init();
         void parse();
-        void merge(A2LFILE *src, A2LFILE *trg);
+        A2LFILE *merge(A2LFILE *src, A2LFILE *trg);
         bool isOk();
 
     private:
@@ -55,7 +60,6 @@ class A2l : public QObject
         void initialize();
         QString fullA2lName;
         QStringList outputList;
-
         bool is_Ok;
         int progressVal;
         int progBarMaxValue;
@@ -64,12 +68,28 @@ class A2l : public QObject
         bool parseOpenMPA2l();
         void readSubset();
 
+        QMutex progressMutex;
+        QEventLoop loop;
+        QProgressDialog *progressDialog;
+        int totalProgress;
+        QList<QThread*> threads;
+        QList<Worker*> workers;
+        int remainingThreads;
+        QList<A2LFILE*> results;
+
     signals:
         void incProgressBar(int,int);
+        void operate();
+        void allThreadsFinished();
 
     private slots:
         void checkProgressStream(int);
+        void handleResults(A2LFILE*a2lfile, qint64 elapsedTime, QStringList*errorList);
+        void handleThreadFinished();
+        void updateProgress(int pos);
+        void updateProgressOpenMp(int pos);
 
 };
 
 #endif // A2L_H
+

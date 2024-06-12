@@ -2138,7 +2138,7 @@ void MDImain::addHexFile2Project()
                         }
 
                         // display status bar
-                        statusBar()->show();
+                        //statusBar()->show();
                         progBar->reset();
                         //connect(hex, SIGNAL(lineParsed(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
                         connect(hex, SIGNAL(progress(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
@@ -2364,7 +2364,7 @@ void MDImain::addSrecFile2Project()
                         }
 
                         // display status bar
-                        statusBar()->show();
+                        //statusBar()->show();
                         progBar->reset();
                         connect(srec, SIGNAL(progress(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
 
@@ -4777,9 +4777,9 @@ void MDImain::readA2l(WorkProject* wp)
 {
 
     // display status bar
-    statusBar()->show();
-    progBar->reset();
-    connect(wp, SIGNAL(incProgressBar(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
+    //statusBar()->show();
+    //progBar->reset();
+    //connect(wp, SIGNAL(incProgressBar(int,int)), this, SLOT(setValueProgressBar(int,int)),Qt::QueuedConnection ); //Qt::DirectConnection
 
     // parse the a2l file
     wp->parse();
@@ -4877,7 +4877,7 @@ HexFile* MDImain::readHexFile(HexFile *hex)
     }
 
     // display status bar
-    statusBar()->show();
+    //statusBar()->show();
     progBar->reset();
     connect(hex, SIGNAL(progress(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
 
@@ -5007,7 +5007,7 @@ SrecFile* MDImain::readSrecFile(SrecFile* srec)
     }
 
     // display status bar
-    statusBar()->show();
+    //statusBar()->show();
     progBar->reset();
     connect(srec, SIGNAL(progress(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
 

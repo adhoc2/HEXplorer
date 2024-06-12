@@ -37,7 +37,14 @@
 #include "qapplication.h"
 #include <string>
 
-A2l::A2l(QString fullFileName, QObject *parent): QObject(parent)
+#include <QElapsedTimer>
+#include <QFileInfo>
+#include <QDebug>
+
+
+//class A2l file
+A2l::A2l(QString fullFileName, QObject *parent): QObject(parent),
+    progressDialog(nullptr), totalProgress(0), remainingThreads(0)
 {
     fullA2lName = fullFileName;
     a2lFile = 0;
@@ -50,8 +57,19 @@ A2l::A2l(QString fullFileName, QObject *parent): QObject(parent)
 
 A2l::~A2l()
 {
-   //delete a2lFile;
-   omp_destroy_lock(&lockValue);
+    //delete a2lFile;
+    omp_destroy_lock(&lockValue);
+
+    // Ensure all threads are properly finished
+    for (QThread *thread : threads) {
+        thread->quit();
+        thread->wait();
+        delete thread;
+    }
+
+    // Delete any remaining workers
+    qDeleteAll(workers);
+    workers.clear();
 }
 
 std::string A2l::getFullA2lFileName()
@@ -98,8 +116,12 @@ void A2l::parse()
 
     if (omp_get_num_procs() > 1 && !myDebug && settings.value("openMP") == true)
     {
-        parseOpenMPA2l();
-        multiThread = "openMP";
+        //parseOpenMPA2l();
+        //multiThread = "openMP";
+
+        //int numThreads = QThread::idealThreadCount();
+        multiThread = "QThread";
+        parseQThreadA2l(2);
     }
     else
     {
@@ -210,17 +232,6 @@ bool A2l::parseOpenMPA2l()
     }
     qint64 size = file.size();
     file.close();
-
-    //qint64 size = file.size();
-    //char* buffer = new char[size];
-    //file.read(buffer, size);
-    //QString str = QString::fromLatin1(buffer, size);
-    //file.close();
-
-
-
-    //remove blank lines
-    //str.replace(QRegExp("[\r\n][\t\s]*[\r\n]"), QString('\n'));
 
     qDebug() << "\n ---- A2Lfile ---- ";
     qDebug() << "1- read " << time.elapsed();
@@ -373,6 +384,151 @@ bool A2l::parseOpenMPA2l()
     return true;
 }
 
+void A2l::parseQThreadA2l(int numThreads)
+{
+
+    remainingThreads = numThreads;
+
+    QElapsedTimer time;
+    time.start();
+
+    //open the selected file
+    QFile file(fullA2lName);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        this->outputList.append("Cannot read file " + fullA2lName);
+        return;
+    }
+
+    QTextStream input(&file);
+    QString str;
+    while (!file.atEnd())
+    {
+        str.append(file.readLine());
+    }
+    file.close();
+
+    //trunk a2lfile into 2 parts for multi-threading
+    QString str1;
+    QString str2;
+    if (!trunkA2l(str, str1, str2))
+    {
+        parseSTA2l();
+        return;
+    }
+
+    // set the maximum for the progressbar
+    progBarMaxValue = str.length();
+    QStringList listChunckA2l;
+    listChunckA2l.append(str1);
+    listChunckA2l.append(str2);
+
+    //parse in parallel
+    double t_ref1 = 0, t_final1 = 0;
+    double t_ref2 = 0, t_final2 = 0;
+    QSettings settings(qApp->organizationName(), qApp->applicationName());
+
+    progressDialog = new QProgressDialog();
+    progressDialog->setLabelText(QString("Parsing a2l file using %1 thread(s)...").arg(numThreads)); //QThread::idealThreadCount()
+    progressDialog->setMaximum(100);
+    progressDialog->setWindowModality(Qt::WindowModal);
+    progressDialog->show();
+
+    for (int i = 0; i < numThreads; ++i)
+    {
+        QThread *workerThread = new QThread();
+        Worker *worker = new Worker(listChunckA2l[i], fullA2lName);
+        worker->moveToThread(workerThread);
+        workers.append(worker);
+        threads.append(workerThread);
+
+        connect(workerThread, &QThread::finished, worker, &QObject::deleteLater);
+        connect(this, &A2l::operate, worker, &Worker::process);
+        connect(worker, &Worker::resultReady, this, &A2l::handleResults);
+        connect(worker, &Worker::finished, this, &A2l::handleThreadFinished);
+        connect(worker, &Worker::progress, this, &A2l::updateProgress);
+        //connect(worker, &Worker::progress, this, &A2l::updateProgressOpenMp);
+
+        workerThread->start();
+    }
+
+    // start all threads execution
+    emit operate();
+
+    // Start event loop and wait until all threads are finished
+    connect(this, &A2l::allThreadsFinished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    // remove dialog with progressbar
+    progressDialog->hide();
+    delete progressDialog;
+    progressDialog = nullptr;
+
+    //merge the 2 chuncks a2lFile
+    a2lFile = merge(results[1], results[0]);
+
+    return;
+}
+
+void A2l::updateProgress(int pos)
+{
+    QMutexLocker locker(&progressMutex);
+    totalProgress += pos;
+    int progress = static_cast<int>((static_cast<double>(totalProgress) / progBarMaxValue) * 100);
+
+    QMetaObject::invokeMethod(progressDialog, "setValue", Qt::QueuedConnection, Q_ARG(int, progress));
+
+    if (progressDialog->wasCanceled())
+    {
+        for (QThread *thread : threads)
+        {
+            thread->requestInterruption();
+        }
+    }
+}
+
+void A2l::updateProgressOpenMp(int pos)
+{
+    if (progressVal < progBarMaxValue)
+    {
+        omp_set_lock(&lockValue);
+        progressVal += pos;
+
+        double div = (double)progressVal/(double)progBarMaxValue;
+
+        if (div > 0.98)
+        {
+            emit incProgressBar(progBarMaxValue, progBarMaxValue);
+        }
+        else
+        {
+            emit incProgressBar(progressVal, progBarMaxValue);
+        }
+
+        omp_unset_lock(&lockValue);
+    }
+}
+
+void A2l::handleResults(A2LFILE* a2lfile, qint64 elapsedTime, QStringList* errorList)
+{
+    results.append(a2lfile);
+}
+
+void A2l::handleThreadFinished()
+{
+    remainingThreads--;
+
+    if (remainingThreads == 0)
+    {
+        //delete workers
+        qDeleteAll(workers);
+        workers.clear();
+
+        // Signal that all threads are finished to Qeventloop
+        emit allThreadsFinished();
+    }
+}
+
 bool A2l::trunkA2l(QString &str, QString &str1, QString &str2)
 {
     //devide the file into 2 QString
@@ -397,7 +553,6 @@ bool A2l::trunkA2l(QString &str, QString &str1, QString &str2)
         //search for a MODULE child node
         QRegularExpression rxlen("/begin (\\w+)");
         QString nodeType = "";
-        int num = str1.length();
         int lastBeginChar = -1;
 
         while (nodeType != "CHARACTERISTIC" &&
@@ -421,7 +576,7 @@ bool A2l::trunkA2l(QString &str, QString &str1, QString &str2)
 
         //create 2 ASAP file for parallel parsing
         str2 = "ASAP2_VERSION  1 4 \n"
-               "/begin PROJECT PRO \"PROJECT\"\n"
+               "/begin PROJECT PRO_HEXplorer \"PROJECT\"\n"
                "  /begin HEADER \"\"\n"
                "    VERSION    \"VERSION\"\n"
                "    PROJECT_NO P_NUMBER\n"
@@ -431,26 +586,36 @@ bool A2l::trunkA2l(QString &str, QString &str1, QString &str2)
 
         str1 = str1.left(lastBeginChar) + "\nCHUNKend";
 
-//        QTextEdit *toto = new QTextEdit(str1);
-//        toto->show();
-
-//        QTextEdit *toto2 = new QTextEdit(str2);
-//        toto2->show();
-
-
         return true;
     }
     else
         return false;
 }
 
-void A2l::merge(A2LFILE *src, A2LFILE *trg)
+A2LFILE* A2l::merge(A2LFILE *a2l1, A2LFILE *a2l2)
 {
+    A2LFILE* src = nullptr;
+    A2LFILE* trg = nullptr;
+    qDebug() << a2l1->getProject()->name;
+    if (a2l1->getProject())
+    {
+        QString project1 = a2l1->getProject()->name;
+        if (project1 == "PRO_HEXplorer")
+        {
+            src = a2l1; trg = a2l2;
+        }
+        else
+        {
+             src = a2l2; trg = a2l1;
+        }
+    }
+
+
     //find Module i stopped in source file
     Node *pro = src->getProject();
 
     if (!pro)
-        return;
+        return nullptr;
 
     pro->sortChildrensName();
     Node *srcModule = pro->getNode("MODULE");
@@ -459,7 +624,7 @@ void A2l::merge(A2LFILE *src, A2LFILE *trg)
         this->outputList.append("ERROR : could not merge the 2 threads (source module NULL)");
 		this->outputList.append("PROJECT name: " + QString(pro->name));
 		outputList.append(*pro->errorList);
-        return;
+        return nullptr;
     }
 
     int i = 0;
@@ -482,7 +647,7 @@ void A2l::merge(A2LFILE *src, A2LFILE *trg)
         if (trgModule == NULL)
         {
             this->outputList.append("ERROR : could not merge the 2 threads (target module NULL)");
-            return;
+            return nullptr;
         }
 
         int j = 0;
@@ -530,7 +695,7 @@ void A2l::merge(A2LFILE *src, A2LFILE *trg)
             trgMod->listChar.append(srcMod->listChar);
             trgMod->listChar.sort();
 
-            //merge also the listChar from cut Module
+            //merge also the listMeas from cut Module
             trgMod->listMeas.append(srcMod->listMeas);
             trgMod->listMeas.sort();
 
@@ -546,6 +711,11 @@ void A2l::merge(A2LFILE *src, A2LFILE *trg)
                 }
             }
         }
+        return trg;
+    }
+    else
+    {
+        return nullptr;
     }
 }
 
