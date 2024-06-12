@@ -11,3 +11,7 @@ Important remarks:
 - if you kindly tell me which you need I can support if the win/win cooperation is respected!
 - then for BUGS which might occur, please use the issues reporting to get supported.
 
+# External libraries
+https://github.com/brCreate/QScintilla
+
+https://github.com/opencor/qwt
