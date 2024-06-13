@@ -20,7 +20,7 @@
 
 #include <QApplication>
 #include "ui_forms/mdimain.h"
-
+#include "version.h"
 
 int main(int argc, char *argv[])
 {
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     app.setOrganizationName("Ch.Hoel");
     app.setApplicationName("HEXplorer");
-    app.setApplicationVersion("1.0.9");
+    app.setApplicationVersion(APP_VERSION_STRING);
 
     app.setStyle("Fusion");
 

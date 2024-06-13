@@ -1,0 +1,9 @@
+QWizard 
+{
+    min-width: 800px; /* Set the minimum width */
+    max-width: 800px; /* Set the maximum width */
+    min-height: 600px; /* Set the minimum height */
+    max-height: 600px; /* Set the maximum height */
+}
+
+

@@ -1526,10 +1526,14 @@ void MDImain::on_actionSettings_triggered()
 
 void MDImain::on_actionAbout_triggered()
 {
-    QByteArray compiler = "GNU compiler.";
+    QByteArray compiler = "";
     #if defined(_MSC_VER)
-        compiler = "MSVC compiler.";
+        compiler = "MSVC version " + QByteArray::number(_MSC_VER) +  " compiler.";
+    #elif defined(__GNUC__)
+        compiler = "GCC version " + QByteArray::number(__GNUC__) + "." + QByteArray::number(__GNUC_MINOR__) + "." +
+                QByteArray::number(__GNUC_PATCHLEVEL__) +  " compiler.";
     #endif
+
     QByteArray encodedString =
                    "build " + qApp->applicationVersion().toLocal8Bit() + " compiled with " + compiler + "\n\n"
                    "This software uses external libraries :\n"

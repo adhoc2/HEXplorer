@@ -232,6 +232,7 @@ set(SRCS
     icones.qrc
     myappicon.rc
     space_shuttle.ico
+    version.h.ini
 )
 
 

@@ -2,10 +2,12 @@
 <Installer>
     <Name>HEXplorer</Name>
     <Version>1.0.9</Version>
-    <Title>HEXplorer online installation</Title>
+    <Title>HEXplorer</Title>
     <Publisher>Ch.HOEL</Publisher>
     <StartMenuDir>HEXplorer</StartMenuDir>
     <TargetDir>@HomeDir@/HEXplorer</TargetDir>
+    <WizardStyle>Classic</WizardStyle>
+    <StyleSheet>style.qss</StyleSheet>
     <RemoteRepositories>
         <Repository>
             <Url>https://nexus.lmb.liebherr.i/repository/raw-pd1/HEXplorer_repo/</Url>

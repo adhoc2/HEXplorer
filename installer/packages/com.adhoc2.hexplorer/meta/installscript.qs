@@ -56,10 +56,8 @@ Component.prototype.createOperations = function()
         if (systemInfo.productType === "windows")
         {
             // Register update and uninstall operations
-            component.addOperation("CreateShortcut", "@TargetDir@/HEXplorer.exe", "@StartMenuDir@/HEXplorer.lnk",
-                    "workingDirectory=@TargetDir@");
-            component.addOperation("CreateShortcut", "@TargetDir@/maintenancetool.exe", "@StartMenuDir@/uninstall HEXplorer.lnk",
-                "workingDirectory=@TargetDir@");
+            component.addOperation("CreateShortcut", "@TargetDir@/HEXplorer.exe", "@StartMenuDir@/HEXplorer.lnk", "workingDirectory=@TargetDir@");
+            component.addOperation("CreateShortcut", "@TargetDir@/maintenancetool.exe", "@StartMenuDir@/uninstall HEXplorer.lnk", "workingDirectory=@TargetDir@");
         }
 	
     } catch (e)
