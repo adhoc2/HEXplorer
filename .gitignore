@@ -12,3 +12,4 @@ install/
 *.7z
 *.sha1
 *.crt
+*.user.*
