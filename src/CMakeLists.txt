@@ -4,6 +4,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 # Find the Qt6 components
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS REQUIRED Core Gui Widgets Xml Network Concurrent PrintSupport DataVisualization)
 
+# Find OpenMP
+#find_package(OpenMP REQUIRED)
+message(STATUS "OpenMP_CXX_FOUND: ${OpenMP_CXX_FOUND}")
+message(STATUS "OpenMP_CXX_FLAGS: ${OpenMP_CXX_FLAGS}")
+message(STATUS "OpenMP_CXX_LIBRARIES: ${OpenMP_CXX_LIBRARIES}")
+
 qt_standard_project_setup()
 
 #display compiler name
@@ -11,11 +17,6 @@ message(STATUS "Compiler being used: ${CMAKE_CXX_COMPILER_ID} - ${CMAKE_CXX_COMP
 get_filename_component(compiler_path ${CMAKE_CXX_COMPILER} DIRECTORY)
 message(STATUS "Compiler directory: ${compiler_path}")
 
-# Find OpenMP
-find_package(OpenMP REQUIRED)
-message(STATUS "OpenMP_CXX_FOUND: ${OpenMP_CXX_FOUND}")
-message(STATUS "OpenMP_CXX_FLAGS: ${OpenMP_CXX_FLAGS}")
-message(STATUS "OpenMP_CXX_LIBRARIES: ${OpenMP_CXX_LIBRARIES}")
 
 # Specify the paths for the custom library
 set(QSCINTILLA_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/libs/QScintilla_src-2.14.0/src)
@@ -208,8 +209,6 @@ set(SRCS_WIDGETSVIEWS
     WidgetsViews/workingdirectory.cpp    WidgetsViews/workingdirectory.h
     WidgetsViews/workproject.cpp    WidgetsViews/workproject.h
     WidgetsViews/chtextedit.cpp    WidgetsViews/chtextedit.h
-    WidgetsViews/dialoghttpupdate.cpp    WidgetsViews/dialoghttpupdate.h
-    WidgetsViews/dialogupdate.cpp    WidgetsViews/dialogupdate.h
     WidgetsViews/finddialog.cpp    WidgetsViews/finddialog.h
     WidgetsViews/locationdialog.cpp   WidgetsViews/locationdialog.h
     WidgetsViews/scrollbar.cpp    WidgetsViews/scrollbar.h
@@ -218,6 +217,7 @@ set(SRCS_WIDGETSVIEWS
     WidgetsViews/projectlistwidget.cpp    WidgetsViews/projectlistwidget.h
     WidgetsViews/mytreeview.cpp WidgetsViews/mytreeview.h
     WidgetsViews/spreadsheetview.cpp   WidgetsViews/spreadsheetview.h
+    WidgetsViews/onlineupdater.h WidgetsViews/onlineupdater.cpp
 )
 
 set(SRCS_PLOT
@@ -237,7 +237,7 @@ set(SRCS
 
 # Add the executable target
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(${CMAKE_PROJECT_NAME} MANUAL_FINALIZATION  ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS} )
+    qt_add_executable(${CMAKE_PROJECT_NAME} MANUAL_FINALIZATION  ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
 else()
     add_executable(${CMAKE_PROJECT_NAME} ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
 endif()
@@ -245,8 +245,8 @@ endif()
 
 # Link the Qt6 and openMP libraries to the executable
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Xml
-Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Concurrent Qt${QT_VERSION_MAJOR}::PrintSupport Qt${QT_VERSION_MAJOR}::DataVisualization
-OpenMP::OpenMP_CXX)
+    Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Concurrent Qt${QT_VERSION_MAJOR}::PrintSupport Qt${QT_VERSION_MAJOR}::DataVisualization)
+    #OpenMP::OpenMP_CXX)
 
 if(WIN32)
     message(STATUS "Building on Windows")

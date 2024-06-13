@@ -21,13 +21,13 @@
 #define A2L_H
 
 #include "qobject.h"
+//#include <omp.h>
 #include <string>
 #include <QRegularExpression>
 #include <QStringList>
 #include <QMap>
 #include <a2lfile.h>
 #include <dbfile.h>
-#include <omp.h>
 #include "worker.h"
 #include <QEventLoop>
 #include <QProgressDialog>
@@ -55,7 +55,7 @@ class A2l : public QObject
         bool isOk();
 
     private:
-        omp_lock_t lockValue;
+        //omp_lock_t lockValue;
         bool trunkA2l(QString &str, QString &str1, QString &str2);
         void initialize();
         QString fullA2lName;
@@ -75,7 +75,9 @@ class A2l : public QObject
         QList<QThread*> threads;
         QList<Worker*> workers;
         int remainingThreads;
-        QList<A2LFILE*> results;
+        QList<A2LFILE*> a2lFiles;
+        QList<qint64> elapsedTimes;
+        QList<QStringList*> errorLists;
 
     signals:
         void incProgressBar(int,int);
@@ -83,10 +85,9 @@ class A2l : public QObject
         void allThreadsFinished();
 
     private slots:
-        void checkProgressStream(int);
         void handleResults(A2LFILE*a2lfile, qint64 elapsedTime, QStringList*errorList);
         void handleThreadFinished();
-        void updateProgress(int pos);
+        void updateProgressQThread(int pos);
         void updateProgressOpenMp(int pos);
 
 };

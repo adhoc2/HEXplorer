@@ -20,7 +20,7 @@
 #include "ui_forms/ui_mdimain.h"
 #include <QtWidgets>
 #include <QtCore>
-#include <omp.h>
+//#include <omp.h>
 #include <typeinfo>
 #include <qtconcurrentrun.h>
 #include <QFutureWatcher>
@@ -51,7 +51,6 @@
 #include "csv.h"
 #include "dcmfile.h"
 #include "dialogcsv.h"
-#include "dialogupdate.h"
 #include "mainwindow.h"
 #include "spreadsheetview.h"
 #include "dialogchoosemodule.h"
@@ -61,11 +60,11 @@
 #include <Qsci/qscilexerxml.h>
 #include "choosesubset.h"
 #include "dialogchooseexportformat.h"
-#include "dialoghttpupdate.h"
 #include "workingdirectory.h"
 #include "deletefiledialog.h"
 #include "treedirectory.h"
 #include "QKeySequence"
+#include "onlineupdater.h"
 #include "qdebug.h"
 
 MDImain::MDImain(QWidget *parent) : QMainWindow(parent), ui(new Ui::MDImain)
@@ -2099,7 +2098,8 @@ void MDImain::addHexFile2Project()
                         settings.setValue("currentHexPath", currentHexPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project (module)
                         HexFile *hex = NULL;
@@ -2155,14 +2155,14 @@ void MDImain::addHexFile2Project()
                         progBar->reset();
 
                         //stop timer
-                        double tf = omp_get_wtime();
-
+                        qint64 elapsedTime = timer.restart();
+                        double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
                         //update the treeView model
                         ui->treeView->expand(index);
                         ui->treeView->resizeColumnToContents(0);
 
-                        writeOutput("action open new dataset : HEX file "  + fullHexName + " add to project in " + QString::number(tf-ti) + " sec");
+                        writeOutput("action open new dataset : HEX file "  + fullHexName + " add to project in " + QString::number(_elapsedTime, 'g', 3) + " sec");
 
                     }
                 }
@@ -2192,7 +2192,8 @@ void MDImain::addHexFile2Project()
                         settings.setValue("currentHexPath", currentHexPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project (module)
                         HexFile *hex = new HexFile(fullHexName, wp);
@@ -2213,13 +2214,14 @@ void MDImain::addHexFile2Project()
                         progBar->reset();
 
                         //stop timer
-                        double tf = omp_get_wtime();
+                        qint64 elapsedTime = timer.restart();
+                        double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
                         //update the treeView model
                         ui->treeView->expand(index);
                         ui->treeView->resizeColumnToContents(0);
 
-                        writeOutput("action open new dataset into database : HEX file " + fullHexName + " add to project in " + QString::number(tf-ti) + " sec");
+                        writeOutput("action open new dataset into database : HEX file " + fullHexName + " add to project in " + QString::number(_elapsedTime, 'g', 3) + " sec");
 
                     }
                 }
@@ -2325,7 +2327,8 @@ void MDImain::addSrecFile2Project()
                         settings.setValue("currentSrecPath", currentSrecPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project (module)
                         SrecFile *srec = NULL;
@@ -2380,13 +2383,14 @@ void MDImain::addSrecFile2Project()
                         progBar->reset();
 
                         //stop timer
-                        double tf = omp_get_wtime();
+                        qint64 elapsedTime = timer.restart();
+                        double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
                         //update the treeView model
                         ui->treeView->expand(index);
                         ui->treeView->resizeColumnToContents(0);                        
 
-                        writeOutput("action open new dataset : Srec file "  + fullSrecName +" add to project in " + QString::number(tf-ti) + " sec");
+                        writeOutput("action open new dataset : Srec file "  + fullSrecName +" add to project in " + QString::number(_elapsedTime, 'g', 3) + " sec");
 
                     }
                 }
@@ -2490,7 +2494,8 @@ void MDImain::addCsvFile2Project()
                         settings.setValue("currentCsvPath", currentCsvPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project
                         QString moduleName;
@@ -2541,13 +2546,14 @@ void MDImain::addCsvFile2Project()
                             list.append(csv);
 
                             //stop timer
-                            double tf = omp_get_wtime();
+                            qint64 elapsedTime = timer.restart();
+                            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
                             //update the treeView model
                             ui->treeView->expand(index);
                             ui->treeView->resizeColumnToContents(0);
 
-                            writeOutput("CSV file " + fullCsvName + " successfully added to the project " + QString::number(tf-ti) + " sec");
+                            writeOutput("CSV file " + fullCsvName + " successfully added to the project " + QString::number(_elapsedTime, 'g',3) + " sec");
 
                         }
                         else
@@ -2663,7 +2669,8 @@ void MDImain::addDcmFile2Project()
                         settings.setValue("currentDcmPath", currentCsvPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project
                         QString moduleName;
@@ -2714,13 +2721,14 @@ void MDImain::addDcmFile2Project()
                             list.append(dcm);
 
                             //stop timer
-                            double tf = omp_get_wtime();
+                            qint64 elapsedTime = timer.restart();
+                            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
                             //update the treeView model
                             ui->treeView->expand(index);
                             ui->treeView->resizeColumnToContents(0);
 
-                            writeOutput("Dcm file " + fullDcmName + " successfully added to the project " + QString::number(tf-ti) + " sec");
+                            writeOutput("Dcm file " + fullDcmName + " successfully added to the project " + QString::number(_elapsedTime, 'g',3) + " sec");
 
                         }
                         else
@@ -2836,7 +2844,8 @@ void MDImain::addCdfxFile2Project()
                         settings.setValue("currentCdfxPath", currentCdfxPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project
                         QString moduleName;
@@ -2887,14 +2896,15 @@ void MDImain::addCdfxFile2Project()
                             list.append(cdfx);
 
                             //stop timer
-                            double tf = omp_get_wtime();
+                            qint64 elapsedTime = timer.restart();
+                            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
                             //update the treeView model
                             ui->treeView->expand(index);
                             ui->treeView->resizeColumnToContents(0);
 
                             writeOutput(cdfx->getInfoList());
-                            writeOutput("CDFX file " + fullCdfxName + " successfully added to the project " + QString::number(tf-ti) + " sec");
+                            writeOutput("CDFX file " + fullCdfxName + " successfully added to the project " + QString::number(_elapsedTime, 'g', 3) + " sec");
 
                         }
                         else
@@ -4776,10 +4786,15 @@ void MDImain::compare_A2lFile()
 void MDImain::readA2l(WorkProject* wp)
 {
 
-    // display status bar
-    //statusBar()->show();
-    //progBar->reset();
-    //connect(wp, SIGNAL(incProgressBar(int,int)), this, SLOT(setValueProgressBar(int,int)),Qt::QueuedConnection ); //Qt::DirectConnection
+    // display status bar   
+    QSettings settings(qApp->organizationName(), qApp->applicationName());
+    bool openMP = settings.value("openMP").toBool();
+    if (!openMP)
+    {
+        statusBar()->show();
+        progBar->reset();
+        connect(wp, SIGNAL(incProgressBar(int,int)), this, SLOT(setValueProgressBar(int,int)),Qt::DirectConnection );
+    }
 
     // parse the a2l file
     wp->parse();
@@ -4805,7 +4820,9 @@ void MDImain::readA2l(WorkProject* wp)
 HexFile* MDImain::readHexFile(HexFile *hex)
 {
     //start timer
-    double ti = omp_get_wtime();
+    QElapsedTimer timer;
+    timer.start();
+    //double ti = omp_get_wtime();
 
     //read hex file if not read
     QString fullName = hex->fullName();
@@ -4876,9 +4893,7 @@ HexFile* MDImain::readHexFile(HexFile *hex)
         }
     }
 
-    // display status bar
-    //statusBar()->show();
-    progBar->reset();
+
     connect(hex, SIGNAL(progress(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
 
     if (hex->read())
@@ -4903,7 +4918,9 @@ HexFile* MDImain::readHexFile(HexFile *hex)
         progBar->reset();
 
         //stop timer
-        double tf = omp_get_wtime();
+        //double tf = omp_get_wtime();
+        qint64 elapsedTime = timer.restart();
+        double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
         //update the treeView model
         foreach (QModelIndex index, listIndex)
@@ -4916,7 +4933,7 @@ HexFile* MDImain::readHexFile(HexFile *hex)
 
         ui->treeView->resizeColumnToContents(0);
 
-        writeOutput("action open new dataset : HEX file add to project in " + QString::number(tf-ti) + " sec");
+        writeOutput("action open new dataset : HEX file add to project in " + QString::number(_elapsedTime, 'g', 3) + " sec");
 
         return hex;
     }
@@ -4938,7 +4955,9 @@ HexFile* MDImain::readHexFile(HexFile *hex)
 SrecFile* MDImain::readSrecFile(SrecFile* srec)
 {
     //start timer
-    double ti = omp_get_wtime();
+    //double ti = omp_get_wtime();
+    QElapsedTimer timer;
+    timer.start();
 
     //store Srec fullname
     QString fullName = srec->fullName();
@@ -5007,8 +5026,6 @@ SrecFile* MDImain::readSrecFile(SrecFile* srec)
     }
 
     // display status bar
-    //statusBar()->show();
-    progBar->reset();
     connect(srec, SIGNAL(progress(int,int)), this, SLOT(setValueProgressBar(int,int)), Qt::DirectConnection);
 
     if (srec->read())
@@ -5033,7 +5050,9 @@ SrecFile* MDImain::readSrecFile(SrecFile* srec)
         progBar->reset();
 
         //stop timer
-        double tf = omp_get_wtime();
+        //double tf = omp_get_wtime();
+        qint64 elapsedTime = timer.restart();
+        double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
         //update the treeView model
         foreach (QModelIndex index, listIndex)
@@ -5042,7 +5061,7 @@ SrecFile* MDImain::readSrecFile(SrecFile* srec)
         }
         ui->treeView->resizeColumnToContents(0);
 
-        writeOutput("action open new dataset : Srec file add to project in " + QString::number(tf-ti) + " sec.");
+        writeOutput("action open new dataset : Srec file add to project in " + QString::number(_elapsedTime,'g', 3) + " sec.");
 
         return srec;
     }
@@ -5219,7 +5238,9 @@ void MDImain::read_ValuesFromCsv()
                         settings.setValue("currentCsvPath", currentCsvPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        //double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project
                         Csv *csv = new Csv(fullCsvName, wp, hex->getModuleName());
@@ -5234,9 +5255,11 @@ void MDImain::read_ValuesFromCsv()
                             list.append(csv);
 
                             //stop timer
-                            double tf = omp_get_wtime();
+                            //double tf = omp_get_wtime();
+                            qint64 elapsedTime = timer.restart();
+                            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
-                            writeOutput("action open new CSV file : CSV file add to project in " + QString::number(tf-ti) + " sec");
+                            writeOutput("action open new CSV file : CSV file add to project in " + QString::number(_elapsedTime, 'g', 3) + " sec");
                         }
                         else
                         {
@@ -5355,7 +5378,8 @@ void MDImain::read_ValuesFromCsv()
                         settings.setValue("currentCsvPath", currentCsvPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project
                         Csv *csv = new Csv(fullCsvName, wp, srec->getModuleName());
@@ -5370,9 +5394,10 @@ void MDImain::read_ValuesFromCsv()
                             list.append(csv);
 
                             //stop timer
-                            double tf = omp_get_wtime();
+                            qint64 elapsedTime = timer.restart();
+                            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
-                            writeOutput("action open new CSV file : CSV file add to project in " + QString::number(tf-ti) + " sec");
+                            writeOutput("action open new CSV file : CSV file add to project in " + QString::number(_elapsedTime, 'g', 3) + " sec");
                         }
                         else
                         {
@@ -5514,7 +5539,8 @@ void MDImain::read_ValuesFromCdfx()
                         settings.setValue("currentCdfxPath", currentCdfxPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project
                         CdfxFile *cdfx = new CdfxFile(fullCdfxName, wp, hex->getModuleName());
@@ -5523,9 +5549,10 @@ void MDImain::read_ValuesFromCdfx()
                             list.append(cdfx);
 
                             //stop timer
-                            double tf = omp_get_wtime();
+                            qint64 elapsedTime = timer.restart();
+                            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
-                            writeOutput("read CDFX values : CDFX file read in " + QString::number(tf-ti) + " sec");
+                            writeOutput("read CDFX values : CDFX file read in " + QString::number(_elapsedTime, 'g',3) + " sec");
                         }
                         else
                         {
@@ -5642,7 +5669,8 @@ void MDImain::read_ValuesFromCdfx()
                         settings.setValue("currentCdfxPath", currentCdfxPath);
 
                         //start a timer
-                        double ti = omp_get_wtime();
+                        QElapsedTimer timer;
+                        timer.start();
 
                         //add the file to the project
                         CdfxFile *cdfx = new CdfxFile(fullCdfxName, wp, srec->getModuleName());
@@ -5651,9 +5679,10 @@ void MDImain::read_ValuesFromCdfx()
                             list.append(cdfx);
 
                             //stop timer
-                            double tf = omp_get_wtime();
+                            qint64 elapsedTime = timer.restart();
+                            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
-                            writeOutput("read CDFX values : CDFX file read in " + QString::number(tf-ti) + " sec");
+                            writeOutput("read CDFX values : CDFX file read in " + QString::number(_elapsedTime, 'g', 3) + " sec");
                         }
                         else
                         {
@@ -5863,7 +5892,8 @@ bool MDImain::save_CdfxFile(QModelIndex index)
 
 bool MDImain::save_HexFile(QModelIndex index)
 {
-    double ti = omp_get_wtime();
+    QElapsedTimer timer;
+    timer.start();
 
     if (index.row() > -1)
     {
@@ -5922,8 +5952,10 @@ bool MDImain::save_HexFile(QModelIndex index)
     //        progBar->reset();
 
 
-            double tf = omp_get_wtime();
-            writeOutput("action save dataset : performed with success in " + QString::number(tf - ti) + " s");
+            qint64 elapsedTime = timer.restart();
+            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
+
+            writeOutput("action save dataset : performed with success in " + QString::number(_elapsedTime, 'g', 3) + " s");
 
             file.close();
             return true;
@@ -5942,7 +5974,8 @@ bool MDImain::save_HexFile(QModelIndex index)
 
 bool MDImain::save_SrecFile(QModelIndex index)
 {
-    double ti = omp_get_wtime();
+    QElapsedTimer timer;
+    timer.start();
 
     if (index.row() > -1)
     {
@@ -6002,8 +6035,9 @@ bool MDImain::save_SrecFile(QModelIndex index)
 
             QApplication::restoreOverrideCursor();
 
-            double tf = omp_get_wtime();
-            writeOutput("action save dataset : performed with success in " + QString::number(tf - ti) + " s");
+            qint64 elapsedTime = timer.restart();
+            double _elapsedTime = static_cast<double>(elapsedTime)/1000;
+            writeOutput("action save dataset : performed with success in " + QString::number(_elapsedTime, 'g', 3) + " s");
 
             file.close();
             return true;
@@ -6800,7 +6834,8 @@ void MDImain::import_Subsets()
                     settings.setValue("currentCsvPath", currentCsvPath);
 
                     //start a timer
-                    double ti = omp_get_wtime();
+                    QElapsedTimer timer;
+                    timer.start();
 
                     //add the file to the project
                     Csv *csv = new Csv(fullCsvName, wp, hex->getModuleName());
@@ -6817,9 +6852,10 @@ void MDImain::import_Subsets()
                         list.insert(listName.at(0), csv);
 
                         //stop timer
-                        double tf = omp_get_wtime();
+                        qint64 elapsedTime = timer.restart();
+                        double _elapsedTime = static_cast<double>(elapsedTime)/1000;
 
-                        writeOutput("action open new CSV file : CSV file add to project in " + QString::number(tf-ti) + " sec");
+                        writeOutput("action open new CSV file : CSV file add to project in " + QString::number(_elapsedTime, 'g', 3) + " sec");
                     }
                     else
                     {
@@ -7504,21 +7540,23 @@ QString MDImain::strippedName(const QString &fullFileName)
     return QFileInfo(fullFileName).fileName();
 }
 
+
 void MDImain::on_actionCheck_for_updates_triggered()
 {
     //QUrl url("https://raw.githubusercontent.com/adhoc2/HEXplorer/master/src/update.xml");
-    //DialogHttpUpdate updater(url, true, this);
 
-    QUrl url("https://lmbweb.liebherr.i/team/WS5/Shared/OBD/Sharepoint AC41/FaultCodeTable/OBD Calibration Tool/HEXplorer_repo/Updates.xml");
-    DialogHttpUpdate updater(url, true, this);
+    QString url = "https://nexus.lmb.liebherr.i/repository/raw-pd1/HEXplorer_repo/Updates.xml";
+    //DialogHttpUpdate updater(url, true, this);
+    OnlineUpdater updater(url, this);
 
 }
 
 void MDImain::initCheckHttpUpdates()
 {
 
-   QUrl url("https://lmbweb.liebherr.i/team/WS5/Shared/OBD/Sharepoint AC41/FaultCodeTable/OBD Calibration Tool/HEXplorer_repo/Updates.xml");
-   DialogHttpUpdate updater(url, false, this);
+   QUrl url("https://nexus.lmb.liebherr.i/repository/raw-pd1/HEXplorer_repo/Updates.xml");
+   //DialogHttpUpdate updater(url, false, this);
+   OnlineUpdater updater(url, this);
 }
 
 void MDImain::expandNode(Node *node)

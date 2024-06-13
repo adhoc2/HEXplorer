@@ -24,7 +24,7 @@
 #include <QTime>
 #include <QMap>
 #include <QFileInfo>
-#include <QtConcurrent/QtConcurrent>
+#include <QtConcurrent>
 #include <QFutureWatcher>
 #include <QProgressDialog>
 #include <QTextEdit>
@@ -51,17 +51,18 @@ A2l::A2l(QString fullFileName, QObject *parent): QObject(parent),
     dbFile = 0;
     progressVal = 0;
     progBarMaxValue = 0;
-    omp_init_lock(&lockValue);
+    //omp_init_lock(&lockValue);
     is_Ok = true;
 }
 
 A2l::~A2l()
 {
     //delete a2lFile;
-    omp_destroy_lock(&lockValue);
+    //omp_destroy_lock(&lockValue);
 
     // Ensure all threads are properly finished
-    for (QThread *thread : threads) {
+    for (QThread *thread : threads)
+    {
         thread->quit();
         thread->wait();
         delete thread;
@@ -114,14 +115,13 @@ void A2l::parse()
     QString lexerType = "";
     QSettings settings(qApp->organizationName(), qApp->applicationName());
 
-    if (omp_get_num_procs() > 1 && !myDebug && settings.value("openMP") == true)
+    if (QThread::idealThreadCount() > 1 && !myDebug && settings.value("openMP") == true)
     {
         //parseOpenMPA2l();
         //multiThread = "openMP";
 
-        //int numThreads = QThread::idealThreadCount();
-        multiThread = "QThread";
         parseQThreadA2l(2);
+        multiThread = "qThread";
     }
     else
     {
@@ -147,6 +147,8 @@ void A2l::parse()
 
 }
 
+// ------------- Parser types --------------------
+
 void A2l::parseSTA2l()
 {
     //open the selected file
@@ -157,17 +159,12 @@ void A2l::parseSTA2l()
         return;
     }
 
-    QTextStream input(&file);
     QString str;
-    while (!file.atEnd()) {
+    while (!file.atEnd())
         str.append(file.readLine());
-    }
+
     qint64 size = file.size();
     file.close();
-
-    //char* buffer = new char[size];
-    //file.read(buffer, size);
-    //QString str = QString::fromLatin1(buffer);
 
     // set the maximum for the progressbar
     progBarMaxValue = size;
@@ -175,28 +172,23 @@ void A2l::parseSTA2l()
     //Start tokenizer Quex or myLex
     A2lLexer *lexer = 0;
     QStringList *errorList = 0;
-    QSettings settings(qApp->organizationName(), qApp->applicationName());
-    if (settings.value("lexer") != "Quex")
-    {
-        //save the buffer into a qtextstream  for my lexer
-        QTextStream in(&str);
 
-        //start the tokeniser myLex
-        lexer = new A2lLexer(in);
-        connect(lexer, &A2lLexer::returnedToken, this, &A2l::checkProgressStream, Qt::DirectConnection);
-        lexer->initialize();
-        errorList = new QStringList();
+    //save the buffer into a qtextstream  for my lexer
+    QTextStream in(&str);
 
-        //create an ASAP2 file Node to start parsing the complete a2l
-        A2LFILE *nodeA2l = new A2LFILE(0, lexer, errorList, fullA2lName);
-        QString filename = QFileInfo(fullA2lName).fileName();
-        nodeA2l->name = new char[filename.toLocal8Bit().length() + 1];
-        strcpy_s(nodeA2l->name, filename.toLocal8Bit().length() + 1, filename.toLocal8Bit().data());
-        a2lFile = nodeA2l;
-    }
+    //start the tokeniser myLex
+    lexer = new A2lLexer(in);
+    connect(lexer, &A2lLexer::returnedToken, this, &A2l::updateProgressOpenMp, Qt::DirectConnection);
+    lexer->initialize();
+    errorList = new QStringList();
 
-    //free memory from the char* buffer
-    //free(buffer);
+    //create an ASAP2 file Node to start parsing the complete a2l
+    A2LFILE *nodeA2l = new A2LFILE(0, lexer, errorList, fullA2lName);
+    QString filename = QFileInfo(fullA2lName).fileName();
+    nodeA2l->name = new char[filename.toLocal8Bit().length() + 1];
+    strcpy_s(nodeA2l->name, filename.toLocal8Bit().length() + 1, filename.toLocal8Bit().data());
+    a2lFile = nodeA2l;
+
 
     // show error
     if (errorList->isEmpty())
@@ -212,176 +204,178 @@ void A2l::parseSTA2l()
 
 }
 
-bool A2l::parseOpenMPA2l()
+// bool A2l::parseOpenMPA2l()
+// {
+//     QElapsedTimer time;
+//     time.start();
+
+//     //open the selected file
+//     QFile file(fullA2lName);
+//     if (!file.open(QIODevice::ReadOnly))
+//     {
+//         this->outputList.append("Cannot read file " + fullA2lName);
+//         return true;
+//     }
+
+//     QString str;
+//     while (!file.atEnd())
+//         str.append(file.readLine());
+//     qint64 size = file.size();
+//     file.close();
+
+//     //trunk a2lfile into 2 parts for multi-threading
+//     QString str1;
+//     QString str2;
+//     if (!trunkA2l(str, str1, str2))
+//     {
+//         parseSTA2l();
+//         return true;
+//     }
+
+//     // set the maximum for the progressbar
+//     progBarMaxValue = str.length();
+
+
+//     //create nodeA2l
+//     A2LFILE *nodeA2l1 = 0;
+//     A2LFILE *nodeA2l2 = 0;
+
+//     //parse in parallel
+//     omp_set_dynamic(0);
+//     omp_set_num_threads(2);
+//     double t_ref1 = 0, t_final1 = 0;
+//     double t_ref2 = 0, t_final2 = 0;
+//     QSettings settings(qApp->organizationName(), qApp->applicationName());
+
+//     #pragma omp parallel
+//       {
+//           #pragma omp sections
+//             {
+//                 //thread1
+//                 #pragma omp section
+//                 {
+//                     // start timer
+//                     t_ref1 = omp_get_wtime();
+
+//                     A2lLexer *lexer1 = 0;
+//                     QStringList *errorList1 = 0;
+
+//                     if (settings.value("lexer") != "Quex")
+//                     {
+//                         // create a new lexer
+//                         QTextStream out1(&str1);
+//                         lexer1 = new A2lLexer(out1);
+//                         //connect(lexer1, SIGNAL(returnedToken(int)), this, SLOT(checkProgressStream(int)), Qt::DirectConnection);
+//                         connect(lexer1, &A2lLexer::returnedToken, this, &A2l::updateProgressOpenMp, Qt::DirectConnection);
+//                         lexer1->initialize();
+//                         errorList1 = new QStringList();
+
+//                         // start parsing the file
+//                         nodeA2l1 = new A2LFILE(0, lexer1, errorList1, fullA2lName);
+
+//                         // change the name
+//                         nodeA2l1->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
+//                         strcpy_s(nodeA2l1->name, (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+//                     }
+
+//                     // stop timer
+//                     t_final1 = omp_get_wtime();
+//                 }
+
+//                 //thread2
+//                 #pragma omp section
+//                 {
+//                     // start timer
+//                     t_ref2 = omp_get_wtime();
+
+//                     A2lLexer *lexer2 = 0;
+//                     QStringList *errorList2 = 0;
+
+//                     if (settings.value("lexer") != "Quex")
+//                     {
+//                         // create a new lexer
+//                         QTextStream out2(&str2);
+//                         lexer2 = new A2lLexer(out2);
+// //                        connect(lexer2, SIGNAL(returnedToken(int)), this, SLOT(checkProgressStream(int)),
+// //                                Qt::DirectConnection);
+//                         lexer2->initialize();
+//                         errorList2 = new QStringList();
+
+//                         // start parsing the file
+//                         nodeA2l2 = new A2LFILE(0, lexer2, errorList2, fullA2lName);
+
+//                         // change the name
+//                         nodeA2l2->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
+//                         strcpy_s(nodeA2l2->name, (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+//                     }
+
+//                     // stop timer
+//                     t_final2 = omp_get_wtime();
+//                 }
+//             }
+//       }
+
+
+//     //display parsing errors
+//     if (nodeA2l1->errorList->isEmpty() && nodeA2l2->errorList->isEmpty())
+//     {
+//         QString num1;
+//         num1.setNum(t_final1 - t_ref1);
+//         this->outputList.append("thread 1 parsed in " + num1 + " sec");
+//         QString num2;
+//         num2.setNum(t_final2 - t_ref2);
+//         outputList.append("thread 2 parsed in " + num2 + " sec");
+//     }
+//     else
+//     {
+//         is_Ok = false;
+//         outputList.append("ASAP file parser error ...");
+//         if (!nodeA2l1->errorList->isEmpty())
+//         {
+//             outputList.append("error in thread 1:");
+//             outputList.append(*nodeA2l1->errorList);
+//         }
+//         if (!nodeA2l2->errorList->isEmpty())
+//         {
+//             outputList.append("error in thread 2:");
+//             outputList.append(*nodeA2l2->errorList);
+//         }
+
+//         QString num1;
+//         num1.setNum(t_final1 - t_ref1);
+//         outputList.append("thread 1 executed in " + num1 + " sec");
+//         QString num2;
+//         num2.setNum(t_final2 - t_ref2);
+//         outputList.append("thread 2 executed in " + num2 + " sec");
+//     }
+
+//     //merge the 2 a2lFile
+//     merge(nodeA2l2, nodeA2l1);
+//     a2lFile = nodeA2l1;
+
+//     return true;
+// }
+
+void A2l::updateProgressOpenMp(int pos)
 {
-    QElapsedTimer time;
-    time.start();
-
-    //open the selected file
-    QFile file(fullA2lName);
-    if (!file.open(QIODevice::ReadOnly))
+    if (progressVal < progBarMaxValue)
     {
-        this->outputList.append("Cannot read file " + fullA2lName);
-        return true;
-    }
+        //omp_set_lock(&lockValue);
+        progressVal += pos * 2;
 
-    QTextStream input(&file);
-    QString str;
-    while (!file.atEnd()) {
-        str.append(file.readLine());
-    }
-    qint64 size = file.size();
-    file.close();
+        double div = (double)progressVal/(double)progBarMaxValue;
 
-    qDebug() << "\n ---- A2Lfile ---- ";
-    qDebug() << "1- read " << time.elapsed();
-    time.restart();
-
-    //trunk a2lfile into 2 parts for multi-threading
-    QString str1;
-    QString str2;
-    if (!trunkA2l(str, str1, str2))
-    {
-        parseSTA2l();
-        return true;
-    }
-
-    // set the maximum for the progressbar
-    progBarMaxValue = str.length();
-
-    qDebug() << "2- trunk " << time.elapsed();
-    time.restart();
-
-    //create nodeA2l
-    A2LFILE *nodeA2l1 = 0;
-    A2LFILE *nodeA2l2 = 0;
-
-    //parse in parallel
-    omp_set_dynamic(0);
-    omp_set_num_threads(2);
-    double t_ref1 = 0, t_final1 = 0;
-    double t_ref2 = 0, t_final2 = 0;
-    QSettings settings(qApp->organizationName(), qApp->applicationName());
-
-    #pragma omp parallel
-      {
-          #pragma omp sections
-            {
-                //thread1
-                #pragma omp section
-                {
-                    // start timer
-                    t_ref1 = omp_get_wtime();
-
-                    A2lLexer *lexer1 = 0;
-                    QStringList *errorList1 = 0;
-
-                    if (settings.value("lexer") != "Quex")
-                    {
-                        // create a new lexer
-                        QTextStream out1(&str1);
-                        lexer1 = new A2lLexer(out1);
-                        //connect(lexer1, SIGNAL(returnedToken(int)), this, SLOT(checkProgressStream(int)), Qt::DirectConnection);
-                        connect(lexer1, &A2lLexer::returnedToken, this, &A2l::checkProgressStream, Qt::DirectConnection);
-                        lexer1->initialize();
-                        errorList1 = new QStringList();
-
-                        // start parsing the file
-                        nodeA2l1 = new A2LFILE(0, lexer1, errorList1, fullA2lName);
-
-                        // change the name
-                        nodeA2l1->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
-                        strcpy_s(nodeA2l1->name, (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
-                    }
-
-                    // stop timer
-                    t_final1 = omp_get_wtime();
-                }
-
-                //thread2
-                #pragma omp section
-                {
-                    // start timer
-                    t_ref2 = omp_get_wtime();
-
-                    A2lLexer *lexer2 = 0;
-                    QStringList *errorList2 = 0;
-
-                    if (settings.value("lexer") != "Quex")
-                    {
-                        // create a new lexer
-                        QTextStream out2(&str2);
-                        lexer2 = new A2lLexer(out2);
-//                        connect(lexer2, SIGNAL(returnedToken(int)), this, SLOT(checkProgressStream(int)),
-//                                Qt::DirectConnection);
-                        lexer2->initialize();
-                        errorList2 = new QStringList();
-
-                        // start parsing the file
-                        nodeA2l2 = new A2LFILE(0, lexer2, errorList2, fullA2lName);
-
-                        // change the name
-                        nodeA2l2->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
-                        strcpy_s(nodeA2l2->name, (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
-                    }
-
-                    // stop timer
-                    t_final2 = omp_get_wtime();
-                }
-            }
-      }
-
-
-    //display parsing errors
-    if (nodeA2l1->errorList->isEmpty() && nodeA2l2->errorList->isEmpty())
-    {
-        QString num1;
-        num1.setNum(t_final1 - t_ref1);
-        this->outputList.append("thread 1 parsed in " + num1 + " sec");
-        QString num2;
-        num2.setNum(t_final2 - t_ref2);
-        outputList.append("thread 2 parsed in " + num2 + " sec");
-    }
-    else
-    {
-        is_Ok = false;
-        outputList.append("ASAP file parser error ...");
-        if (!nodeA2l1->errorList->isEmpty())
+        if (div > 0.98)
         {
-            outputList.append("error in thread 1:");
-            outputList.append(*nodeA2l1->errorList);
+            emit incProgressBar(progBarMaxValue, progBarMaxValue);
         }
-        if (!nodeA2l2->errorList->isEmpty())
+        else
         {
-            outputList.append("error in thread 2:");
-            outputList.append(*nodeA2l2->errorList);
+            emit incProgressBar(progressVal, progBarMaxValue);
         }
 
-        QString num1;
-        num1.setNum(t_final1 - t_ref1);
-        outputList.append("thread 1 executed in " + num1 + " sec");
-        QString num2;
-        num2.setNum(t_final2 - t_ref2);
-        outputList.append("thread 2 executed in " + num2 + " sec");
+        //omp_unset_lock(&lockValue);
     }
-
-    qDebug() << "3- parse " << time.elapsed();
-    time.restart();
-
-    //merge the 2 a2lFile
-    merge(nodeA2l2, nodeA2l1);
-    a2lFile = nodeA2l1;
-
-    qDebug() << "4- merge " << time.elapsed();
-
-
-    //delete nodeA2l2; MEMORY LEAK !!!
-    //cannot be deleted because of the lexer and grammar
-
-    //free memory from the char* buffer
-    //delete[] buffer;
-
-    return true;
 }
 
 void A2l::parseQThreadA2l(int numThreads)
@@ -424,8 +418,6 @@ void A2l::parseQThreadA2l(int numThreads)
     listChunckA2l.append(str2);
 
     //parse in parallel
-    double t_ref1 = 0, t_final1 = 0;
-    double t_ref2 = 0, t_final2 = 0;
     QSettings settings(qApp->organizationName(), qApp->applicationName());
 
     progressDialog = new QProgressDialog();
@@ -446,7 +438,7 @@ void A2l::parseQThreadA2l(int numThreads)
         connect(this, &A2l::operate, worker, &Worker::process);
         connect(worker, &Worker::resultReady, this, &A2l::handleResults);
         connect(worker, &Worker::finished, this, &A2l::handleThreadFinished);
-        connect(worker, &Worker::progress, this, &A2l::updateProgress);
+        connect(worker, &Worker::progress, this, &A2l::updateProgressQThread);
         //connect(worker, &Worker::progress, this, &A2l::updateProgressOpenMp);
 
         workerThread->start();
@@ -464,13 +456,46 @@ void A2l::parseQThreadA2l(int numThreads)
     delete progressDialog;
     progressDialog = nullptr;
 
+    //display parsing errors
+    if (a2lFiles[0]->errorList->isEmpty() && a2lFiles[1]->errorList->isEmpty())
+    {
+        QString num1;
+        num1.setNum(static_cast<double>(elapsedTimes[0])/1000, 'g', 3);
+        this->outputList.append("thread 1 parsed in " + num1 + " sec");
+        QString num2;
+        num2.setNum(static_cast<double>(elapsedTimes[1])/1000, 'g', 3);
+        outputList.append("thread 2 parsed in " + num2 + " sec");
+    }
+    else
+    {
+        is_Ok = false;
+        outputList.append("ASAP file parser error ...");
+        if (!a2lFiles[0]->errorList->isEmpty())
+        {
+            outputList.append("error in thread 1:");
+            outputList.append(*a2lFiles[0]->errorList);
+        }
+        if (!a2lFiles[1]->errorList->isEmpty())
+        {
+            outputList.append("error in thread 2:");
+            outputList.append(*a2lFiles[1]->errorList);
+        }
+
+        QString num1;
+        num1.setNum(static_cast<double>(elapsedTimes[0])/1000, 'g', 3);
+        outputList.append("thread 1 executed in " + num1 + " sec");
+        QString num2;
+        num2.setNum(static_cast<double>(elapsedTimes[1])/1000, 'g', 3);
+        outputList.append("thread 2 executed in " + num2 + " sec");
+    }
+
     //merge the 2 chuncks a2lFile
-    a2lFile = merge(results[1], results[0]);
+    a2lFile = merge(a2lFiles[1], a2lFiles[0]);
 
     return;
 }
 
-void A2l::updateProgress(int pos)
+void A2l::updateProgressQThread(int pos)
 {
     QMutexLocker locker(&progressMutex);
     totalProgress += pos;
@@ -487,31 +512,11 @@ void A2l::updateProgress(int pos)
     }
 }
 
-void A2l::updateProgressOpenMp(int pos)
-{
-    if (progressVal < progBarMaxValue)
-    {
-        omp_set_lock(&lockValue);
-        progressVal += pos;
-
-        double div = (double)progressVal/(double)progBarMaxValue;
-
-        if (div > 0.98)
-        {
-            emit incProgressBar(progBarMaxValue, progBarMaxValue);
-        }
-        else
-        {
-            emit incProgressBar(progressVal, progBarMaxValue);
-        }
-
-        omp_unset_lock(&lockValue);
-    }
-}
-
 void A2l::handleResults(A2LFILE* a2lfile, qint64 elapsedTime, QStringList* errorList)
 {
-    results.append(a2lfile);
+    a2lFiles.append(a2lfile);
+    elapsedTimes.append(elapsedTime);
+    errorLists.append(errorList);
 }
 
 void A2l::handleThreadFinished()
@@ -528,6 +533,8 @@ void A2l::handleThreadFinished()
         emit allThreadsFinished();
     }
 }
+
+// ------------------------------------------------
 
 bool A2l::trunkA2l(QString &str, QString &str1, QString &str2)
 {
@@ -875,28 +882,6 @@ void A2l::readSubset()
                 }
             }
         }
-    }
-}
-
-void A2l::checkProgressStream(int pos)
-{
-    if (progressVal < progBarMaxValue)
-    {
-        omp_set_lock(&lockValue);
-        progressVal += pos * 2;
-
-        double div = (double)progressVal/(double)progBarMaxValue;
-
-        if (div > 0.98)
-        {
-            emit incProgressBar(progBarMaxValue, progBarMaxValue);
-        }
-        else
-        {
-             emit incProgressBar(progressVal, progBarMaxValue);
-        }
-
-        omp_unset_lock(&lockValue);
     }
 }
 

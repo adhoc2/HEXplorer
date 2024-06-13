@@ -18,8 +18,6 @@
 // please contact the author at : christophe.hoel@gmail.com
 
 #include "hexfile.h"
-
-#include <omp.h>
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
@@ -75,7 +73,7 @@ HexFile::HexFile(QString fullHexFileName, WorkProject *parentWP, QString module,
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
-    omp_init_lock(&lock);
+    //omp_init_lock(&lock);
 
     //fill-in conversion table asciitoByte
     for(int i = 0; i < 16; i++)
@@ -197,7 +195,7 @@ HexFile::HexFile(QString fullHexFileName, WorkProject *parentWP, QObject *parent
     //a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
-    omp_init_lock(&lock);
+    //omp_init_lock(&lock);
 
     //fill-in conversion table asciitoByte
     for(int i = 0; i < 16; i++)
@@ -215,7 +213,7 @@ HexFile::HexFile(QString fullHexFileName, WorkProject *parentWP, QObject *parent
 
 HexFile::~HexFile()
 {
-    omp_destroy_lock(&lock);
+    //omp_destroy_lock(&lock);
     qDeleteAll(blockList);
     delete[] name;
 }
@@ -2139,14 +2137,14 @@ void HexFile::incrementValueProgBar(int n)
 
     if (valueProgBar < maxValueProgbar)
     {
-        omp_set_lock(&lock);
+        //omp_set_lock(&lock);
 
         if (valueProgBar / maxValueProgbar < 0.98)
             emit progress(valueProgBar, maxValueProgbar);
         else
             emit progress(maxValueProgbar, maxValueProgbar);
 
-        omp_unset_lock(&lock);
+        //omp_unset_lock(&lock);
     }
 
 }

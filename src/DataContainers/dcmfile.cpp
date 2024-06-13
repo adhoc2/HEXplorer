@@ -53,7 +53,7 @@ Dcm::Dcm(QString fullDcmFileName, WorkProject *parentWP, QString modName, QObjec
     strcpy_s(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
     maxValueProgbar = 0;
     valueProgBar = 0;
-    omp_init_lock(&lock);
+    //omp_init_lock(&lock);
 
     //get the byte_order
     MOD_COMMON *modCommon = (MOD_COMMON*)a2lProject->getNode("MODULE/" + getModuleName() + "/MOD_COMMON");
@@ -128,7 +128,7 @@ Dcm::Dcm(QString fullDcmFileName, WorkProject *parentWP, QString modName, QObjec
 
 Dcm::~Dcm()
 {
-    omp_destroy_lock(&lock);
+    //omp_destroy_lock(&lock);
     delete[] name;
 }
 
@@ -1925,12 +1925,12 @@ std::string Dcm::pixmap()
 
 void Dcm::checkProgressStream(int n)
 {
-    omp_set_lock(&lock);
+    //omp_set_lock(&lock);
 
     valueProgBar += n;
     emit incProgressBar(valueProgBar, maxValueProgbar);
 
-    omp_unset_lock(&lock);
+    //omp_unset_lock(&lock);
 
 }
 

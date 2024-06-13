@@ -31,7 +31,7 @@
 #include "sptablemodel.h"
 #include <typeinfo>
 #include "mdimain.h"
-#include "omp.h"
+//#include "omp.h"
 #include "data.h"
 #include "comparemodel.h"
 #include "a2ltreemodel.h"
@@ -691,8 +691,8 @@ void FormCompare::checkDroppedFile_2(QString str)
 void FormCompare::on_compare_clicked()
 {
     // start timer
-    double t_ref1 = 0, t_final1 = 0;
-    t_ref1= omp_get_wtime();
+    QElapsedTimer timer;
+    timer.start();
 
     //define SOURCE / TARGET
     if (ui->lineEdit->text().isEmpty() || ui->lineEdit_2->text().isEmpty())
@@ -823,386 +823,189 @@ void FormCompare::on_compare_clicked()
     labelNotFoundInHex1.append("[Label]");
     QStringList labelNotFoundInHex2;
     labelNotFoundInHex2.append("[Label]");
-    if (omp_get_num_procs() > 1 )
+
+    if (hex1)
     {
-        omp_set_num_threads(2);
-        #pragma omp parallel
+        foreach (QString str, charList)
         {
-           #pragma omp sections
+            Data *data = hex1->getData(str);
+            if (data)
             {
-               #pragma omp section
-                {
-                    if (hex1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = hex1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(hex1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else if (srec1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = srec1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(srec1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else if (csv1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = csv1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(csv1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else if (dcm1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = dcm1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(dcm1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = cdfx1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(cdfx1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                }
-               #pragma omp section
-                {
-                    if (hex2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = hex2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(hex2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else if (srec2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = srec2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(srec2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else if (csv2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = csv2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(csv2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else if (dcm2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = dcm2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(dcm2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = cdfx2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(cdfx2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                }
+                list1->append(data);
+            }
+            else
+            {
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(hex1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
+            }
+        }
+    }
+    else if (srec1)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = srec1->getData(str);
+            if (data)
+            {
+                list1->append(data);
+            }
+            else
+            {
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(srec1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
+            }
+        }
+    }
+    else if (csv1)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = csv1->getData(str);
+            if (data)
+            {
+                list1->append(data);
+            }
+            else
+            {
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(csv1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
+            }
+        }
+    }
+    else if (dcm1)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = dcm1->getData(str);
+            if (data)
+            {
+                list1->append(data);
+            }
+            else
+            {
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(dcm1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
             }
         }
     }
     else
     {
-        if (hex1)
+        foreach (QString str, charList)
         {
-            foreach (QString str, charList)
+            Data *data = cdfx1->getData(str);
+            if (data)
             {
-                Data *data = hex1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(hex1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
+                list1->append(data);
             }
-        }
-        else if (srec1)
-        {
-            foreach (QString str, charList)
+            else
             {
-                Data *data = srec1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(srec1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
-            }
-        }
-        else if (csv1)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = csv1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(csv1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
-            }
-        }
-        else if (dcm1)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = dcm1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(dcm1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
-            }
-        }
-        else
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = cdfx1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(cdfx1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
-            }
-        }
-
-        if (hex2)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = hex2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(hex2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
-            }
-        }
-        else if (srec2)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = srec2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(srec2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
-            }
-        }
-        else if (csv2)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = csv2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(csv2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
-            }
-        }
-        else if (dcm2)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = dcm2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(dcm2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
-            }
-        }
-        else
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = cdfx2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(cdfx2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(cdfx1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
             }
         }
     }
+
+    if (hex2)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = hex2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(hex2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+    else if (srec2)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = srec2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(srec2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+    else if (csv2)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = csv2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(csv2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+    else if (dcm2)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = dcm2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(dcm2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+    else
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = cdfx2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(cdfx2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+
 
     //compare the read values (list1 <> list2)
     QList<Data*> *listCompareSrc = NULL;
@@ -1372,7 +1175,7 @@ void FormCompare::on_compare_clicked()
         {
             step = 0;
             ui->progressBar->setValue(ui->progressBar->value() + stepMax);
-            qApp->processEvents();
+            //qApp->processEvents();
         }
     }
 
@@ -1401,9 +1204,11 @@ void FormCompare::on_compare_clicked()
     ui->tableView->setColumnWidth(0, 200);
 
     // stop timer
-    t_final1 = omp_get_wtime();
+    qint64 elapsedTime = timer.restart();
+    double _elapsedTime = static_cast<double>(elapsedTime)/1000;
+
     QString num1;
-    num1.setNum(t_final1 - t_ref1);
+    num1.setNum(_elapsedTime, 'g', 3);
 
     //delete previous diffLabels
     if (diffModel)
@@ -1790,8 +1595,8 @@ void FormCompare::on_copy_clicked()
     }
 
     // start timer
-    double t_ref1 = 0, t_final1 = 0;
-    t_ref1= omp_get_wtime();
+    QElapsedTimer timer;
+    timer.start();
 
     //define SOURCE / TARGET
     if (ui->lineEdit->text().isEmpty() || ui->lineEdit_2->text().isEmpty())
@@ -1922,205 +1727,8 @@ void FormCompare::on_copy_clicked()
     labelNotFoundInHex1.append("[Label]");
     QStringList labelNotFoundInHex2;
     labelNotFoundInHex2.append("[Label]");
-    if (omp_get_num_procs() > 1 )
-    {
-        omp_set_num_threads(2);
-        #pragma omp parallel
-        {
-           #pragma omp sections
-            {
-               #pragma omp section
-                {
-                    if (hex1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = hex1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(hex1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else if (srec1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = srec1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(srec1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else if (csv1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = csv1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(csv1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else if (dcm1)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = dcm1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(dcm1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = cdfx1->getData(str);
-                            if (data)
-                            {
-                                list1->append(data);
-                            }
-                            else
-                            {
-                                outList1.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(cdfx1->name));
-                                notFound = true;
-                                labelNotFoundInHex1.append(str);
-                            }
-                        }
-                    }
-                }
-               #pragma omp section
-                {
-                    if (hex2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = hex2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(hex2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else if (srec2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = srec2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(srec2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else if (csv2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = csv2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(csv2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else if (dcm2)
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = dcm2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(dcm2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        foreach (QString str, charList)
-                        {
-                            Data *data = cdfx2->getData(str);
-                            if (data)
-                            {
-                                list2->append(data);
-                            }
-                            else
-                            {
-                                outList2.append("Action compare : " + str + " not an adjustable into "
-                                               + QString(cdfx2->name));
-                                notFound = true;
-                                labelNotFoundInHex2.append(str);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    else
-    {
-        if (hex1)
+
+    if (hex1)
         {
             foreach (QString str, charList)
             {
@@ -2138,134 +1746,134 @@ void FormCompare::on_copy_clicked()
                 }
             }
         }
-        else if (srec1)
+    else if (srec1)
+    {
+        foreach (QString str, charList)
         {
-            foreach (QString str, charList)
+            Data *data = srec1->getData(str);
+            if (data)
             {
-                Data *data = srec1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(srec1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
+                list1->append(data);
             }
-        }
-        else if (csv1)
-        {
-            foreach (QString str, charList)
+            else
             {
-                Data *data = csv1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(csv1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
-            }
-        }
-        else
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = cdfx1->getData(str);
-                if (data)
-                {
-                    list1->append(data);
-                }
-                else
-                {
-                    outList1.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(cdfx1->name));
-                    notFound = true;
-                    labelNotFoundInHex1.append(str);
-                }
-            }
-        }
-
-        if (hex2)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = hex2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(hex2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
-            }
-        }
-        else if (srec2)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = srec2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(srec2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
-            }
-        }
-        else if (csv2)
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = csv2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(csv2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
-            }
-        }
-        else
-        {
-            foreach (QString str, charList)
-            {
-                Data *data = cdfx2->getData(str);
-                if (data)
-                {
-                    list2->append(data);
-                }
-                else
-                {
-                    outList2.append("Action compare : " + str + " not an adjustable into "
-                                   + QString(cdfx2->name));
-                    notFound = true;
-                    labelNotFoundInHex2.append(str);
-                }
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(srec1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
             }
         }
     }
+    else if (csv1)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = csv1->getData(str);
+            if (data)
+            {
+                list1->append(data);
+            }
+            else
+            {
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(csv1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
+            }
+        }
+    }
+    else
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = cdfx1->getData(str);
+            if (data)
+            {
+                list1->append(data);
+            }
+            else
+            {
+                outList1.append("Action compare : " + str + " not an adjustable into "
+                               + QString(cdfx1->name));
+                notFound = true;
+                labelNotFoundInHex1.append(str);
+            }
+        }
+    }
+
+    if (hex2)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = hex2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(hex2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+    else if (srec2)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = srec2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(srec2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+    else if (csv2)
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = csv2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(csv2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+    else
+    {
+        foreach (QString str, charList)
+        {
+            Data *data = cdfx2->getData(str);
+            if (data)
+            {
+                list2->append(data);
+            }
+            else
+            {
+                outList2.append("Action compare : " + str + " not an adjustable into "
+                               + QString(cdfx2->name));
+                notFound = true;
+                labelNotFoundInHex2.append(str);
+            }
+        }
+    }
+
 
     //choose the listSrc and listTrg
     QList<Data*> *listCopySrc = NULL;
@@ -2436,7 +2044,7 @@ void FormCompare::on_copy_clicked()
         {
             step = 0;
             ui->progressBar->setValue(ui->progressBar->value() + stepMax);
-            qApp->processEvents();
+            //qApp->processEvents();
         }
     }
 
@@ -2476,9 +2084,11 @@ void FormCompare::on_copy_clicked()
     ui->tableView->setColumnWidth(0, 200);
 
     // stop timer
-    t_final1 = omp_get_wtime();
+    qint64 elapsedTime = timer.restart();
+    double _elapsedTime = static_cast<double>(elapsedTime)/1000;
+
     QString num1;
-    num1.setNum(t_final1 - t_ref1);
+    num1.setNum(_elapsedTime, 'g', 3);
 
     //delete previous diffLabels
     if (diffModel)

@@ -2,8 +2,8 @@
 <Package>
     <DisplayName>HEXplorer</DisplayName>
     <Description>HEXplorer App</Description>
-    <Version>1.0.6</Version>
-    <ReleaseDate>2024-06-09</ReleaseDate>
+    <Version>1.0.7</Version>
+    <ReleaseDate>2024-06-12</ReleaseDate>
     <Licenses>
         <License name="GNU Public License Agreement" file="GNU_license.txt" />
     </Licenses>

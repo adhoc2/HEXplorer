@@ -19,7 +19,7 @@
 
 #include "srecfile.h"
 
-#include <omp.h>
+//#include <omp.h>
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
@@ -69,7 +69,7 @@ SrecFile::SrecFile(QString fullSrecFileName, WorkProject *parentWP, QString modu
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
-    omp_init_lock(&lock);
+    //omp_init_lock(&lock);
 
     for(int i = 0; i < 16; i++)
     {
@@ -190,7 +190,7 @@ SrecFile::SrecFile(QString fullSrecFileName, WorkProject *parentWP, QObject *par
     //a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
-    omp_init_lock(&lock);
+    //omp_init_lock(&lock);
 
     for(int i = 0; i < 16; i++)
     {
@@ -208,7 +208,7 @@ SrecFile::SrecFile(QString fullSrecFileName, WorkProject *parentWP, QObject *par
 
 SrecFile::~SrecFile()
 {
-    omp_destroy_lock(&lock);
+    //omp_destroy_lock(&lock);
     qDeleteAll(blockList);
     delete[] name;
 }
@@ -508,7 +508,7 @@ void SrecFile:: readAllData()
     if (0)
     {
         int length = module->listChar.count();
-        if (length > 10000 && omp_get_num_procs() > 1)
+        if (length > 10000 && QThread::idealThreadCount() > 1)
         {
             // split listChar into 2 lists
             int middle = 0;
@@ -548,7 +548,7 @@ void SrecFile:: readAllData()
     if (0)
     {
         int length = module->listChar.count();
-        if (length > 10000 && omp_get_num_procs() > 1)
+        if (length > 10000 && QThread::idealThreadCount() > 1)
         {
             // split nodeChar into 2 lists
             int middleChar = 0;

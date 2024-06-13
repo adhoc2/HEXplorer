@@ -22,7 +22,7 @@
 
 #include <string>
 #include <QStringList>
-#include <omp.h>
+//#include <omp.h>
 #include "node.h"
 #include "datacontainer.h"
 class WorkProject;
@@ -99,7 +99,7 @@ class HexFile : public QObject, public DataContainer
 
         // members
         bool _read;
-        omp_lock_t lock;
+        //omp_lock_t lock;
         int fileLinesNum;
         int maxValueProgbar;
         int valueProgBar;

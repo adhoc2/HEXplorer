@@ -48,7 +48,7 @@ public slots:
     void detach(QObject*o);
 
 private:
-    omp_lock_t lock;
+    //omp_lock_t lock;
     int maxValueProgbar;
     int valueProgBar;
     QList<QObject*> owners;

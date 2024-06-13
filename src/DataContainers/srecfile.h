@@ -22,7 +22,7 @@
 
 #include <string>
 #include <QStringList>
-#include <omp.h>
+//#include <omp.h>
 #include "node.h"
 #include "datacontainer.h"
 #include <QReadWriteLock>
@@ -91,7 +91,7 @@ class SrecFile : public QObject, public DataContainer
 
         //members
         bool _read;
-        omp_lock_t lock;
+        //omp_lock_t lock;
         QReadWriteLock rwLock;
         int fileLinesNum;
         int maxValueProgbar;
