@@ -12,7 +12,7 @@ class OnlineUpdater : public QObject
     Q_OBJECT
 
 public:
-    OnlineUpdater(const QUrl &url, QWidget *mainApp);
+    OnlineUpdater(const QUrl &url, QWidget *mainApp,  bool display);
 
 private:
     bool displayUptoDate;

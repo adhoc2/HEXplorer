@@ -11,5 +11,5 @@ install/
 *.exe
 *.7z
 *.sha1
-*.crt
+cert/
 *.user.*

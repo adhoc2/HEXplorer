@@ -16,10 +16,12 @@
 #include <QXmlStreamReader>
 #include <QDomDocument>
 
-OnlineUpdater::OnlineUpdater(const QUrl &url, QWidget *mainApp)
+OnlineUpdater::OnlineUpdater(const QUrl &url, QWidget *mainApp, bool display)
 {
     mdiMain = (MDImain*)mainApp;
+    this->displayUptoDate = display;
     fetchXmlFile(url);
+
 }
 
 void OnlineUpdater::parseXml(const QByteArray &xmlData)
@@ -86,7 +88,7 @@ void OnlineUpdater::parseXml(const QByteArray &xmlData)
                                      QMessageBox::Ok);
         }
     }
-    else
+    else if (update)
     {
         QMessageBox msgBox;
         msgBox.setIconPixmap(QPixmap(":/icones/updates.png").scaled(80,80));
@@ -109,6 +111,7 @@ void OnlineUpdater::parseXml(const QByteArray &xmlData)
                 myProcess->startDetached(QApplication::applicationFilePath(), QStringList());
                 mdiMain->close();
             }
+            return;
         }
         else
             return;

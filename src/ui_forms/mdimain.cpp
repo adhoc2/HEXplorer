@@ -1829,8 +1829,9 @@ void MDImain::openProject(QString &fullFileName)
     progBar->reset();
 
     //update the ui->treeView
-    wp->addA2lnode(wp->a2lFile->getProject(), wp);
     model->addNode2RootNode(wp);
+    wp->addA2lnode(wp->a2lFile->getProject(), wp);
+
     if (ui->treeView->model() != model)
         ui->treeView->setModel(model);
     ui->treeView->setColumnHidden(1, true);
@@ -7543,11 +7544,8 @@ QString MDImain::strippedName(const QString &fullFileName)
 
 void MDImain::on_actionCheck_for_updates_triggered()
 {
-    //QUrl url("https://raw.githubusercontent.com/adhoc2/HEXplorer/master/src/update.xml");
-
     QString url = "https://nexus.lmb.liebherr.i/repository/raw-pd1/HEXplorer_repo/Updates.xml";
-    //DialogHttpUpdate updater(url, true, this);
-    OnlineUpdater updater(url, this);
+    OnlineUpdater updater(url, this, true);
 
 }
 
@@ -7555,8 +7553,7 @@ void MDImain::initCheckHttpUpdates()
 {
 
    QUrl url("https://nexus.lmb.liebherr.i/repository/raw-pd1/HEXplorer_repo/Updates.xml");
-   //DialogHttpUpdate updater(url, false, this);
-   OnlineUpdater updater(url, this);
+   OnlineUpdater updater(url, this, false);
 }
 
 void MDImain::expandNode(Node *node)
