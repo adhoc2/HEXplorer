@@ -5,7 +5,7 @@ import getpass
 
 # Définir les variables
 repo_url = "https://nexus.lmb.liebherr.i/repository/raw-pd1/HEXplorer_repo" 
-directory_path = "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt6_github/installer/repository" 
+directory_path = "C:/Users/lmbhoc2/Documents/Code/HEXplorer/HEXplorer_qt6/installer/repository" 
 
 # Prompt for username and password
 username = input("Enter your Nexus username: ")

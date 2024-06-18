@@ -244,8 +244,9 @@ bool SrecFile::parseFile()
 
     // open file in binary format
     FILE *fid = nullptr;
-    errno_t err = fopen_s(&fid, fullSrecName.toLocal8Bit(), "rb");
+    //errno_t err = fopen_s(&fid, fullSrecName.toLocal8Bit(), "rb");
 
+    fopen_s(&fid, fullSrecName.toLocal8Bit(), "rb");
     if (fid == nullptr)
     {
         return false;
@@ -1543,7 +1544,7 @@ QStringList SrecFile::writeBlock2HexLines()
     else
     {
         QStringList list;
-        // return list;
+        return list;
     }
 }
 

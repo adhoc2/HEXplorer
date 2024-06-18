@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>HEXplorer</Name>
-    <Version>1.0.9</Version>
+    <Version>1.0.10</Version>
     <Title>HEXplorer</Title>
     <Publisher>Ch.HOEL</Publisher>
     <StartMenuDir>HEXplorer</StartMenuDir>
