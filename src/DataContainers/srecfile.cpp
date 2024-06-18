@@ -1543,7 +1543,7 @@ QStringList SrecFile::writeBlock2HexLines()
     else
     {
         QStringList list;
-        return list;
+        // return list;
     }
 }
 

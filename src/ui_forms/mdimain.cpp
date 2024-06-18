@@ -162,8 +162,8 @@ MDImain::MDImain(QWidget *parent) : QMainWindow(parent), ui(new Ui::MDImain)
         emit checkUpdates();
 
     //create settings variables for multi_thread and lexer type
-    if (!settings.contains("openMP"))
-        settings.setValue("openMP", 1);
+    if (!settings.contains("qThread"))
+        settings.setValue("qThread", 1);
     if (!settings.contains("lexer"))
         settings.setValue("lexer", "mylexer");
     settings.setValue("lexer", "mylexer");
@@ -5992,8 +5992,8 @@ bool MDImain::save_SrecFile(QModelIndex index)
         if (ret == QMessageBox::Yes)
         {
             // display status bar
-            statusBar()->show();
-            progBar->reset();
+            //statusBar()->show();
+            //progBar->reset();
 
             // write all
             QStringList list = srec->writeBlock2HexLines();
@@ -6022,21 +6022,21 @@ bool MDImain::save_SrecFile(QModelIndex index)
 
             // write into file
             QTextStream out(&file);
-            int i = progBar->value();
-            int max = progBar->maximum();
+            //int i = progBar->value();
+            //int max = progBar->maximum();
             QString str = list.join("\r\n");
-            //out << str << "\r\n";
+            out << str << "\r\n";
 
-            foreach (QString str, list)
-            {
-                //out << str << "\r\n";
-                i++;
-                setValueProgressBar(i, max);
-            }
+            // foreach (QString str, list)
+            // {
+            //     out << str << "\r\n";
+            //     i++;
+            //     setValueProgressBar(i, max);
+            // }
 
             // hide the statusbar
-            statusBar()->hide();
-            progBar->reset();
+            //statusBar()->hide();
+            //progBar->reset();
 
             QApplication::restoreOverrideCursor();
 
@@ -6167,7 +6167,7 @@ void MDImain::saveAs_SrecFile(QModelIndex index)
     QModelIndex newIndex = on_actionDuplicate_DataContainer_triggered(fileName);
 
     //save the dataset changes on disk file
-    save_SrecFile(newIndex);
+    //save_SrecFile(newIndex);
 
     //remove the changed labels from org Srec
     orgSrec->resetAllModifiedData();

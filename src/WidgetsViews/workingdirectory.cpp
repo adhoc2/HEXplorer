@@ -175,6 +175,18 @@ void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
 
                    fileWatcher.addPath(file.absoluteFilePath());
                }
+               else if (file.suffix().toLower() == "s32")
+               {
+                   SrecFile* srec = new SrecFile(file.absoluteFilePath(), wp);
+                   if (subDir)
+                   {
+                       wp->addSrec(srec, subDir);
+                   }
+                   else
+                       wp->addSrec(srec, wp);
+
+                   fileWatcher.addPath(file.absoluteFilePath());
+               }
                else if (file.suffix().toLower() == "s37")
                {
                    SrecFile* srec = new SrecFile(file.absoluteFilePath(), wp);

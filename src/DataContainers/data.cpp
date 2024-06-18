@@ -265,54 +265,55 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, HexFile *hexFile, bool modif) : Q
 
 
             //read each element of X_RECORD_LAYOUT
-            bool bl;
             int offset = 0;
-            foreach (Item *item, record_layout->optItems)
+            bool bl;
+            Item* no_axis_pts = record_layout->getItem("NO_AXIS_PTS_X");
+            if (no_axis_pts)
             {
-                QString type = item->name;
+                std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
+                int nbyte = hexParent->getNumByte(datatype);
+                QString val = hexParent->getHexValue(axisPtsX->getPar("Adress"), offset, nbyte, byteOrderX);
+                bool bl;
+                nPtsAxisX = val.toInt(&bl,16);
+                offset += nbyte;
 
-                if (type == "SRC_ADDR_X")
-                {
-                    std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-
-                    //if ALIGNMENT is explicit into RECORD_LAYOUT
-
-                    //else use ALIGNMENT into MOD_COMMON
-                    offset += hexParent->getNumByte(datatype);
-                }
-                else if (type == "NO_AXIS_PTS_X")
-                {
-                    std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
-                    int nbyte = hexParent->getNumByte(datatype);
-                    QString val = hexParent->getHexValue(axisPtsX->getPar("Adress"), offset, nbyte, byteOrderX);
-                    bool bl;
-                    nPtsAxisX = val.toInt(&bl,16);
-                    offset += nbyte;
-
-                    //check if nPts < nPtsmax
-                    if (nPtsAxisX > nPtsAxisX_Max)
-                        nPtsAxisX = nPtsAxisX_Max;
-                }
-                else if (type == "AXIS_PTS_X")
-                {
-                    //read the necessary parameters before reading values into HexFile
-                    datatypeX = ((AXIS_PTS_X*)item)->getPar("Datatype");
-                    int Xnbyte = hexParent->getNumByte(datatypeX);
-                    addressX = QString(axisPtsX->getPar("Adress")).toUInt(&bl, 16) + offset;
-
-                    //read values into HexFile
-                    if (nPtsAxisX == 0)
-                        nPtsAxisX = nPtsAxisX_Max;
-                    QList<double> decX = hexParent->getDecValues(addressX, Xnbyte, nPtsAxisX, datatypeX, byteOrderX);
-
-                    //convert the dec values into phys values
-                    listX = dec2Phys(decX, "x");
-
-                    //increment offset of the axisX length
-                    offset +=  nPtsAxisX * Xnbyte;
-                }
+                //check if nPts < nPtsmax
+                if (nPtsAxisX > nPtsAxisX_Max)
+                    nPtsAxisX = nPtsAxisX_Max;
             }
 
+            Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+            if (type == "SRC_ADDR_X")
+            {
+                std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+                offset += hexParent->getNumByte(datatype);
+            }
+
+            // Get the AXIS_PTS_X if in record_layout
+            Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+            if (axis_pts_x)
+            {
+                //read the necessary parameters before reading values into HexFile
+                datatypeX = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
+                int Xnbyte = hexParent->getNumByte(datatypeX);
+                addressX = QString(axisPtsX->getPar("Adress")).toUInt(&bl, 16) + offset;
+
+                //read values into HexFile
+                if (nPtsAxisX == 0)
+                    nPtsAxisX = nPtsAxisX_Max;
+                QList<double> decX = hexParent->getDecValues(addressX, Xnbyte, nPtsAxisX, datatypeX, byteOrderX);
+
+                //convert the dec values into phys values
+                listX = dec2Phys(decX, "x");
+
+                //increment offset of the axisX length
+                //offset +=  nPtsAxisX * Xnbyte;
+            }
+            else
+            {
+                isComplete = false;
+                return;
+            }
         }
         else if (typeAxisX.compare("FIX_AXIS") == 0)
         {
@@ -470,49 +471,55 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, HexFile *hexFile, bool modif) : Q
             RECORD_LAYOUT *record_layout = (RECORD_LAYOUT*)hexFile->record_layout->getNode(deposit);
 
             //read each element of X_RECORD_LAYOUT
-            bool bl;
             int offset = 0;
-            foreach (Item *item, record_layout->optItems)
+            bool bl;
+            Item* no_axis_pts_x = record_layout->getItem("NO_AXIS_PTS_X");
+            if (no_axis_pts_x)
             {
-                QString type = item->name;
+                std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
+                int nbyte = hexParent->getNumByte(datatype);
+                QString val = hexParent->getHexValue(axisPtsY->getPar("Adress"), offset, nbyte, byteOrderY);
+                bool bl;
+                nPtsAxisY = val.toInt(&bl,16);
+                offset += nbyte;
 
-                if (type == "SRC_ADDR_X")
-                {
-                    std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-                    offset += hexParent->getNumByte(datatype);
-                }
-                else if (type == "NO_AXIS_PTS_X")
-                {
-                    std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
-                    int nbyte = hexParent->getNumByte(datatype);
-                    QString val = hexParent->getHexValue(axisPtsY->getPar("Adress"), offset, nbyte, byteOrderY);
-                    bool bl;
-                    nPtsAxisY = val.toInt(&bl,16);
-                    offset += nbyte;
+                //check if nPts < nPtsmax
+                if (nPtsAxisY > nPtsAxisY_Max)
+                    nPtsAxisY = nPtsAxisY_Max;
+            }
 
-                    //check if nPts < nPtsmax
-                    if (nPtsAxisY > nPtsAxisY_Max)
-                        nPtsAxisY = nPtsAxisY_Max;
-                }
-                else if (type == "AXIS_PTS_X")
-                {
-                    //read the necessary parameters before reading values into HexFile
-                    datatypeY = ((AXIS_PTS_X*)item)->getPar("Datatype");
-                    int Ynbyte = hexParent->getNumByte(datatypeY);
-                    addressY = QString(axisPtsY->getPar("Adress")).toUInt(&bl, 16) + offset;
+            Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+            if (src_addr_x)
+            {
+                std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+                offset += hexParent->getNumByte(datatype);
+            }
 
-                    //read values into HexFile
-                    // get nPtsY if "NO_AXIS_PTS_X" is not specified
-                    if (nPtsAxisY == 0) // done in case "NO_AXIS_PTS_X" is not specified => use "MaxAxisPoints"
-                        nPtsAxisY = nPtsAxisY_Max;
-                    QList<double> decY = hexParent->getDecValues(addressY, Ynbyte, nPtsAxisY, datatypeY, byteOrderY);
+            Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+            if (axis_pts_x)
+            {
+                //read the necessary parameters before reading values into HexFile
+                datatypeY = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
+                int Ynbyte = hexParent->getNumByte(datatypeY);
+                addressY = QString(axisPtsY->getPar("Adress")).toUInt(&bl, 16) + offset;
 
-                    //convert the dec values into phys values
-                    listY = dec2Phys(decY, "y");
+                // get nPtsY if "NO_AXIS_PTS_X" is not specified
+                if (nPtsAxisY == 0) // done in case "NO_AXIS_PTS_X" is not specified => use "MaxAxisPoints"
+                    nPtsAxisY = nPtsAxisY_Max;
 
-                    //increment offset of the axisX length
-                    offset +=  nPtsAxisY * Ynbyte;
-                }
+                //read values into HexFile
+                QList<double> decY = hexParent->getDecValues(addressY, Ynbyte, nPtsAxisY, datatypeY, byteOrderY);
+
+                //convert the dec values into phys values
+                listY = dec2Phys(decY, "y");
+
+                //increment offset of the axisX length
+                offset +=  nPtsAxisY * Ynbyte;
+            }
+            else
+            {
+                isComplete = false;
+                return;
             }
 
         }
@@ -669,86 +676,39 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, HexFile *hexFile, bool modif) : Q
     //read each element of Z_RECORD_LAYOUT
     bool bl;
     int offset = 0;
-    foreach (Item *item, record_layout->optItems)
+
+    // check if NO_AXIS_PTS_X is present in record_layout
+    Item* no_axis_pts_x = record_layout->getItem("NO_AXIS_PTS_X");
+    if (no_axis_pts_x)
     {
-        QString type = item->name;
+        std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
+        int nbyte = hexParent->getNumByte(datatype);
 
-        if (type.compare("FNC_VALUES") == 0)
+        double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
+        nPtsZvaluesX = hexParent->getDecValues(address, nbyte, 1, datatype, byteOrderX).at(0);
+        xOrgSize = nPtsZvaluesX;
+        offset += nbyte;
+
+        // Get NO_AXIS_PTS_Y if present in record_layout
+        Item* no_axis_pts_y = record_layout->getItem("NO_AXIS_PTS_Y");
+        if (no_axis_pts_y)
         {
-            //dataType
-            datatypeZ = ((FNC_VALUES*)item)->getPar("Datatype");
-
-            //column or row Dir
-            QString zDir = ((FNC_VALUES*)item)->getPar("IndexMode");
-            if (zDir.compare("COLUMN_DIR") == 0)
-            {
-                isSortedByRow = 0;
-            }
-            else
-            {
-                    isSortedByRow = 1;
-            }
-
-            //get the decimal data from hexFile
-            if (nPtsAxisX  == 0)
-                nPtsAxisX = 1;
-            if (nPtsAxisY  == 0)
-                nPtsAxisY = 1;
-            int Znbyte = hexParent->getNumByte(datatypeZ);
-            bool bl;
-            addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
-            QList<double> decZ = hexParent->getDecValues(addressZ, Znbyte, nPtsAxisX * nPtsAxisY, datatypeZ, byteOrderZ);
-
-            //BIT_MASK
-            BIT_MASK *_bitmask = (BIT_MASK*)node->getItem("BIT_MASK");
-            if (_bitmask)
-            {
-                uint32_t mask = QString(_bitmask->getPar("Mask")).toUInt(&bl, 16);
-                for (int i = 0; i < decZ.count(); i++ )
-                {
-                    uint32_t _result = (uint32_t)decZ.at(i) & mask;
-                    int32_t _decalage =  tzn(mask);
-                    _result = _result >> _decalage;
-                    decZ[i] = _result;
-                }
-            }
-
-            //dec2phys
-            listZ = dec2Phys(decZ, "z");
-
-        }
-        else if (type.compare("SRC_ADDR_X") == 0)
-        {
-            std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-            offset += hexParent->getNumByte(datatype);
-        }
-        else if (type.compare("SRC_ADDR_Y") == 0)
-        {
-            std::string datatype = ((SRC_ADDR_Y*)item)->getPar("Datatype");
-            offset += hexParent->getNumByte(datatype);
-        }
-        else if (type.compare("NO_AXIS_PTS_X") == 0)
-        {
-            std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
+            std::string datatype = ((NO_AXIS_PTS_Y*)no_axis_pts_y)->getPar("Datatype");
             int nbyte = hexParent->getNumByte(datatype);
-            double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
-            nPtsZvaluesX = hexParent->getDecValues(address, nbyte, 1, datatype, byteOrderX).at(0);
-            offset += nbyte;
-            xOrgSize = nPtsZvaluesX;
-        }
-        else if (type.compare("NO_AXIS_PTS_Y") == 0)
-        {
-            std::string datatype = ((NO_AXIS_PTS_Y*)item)->getPar("Datatype");
-            int nbyte = hexParent->getNumByte(datatype);
+
             double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
             nPtsZvaluesY = hexParent->getDecValues(address, nbyte, 1, datatype, byteOrderY).at(0);
-            offset += nbyte;
             yOrgSize = nPtsZvaluesY;
+            offset += nbyte;
         }
-        else if (type.compare("AXIS_PTS_X") == 0)
+
+
+        // Get AXIS_PTS_X  if in record_layout
+        Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+        if (axis_pts_x)
         {
             //read the necessary parameters before reading values into HexFile
-            datatypeX = ((AXIS_PTS_X*)item)->getPar("Datatype");
+            datatypeX = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
             int Xnbyte = hexParent->getNumByte(datatypeX);
             addressX = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
 
@@ -763,10 +723,14 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, HexFile *hexFile, bool modif) : Q
             //increment offset of the axisX length
             offset +=  nPtsAxisX * Xnbyte;
         }
-        else if (type.compare("AXIS_PTS_Y") == 0)
+
+
+        // Get AXIS_PTS_Y if present in record_layout
+        Item* axis_pts_y = record_layout->getItem("AXIS_PTS_Y");
+        if (axis_pts_y)
         {
             //read the necessary parameters before reading values into HexFile
-            datatypeY = ((AXIS_PTS_Y*)item)->getPar("Datatype");
+            datatypeY = ((AXIS_PTS_Y*)axis_pts_y)->getPar("Datatype");
             int Ynbyte = hexParent->getNumByte(datatypeY);
             addressY = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
 
@@ -781,9 +745,73 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, HexFile *hexFile, bool modif) : Q
             //increment offset of the axisX length
             offset +=  nPtsAxisY * Ynbyte;
         }
-
     }
 
+    // Offset if SRC_ADDR_X/Y
+    Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+    if (src_addr_x)
+    {
+        std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+        offset += hexParent->getNumByte(datatype);
+
+        Item* src_addr_y = record_layout->getItem("SRC_ADDR_Y");
+        if (src_addr_y)
+        {
+            std::string datatype = ((SRC_ADDR_Y*)src_addr_y)->getPar("Datatype");
+            offset += hexParent->getNumByte(datatype);
+        }
+    }
+
+    // Get the values
+    Item* fnc_values = record_layout->getItem("FNC_VALUES");
+    if (fnc_values)
+    {
+        //dataType
+        datatypeZ = ((FNC_VALUES*)fnc_values)->getPar("Datatype");
+
+        //column or row Dir
+        QString zDir = ((FNC_VALUES*)fnc_values)->getPar("IndexMode");
+        if (zDir.compare("COLUMN_DIR") == 0)
+        {
+            isSortedByRow = 0;
+        }
+        else
+        {
+                isSortedByRow = 1;
+        }
+
+        //get the hex data from hexFile
+        int Znbyte = hexParent->getNumByte(datatypeZ);
+        bool bl;
+        addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
+
+        if (nPtsAxisX  == 0)
+            nPtsAxisX = 1;
+        if (nPtsAxisY  == 0)
+            nPtsAxisY = 1;
+
+        QList<double> decZ = hexParent->getDecValues(addressZ, Znbyte, nPtsAxisX * nPtsAxisY, datatypeZ, byteOrderZ);
+
+        //BIT_MASK
+        BIT_MASK *_bitmask = (BIT_MASK*)node->getItem("BIT_MASK");
+        if (_bitmask)
+        {
+            uint32_t mask = QString(_bitmask->getPar("Mask")).toUInt(&bl, 16);
+            for (int i = 0; i < decZ.count(); i++ )
+            {
+                uint32_t _result = (uint32_t)decZ.at(i) & mask;
+                int32_t _decalage =  tzn(mask);
+                _result = _result >> _decalage;
+                decZ[i] = _result;
+            }
+        }
+
+        //dec2phys
+        listZ = dec2Phys(decZ, "z");
+
+    }
+    else
+        isComplete = false;
     //define number of rows of data to display
     size += nPtsAxisY;
 }
@@ -970,50 +998,55 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, SrecFile *srecFile, bool modif) :
             RECORD_LAYOUT *record_layout = (RECORD_LAYOUT*)srecFile->record_layout->getNode(deposit);
 
             //read each element of X_RECORD_LAYOUT
-            bool bl;
             int offset = 0;
-            foreach (Item *item, record_layout->optItems)
+            bool bl;
+            Item* no_axis_pts = record_layout->getItem("NO_AXIS_PTS_X");
+            if (no_axis_pts)
             {
-                QString type = item->name;
+                std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
+                int nbyte = srecParent->getNumByte(datatype);
+                QString val = srecParent->getHexValue(axisPtsX->getPar("Adress"), offset, nbyte, byteOrderX);
+                bool bl;
+                nPtsAxisX = val.toInt(&bl,16);
+                offset += nbyte;
 
-                if (type == "SRC_ADDR_X")
-                {
-                    std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-                    offset += srecParent->getNumByte(datatype);
-                }
-                else if (type == "NO_AXIS_PTS_X")
-                {
-                    std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
-                    int nbyte = srecParent->getNumByte(datatype);
-                    QString val = srecParent->getHexValue(axisPtsX->getPar("Adress"), offset, nbyte, byteOrderX);
-                    bool bl;
-                    nPtsAxisX = val.toInt(&bl,16);
-                    offset += nbyte;
-
-                    //check if nPts < nPtsmax
-                    if (nPtsAxisX > nPtsAxisX_Max)
-                        nPtsAxisX = nPtsAxisX_Max;
-                }
-                else if (type == "AXIS_PTS_X")
-                {
-                    //read the necessary parameters before reading values into HexFile
-                    datatypeX = ((AXIS_PTS_X*)item)->getPar("Datatype");
-                    int Xnbyte = srecParent->getNumByte(datatypeX);
-                    addressX = QString(axisPtsX->getPar("Adress")).toUInt(&bl, 16) + offset;
-
-                    //read values into HexFile
-                    if (nPtsAxisX == 0)
-                        nPtsAxisX = nPtsAxisX_Max;
-                    QList<double> decX = srecParent->getDecValues(addressX, Xnbyte, nPtsAxisX, datatypeX, byteOrderX);
-
-                    //convert the dec values into phys values
-                    listX = dec2Phys(decX, "x");
-
-                    //increment offset of the axisX length
-                    offset +=  nPtsAxisX * Xnbyte;
-                }
+                //check if nPts < nPtsmax
+                if (nPtsAxisX > nPtsAxisX_Max)
+                    nPtsAxisX = nPtsAxisX_Max;
             }
 
+            Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+            if (type == "SRC_ADDR_X")
+            {
+                std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+                offset += srecParent->getNumByte(datatype);
+            }
+
+            // Get the AXIS_PTS_X if in record_layout
+            Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+            if (axis_pts_x)
+            {
+                //read the necessary parameters before reading values into HexFile
+                datatypeX = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
+                int Xnbyte = srecParent->getNumByte(datatypeX);
+                addressX = QString(axisPtsX->getPar("Adress")).toUInt(&bl, 16) + offset;
+
+                //read values into HexFile
+                if (nPtsAxisX == 0)
+                    nPtsAxisX = nPtsAxisX_Max;
+                QList<double> decX = srecParent->getDecValues(addressX, Xnbyte, nPtsAxisX, datatypeX, byteOrderX);
+
+                //convert the dec values into phys values
+                listX = dec2Phys(decX, "x");
+
+                //increment offset of the axisX length
+                //offset +=  nPtsAxisX * Xnbyte;
+            }
+            else
+            {
+                isComplete = false;
+                return;
+            }
         }
         else if (typeAxisX.compare("FIX_AXIS") == 0)
         {
@@ -1153,6 +1186,11 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, SrecFile *srecFile, bool modif) :
             AXIS_PTS_REF *axisPtsRef = (AXIS_PTS_REF*)axisDescrY->getItem("AXIS_PTS_REF");
             QString nameAxisY = axisPtsRef->getPar("AxisPoints");
             AXIS_PTS *axisPtsY = (AXIS_PTS*)project->getNode("MODULE/" + moduleName + "/AXIS_PTS/" + nameAxisY);
+            if (axisPtsY == nullptr)
+            {
+                isComplete = false;
+                return;
+            }
 
             //BYTE_ORDER axisY
             Byte_Order *byteOrder = (Byte_Order*)axisPtsY->getItem("BYTE_ORDER");
@@ -1170,53 +1208,56 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, SrecFile *srecFile, bool modif) :
             RECORD_LAYOUT *record_layout = (RECORD_LAYOUT*)srecFile->record_layout->getNode(deposit);
 
             //read each element of X_RECORD_LAYOUT
-            bool bl;
             int offset = 0;
-            foreach (Item *item, record_layout->optItems)
+            bool bl;
+            Item* no_axis_pts_x = record_layout->getItem("NO_AXIS_PTS_X");
+            if (no_axis_pts_x)
             {
-                QString type = item->name;
+                std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
+                int nbyte = srecParent->getNumByte(datatype);
+                QString val = srecParent->getHexValue(axisPtsY->getPar("Adress"), offset, nbyte, byteOrderY);
+                bool bl;
+                nPtsAxisY = val.toInt(&bl,16);
+                offset += nbyte;
 
-                if (type == "SRC_ADDR_X")
-                {
-                    std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-                    offset += srecParent->getNumByte(datatype);
-                }
-                else if (type == "NO_AXIS_PTS_X")
-                {
-                    std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
-                    int nbyte = srecParent->getNumByte(datatype);
-                    QString val = srecParent->getHexValue(axisPtsY->getPar("Adress"), offset, nbyte, byteOrderY);
-                    bool bl;
-                    nPtsAxisY = val.toInt(&bl,16);
-                    offset += nbyte;
-
-                    //check if nPts < nPtsmax
-                    if (nPtsAxisY > nPtsAxisY_Max)
-                        nPtsAxisY = nPtsAxisY_Max;
-                }
-                else if (type == "AXIS_PTS_X")
-                {
-                    //read the necessary parameters before reading values into HexFile
-                    datatypeY = ((AXIS_PTS_X*)item)->getPar("Datatype");
-                    int Ynbyte = srecParent->getNumByte(datatypeY);
-                    //addressY = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
-                    addressY = QString(axisPtsY->getPar("Adress")).toUInt(&bl, 16) + offset;
-
-                    // get nPtsY if "NO_AXIS_PTS_X" is not specified
-                    if (nPtsAxisY == 0) // done in case "NO_AXIS_PTS_X" is not specified => use "MaxAxisPoints"
-                        nPtsAxisY = nPtsAxisY_Max;
-
-                    //read values into HexFile
-                    QList<double> decY = srecParent->getDecValues(addressY, Ynbyte, nPtsAxisY, datatypeY, byteOrderY);
-
-                    //convert the dec values into phys values
-                    listY = dec2Phys(decY, "y");
-
-                    //increment offset of the axisX length
-                    offset +=  nPtsAxisY * Ynbyte;
-                }
+                //check if nPts < nPtsmax
+                if (nPtsAxisY > nPtsAxisY_Max)
+                    nPtsAxisY = nPtsAxisY_Max;
             }
 
+            Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+            if (src_addr_x)
+            {
+                std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+                offset += srecParent->getNumByte(datatype);
+            }
+
+            Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+            if (axis_pts_x)
+            {
+                //read the necessary parameters before reading values into HexFile
+                datatypeY = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
+                int Ynbyte = srecParent->getNumByte(datatypeY);
+                addressY = QString(axisPtsY->getPar("Adress")).toUInt(&bl, 16) + offset;
+
+                // get nPtsY if "NO_AXIS_PTS_X" is not specified
+                if (nPtsAxisY == 0) // done in case "NO_AXIS_PTS_X" is not specified => use "MaxAxisPoints"
+                    nPtsAxisY = nPtsAxisY_Max;
+
+                //read values into HexFile
+                QList<double> decY = srecParent->getDecValues(addressY, Ynbyte, nPtsAxisY, datatypeY, byteOrderY);
+
+                //convert the dec values into phys values
+                listY = dec2Phys(decY, "y");
+
+                //increment offset of the axisX length
+                offset +=  nPtsAxisY * Ynbyte;
+            }
+            else
+            {
+                isComplete = false;
+                return;
+            }
         }
         else if (typeAxisY.compare("FIX_AXIS") == 0)
         {
@@ -1381,90 +1422,38 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, SrecFile *srecFile, bool modif) :
     //read each element of Z_RECORD_LAYOUT
     bool bl;
     int offset = 0;
-    foreach (Item *item, record_layout->optItems)
+
+    // check if NO_AXIS_PTS_X is present in record_layout
+    Item* no_axis_pts_x = record_layout->getItem("NO_AXIS_PTS_X");
+    if (no_axis_pts_x)
     {
-        QString type = item->name;
+        std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
+        int nbyte = srecParent->getNumByte(datatype);
 
-        if (type.compare("FNC_VALUES") == 0)
+        double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
+        nPtsZvaluesX = srecParent->getDecValues(address, nbyte, 1, datatype, byteOrderX).at(0);
+        xOrgSize = nPtsZvaluesX;
+        offset += nbyte;
+
+        // Get NO_AXIS_PTS_Y if present in record_layout
+        Item* no_axis_pts_y = record_layout->getItem("NO_AXIS_PTS_Y");
+        if (no_axis_pts_y)
         {
-            //dataType
-            datatypeZ = ((FNC_VALUES*)item)->getPar("Datatype");
-
-            //column or row Dir
-            QString zDir = ((FNC_VALUES*)item)->getPar("IndexMode");
-            if (zDir.compare("COLUMN_DIR") == 0)
-            {
-                isSortedByRow = 0;
-            }
-            else
-            {
-                    isSortedByRow = 1;
-            }
-
-            //get the hex data from hexFile
-            int Znbyte = srecParent->getNumByte(datatypeZ);
-            bool bl;
-            addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
-
-            if (nPtsAxisX  == 0)
-                nPtsAxisX = 1;
-            if (nPtsAxisY  == 0)
-                nPtsAxisY = 1;
-
-            QList<double> decZ = srecParent->getDecValues(addressZ, Znbyte, nPtsAxisX * nPtsAxisY, datatypeZ, byteOrderZ);
-
-            //BIT_MASK
-            BIT_MASK *_bitmask = (BIT_MASK*)node->getItem("BIT_MASK");
-            if (_bitmask)
-            {
-                uint32_t mask = QString(_bitmask->getPar("Mask")).toUInt(&bl, 16);
-                for (int i = 0; i < decZ.count(); i++ )
-                {
-                    uint32_t _result = (uint32_t)decZ.at(i) & mask;
-                    int32_t _decalage =  tzn(mask);
-                    _result = _result >> _decalage;
-                    decZ[i] = _result;
-                }
-            }
-
-            //dec2phys
-            listZ = dec2Phys(decZ, "z");
-
-        }
-        else if (type.compare("SRC_ADDR_X") == 0)
-        {
-            std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-            offset += srecParent->getNumByte(datatype);
-        }
-        else if (type.compare("SRC_ADDR_Y") == 0)
-        {
-            std::string datatype = ((SRC_ADDR_Y*)item)->getPar("Datatype");
-            offset += srecParent->getNumByte(datatype);
-        }
-        else if (type.compare("NO_AXIS_PTS_X") == 0)
-        {
-            std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
-            int nbyte = srecParent->getNumByte(datatype);
-
-            double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
-            nPtsZvaluesX = srecParent->getDecValues(address, nbyte, 1, datatype, byteOrderX).at(0);
-            xOrgSize = nPtsZvaluesX;
-            offset += nbyte;
-        }
-        else if (type.compare("NO_AXIS_PTS_Y") == 0)
-        {
-            std::string datatype = ((NO_AXIS_PTS_Y*)item)->getPar("Datatype");
+            std::string datatype = ((NO_AXIS_PTS_Y*)no_axis_pts_y)->getPar("Datatype");
             int nbyte = srecParent->getNumByte(datatype);
 
             double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
             nPtsZvaluesY = srecParent->getDecValues(address, nbyte, 1, datatype, byteOrderY).at(0);
             yOrgSize = nPtsZvaluesY;
-            offset += nbyte;            
+            offset += nbyte;
         }
-        else if (type.compare("AXIS_PTS_X") == 0)
+
+        // Get AXIS_PTS_X  if in record_layout
+        Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+        if (axis_pts_x)
         {
             //read the necessary parameters before reading values into HexFile
-            datatypeX = ((AXIS_PTS_X*)item)->getPar("Datatype");
+            datatypeX = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
             int Xnbyte = srecParent->getNumByte(datatypeX);
             addressX = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
 
@@ -1479,10 +1468,13 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, SrecFile *srecFile, bool modif) :
             //increment offset of the axisX length
             offset +=  nPtsAxisX * Xnbyte;
         }
-        else if (type.compare("AXIS_PTS_Y") == 0)
+
+        // Get AXIS_PTS_Y if present in record_layout
+        Item* axis_pts_y = record_layout->getItem("AXIS_PTS_Y");
+        if (axis_pts_y)
         {
             //read the necessary parameters before reading values into HexFile
-            datatypeY = ((AXIS_PTS_Y*)item)->getPar("Datatype");
+            datatypeY = ((AXIS_PTS_Y*)axis_pts_y)->getPar("Datatype");
             int Ynbyte = srecParent->getNumByte(datatypeY);
             addressY = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
 
@@ -1497,8 +1489,73 @@ Data::Data(CHARACTERISTIC *node, PROJECT *pro, SrecFile *srecFile, bool modif) :
             //increment offset of the axisX length
             offset +=  nPtsAxisY * Ynbyte;
         }
+    }
+
+    // Offset if SRC_ADDR_X/Y
+    Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+    if (src_addr_x)
+    {
+        std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+        offset += srecParent->getNumByte(datatype);
+
+        Item* src_addr_y = record_layout->getItem("SRC_ADDR_Y");
+        if (src_addr_y)
+        {
+            std::string datatype = ((SRC_ADDR_Y*)src_addr_y)->getPar("Datatype");
+            offset += srecParent->getNumByte(datatype);
+        }
+    }
+
+    // Get the values
+    Item* fnc_values = record_layout->getItem("FNC_VALUES");
+    if (fnc_values)
+    {
+        //dataType
+        datatypeZ = ((FNC_VALUES*)fnc_values)->getPar("Datatype");
+
+        //column or row Dir
+        QString zDir = ((FNC_VALUES*)fnc_values)->getPar("IndexMode");
+        if (zDir.compare("COLUMN_DIR") == 0)
+        {
+            isSortedByRow = 0;
+        }
+        else
+        {
+                isSortedByRow = 1;
+        }
+
+        //get the hex data from hexFile
+        int Znbyte = srecParent->getNumByte(datatypeZ);
+        bool bl;
+        addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
+
+        if (nPtsAxisX  == 0)
+            nPtsAxisX = 1;
+        if (nPtsAxisY  == 0)
+            nPtsAxisY = 1;
+
+        QList<double> decZ = srecParent->getDecValues(addressZ, Znbyte, nPtsAxisX * nPtsAxisY, datatypeZ, byteOrderZ);
+
+        //BIT_MASK
+        BIT_MASK *_bitmask = (BIT_MASK*)node->getItem("BIT_MASK");
+        if (_bitmask)
+        {
+            uint32_t mask = QString(_bitmask->getPar("Mask")).toUInt(&bl, 16);
+            for (int i = 0; i < decZ.count(); i++ )
+            {
+                uint32_t _result = (uint32_t)decZ.at(i) & mask;
+                int32_t _decalage =  tzn(mask);
+                _result = _result >> _decalage;
+                decZ[i] = _result;
+            }
+        }
+
+        //dec2phys
+        listZ = dec2Phys(decZ, "z");
 
     }
+    else
+        isComplete = false;
 
     //define number of rows of data to display
     size += nPtsAxisY;
@@ -2359,61 +2416,58 @@ Data::Data(AXIS_PTS *node, PROJECT *pro, HexFile *hexFile, bool modif) : QObject
     }
 
     //read each element of Z_RECORD_LAYOUT
-    bool bl;
     int offset = 0;
-    foreach (Item *item, record_layout->optItems)
+    bool bl;
+    Item* no_axis_pts = record_layout->getItem("NO_AXIS_PTS_X");
+    if (no_axis_pts)
     {
-        QString type = item->name;
+        std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
+        int nbyte = hexParent->getNumByte(datatype);
+        QString val = hexParent->getHexValue(node->getPar("Adress"), offset, nbyte, byteOrderX);
+        bool bl;
+        nPts = val.toInt(&bl,16);
+        offset += nbyte;
 
-        if (type == "SRC_ADDR_X")
+        //check if nPts < nPtsmax
+        QString maxAxisPts = node->getPar("MaxAxisPoints");
+        double nmaxPts = maxAxisPts.toDouble();
+        if (nPts > nmaxPts)
+            nPts = nmaxPts;
+    }
+
+    Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+    if (type == "SRC_ADDR_X")
+    {
+        std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+        offset += hexParent->getNumByte(datatype);
+    }
+
+    Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+    if (axis_pts_x)
+    {
+        datatypeZ = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
+        int Znbyte = hexParent->getNumByte(datatypeZ);
+        addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
+
+        //check if the number of points is specified otherwise take max number of points
+        if (nPts == 0)
         {
-            std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-            offset += hexParent->getNumByte(datatype);
+            QString _maxAxisPoints = node->getPar("MaxAxisPoints");
+            nPts = _maxAxisPoints.toUInt();
         }
-        else if (type == "NO_AXIS_PTS_X")
-        {
-            std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
-            int nbyte = hexParent->getNumByte(datatype);
-            QString val = hexParent->getHexValue(node->getPar("Adress"), offset, nbyte, byteOrderZ);
-            bool bl;
-            nPts = val.toInt(&bl,16);
-            offset += nbyte;
 
-            //check if nPts < nPtsmax
-            QString maxAxisPts = node->getPar("MaxAxisPoints");
-            double nmaxPts = maxAxisPts.toDouble();
-            if (nPts > nmaxPts)
-                nPts = nmaxPts;
-        }
-        else if (type == "AXIS_PTS_X")
-        {
-            //get datatype
-            datatypeZ = ((AXIS_PTS_X*)item)->getPar("Datatype");
+        // get the hex values from Srec file
+        QList<double> decZ = hexParent->getDecValues(addressZ, Znbyte, nPts, datatypeZ, byteOrderZ);
 
-            //get the size of the type
-                //be carefull : if ALIGNMENT is present in record_layout use this one
-                //to determine the size and not the one in MODE_COMMON
+        //dec2phys
+        listZ = dec2Phys(decZ, "z");
 
-            int Znbyte = hexParent->getNumByte(datatypeZ);
-
-            //get the address of the data
-            addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
-
-            //check if the number of points is specified otherwise take max number of points
-            if (nPts == 0)
-            {
-                QString _maxAxisPoints = node->getPar("MaxAxisPoints");
-                nPts = _maxAxisPoints.toUInt();
-            }
-
-            // get the hex values from Hex file
-            QList<double> decZ = hexParent->getDecValues(addressZ, Znbyte, nPts, datatypeZ, byteOrderZ);
-
-            //dec2phys
-            listZ = dec2Phys(decZ, "z");
-
-            offset +=  nPts * Znbyte;
-        }
+        offset +=  nPts * Znbyte;
+    }
+    else
+    {
+        isComplete = false;
+        return;
     }
 
     //FIX_AXIS POINTS
@@ -2476,6 +2530,10 @@ Data::Data(AXIS_PTS *node, PROJECT *pro, SrecFile *srecFile, bool modif) : QObje
     QString compu = ((AXIS_PTS*)label)->getPar("Conversion");
     compu_methodZ = (COMPU_METHOD*)srecFile->compu_method->getNode(compu);
 
+    //number of points X
+    QString maxAxisPts = ((AXIS_PTS*)label)->getPar("MaxAxisPoints");
+    int nPts = maxAxisPts.toUInt();
+
     //Zaxis PRECISION
     if (compu_methodZ)
     {
@@ -2495,54 +2553,58 @@ Data::Data(AXIS_PTS *node, PROJECT *pro, SrecFile *srecFile, bool modif) : QObje
     }
 
     //read each element of Z_RECORD_LAYOUT
-    bool bl;
     int offset = 0;
-    int nPts = 0;
-    foreach (Item *item, record_layout->optItems)
+    bool bl;
+    Item* no_axis_pts = record_layout->getItem("NO_AXIS_PTS_X");
+    if (no_axis_pts)
     {
-        QString type = item->name;
+        std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
+        int nbyte = srecParent->getNumByte(datatype);
+        QString val = srecParent->getHexValue(node->getPar("Adress"), offset, nbyte, byteOrderX);
+        bool bl;
+        nPts = val.toInt(&bl,16);
+        offset += nbyte;
 
-        if (type == "SRC_ADDR_X")
+        //check if nPts < nPtsmax
+        QString maxAxisPts = node->getPar("MaxAxisPoints");
+        double nmaxPts = maxAxisPts.toDouble();
+        if (nPts > nmaxPts)
+            nPts = nmaxPts;
+    }
+
+    Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
+    if (type == "SRC_ADDR_X")
+    {
+        std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+        offset += srecParent->getNumByte(datatype);
+    }
+
+    Item* axis_pts_x = record_layout->getItem("AXIS_PTS_X");
+    if (axis_pts_x)
+    {
+        datatypeZ = ((AXIS_PTS_X*)axis_pts_x)->getPar("Datatype");
+        int Znbyte = srecParent->getNumByte(datatypeZ);
+        addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
+
+        //check if the number of points is specified otherwise take max number of points
+        if (nPts == 0)
         {
-            std::string datatype = ((SRC_ADDR_X*)item)->getPar("Datatype");
-            offset += srecParent->getNumByte(datatype);
+            QString _maxAxisPoints = node->getPar("MaxAxisPoints");
+            nPts = _maxAxisPoints.toUInt();
         }
-        else if (type == "NO_AXIS_PTS_X")
-        {
-            std::string datatype = ((NO_AXIS_PTS_X*)item)->getPar("Datatype");
-            int nbyte = srecParent->getNumByte(datatype);
-            QString val = srecParent->getHexValue(node->getPar("Adress"), offset, nbyte, byteOrderZ);
-            bool bl;
-            nPts = val.toInt(&bl,16);
-            offset += nbyte;
 
-            //check if nPts < nPtsmax
-            QString maxAxisPts = node->getPar("MaxAxisPoints");
-            double nmaxPts = maxAxisPts.toDouble();
-            if (nPts > nmaxPts)
-                nPts = nmaxPts;
-        }
-        else if (type == "AXIS_PTS_X")
-        {
-            datatypeZ = ((AXIS_PTS_X*)item)->getPar("Datatype");
-            int Znbyte = srecParent->getNumByte(datatypeZ);
-            addressZ = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
+        // get the hex values from Srec file
+        QList<double> decZ = srecParent->getDecValues(addressZ, Znbyte, nPts, datatypeZ, byteOrderZ);
 
-            //check if the number of points is specified otherwise take max number of points
-            if (nPts == 0)
-            {
-                QString _maxAxisPoints = node->getPar("MaxAxisPoints");
-                nPts = _maxAxisPoints.toUInt();
-            }
+        //dec2phys
+        listZ = dec2Phys(decZ, "z");
 
-            // get the hex values from Srec file
-            QList<double> decZ = srecParent->getDecValues(addressZ, Znbyte, nPts, datatypeZ, byteOrderZ);
-
-            //dec2phys
-            listZ = dec2Phys(decZ, "z");
-
-            offset +=  nPts * Znbyte;
-        }
+        offset +=  nPts * Znbyte;
+    }
+    else
+    {
+        isComplete = false;
+        return;
     }
 
     //FIX_AXIS POINTS
