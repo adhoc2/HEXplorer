@@ -43,6 +43,7 @@ class SrecFile;
 class Csv;
 class CdfxFile;
 class Dcm;
+class DataContainer;
 
 class Data : public QObject, public Node
 {
@@ -66,6 +67,7 @@ class Data : public QObject, public Node
         Data(AXIS_PTS *node, PROJECT *pro,  Csv *csv, bool modif = true);
         Data(AXIS_PTS *node, PROJECT *pro,  CdfxFile *cdfx, bool modif = true);
         Data(AXIS_PTS *node, PROJECT *pro,  Dcm *dcm, bool modif = true);
+        void readHexValues(CHARACTERISTIC *node, PROJECT *pro, DataContainer* dataFile);
 
 
         static bool showWeakBoundsExceeded;
