@@ -13,3 +13,4 @@ install/
 *.sha1
 cert/
 *.user.*
+*.py
