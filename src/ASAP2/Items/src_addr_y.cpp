@@ -33,20 +33,20 @@ SRC_ADDR_Y::SRC_ADDR_Y( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"SRC_ADDR_Y";
+    name = (QString)"SRC_ADDR_Y";
 }
 
 SRC_ADDR_Y::~SRC_ADDR_Y()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> SRC_ADDR_Y::getParameters()
+QMap<QString, QString> SRC_ADDR_Y::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -54,7 +54,7 @@ QMap<std::string, std::string> SRC_ADDR_Y::getParameters()
     return par;
 }
 
-char* SRC_ADDR_Y::getPar(std::string str)
+QString SRC_ADDR_Y::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

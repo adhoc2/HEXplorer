@@ -815,7 +815,7 @@ void SpreadsheetView::copy()
         //if OBD view
 
         // get the tableView as text
-        std::string str;
+        QString str;
         for (int i = 0; i < rowCount; ++i)
         {
             //new line into file
@@ -838,7 +838,7 @@ void SpreadsheetView::copy()
             {
                 if (i > 0)
                     str.append("\t");
-                str.append(listVal.at(i).toStdString());
+                str.append(listVal.at(i));
             }
 
             if (i < rowCount - 1)
@@ -846,7 +846,7 @@ void SpreadsheetView::copy()
         }
 
         //set Clipboard
-        QApplication::clipboard()->setText(str.c_str());
+        QApplication::clipboard()->setText(str);
 
         //reset mouse cursor
          QApplication::restoreOverrideCursor();

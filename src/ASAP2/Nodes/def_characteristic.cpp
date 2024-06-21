@@ -45,7 +45,7 @@ DEF_CHARACTERISTIC::DEF_CHARACTERISTIC(Node *parentNode)
 
     //Parse Mandatory PARAMETERS
     //parseFixPar(typePar, namePar ,in);
-    name = (char*)"DEF_CHARACTERISTIC";
+    name = (QString)"DEF_CHARACTERISTIC";
 
     //Parse optional PARAMETERS
     //TokenTyp token = parseOptPar(in);
@@ -69,29 +69,29 @@ DEF_CHARACTERISTIC::DEF_CHARACTERISTIC(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd DEF_CHARACTERISTIC\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end DEF_CHARACTERISTIC\nfind : " + s1 + " " + s2);
     }
 }
 
 DEF_CHARACTERISTIC::~DEF_CHARACTERISTIC()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> *DEF_CHARACTERISTIC::getParameters()
+QMap<QString, QString> *DEF_CHARACTERISTIC::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -99,7 +99,7 @@ QMap<std::string, std::string> *DEF_CHARACTERISTIC::getParameters()
     return par;
 }
 
-std::string  DEF_CHARACTERISTIC::pixmap()
+QString  DEF_CHARACTERISTIC::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -120,14 +120,14 @@ TokenTyp DEF_CHARACTERISTIC::parseListChar()
 QStringList DEF_CHARACTERISTIC::getCharList()
 {
     QStringList list;
-    foreach(std::string str, charList)
+    foreach(QString str, charList)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
     return list;
 }
 
-char* DEF_CHARACTERISTIC::getPar(std::string str)
+QString DEF_CHARACTERISTIC::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

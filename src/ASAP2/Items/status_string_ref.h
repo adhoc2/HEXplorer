@@ -29,16 +29,16 @@ class STATUS_STRING_REF : public Item
     public:
         STATUS_STRING_REF( Node *parentNode);
         ~STATUS_STRING_REF();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, STATUS_STRING_REF> itemFactory;
         static void initialize();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // STATUS_STRING_REF_H

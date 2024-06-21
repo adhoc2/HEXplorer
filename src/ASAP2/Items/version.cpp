@@ -36,20 +36,20 @@ VERSION::VERSION( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"version";
+        name = (QString)"version";
 }
 
 VERSION::~VERSION()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> VERSION::getParameters()
+QMap<QString, QString> VERSION::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -57,7 +57,7 @@ QMap<std::string, std::string> VERSION::getParameters()
     return par;
 }
 
-char* VERSION::getPar(std::string str)
+QString VERSION::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

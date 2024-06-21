@@ -36,22 +36,18 @@ CALIBRATION_HANDLE_TEXT::CALIBRATION_HANDLE_TEXT( Node *parentNode)  : Item(pare
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"calibration_handle_text";
+        name = "calibration_handle_text";
 }
 
 CALIBRATION_HANDLE_TEXT::~CALIBRATION_HANDLE_TEXT()
 {
 
-    foreach (char* ptr, parameters)
-    {
-        delete[] ptr;
-    }
 }
 
 
-QMap<std::string, std::string> CALIBRATION_HANDLE_TEXT::getParameters()
+QMap<QString, QString> CALIBRATION_HANDLE_TEXT::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -59,7 +55,7 @@ QMap<std::string, std::string> CALIBRATION_HANDLE_TEXT::getParameters()
     return par;
 }
 
-char* CALIBRATION_HANDLE_TEXT::getPar(std::string str)
+QString CALIBRATION_HANDLE_TEXT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

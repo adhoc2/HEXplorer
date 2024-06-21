@@ -51,7 +51,7 @@ CHARACTERISTIC::CHARACTERISTIC(Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"characteristic";
+        name = (QString)"characteristic";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar();
@@ -68,14 +68,14 @@ CHARACTERISTIC::CHARACTERISTIC(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd CHARACTERISTIC\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end CHARACTERISTIC\nfind : " + s1 + " " + s2);
     }
 
@@ -84,9 +84,9 @@ CHARACTERISTIC::CHARACTERISTIC(Node *parentNode)
 
 CHARACTERISTIC::~CHARACTERISTIC()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
@@ -101,20 +101,18 @@ void CHARACTERISTIC::parseFixPar(QList<TokenTyp> *typePar)
         token = this->nextToken();
         if (token == typePar->at(i))
         {
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+
+            parameters.append(lex->getLexem());
         }
         else if(typePar->at(i) == Float && token == Integer)
         {
-            char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
-            parameters.append(c);
+
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
@@ -123,7 +121,7 @@ void CHARACTERISTIC::parseFixPar(QList<TokenTyp> *typePar)
 TokenTyp CHARACTERISTIC::parseOptPar()
 {
     //opt parameters
-//    QMap<std::string, Occurence> nameOptPar;
+//    QMap<QString, Occurence> nameOptPar;
      QHash<QString, Occurence> nameOptPar;
      nameOptPar.insert("FORMAT", ZeroOrOne);
      nameOptPar.insert("IF_DATA", ZeroOrMore);
@@ -153,17 +151,17 @@ TokenTyp CHARACTERISTIC::parseOptPar()
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
-                    if (nameOptPar.contains(lexem.c_str()))
+                    QString lexem = lex->getLexem();
+                    if (nameOptPar.contains(lexem))
                     {
-                        if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                        if (nameOptPar.value(lexem) == ZeroOrOne)
                         {
-                           nameOptPar.insert(lexem.c_str(), Zero);
+                           nameOptPar.insert(lexem, Zero);
                            Node  *instance = factoryOptNode->value(lexem)->createInstance(this);
                            this->addChildNode(instance);
                            token = nextToken();
                         }
-                        else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                        else if (nameOptPar.value(lexem) == ZeroOrMore)
                         {
                             Node *instance = 0;
                             if (lexem == "AXIS_DESCR")
@@ -171,7 +169,7 @@ TokenTyp CHARACTERISTIC::parseOptPar()
                                 if (!isChild("AXIS_DESCR"))
                                 {
                                     Node *node = new Node(this, lex, errorList);
-                                    node->name = (char*)"AXIS_DESCR";
+                                    node->name = (QString)"AXIS_DESCR";
                                     addChildNode(node);
                                     node->_pixmap = "";
                                 }
@@ -187,21 +185,21 @@ TokenTyp CHARACTERISTIC::parseOptPar()
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -209,17 +207,17 @@ TokenTyp CHARACTERISTIC::parseOptPar()
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
-                if (nameOptPar.contains(lexem.c_str()))
+                QString lexem = lex->getLexem();
+                if (nameOptPar.contains(lexem))
                 {
-                    if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                    if (nameOptPar.value(lexem) == ZeroOrOne)
                     {
-                        nameOptPar.insert(lexem.c_str(), Zero);
+                        nameOptPar.insert(lexem, Zero);
                         Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
-                    else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                    else if (nameOptPar.value(lexem) == ZeroOrMore)
                     {
                         Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
@@ -227,14 +225,14 @@ TokenTyp CHARACTERISTIC::parseOptPar()
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be declared once");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -244,9 +242,9 @@ TokenTyp CHARACTERISTIC::parseOptPar()
     }
 }
 
-QMap<std::string, std::string> *CHARACTERISTIC::getParameters()
+QMap<QString, QString> *CHARACTERISTIC::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
         
     for (int i = 0; i < namePar->count(); i++)
     {
@@ -263,10 +261,10 @@ QMap<QString, QString> *CHARACTERISTIC::getOptItems()
     for (int i = 0; i < optItems.count(); i++)
     {
         Item* item = optItems.at(i);
-        QMap<std::string, std::string> map = item->getParameters();
+        QMap<QString, QString> map = item->getParameters();
         for (int i = 0; i < map.count(); i++)
         {
-            par->insert(map.keys().at(i).c_str(), map.values().at(i).c_str());
+            par->insert(map.keys().at(i), map.values().at(i));
         }
     }
 
@@ -275,18 +273,18 @@ QMap<QString, QString> *CHARACTERISTIC::getOptItems()
 }
 
 
-char* CHARACTERISTIC::getPar(std::string str)
+QString CHARACTERISTIC::getPar(QString str)
 {
     int i = namePar->indexOf(str);    
     return parameters.at(i);
 }
 
-char* CHARACTERISTIC::getPar(int i)
+QString CHARACTERISTIC::getPar(int i)
 {
     return parameters.at(i);
 }
 
-std::string CHARACTERISTIC::pixmap()
+QString CHARACTERISTIC::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }

@@ -36,21 +36,21 @@ PHONE_NO::PHONE_NO( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"phone_no";
+        name = (QString)"phone_no";
 }
 
 PHONE_NO::~PHONE_NO()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> PHONE_NO::getParameters()
+QMap<QString, QString> PHONE_NO::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -58,7 +58,7 @@ QMap<std::string, std::string> PHONE_NO::getParameters()
     return par;
 }
 
-char* PHONE_NO::getPar(std::string str)
+QString PHONE_NO::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

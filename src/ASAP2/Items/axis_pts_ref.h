@@ -29,15 +29,15 @@ class AXIS_PTS_REF : public Item
     public:
         AXIS_PTS_REF(Node *parentNode);
         ~AXIS_PTS_REF();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, AXIS_PTS_REF> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // AXIS_PTS_REF_H

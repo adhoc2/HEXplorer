@@ -32,24 +32,24 @@ class FUNCTION_LIST : public Node
         FUNCTION_LIST( Node *parentNode);
         ~FUNCTION_LIST();
 
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node,FUNCTION_LIST> nodeFactory;
-        std::string pixmap();
+        QString pixmap();
         QStringList getCharList();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         // CHARACTERISTICS list
-        QList<std::string> subsetList;
+        QList<QString> subsetList;
 
         TokenTyp parseListChar();
         void parseFixPar(QList<TokenTyp> *typePar);

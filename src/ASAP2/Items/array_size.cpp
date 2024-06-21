@@ -36,22 +36,22 @@ ARRAY_SIZE::ARRAY_SIZE( Node *parentNode) : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"array_size";
+        name = (QString)"array_size";
 }
 
 
 ARRAY_SIZE::~ARRAY_SIZE()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> ARRAY_SIZE::getParameters()
+QMap<QString, QString> ARRAY_SIZE::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -59,7 +59,7 @@ QMap<std::string, std::string> ARRAY_SIZE::getParameters()
     return par;
 }
 
-char* ARRAY_SIZE::getPar(std::string str)
+QString ARRAY_SIZE::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

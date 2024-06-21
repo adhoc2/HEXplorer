@@ -7,7 +7,7 @@
 class TreeDirectory : public Node
 {
 public:
-    TreeDirectory(char* name);
+    TreeDirectory(QString name);
     QString getPath();
     QString fullName();
     void setPath(QString str);

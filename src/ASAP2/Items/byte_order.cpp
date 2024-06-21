@@ -33,20 +33,20 @@ Byte_Order::Byte_Order( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"BYTE_ORDER";
+    name = (QString)"BYTE_ORDER";
 }
 
 Byte_Order::~Byte_Order()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> Byte_Order::getParameters()
+QMap<QString, QString> Byte_Order::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -54,7 +54,7 @@ QMap<std::string, std::string> Byte_Order::getParameters()
     return par;
 }
 
-char* Byte_Order::getPar(std::string str)
+QString Byte_Order::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

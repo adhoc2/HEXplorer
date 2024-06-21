@@ -38,9 +38,9 @@ class AXIS_PTS : public Node
     public:
         AXIS_PTS(Node *parentNode);
         ~AXIS_PTS();
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node, AXIS_PTS> nodeFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
         QString getSubsetName();
         void setSubset(FUNCTION *fun);
 
@@ -50,14 +50,14 @@ class AXIS_PTS : public Node
 
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
         void parseFixPar(QList<TokenTyp> *typePar);
 
         // Opt parameters
         QHash<QString, Occurence> *occOptPar;
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
         TokenTyp parseOptPar(QHash<QString, Occurence> *nameOptPar);
 };
 

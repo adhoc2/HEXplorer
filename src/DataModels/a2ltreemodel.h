@@ -52,8 +52,8 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     QVariant line(const QModelIndex &index) const;
-    QMap<std::string, std::string> *getPar(const QModelIndex &index) const;
-    std::string getNodeName(const QModelIndex &index) const;
+    QMap<QString, QString> *getPar(const QModelIndex &index) const;
+    QString getNodeName(const QModelIndex &index) const;
     QString getFullNodeTreePath(const QModelIndex &index) const;
     QString name(const QModelIndex &index);
     Node *getNode(const QModelIndex &index);

@@ -29,15 +29,15 @@ class FUNCTION_VERSION : public Item
     public:
         FUNCTION_VERSION( Node *parentNode);
         ~FUNCTION_VERSION();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,FUNCTION_VERSION> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // FUNCTION_VERSION_H

@@ -100,7 +100,7 @@ void BufferDcm::clear()
 LexerDcm::LexerDcm(QObject *parent) : QObject(parent)
 {
     // --- define Keywords
-    QList<std::string> list;
+    QList<QString> list;
     list << "KONSERVIERUNG_FORMAT" << "END" << "FUNKTIONEN" << "FKT" << "KENNLINIE"
          << "VARIANENTKODIERUNG" << "KRITERIUM" << "MODULKOPF" << "FESTWERT" << "LANGNAME"
          << "DISPLAYNAME" << "VAR" << "FUNKTION" << "EINHEIT_W" << "WERT" << "TEXT"
@@ -108,9 +108,9 @@ LexerDcm::LexerDcm(QObject *parent) : QObject(parent)
          << "FESTKENNLINIE" << "FESTKENNFELD" << "GRUPPENKENNLINIE" << "GRUPPENKENNFELD"
          << "STUETZSTELLENVERTEILUNG" << "TEXTSTRING" << "ST_TX/X" << "ST_TX/Y";
 
-    foreach (std::string str, list)
+    foreach (QString str, list)
     {
-        KeywordsMap.insert(QString(str.c_str()), Keyword);
+        KeywordsMap.insert(QString(str), Keyword);
     }
     list.clear();
 
@@ -130,12 +130,12 @@ LexerDcm::~LexerDcm()
     delete buffer;
 }
 
-std::string LexerDcm::getLexem()
+QString LexerDcm::getLexem()
 {
     return lexem;
 }
 
-std::string LexerDcm::toString(TokenTyp type)
+QString LexerDcm::toString(TokenTyp type)
 {
     switch (type)
     {
@@ -439,7 +439,7 @@ TokenTyp LexerDcm::identifier(QTextStream &in, char &ch)
    if (token == Identifier)
     {
 
-        TokenTyp tok = KeywordsMap.value(QString(lexem.c_str()));
+        TokenTyp tok = KeywordsMap.value(QString(lexem));
         if (tok != 0)
             token = tok;
     }

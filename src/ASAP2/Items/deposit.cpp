@@ -36,21 +36,21 @@ DEPOSIT::DEPOSIT( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"deposit";
+        name = (QString)"deposit";
 }
 
 DEPOSIT::~DEPOSIT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> DEPOSIT::getParameters()
+QMap<QString, QString> DEPOSIT::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -58,7 +58,7 @@ QMap<std::string, std::string> DEPOSIT::getParameters()
     return par;
 }
 
-char* DEPOSIT::getPar(std::string str)
+QString DEPOSIT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

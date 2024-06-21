@@ -32,25 +32,25 @@ class COMPU_VTAB_RANGE : public Node
         ~COMPU_VTAB_RANGE();
         static Factory<Node, COMPU_VTAB_RANGE> nodeFactory;
 
-        QMap<std::string, std::string> *getParameters();
-        std::string pixmap();
+        QMap<QString, QString> *getParameters();
+        QString pixmap();
         QString getValue(int i);
         QStringList getValueList();
         int getPos(QString str);
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
-        QMap<int, std::string> valuePairs;
+        QList<QString> *namePar;
+        QList<QString> parameters;
+        QMap<int, QString> valuePairs;
         QList<int> listKeyPairs;
-        QList<std::string> listValuePairs;
+        QList<QString> listValuePairs;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         void parsePairs();
         void parseFixPar(QList<TokenTyp> *typePar);

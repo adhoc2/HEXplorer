@@ -90,7 +90,7 @@ private:
     QProgressBar *progBar;
     QString curFile;
     void setCurrentFile(const QString &fileName);
-    bool FileExists(std::string strFilename);
+    bool FileExists(QString strFilename);
     void updateView();
     A2lTreeModel *model;
     CompleterModel *completerModel;

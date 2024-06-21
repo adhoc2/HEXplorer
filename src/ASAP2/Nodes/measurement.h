@@ -37,20 +37,20 @@ class MEASUREMENT : public Node
     public:
         MEASUREMENT( Node *parentNode);
         ~MEASUREMENT();
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node, MEASUREMENT> nodeFactory;
-        std::string pixmap();
-        char* getPar(std::string str);
+        QString pixmap();
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters        
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         void parseFixPar(QList<TokenTyp> *typePar);
         TokenTyp parseOptPar();

@@ -32,25 +32,25 @@ class SUB_GROUP : public Node
         SUB_GROUP(Node *parentNode);
         ~SUB_GROUP();
 
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node,SUB_GROUP> nodeFactory;
-        std::string pixmap();
+        QString pixmap();
         QStringList getCharList();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
         void parseFixPar(QList<TokenTyp> *typePar);
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         // SUB_GROUP list
-        QList<std::string> subgroupList;
+        QList<QString> subgroupList;
         TokenTyp parseSubgroupList();
 };
 

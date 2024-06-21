@@ -36,22 +36,22 @@ CUSTOMER_NO::CUSTOMER_NO( Node *parentNode) : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"customer_no";
+        name = (QString)"customer_no";
 }
 
 
 CUSTOMER_NO::~CUSTOMER_NO()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> CUSTOMER_NO::getParameters()
+QMap<QString, QString> CUSTOMER_NO::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -59,7 +59,7 @@ QMap<std::string, std::string> CUSTOMER_NO::getParameters()
     return par;
 }
 
-char* CUSTOMER_NO::getPar(std::string str)
+QString CUSTOMER_NO::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

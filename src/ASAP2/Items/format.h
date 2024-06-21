@@ -29,15 +29,15 @@ class FORMAT : public Item
     public:
         FORMAT(Node *parentNode);
         ~FORMAT();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,FORMAT> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // FORMAT_H

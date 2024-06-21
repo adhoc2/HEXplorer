@@ -33,22 +33,22 @@ EPK::EPK( Node *parentNode) : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"epk";
+    name = (QString)"epk";
 }
 
 
 EPK::~EPK()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> EPK::getParameters()
+QMap<QString, QString> EPK::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -56,7 +56,7 @@ QMap<std::string, std::string> EPK::getParameters()
     return par;
 }
 
-char* EPK::getPar(std::string str)
+QString EPK::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

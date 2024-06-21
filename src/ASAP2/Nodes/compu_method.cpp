@@ -47,7 +47,7 @@ COMPU_METHOD::COMPU_METHOD( Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"compu_method";
+        name = (QString)"compu_method";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar();
@@ -58,31 +58,27 @@ COMPU_METHOD::COMPU_METHOD( Node *parentNode)
         token = nextToken();
         if (token == Keyword && lex->getLexem() == "COMPU_METHOD")
         {
-            //Sort the childNodes
-            //std::sort(this->childNodes.begin(), this->childNodes.end(), nodeLessThan);
 
-            //Sort The childItems
-            //std::sort(this->optItems.begin(), this->optItems.end(), itemLessThan);
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd COMPU_METHOD\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end COMPU_METHOD\nfind : " + s1 + " " + s2);
     }
 }
 
 COMPU_METHOD::~COMPU_METHOD()
 {
-    foreach (char* ptr, parameters)
+
     {
-        delete[] ptr;
+
     }
 }
 
@@ -95,22 +91,16 @@ void COMPU_METHOD::parseFixPar(QList<TokenTyp> *typePar)
         token = this->nextToken();
         if (token == typePar->at(i))
         {
-            //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            parameters.append(lex->getLexem());
         }
         else if (token == String && typePar->at(i) == StringFormat)
-        {
-            //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+        {                 
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
@@ -140,39 +130,39 @@ TokenTyp COMPU_METHOD::parseOptPar()
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
-                    if (nameOptPar.contains(lexem.c_str()))
+                    QString lexem = lex->getLexem();
+                    if (nameOptPar.contains(lexem))
                     {
-                        if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                        if (nameOptPar.value(lexem) == ZeroOrOne)
                         {
-                           nameOptPar.insert(lexem.c_str(), Zero);
+                           nameOptPar.insert(lexem, Zero);
                             Node  *instance = factoryOptNode->value(lexem)->createInstance( this);
                             this->addChildNode(instance);
                             token = nextToken();
                         }
-                        else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                        else if (nameOptPar.value(lexem) == ZeroOrMore)
                         {
-                            Node  *instance = factoryOptNode->value(lexem.c_str())->createInstance( this);
+                            Node  *instance = factoryOptNode->value(lexem)->createInstance( this);
                             this->addChildNode(instance);
                             token = nextToken();
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -180,32 +170,32 @@ TokenTyp COMPU_METHOD::parseOptPar()
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
-                if (nameOptPar.contains(lexem.c_str()))
+                QString lexem = lex->getLexem();
+                if (nameOptPar.contains(lexem))
                 {
-                    if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                    if (nameOptPar.value(lexem) == ZeroOrOne)
                     {
-                        nameOptPar.insert(lexem.c_str(), Zero);
+                        nameOptPar.insert(lexem, Zero);
                         Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
-                    else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                    else if (nameOptPar.value(lexem) == ZeroOrMore)
                     {
-                        Item  *instance = factoryOptItem->value(lexem.c_str())->createInstance(this);
+                        Item  *instance = factoryOptItem->value(lexem)->createInstance(this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -215,9 +205,9 @@ TokenTyp COMPU_METHOD::parseOptPar()
     }
 }
 
-QMap<std::string, std::string> *COMPU_METHOD::getParameters()
+QMap<QString, QString> *COMPU_METHOD::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -225,12 +215,12 @@ QMap<std::string, std::string> *COMPU_METHOD::getParameters()
     return par;
 }
 
-std::string COMPU_METHOD::pixmap()
+QString COMPU_METHOD::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
 
-char* COMPU_METHOD::getPar(std::string str)
+QString COMPU_METHOD::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     if (i > 0)

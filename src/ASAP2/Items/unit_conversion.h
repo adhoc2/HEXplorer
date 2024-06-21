@@ -30,15 +30,15 @@ class UNIT_CONVERSION : public Item
     public:
         UNIT_CONVERSION(Node *parentNode);
         ~UNIT_CONVERSION();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,UNIT_CONVERSION> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // UNIT_CONVERSION_H

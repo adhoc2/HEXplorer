@@ -33,21 +33,21 @@ FUNCTION_VERSION::FUNCTION_VERSION( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar );
-    name = (char*)"FUNCTION_VERSION";
+    name = (QString)"FUNCTION_VERSION";
 }
 
 FUNCTION_VERSION::~FUNCTION_VERSION()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> FUNCTION_VERSION::getParameters()
+QMap<QString, QString> FUNCTION_VERSION::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> FUNCTION_VERSION::getParameters()
     return par;
 }
 
-char* FUNCTION_VERSION::getPar(std::string str)
+QString FUNCTION_VERSION::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

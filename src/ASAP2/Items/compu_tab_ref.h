@@ -29,15 +29,15 @@ class COMPU_TAB_REF : public Item
     public:
         COMPU_TAB_REF(Node *parentNode);
         ~COMPU_TAB_REF();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, COMPU_TAB_REF> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // COMPU_TAB_REF_H

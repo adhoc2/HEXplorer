@@ -68,8 +68,7 @@ HexFile::HexFile(QString fullHexFileName, WorkProject *parentWP, QString module,
 {
     //initialize
     fullHexName = fullHexFileName;
-    name = new char[(QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1];
-    strcpy_s(name, (QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullHexName).fileName()).toLocal8Bit().data());
+    name = QFileInfo(fullHexName).fileName();
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
@@ -190,8 +189,7 @@ HexFile::HexFile(QString fullHexFileName, WorkProject *parentWP, QObject *parent
 {
     //initialize
     fullHexName = fullHexFileName;
-    name = new char[(QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1];
-    strcpy_s(name, (QFileInfo(fullHexName).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullHexName).fileName()).toLocal8Bit().data());
+    name = QFileInfo(fullHexName).fileName();
     //a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     maxValueProgbar = 0;
     valueProgBar = 0;
@@ -215,7 +213,7 @@ HexFile::~HexFile()
 {
     //omp_destroy_lock(&lock);
     qDeleteAll(blockList);
-    delete[] name;
+    
 }
 
 // ________________ Parser ___________________ //
@@ -789,7 +787,7 @@ QStringList HexFile::getHexValues(QString address, int offset, int nByte, int co
     return hexList;
 }
 
-QList<double> HexFile::getDecValues(double IAddr, int nByte, int count, std::string type, QString _byteOrder)
+QList<double> HexFile::getDecValues(double IAddr, int nByte, int count, QString type, QString _byteOrder)
 {
     //variable to be returned
     QList<double> decList;
@@ -1352,27 +1350,27 @@ bool HexFile::isValidAddress(QString address)
         return true;
 }
 
-int HexFile::getNumByte(std::string str)
+int HexFile::getNumByte(QString str)
 {
-    //return commonAlignmentByte.value(str.c_str());
+    //return commonAlignmentByte.value(str);
 
-    if (strcmp(str.c_str(), "SBYTE") == 0 || strcmp(str.c_str(), "UBYTE") == 0 )
+    if (QString::compare(str, "SBYTE") == 0 || QString::compare(str, "UBYTE") == 0 )
     {
         return 1;
     }
-    else if (strcmp(str.c_str(), "SWORD") == 0 || strcmp(str.c_str(), "UWORD") == 0 )
+    else if (QString::compare(str, "SWORD") == 0 || QString::compare(str, "UWORD") == 0 )
     {
         return 2;
     }
-    else if (strcmp(str.c_str(), "SLONG") == 0 || strcmp(str.c_str(), "ULONG") == 0 )
+    else if (QString::compare(str, "SLONG") == 0 || QString::compare(str, "ULONG") == 0 )
     {
         return 4;
     }
-    else if (strcmp(str.c_str(), "FLOAT32_IEEE") == 0)
+    else if (QString::compare(str, "FLOAT32_IEEE") == 0)
     {
         return 4;
     }
-    else if (strcmp(str.c_str(), "FLOAT64_IEEE") == 0)
+    else if (QString::compare(str, "FLOAT64_IEEE") == 0)
     {
         return 8;
     }
@@ -2076,7 +2074,7 @@ QList<QObject*> HexFile::getOwners()
     return owners;
 }
 
-std::string HexFile::pixmap()
+QString HexFile::pixmap()
 {
     if (isRead())
         return ":/icones/ram.png";
@@ -2188,7 +2186,7 @@ unsigned int HexFile::tzn(unsigned int v)
     return c;
 }
 
-QString HexFile::dec2hex(double dec, std::string type)
+QString HexFile::dec2hex(double dec, QString type)
 {
     QString qHex = "";
     int E = (int)dec;

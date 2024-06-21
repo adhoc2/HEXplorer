@@ -29,15 +29,15 @@ class ALIGNMENT_WORD : public Item
     public:
         ALIGNMENT_WORD(Node *parentNode);
         ~ALIGNMENT_WORD();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,ALIGNMENT_WORD> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // ALIGNMENT_WORD_H

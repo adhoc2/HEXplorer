@@ -45,8 +45,7 @@ class A2l : public QObject
 
         A2LFILE *a2lFile;
         DBFILE *dbFile;
-        std::string getFullA2lFileName();
-        void setFullA2lFileName(std::string str);
+        QString getFullA2lFileName();
         void setFullA2lFileName(QString str);
         QStringList _outputList();
         void init();

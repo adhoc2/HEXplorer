@@ -39,7 +39,7 @@ ANNOTATION::ANNOTATION( Node *parentNode)
     factoryOptItem = &gram->annotation.factoryOptItem;
 
     //opt Parameters
-    occOptPar = new QMap<std::string, Occurence>;
+    occOptPar = new QMap<QString, Occurence>;
     occOptPar->insert("ANNOTATION_LABEL", ZeroOrOne);
     occOptPar->insert("ANNOTATION_ORIGIN", ZeroOrOne);
     occOptPar->insert("ANNOTATION_TEXT", ZeroOrOne);
@@ -51,7 +51,7 @@ ANNOTATION::ANNOTATION( Node *parentNode)
     //Parse Mandatory PARAMETERS
     //parseFixPar(typePar, namePar ,in, parent);
     //parameters = 0;
-    name = (char*)"ANNOTATION";
+    name = (QString)"ANNOTATION";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar(occOptPar);
@@ -70,14 +70,14 @@ ANNOTATION::ANNOTATION( Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd PROJECT\nfind token : " + s );
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end PROJECT\nfind : " + s1 + " " + s2 );
     }
 
@@ -87,9 +87,9 @@ ANNOTATION::ANNOTATION( Node *parentNode)
 
 ANNOTATION::~ANNOTATION()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
     delete occOptPar;
 }
@@ -98,28 +98,28 @@ void ANNOTATION::parseFixPar(QList<TokenTyp> *typePar )
 {
     //Mandatory PARAMETERS
     TokenTyp token;
-    //parameters = new QMap<const char*, const char*>;
+    //parameters = new QMap<const QString, const QString>;
     for (int i = 0; i < typePar->count(); i++)
     {
         token = this->nextToken();
         if (token == typePar->at(i))
         {
-            //parameters->insert(namePar->at(i).c_str(), lex->getLexem().c_str());
+            //parameters->insert(namePar->at(i), lex->getLexem());
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s );
         }
     }
 }
 
-TokenTyp ANNOTATION::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
+TokenTyp ANNOTATION::parseOptPar(QMap<QString, Occurence> *nameOptPar)
 {
 
     if (nameOptPar->isEmpty())
@@ -135,7 +135,7 @@ TokenTyp ANNOTATION::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
                         if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -153,21 +153,21 @@ TokenTyp ANNOTATION::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -175,7 +175,7 @@ TokenTyp ANNOTATION::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
                     if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -193,14 +193,14 @@ TokenTyp ANNOTATION::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -210,9 +210,9 @@ TokenTyp ANNOTATION::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
     }
 }
 
-QMap<std::string, std::string> *ANNOTATION::getParameters()
+QMap<QString, QString> *ANNOTATION::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -220,7 +220,7 @@ QMap<std::string, std::string> *ANNOTATION::getParameters()
     return par;
 }
 
-char* ANNOTATION::getPar(std::string str)
+QString ANNOTATION::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);
@@ -228,7 +228,7 @@ char* ANNOTATION::getPar(std::string str)
 
 void ANNOTATION::parse()
 {
-    name = (char*)"ANNOTATION";
+    name = (QString)"ANNOTATION";
 
     lex->getNextToken();
 

@@ -48,8 +48,7 @@ Csv::Csv(QString fullCsvFileName, WorkProject *parentWP, QString modName, QObjec
 {
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     fullPath = fullCsvFileName;
-    name = new char[(QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1];
-    strcpy_s(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
+    name = QFileInfo(fullPath).fileName();
     maxValueProgbar = 0;
     valueProgBar = 0;
     //omp_init_lock(&lock);
@@ -128,7 +127,7 @@ Csv::Csv(QString fullCsvFileName, WorkProject *parentWP, QString modName, QObjec
 Csv::~Csv()
 {
     //omp_destroy_lock(&lock);
-    delete[] name;
+
 }
 
 // ____________ read / write ____________ //
@@ -189,21 +188,21 @@ bool Csv::readFile()
                             else
                             {
                                 showError("CSV description Header : parser error at line " + QString::number(mylex.getLine())
-                                           + " with lexem " + QString(mylex.getLexem().c_str()));
+                                           + " with lexem " + QString(mylex.getLexem()));
                                 return false;
                             }
                         }
                         else
                         {
                             showError("CSV description Header : parser error at line " + QString::number(mylex.getLine())
-                                      + " with lexem " + QString(mylex.getLexem().c_str()));
+                                      + " with lexem " + QString(mylex.getLexem()));
                             return false;
                         }
                     }
                     else
                     {
                         showError("CSV description Header : parser error at line " + QString::number(mylex.getLine())
-                                  + " with lexem " + QString(mylex.getLexem().c_str()));
+                                  + " with lexem " + QString(mylex.getLexem()));
                         return false;
                     }
                     mylex.unitDelimiter = ':';
@@ -213,7 +212,7 @@ bool Csv::readFile()
         else
         {
             showError("CSV description Header : parser error at line " + QString::number(mylex.getLine())
-                      + " with lexem " + QString(mylex.getLexem().c_str()));
+                      + " with lexem " + QString(mylex.getLexem()));
             return false;
         }
         mylex.getNextToken(in); //valueSeparator
@@ -268,12 +267,12 @@ bool Csv::readFile()
             {
                 // create a data if not already created
                 Data *data = nullptr;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -285,7 +284,7 @@ bool Csv::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -296,14 +295,14 @@ bool Csv::readFile()
                         }
                         else
                         {
-                            outList.append("read CSV file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read CSV file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 bool ok = false;
@@ -341,7 +340,7 @@ bool Csv::readFile()
                             mylex.initialize();
                             if (token ==  Integer || token == Float || token  == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 str.replace(",",".");
                                 str.remove("\"");
                                 list.append(str);
@@ -396,7 +395,7 @@ bool Csv::readFile()
                             mylex.initialize();
                             while (token ==  Integer || token == Float || token  == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 str.replace(",",".");
                                 str.remove("\"");
                                 list.append(str);
@@ -524,7 +523,7 @@ bool Csv::readFile()
 
                             while (token ==  Integer || token == Float || token  == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 str.replace(",",".");
                                 str.remove("\"");
                                 list.append(str);
@@ -730,7 +729,7 @@ bool Csv::readFile()
 
                             while (token ==  Integer || token == Float || token  == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 str.replace(",",".");
                                 str.remove("\"");
                                 list.append(str);
@@ -810,7 +809,7 @@ bool Csv::readFile()
                             QStringList list;
                             while (token ==  Integer || token == Float || token  == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 str.replace(",",".");
                                 str.remove("\"");
                                 list.append(str);
@@ -861,7 +860,7 @@ bool Csv::readFile()
                             QStringList list;
                             while (token == Integer || token == Float || token == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 str.replace(",",".");
                                 str.remove("\"");
                                 list.append(str);
@@ -903,7 +902,7 @@ bool Csv::readFile()
                             QStringList list;
                             while (token == Integer ||token == Float || token == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 str.replace(",",".");
                                 str.remove("\"");
                                 list.append(str);
@@ -950,7 +949,7 @@ bool Csv::readFile()
                             token = mylex.getNextToken(in);
                             if (token == String)
                             {
-                                text = mylex.getLexem().c_str();
+                                text = mylex.getLexem();
                                 token = mylex.getNextToken(in);
                             }
 
@@ -982,7 +981,7 @@ bool Csv::readFile()
                         else
                         {
                             showError("CSV parser error at line " + QString::number(mylex.getLine())
-                                      + " with lexem " + QString(mylex.getLexem().c_str()));
+                                      + " with lexem " + QString(mylex.getLexem()));
                             return false;
                         }
                     }
@@ -1011,7 +1010,7 @@ bool Csv::readFile()
             else
             {
                 showError("CSV parser error at line " + QString::number(mylex.getLine())
-                          + " with lexem " + QString(mylex.getLexem().c_str()));
+                          + " with lexem " + QString(mylex.getLexem()));
                 return false;
             }
         }
@@ -1022,7 +1021,7 @@ bool Csv::readFile()
     else
     {
         showError("CSV parser error at line " + QString::number(mylex.getLine())
-                  + " with lexem " + QString(mylex.getLexem().c_str()));
+                  + " with lexem " + QString(mylex.getLexem()));
         return false;
     }
 }
@@ -1139,14 +1138,14 @@ void Csv::setFullName(QString fullName)
             FormCompare *fcomp = (FormCompare*)obj;
             if (fcomp->getCsv1() == this)
             {
-                 QString str = QFileInfo(getParentWp()->getFullA2lFileName().c_str()).fileName()
+                 QString str = QFileInfo(getParentWp()->getFullA2lFileName()).fileName()
                                + "/"
                                + QFileInfo(fullPath).fileName();
                  fcomp->setDataset1(str);
             }
             else if (fcomp->getCsv2() == this)
             {
-                QString str = QFileInfo(getParentWp()->getFullA2lFileName().c_str()).fileName()
+                QString str = QFileInfo(getParentWp()->getFullA2lFileName()).fileName()
                               + "/"
                               + QFileInfo(fullPath).fileName();
                  fcomp->setDataset2(str);
@@ -1180,7 +1179,7 @@ void Csv::detach(QObject *o)
         delete this;
 }
 
-std::string Csv::pixmap()
+QString Csv::pixmap()
 {
     return ":/icones/excel.png";
 }
@@ -1196,7 +1195,7 @@ void Csv::checkProgressStream(int n)
 
 }
 
-int Csv::getNumByte(std::string str)
+int Csv::getNumByte(QString str)
 {
-    return nByte.value(str.c_str());
+    return nByte.value(str);
 }

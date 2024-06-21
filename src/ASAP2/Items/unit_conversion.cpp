@@ -33,21 +33,21 @@ UNIT_CONVERSION::UNIT_CONVERSION( Node *parentNode) : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"UNIT_CONVERSION";
+    name = (QString)"UNIT_CONVERSION";
 }
 
 
 UNIT_CONVERSION::~UNIT_CONVERSION()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> UNIT_CONVERSION::getParameters()
+QMap<QString, QString> UNIT_CONVERSION::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> UNIT_CONVERSION::getParameters()
     return par;
 }
 
-char* UNIT_CONVERSION::getPar(std::string str)
+QString UNIT_CONVERSION::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

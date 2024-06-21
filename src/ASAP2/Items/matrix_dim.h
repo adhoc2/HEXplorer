@@ -30,15 +30,15 @@ class MATRIX_DIM : public Item
     public:
         MATRIX_DIM(Node *parentNode);
         ~MATRIX_DIM();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,MATRIX_DIM> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // MATRIX_DIM_H

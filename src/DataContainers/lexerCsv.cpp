@@ -104,13 +104,13 @@ void BufferCsv::clear()
 LexerCsv::LexerCsv(QObject *parent) : QObject(parent)
 {
     // --- define Keywords
-    QList<std::string> list;
+    QList<QString> list;
     list << "FUNCTION_HDR" << "VARIANT_HDR" << "VALUE" << "CURVE" << "MAP" << "X_AXIS_PTS"
             << "Y_AXIS_PTS" << "FUNCTION" << "AXIS_PTS" << "VAL_BLK" << "ASCII";
 
-    foreach (std::string str, list)
+    foreach (QString str, list)
     {
-        KeywordsMap.insert(QString(str.c_str()), Keyword);
+        KeywordsMap.insert(QString(str), Keyword);
     }
     list.clear();
 
@@ -118,8 +118,8 @@ LexerCsv::LexerCsv(QObject *parent) : QObject(parent)
     // --- initialize members
     buffer = new BufferCsv();
     valueSeparator = ';';
-    commentIndicator = 0;
-    stringDelimiter = 0;
+    commentIndicator = QChar(0);
+    stringDelimiter = QChar(0);
     decimalPointSeparator = '.';
     unitDelimiter = ':';
     position = 0;
@@ -130,12 +130,12 @@ LexerCsv::~LexerCsv()
     delete buffer;
 }
 
-std::string LexerCsv::getLexem()
+QString LexerCsv::getLexem()
 {
     return lexem;
 }
 
-std::string LexerCsv::toString(TokenTyp type)
+QString LexerCsv::toString(TokenTyp type)
 {
     switch (type)
     {
@@ -234,7 +234,7 @@ TokenTyp LexerCsv::getNextToken(QTextStream &in)
         position = in.pos();
     }
 
-    qDebug() << toString(token).c_str() << lexem.c_str();
+    qDebug() << toString(token) << lexem;
     return token;
 }
 
@@ -443,7 +443,7 @@ TokenTyp LexerCsv::identifier(QTextStream &in, char &ch)
    if (token == Identifier)
     {
 
-        TokenTyp tok = KeywordsMap.value(QString(lexem.c_str()));
+        TokenTyp tok = KeywordsMap.value(QString(lexem));
         if (tok != 0)
             token = tok;
     }

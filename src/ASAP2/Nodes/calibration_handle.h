@@ -31,23 +31,23 @@ class CALIBRATION_HANDLE : public Node
     public:
         CALIBRATION_HANDLE( Node *parentNode);
         ~CALIBRATION_HANDLE();
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node, CALIBRATION_HANDLE> nodeFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, Occurence> *occOptPar;
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, Occurence> *occOptPar;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         void parseFixPar(QList<TokenTyp> *typePar);
-        TokenTyp parseOptPar(QMap<std::string, Occurence> *nameOptPar);
+        TokenTyp parseOptPar(QMap<QString, Occurence> *nameOptPar);
 
 };
 

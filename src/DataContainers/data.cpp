@@ -1028,7 +1028,7 @@ Data::Data(AXIS_PTS *node, PROJECT *pro, HexFile *hexFile, bool modif) : QObject
     Item* no_axis_pts = record_layout->getItem("NO_AXIS_PTS_X");
     if (no_axis_pts)
     {
-        std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
+        QString datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
         int nbyte = hexParent->getNumByte(datatype);
         QString val = hexParent->getHexValue(node->getPar("Adress"), offset, nbyte, byteOrderX);
         bool bl;
@@ -1045,7 +1045,7 @@ Data::Data(AXIS_PTS *node, PROJECT *pro, HexFile *hexFile, bool modif) : QObject
     Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
     if (type == "SRC_ADDR_X")
     {
-        std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+        QString datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
         offset += hexParent->getNumByte(datatype);
     }
 
@@ -1165,7 +1165,7 @@ Data::Data(AXIS_PTS *node, PROJECT *pro, SrecFile *srecFile, bool modif) : QObje
     Item* no_axis_pts = record_layout->getItem("NO_AXIS_PTS_X");
     if (no_axis_pts)
     {
-        std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
+        QString datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
         int nbyte = srecParent->getNumByte(datatype);
         QString val = srecParent->getHexValue(node->getPar("Adress"), offset, nbyte, byteOrderX);
         bool bl;
@@ -1182,7 +1182,7 @@ Data::Data(AXIS_PTS *node, PROJECT *pro, SrecFile *srecFile, bool modif) : QObje
     Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
     if (type == "SRC_ADDR_X")
     {
-        std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+        QString datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
         offset += srecParent->getNumByte(datatype);
     }
 
@@ -1605,7 +1605,7 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
             {
                 int nbyte = 0;
                 QString val = "";
-                std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
+                QString datatype = ((NO_AXIS_PTS_X*)no_axis_pts)->getPar("Datatype");
                 if (hexParent)
                 {
                     nbyte = hexParent->getNumByte(datatype);
@@ -1628,7 +1628,7 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
             Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
             if (type == "SRC_ADDR_X")
             {
-                std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+                QString datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
                 if (hexParent)
                     offset += hexParent->getNumByte(datatype);
                 else
@@ -1844,7 +1844,7 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
             {
                 int nbyte = 0;
                 QString val = "";
-                std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
+                QString datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
                 if (hexParent)
                 {
                     nbyte = hexParent->getNumByte(datatype);
@@ -1867,7 +1867,7 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
             Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
             if (src_addr_x)
             {
-                std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+                QString datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
                 if (hexParent)
                     offset += hexParent->getNumByte(datatype);
                 else
@@ -2097,7 +2097,7 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
     Item* no_axis_pts_x = record_layout->getItem("NO_AXIS_PTS_X");
     if (no_axis_pts_x)
     {
-        std::string datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
+        QString datatype = ((NO_AXIS_PTS_X*)no_axis_pts_x)->getPar("Datatype");
         double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
         int nbyte = 0;
         if (hexParent)
@@ -2118,7 +2118,7 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
         Item* no_axis_pts_y = record_layout->getItem("NO_AXIS_PTS_Y");
         if (no_axis_pts_y)
         {
-            std::string datatype = ((NO_AXIS_PTS_Y*)no_axis_pts_y)->getPar("Datatype");
+            QString datatype = ((NO_AXIS_PTS_Y*)no_axis_pts_y)->getPar("Datatype");
             double address = QString(node->getPar("Adress")).toUInt(&bl, 16) + offset;
             int nbyte = 0;
             if (hexParent)
@@ -2184,13 +2184,13 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
     Item* src_addr_x = record_layout->getItem("SRC_ADDR_X");
     if (src_addr_x)
     {
-        std::string datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
+        QString datatype = ((SRC_ADDR_X*)src_addr_x)->getPar("Datatype");
         offset += hexParent->getNumByte(datatype);
 
         Item* src_addr_y = record_layout->getItem("SRC_ADDR_Y");
         if (src_addr_y)
         {
-            std::string datatype = ((SRC_ADDR_Y*)src_addr_y)->getPar("Datatype");
+            QString datatype = ((SRC_ADDR_Y*)src_addr_y)->getPar("Datatype");
             offset += hexParent->getNumByte(datatype);
         }
     }
@@ -2317,7 +2317,7 @@ QString Data::getInputQuantityX()
     QString str = "X : ";
     if (axisDescrX)
     {
-        str.append(axisDescrX->fixPar("InputQuantity").c_str());
+        str.append(axisDescrX->fixPar("InputQuantity"));
         COMPU_METHOD *cpmX = getCompuMethodAxisX();
         if (cpmX)
             str.append(" - " + QString(cpmX->getPar("Unit")));
@@ -2333,7 +2333,7 @@ QString Data::getInputQuantityY()
     QString str = "Y : ";
     if (axisDescrY)
     {
-        str.append(axisDescrY->fixPar("InputQuantity").c_str());
+        str.append(axisDescrY->fixPar("InputQuantity"));
         COMPU_METHOD *cpmY = getCompuMethodAxisY();
         if (cpmY)
             str.append(" - " + QString(cpmY->getPar("Unit")));
@@ -2369,7 +2369,7 @@ int Data::getZnbyte()
         return 0;
 }
 
-std::string Data::getDatatypeZ()
+QString Data::getDatatypeZ()
 {
     return datatypeZ;
 }
@@ -2380,22 +2380,22 @@ QString Data::getMaxDim()
     QString str = "";
     if (axisDescrX)
     {
-        if (xCount() < QString(axisDescrX->fixPar("MaxAxisPoints").c_str()).toInt())
+        if (xCount() < QString(axisDescrX->fixPar("MaxAxisPoints")).toInt())
         {
             display = true;
         }
         str = "[";
-        str.append(axisDescrX->fixPar("MaxAxisPoints").c_str());
+        str.append(axisDescrX->fixPar("MaxAxisPoints"));
 
         if (axisDescrY)
         {
-            if (yCount() < QString(axisDescrY->fixPar("MaxAxisPoints").c_str()).toInt())
+            if (yCount() < QString(axisDescrY->fixPar("MaxAxisPoints")).toInt())
             {
                 display = true;
             }
 
             str.append("x");
-            str.append(axisDescrY->fixPar("MaxAxisPoints").c_str());
+            str.append(axisDescrY->fixPar("MaxAxisPoints"));
             str.append("]");
         }
         else
@@ -2414,7 +2414,7 @@ int Data::getMaxAxisX()
 {
     if (axisDescrX)
     {
-        return QString(axisDescrX->fixPar("MaxAxisPoints").c_str()).toInt();
+        return QString(axisDescrX->fixPar("MaxAxisPoints")).toInt();
     }
     else
         return 0;
@@ -2424,7 +2424,7 @@ int Data::getMaxAxisY()
 {
     if (axisDescrY)
     {
-        return QString(axisDescrY->fixPar("MaxAxisPoints").c_str()).toInt();
+        return QString(axisDescrY->fixPar("MaxAxisPoints")).toInt();
     }
     else
         return 0;
@@ -3423,7 +3423,7 @@ QStringList Data::hex2phys(QStringList list, QString axis)
         return list;
 }
 
-double Data::hex2dec(QString hex, std::string type,  int base)
+double Data::hex2dec(QString hex, QString type,  int base)
 {
     bool bl;
     //unsigned int uval = hex.mid(0,8).toUInt(&bl, base);
@@ -3481,7 +3481,7 @@ double Data::hex2dec(QString hex, std::string type,  int base)
         return 0;
 }
 
-QList<double> Data::hex2dec(QStringList listHex, std::string type,  int base)
+QList<double> Data::hex2dec(QStringList listHex, QString type,  int base)
 {
     QList<double> listDec;
     unsigned int uval = 0;
@@ -4598,7 +4598,7 @@ QStringList Data::phys2hex(QStringList list, QString axis)
         return list;
 }
 
-QStringList Data::dec2hex(QList<double> listDec, std::string type,  int base)
+QStringList Data::dec2hex(QList<double> listDec, QString type,  int base)
 {
     QStringList listHex;
     for (int i = 0; i < listDec.count(); i++)
@@ -4608,7 +4608,7 @@ QStringList Data::dec2hex(QList<double> listDec, std::string type,  int base)
     return listHex;
 }
 
-QString Data::dec2hex(double dec, std::string type, int base)
+QString Data::dec2hex(double dec, QString type, int base)
 {
     QString qHex = "";
     char hex[31];
@@ -7265,7 +7265,7 @@ QString Data::getnPtsXHexa()
 {
     QString str = "";
     QString datatype = getNPtsXDatatype();
-    str = dec2hex(xCount(), datatype.toStdString(), 16);
+    str = dec2hex(xCount(), datatype, 16);
     return str;
 }
 
@@ -7273,7 +7273,7 @@ QString Data::getnPtsYHexa()
 {
     QString str = "";
     QString datatype = getNPtsYDatatype();
-    str = dec2hex(yCount(), datatype.toStdString(), 16);
+    str = dec2hex(yCount(), datatype, 16);
     return str;
 }
 
@@ -7329,7 +7329,7 @@ void Data::extendSize(int newDimX, int newDimY)
         QString typeAxisX = axisDescrX->getPar("Attribute");
         if (typeAxisX == "STD_AXIS")
         {
-            if (newDimX <= QString(axisDescrX->fixPar("MaxAxisPoints").c_str()).toInt()
+            if (newDimX <= QString(axisDescrX->fixPar("MaxAxisPoints")).toInt()
                      && newDimX > 0)
             {
                 //reduce axis X size
@@ -7371,7 +7371,7 @@ void Data::extendSize(int newDimX, int newDimY)
         QString typeAxisY = axisDescrY->getPar("Attribute");
         if (typeAxisY == "STD_AXIS")
         {
-            if (newDimY <= QString(axisDescrY->fixPar("MaxAxisPoints").c_str()).toInt()
+            if (newDimY <= QString(axisDescrY->fixPar("MaxAxisPoints")).toInt()
                     &&  newDimY > 0)
             {
                 //reduce axis Y size
@@ -8335,7 +8335,7 @@ unsigned int Data::tzn(unsigned int v)
 int Data::getZnbyte_Recordlayout(RECORD_LAYOUT *rcd_lyt)
 {
    bool bl;
-   if (strcmp(datatypeZ.c_str(), "SBYTE") == 0 || strcmp(datatypeZ.c_str(), "UBYTE") == 0 )
+   if (QString::compare(datatypeZ, "SBYTE") == 0 || QString::compare(datatypeZ, "UBYTE") == 0 )
    {
        ALIGNMENT_BYTE *item = (ALIGNMENT_BYTE*)rcd_lyt->getItem("alignment_byte");
        if (item)
@@ -8344,7 +8344,7 @@ int Data::getZnbyte_Recordlayout(RECORD_LAYOUT *rcd_lyt)
            return str.toInt(&bl,10);
        }
    }
-   else if (strcmp(datatypeZ.c_str(), "SWORD") == 0 || strcmp(datatypeZ.c_str(), "UWORD") == 0 )
+   else if (QString::compare(datatypeZ, "SWORD") == 0 || QString::compare(datatypeZ, "UWORD") == 0 )
    {
        ALIGNMENT_WORD *item = (ALIGNMENT_WORD*)rcd_lyt->getItem("alignment_word");
        if (item)
@@ -8353,7 +8353,7 @@ int Data::getZnbyte_Recordlayout(RECORD_LAYOUT *rcd_lyt)
            return str.toInt(&bl,10);
        }
    }
-   else if (strcmp(datatypeZ.c_str(), "SLONG") == 0 || strcmp(datatypeZ.c_str(), "ULONG") == 0 )
+   else if (QString::compare(datatypeZ, "SLONG") == 0 || QString::compare(datatypeZ, "ULONG") == 0 )
    {
        ALIGNMENT_LONG *item = (ALIGNMENT_LONG*)rcd_lyt->getItem("alignment_long");
        if (item)
@@ -8362,7 +8362,7 @@ int Data::getZnbyte_Recordlayout(RECORD_LAYOUT *rcd_lyt)
            return str.toInt(&bl,10);
        }
    }
-   else if (strcmp(datatypeZ.c_str(), "FLOAT32_IEEE") == 0)
+   else if (QString::compare(datatypeZ, "FLOAT32_IEEE") == 0)
    {
        ALIGNMENT_FLOAT32_IEEE *item = (ALIGNMENT_FLOAT32_IEEE*)rcd_lyt->getItem("alignment_float32_ieee");
        if (item)
@@ -8371,7 +8371,7 @@ int Data::getZnbyte_Recordlayout(RECORD_LAYOUT *rcd_lyt)
            return str.toInt(&bl,10);
        }
    }
-   else if (strcmp(datatypeZ.c_str(), "FLOAT64_IEEE") == 0)
+   else if (QString::compare(datatypeZ, "FLOAT64_IEEE") == 0)
    {
        ALIGNMENT_FLOAT64_IEEE *item = (ALIGNMENT_FLOAT64_IEEE*)rcd_lyt->getItem("alignment_float64_ieee");
        if (item)

@@ -43,7 +43,7 @@ REF_CHARACTERISTIC::REF_CHARACTERISTIC(Node *parentNode)
 
     //Parse Mandatory PARAMETERS
     //parseFixPar(typePar, namePar ,in);
-    name = (char*)"REF_CHARACTERISTIC";
+    name = (QString)"REF_CHARACTERISTIC";
 
     //Parse optional PARAMETERS
     //TokenTyp token = parseOptPar(in);
@@ -67,29 +67,29 @@ REF_CHARACTERISTIC::REF_CHARACTERISTIC(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd REF_CHARACTERISTIC\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end REF_CHARACTERISTIC\nfind : " + s1 + " " + s2);
     }
 }
 
 REF_CHARACTERISTIC::~REF_CHARACTERISTIC()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> *REF_CHARACTERISTIC::getParameters()
+QMap<QString, QString> *REF_CHARACTERISTIC::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -97,7 +97,7 @@ QMap<std::string, std::string> *REF_CHARACTERISTIC::getParameters()
     return par;
 }
 
-std::string  REF_CHARACTERISTIC::pixmap()
+QString  REF_CHARACTERISTIC::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -118,14 +118,14 @@ TokenTyp REF_CHARACTERISTIC::parseListChar()
 QStringList REF_CHARACTERISTIC::getCharList()
 {
     QStringList list;
-    foreach(std::string str, charList)
+    foreach(QString str, charList)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
     return list;
 }
 
-char* REF_CHARACTERISTIC::getPar(std::string str)
+QString REF_CHARACTERISTIC::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

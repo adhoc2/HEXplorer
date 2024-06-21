@@ -34,20 +34,20 @@ READ_ONLY::READ_ONLY( Node *parentNode)  : Item(parentNode)
     //Parse Mandatory PARAMETERS
     //parseFixPar(typePar, namePar ,in, parentWidget);
     //name = parameters->value("READ_ONLY");
-    name = (char*)"";
+    name = (QString)"";
 }
 
 READ_ONLY::~READ_ONLY()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> READ_ONLY::getParameters()
+QMap<QString, QString> READ_ONLY::getParameters()
 {    
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> READ_ONLY::getParameters()
     return par;
 }
 
-char* READ_ONLY::getPar(std::string str)
+QString READ_ONLY::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

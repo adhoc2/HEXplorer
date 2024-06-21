@@ -33,20 +33,20 @@ AXIS_PTS_X::AXIS_PTS_X( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar );
-    name = (char*)"AXIS_PTS_X";
+    name = (QString)"AXIS_PTS_X";
 }
 
 AXIS_PTS_X::~AXIS_PTS_X()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> AXIS_PTS_X::getParameters()
+QMap<QString, QString> AXIS_PTS_X::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -54,7 +54,7 @@ QMap<std::string, std::string> AXIS_PTS_X::getParameters()
     return par;
 }
 
-char* AXIS_PTS_X::getPar(std::string str)
+QString AXIS_PTS_X::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

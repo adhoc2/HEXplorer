@@ -119,7 +119,7 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
     //----------Token Type : Keyword ----------------------
 
     QHash<QString, TokenTyp> keywordsList;
-    QList<std::string> list;
+    QList<QString> list;
 
     list << "ASAP2_VERSION" << "A2ML_VERSION" << "AXIS_DESCR" << "AXIS_PTS_REF" << "FIX_AXIS_PAR_LIST" << "PROJECT"
          << "PROJECT_NO" << "VERSION" << "HEADER" << "DISPLAY_IDENTIFIER"
@@ -141,8 +141,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
         << "DATA_SIZE" << "SUB_GROUP" << "ROOT" << "REF_MEASUREMENT" << "ECU_ADDRESS_EXTENSION" << "MATRIX_DIM" << "FIX_AXIS_PAR_DIST"
         << "STATIC_RECORD_LAYOUT";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Keyword);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Keyword);
 
     list.clear();
 
@@ -150,8 +150,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "ASCII" << "CURVE" << "MAP" << "CUBOID" << "CUBE_4" << "CUBE_5" << "VAL_BLK" << "VALUE";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Type);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Type);
 
     list.clear();
 
@@ -160,8 +160,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
     list << "UBYTE" << "SBYTE" << "UWORD" << "SWORD" << "ULONG" << "SLONG" << "A_UINT64"
             << "A_INT64" << "FLOAT32_IEEE" << "FLOAT64_IEEE";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), DataType);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), DataType);
 
     list.clear();
 
@@ -169,8 +169,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "BYTE" << "WORD" << "LONG";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Datasize);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Datasize);
 
     list.clear();
 
@@ -178,8 +178,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "PBYTE" << "PWORD" << "PLONG" << "DIRECT";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Addrtype);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Addrtype);
 
     list.clear();
 
@@ -187,8 +187,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "LITTLE_ENDIAN" << "BIG_ENDIAN" << "MSB_LAST" << "MSB_FIRST";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Byteorder);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Byteorder);
 
     list.clear();
 
@@ -197,8 +197,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
     list << "ALTERNATE_CURVES" <<"ALTERNATE_WITH_X" << "ALTERNATE_WITH_Y" << "COLUMN_DIR"
             << "ROW_DIR";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), IndexMode);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), IndexMode);
 
     list.clear();
 
@@ -206,8 +206,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "INDEX_DECR" <<"INDEX_INCR";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Indexorder);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Indexorder);
 
     list.clear();
 
@@ -216,8 +216,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
     list << "RAT_FUNC" << "TAB_VERB" << "IDENTICAL" << "FORM" << "LINEAR" << "TAB_INTP"
             << "TAB_NOINTP";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), ConversionType);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), ConversionType);
 
     list.clear();
 
@@ -225,8 +225,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "CURVE_AXIS" << "COM_AXIS" << "FIX_AXIS" << "RES_AXIS" << "STD_AXIS";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Attribute);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Attribute);
 
     list.clear();
 
@@ -234,8 +234,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "ABSOLUTE" << "REFERENCE";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), Mode);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), Mode);
 
     list.clear();
 
@@ -244,8 +244,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
     list << "CALIBRATION_VARIABLES" << "CODE" << "DATA" << "EXCLUDE_FROM_FLASH" << "OFFLINE_DATA"
             << "RESERVED" << "SERAM" << "VARIABLES" << "PRG_CODE" << "PRG_DATA" << "PRG_RESERVED";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), PrgType);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), PrgType);
 
     list.clear();
 
@@ -253,8 +253,8 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "EEPROM" << "EPROM" << "FLASH" << "RAM" << "ROM" << "REGISTER";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), MemoryType);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), MemoryType);
 
     list.clear();
 
@@ -262,16 +262,16 @@ QHash<QString, TokenTyp> A2lGrammar::initKeywords()
 
     list << "INTERN" << "EXTERN";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), MemAttribute);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), MemAttribute);
     list.clear();
 
     //----------Token Type : UnitType ----------------------
 
     list << "DERIVED" << "EXTENDED_SI";
 
-    foreach (std::string str, list)
-        keywordsList.insert(QString(str.c_str()), UnitType);
+    foreach (QString str, list)
+        keywordsList.insert(QString(str), UnitType);
 
 
 

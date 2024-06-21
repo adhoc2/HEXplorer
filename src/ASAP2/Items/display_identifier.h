@@ -29,16 +29,16 @@ class DISPLAY_IDENTIFIER : public Item
     public:
         DISPLAY_IDENTIFIER( Node *parentNode);
         ~DISPLAY_IDENTIFIER();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,DISPLAY_IDENTIFIER> itemFactory;
         static void initialize();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // DISPLAY_IDENTIFIER_H

@@ -29,16 +29,16 @@ class BIT_MASK : public Item
     public:
         BIT_MASK(Node *parentNode);
         ~BIT_MASK();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, BIT_MASK> itemFactory;
         static void initialize();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // BIT_MASK_H

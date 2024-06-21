@@ -32,20 +32,20 @@ class FORMULA : public Node
         FORMULA(Node *parentNode);
         ~FORMULA();
 
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node,FORMULA> nodeFactory;
-        std::string pixmap();
-        char* getPar(std::string str);
+        QString pixmap();
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         void parseFixPar(QList<TokenTyp> *typePar);
         TokenTyp parseOptPar();

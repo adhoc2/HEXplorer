@@ -28,7 +28,7 @@ bool itemLessThan( const Item *a, const Item *b );
 A2LFILE::A2LFILE(QString fullFileName) : Node()
 {
     project = NULL;
-    optParameters = new QMap<std::string, std::string>;
+    optParameters = new QMap<QString, QString>;
     fullA2lName = fullFileName;
     parsed = false;
 }
@@ -39,7 +39,7 @@ A2LFILE::A2LFILE(Node *parentNode, A2lLexer *lexer, QStringList *errorList, QStr
     //initialize
     parsed = false;
     project = NULL;
-    optParameters = new QMap<std::string, std::string>;
+    optParameters = new QMap<QString, QString>;
     fullA2lName = fullFileName;
 
     //call the parser
@@ -50,7 +50,6 @@ A2LFILE::A2LFILE(Node *parentNode, A2lLexer *lexer, QStringList *errorList, QStr
 A2LFILE::~A2LFILE()
 {
     delete optParameters;
-    delete[] name;
     delete errorList;
     delete lex;
 }
@@ -60,15 +59,15 @@ void A2LFILE::parser()
     TokenTyp token = nextToken();
     while (token == Keyword)
     {
-        qDebug() << lex->getLexem().c_str();
+        qDebug() << lex->getLexem();
         if (lex->getLexem() == "ASAP2_VERSION")
             getAsap2Version();
         else if (lex->getLexem() == "A2ML_VERSION")
             getA2mlVersion();
         else
         {
-            QString s1(lex->toString(token).c_str());
-            QString s2(lex->getLexem().c_str());
+            QString s1(lex->toString(token));
+            QString s2(lex->getLexem());
             QString s3 = QString::number(lex->getLine());
 
             showError("ASAP2 parser : wrong ASAP2 file format at line " + s3 + "\n"
@@ -93,8 +92,8 @@ void A2LFILE::parser()
         }
         else
         {
-            QString s1(lex->toString(token1).c_str());
-            QString s2(lex->getLexem().c_str());
+            QString s1(lex->toString(token1));
+            QString s2(lex->getLexem());
 
             showError("ASAP2 parser : wrong ASAP2 file format at line ???\n"
                                     "expected token : Identifier (PROJECT)\n"
@@ -103,7 +102,7 @@ void A2LFILE::parser()
     }
     else
     {
-        QString s(lex->toString(token).c_str());
+        QString s(lex->toString(token));
 
         this->showError("ASAP2 parser : wrong ASAP2 file format at line ???\n"
                                 "expected token : BlockBegin or Keyword\n"
@@ -119,7 +118,7 @@ void A2LFILE::getAsap2Version()
         return;
     }
 
-    std::string str;
+    QString str;
     TokenTyp token1 = nextToken();
 
     if (token1 == Integer)
@@ -152,7 +151,7 @@ void A2LFILE::getA2mlVersion()
         return;
     }
 
-    std::string str;
+    QString str;
     TokenTyp token1 = nextToken();
 
     if (token1 == Integer)
@@ -200,7 +199,7 @@ bool A2LFILE::isParsed()
     return parsed;
 }
 
-std::string A2LFILE::pixmap()
+QString A2LFILE::pixmap()
 {
     return ":/icones/binary.png";
     //return ":/icones/milky_cartable.png";

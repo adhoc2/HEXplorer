@@ -37,19 +37,19 @@ class COMPU_METHOD : public Node
         ~COMPU_METHOD();
         static Factory<Node, COMPU_METHOD> nodeFactory;
 
-        QMap<std::string, std::string> *getParameters();
-        std::string pixmap();
-        char* getPar(std::string str);
+        QMap<QString, QString> *getParameters();
+        QString pixmap();
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         void parseFixPar(QList<TokenTyp> *typePar);
         TokenTyp parseOptPar();

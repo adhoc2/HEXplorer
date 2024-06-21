@@ -29,15 +29,15 @@ class CALIBRATION_HANDLE_TEXT : public Item
     public:
         CALIBRATION_HANDLE_TEXT( Node *parentNode);
         ~CALIBRATION_HANDLE_TEXT();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, CALIBRATION_HANDLE_TEXT> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // CALIBRATION_HANDLE_TEXT_H

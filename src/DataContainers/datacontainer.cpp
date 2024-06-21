@@ -86,27 +86,25 @@ void DataContainer::setModuleName(QString _moduleName)
 Data *DataContainer::getData(QString str)
 {
     Node node;
-    node.name = new char[str.length() + 1];
-    strcpy_s(node.name, str.length() + 1,  str.toLocal8Bit().data());
+    node.name = str;
     Data dat(&node);
     //QList<Data*>::iterator i = qBinaryFind(listData.begin(), listData.end(), &dat, dataCompare);
     QList<Data*>::iterator i = std::lower_bound(listData.begin(), listData.end(), &dat, dataCompare);
 
     if (i == listData.end())
     {
-        delete[] node.name;
         return nullptr;
     }
     else
     {
-        if (strcmp(((Data*)*i)->name, node.name) != 0)
+        if (QString::compare(((Data*)*i)->name, node.name) != 0)
         {
-            delete[] node.name;
+
             return nullptr;
         }
         else
         {
-            delete[] node.name;
+
             return *i;
         }
     }
@@ -160,8 +158,7 @@ void DataContainer::updateChildNodes(Data* data, bool add)
             {
                 //create a new node subset
                 sub = new Node();
-                sub->name = new char[subsetName.toLocal8Bit().size() + 1];
-                strcpy_s(sub->name, subsetName.toLocal8Bit().size() + 1, subsetName.toLocal8Bit().data());
+                sub->name = subsetName;
                 this->insertChildNode(sub);
                 sub->setParentNode(this);
                 parentWp->treeModel->dataInserted(this, childNodes.indexOf(sub));

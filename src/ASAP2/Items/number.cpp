@@ -33,21 +33,21 @@ NUMBER::NUMBER( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar );
-    name = (char*)"NUMBER";
+    name = (QString)"NUMBER";
 }
 
 NUMBER::~NUMBER()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> NUMBER::getParameters()
+QMap<QString, QString> NUMBER::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> NUMBER::getParameters()
     return par;
 }
 
-char* NUMBER::getPar(std::string str)
+QString NUMBER::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

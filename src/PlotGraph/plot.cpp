@@ -117,17 +117,17 @@ void Plot::plotXZ()
     QString name = "";
     if (axisX)
     {
-        name.append(axisX->fixPar("InputQuantity").c_str());
+        name.append(axisX->fixPar("InputQuantity"));
     }
     QString unit = "";
     if (cpmX)
     {
-        unit.append(cpmX->fixPar("Unit").c_str());
+        unit.append(cpmX->fixPar("Unit"));
     }
     QString description = "";
     if (cpmX)
     {
-        description.append(cpmX->fixPar("LongIdentifier").c_str());
+        description.append(cpmX->fixPar("LongIdentifier"));
     }
     QString titleX =  name + " - " + unit + "\n" + description;
     setAxisTitle(xBottom, titleX);
@@ -238,17 +238,17 @@ void Plot::plotYZ()
     QString name = "";
     if (axisX)
     {
-        name.append(axisX->fixPar("InputQuantity").c_str());
+        name.append(axisX->fixPar("InputQuantity"));
     }
     QString unit = "";
     if (cpmX)
     {
-        unit.append(cpmX->fixPar("Unit").c_str());
+        unit.append(cpmX->fixPar("Unit"));
     }
     QString description = "";
     if (cpmX)
     {
-        description.append(cpmX->fixPar("LongIdentifier").c_str());
+        description.append(cpmX->fixPar("LongIdentifier"));
     }
     QString titleX =  name + " - " + unit + "\n" + description;
     setAxisTitle(xBottom, titleX);

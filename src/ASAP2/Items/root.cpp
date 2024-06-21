@@ -34,20 +34,20 @@ ROOT::ROOT( Node *parentNode)  : Item(parentNode)
     //Parse Mandatory PARAMETERS
     //parseFixPar(typePar, namePar ,in, parentWidget);
     //name = parameters->value("ROOT");
-    name = (char*)"";
+    name = (QString)"";
 }
 
 ROOT::~ROOT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> ROOT::getParameters()
+QMap<QString, QString> ROOT::getParameters()
 {    
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> ROOT::getParameters()
     return par;
 }
 
-char* ROOT::getPar(std::string str)
+QString ROOT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

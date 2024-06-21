@@ -1,6 +1,6 @@
 #include "treedirectory.h"
 
-TreeDirectory::TreeDirectory(char *name) :  Node(name)
+TreeDirectory::TreeDirectory(QString name) :  Node(name)
 {
 
 }

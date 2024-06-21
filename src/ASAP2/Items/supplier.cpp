@@ -36,22 +36,22 @@ SUPPLIER::SUPPLIER( Node *parentNode) : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"SUPPLIER";
+        name = (QString)"SUPPLIER";
 }
 
 
 SUPPLIER::~SUPPLIER()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> SUPPLIER::getParameters()
+QMap<QString, QString> SUPPLIER::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -59,7 +59,7 @@ QMap<std::string, std::string> SUPPLIER::getParameters()
     return par;
 }
 
-char* SUPPLIER::getPar(std::string str)
+QString SUPPLIER::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

@@ -440,7 +440,7 @@ void ChooseLabel::on_lineEdit_textChanged_timer(QString str)
                                {
                                    QString text = ui->lineEdit_2->text();
                                    text.replace("*", ".*");
-                                   QString descr(charac->fixPar("LongIdentifier").c_str());
+                                   QString descr(charac->fixPar("LongIdentifier"));
                                    if (!descr.contains(QRegularExpression("^\"" + text, QRegularExpression::CaseInsensitiveOption)))
                                    {
                                        strList.removeOne(str);
@@ -455,7 +455,7 @@ void ChooseLabel::on_lineEdit_textChanged_timer(QString str)
                                       AXIS_PTS *axisPts = (AXIS_PTS*)nodeAxis->getNode(str);
                                       if (axisPts)
                                       {
-                                          QString descr(axisPts->fixPar("LongIdentifier").c_str());
+                                          QString descr(axisPts->fixPar("LongIdentifier"));
                                           if (!descr.contains(QRegularExpression("^" + ui->lineEdit_2->text(),  QRegularExpression::CaseInsensitiveOption)))
                                           {
                                               strList.removeOne(str);
@@ -540,7 +540,7 @@ void ChooseLabel::on_lineEdit_textChanged_timer(QString str)
                        {
                            QString text = ui->lineEdit_2->text();
                            text.replace("*", ".*");
-                           QString descr(charac->fixPar("LongIdentifier").c_str());
+                           QString descr(charac->fixPar("LongIdentifier"));
                            if (!descr.contains(QRegularExpression("^\"" + text, QRegularExpression::CaseInsensitiveOption)))
                            {
                                result.removeOne(str);
@@ -555,7 +555,7 @@ void ChooseLabel::on_lineEdit_textChanged_timer(QString str)
                               AXIS_PTS *axisPts = (AXIS_PTS*)nodeAxis->getNode(str);
                               if (axisPts)
                               {
-                                  QString descr(axisPts->fixPar("LongIdentifier").c_str());
+                                  QString descr(axisPts->fixPar("LongIdentifier"));
                                   if (!descr.contains(QRegularExpression("^" + ui->lineEdit_2->text(), QRegularExpression::CaseInsensitiveOption)))
                                   {
                                       result.removeOne(str);
@@ -792,7 +792,7 @@ void ChooseLabel::selectedItem(QListWidgetItem* item,QListWidgetItem*)
        CHARACTERISTIC *charac = (CHARACTERISTIC*)nodeChar->getNode(str);
        if (charac)
        {
-           QString descr(charac->fixPar("LongIdentifier").c_str());
+           QString descr(charac->fixPar("LongIdentifier"));
            ui->label_3->setText(descr);
        }
        else
@@ -804,7 +804,7 @@ void ChooseLabel::selectedItem(QListWidgetItem* item,QListWidgetItem*)
                   AXIS_PTS *axisPts = (AXIS_PTS*)nodeAxis->getNode(str);
                   if (axisPts)
                   {
-                      QString descr(axisPts->fixPar("LongIdentifier").c_str());
+                      QString descr(axisPts->fixPar("LongIdentifier"));
                       ui->label_3->setText(descr);
                   }
            }

@@ -36,22 +36,22 @@ DISPLAY_IDENTIFIER::DISPLAY_IDENTIFIER( Node *parentNode) : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"DISPLAY_IDENTIFIER";
+        name = (QString)"DISPLAY_IDENTIFIER";
 }
 
 
 DISPLAY_IDENTIFIER::~DISPLAY_IDENTIFIER()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> DISPLAY_IDENTIFIER::getParameters()
+QMap<QString, QString> DISPLAY_IDENTIFIER::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -59,7 +59,7 @@ QMap<std::string, std::string> DISPLAY_IDENTIFIER::getParameters()
     return par;
 }
 
-char* DISPLAY_IDENTIFIER::getPar(std::string str)
+QString DISPLAY_IDENTIFIER::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

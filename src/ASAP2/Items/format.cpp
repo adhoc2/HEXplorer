@@ -33,22 +33,22 @@ FORMAT::FORMAT(Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"FORMAT";
+    name = (QString)"FORMAT";
 }
 
 FORMAT::~FORMAT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
 
-QMap<std::string, std::string> FORMAT::getParameters()
+QMap<QString, QString> FORMAT::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -56,7 +56,7 @@ QMap<std::string, std::string> FORMAT::getParameters()
     return par;
 }
 
-char* FORMAT::getPar(std::string str)
+QString FORMAT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

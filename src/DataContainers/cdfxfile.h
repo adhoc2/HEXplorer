@@ -75,7 +75,7 @@ public:
     explicit CdfxFile(QString fullCsvFileName, WorkProject *parentWP, QString modName, QObject *parent = 0);
     ~CdfxFile();
 
-    std::string pixmap();
+    QString pixmap();
     QString fullName();
     QStringList getListNameData();
     QStringList getErrorList();
@@ -85,7 +85,7 @@ public:
     bool save(QString fileName = "");
     void setFullName(QString fullName);
     bool isRead;
-    int getNumByte(std::string str);
+    int getNumByte(QString str);
 
     bool readFile();
 

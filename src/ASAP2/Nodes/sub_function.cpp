@@ -43,7 +43,7 @@ SUB_FUNCTION::SUB_FUNCTION( Node *parentNode)
     //Set the line where the Node starts in ASAP file
     a2lLine = lex->getLine();
 
-    name = (char*)"SUB_FUNCTION";
+    name = (QString)"SUB_FUNCTION";
 
     //Parse list Identifiers
     TokenTyp token = parseListChar();
@@ -65,29 +65,29 @@ SUB_FUNCTION::SUB_FUNCTION( Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd SUB_FUNCTION\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end SUB_FUNCTION\nfind : " + s1 + " " + s2);
     }
 }
 
 SUB_FUNCTION::~SUB_FUNCTION()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> *SUB_FUNCTION::getParameters()
+QMap<QString, QString> *SUB_FUNCTION::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -95,7 +95,7 @@ QMap<std::string, std::string> *SUB_FUNCTION::getParameters()
     return par;
 }
 
-std::string  SUB_FUNCTION::pixmap()
+QString  SUB_FUNCTION::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -116,14 +116,14 @@ TokenTyp SUB_FUNCTION::parseListChar()
 QStringList SUB_FUNCTION::getCharList()
 {
     QStringList list;
-    foreach(std::string str, charList)
+    foreach(QString str, charList)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
     return list;
 }
 
-char* SUB_FUNCTION::getPar(std::string str)
+QString SUB_FUNCTION::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

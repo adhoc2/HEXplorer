@@ -30,15 +30,15 @@ class SI_EXPONENTS : public Item
     public:
         SI_EXPONENTS(Node *parentNode);
         ~SI_EXPONENTS();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,SI_EXPONENTS> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // SI_EXPONENTS_H

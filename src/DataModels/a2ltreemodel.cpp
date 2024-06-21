@@ -137,7 +137,7 @@ QVariant A2lTreeModel::data(const QModelIndex &index, int role) const
             return QVariant();
         else
         {
-            QString str = node->pixmap().c_str();
+            QString str = node->pixmap();
             QPixmap pixmap(str);
             return pixmap.scaled(15, 15);
         }
@@ -155,23 +155,23 @@ QVariant A2lTreeModel::line(const QModelIndex &index) const
         return node->a2lLine;
 }
 
-QMap<std::string, std::string>  *A2lTreeModel::getPar(const QModelIndex &index) const
+QMap<QString, QString>  *A2lTreeModel::getPar(const QModelIndex &index) const
 {
     Node *node = nodeFromIndex(index);
     if (!node)
     {
-        QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+        QMap<QString, QString> *par = new QMap<QString, QString>;
         par->insert("no fix parameters", "");
         return par;
     }
     else
     {
-        QMap<std::string, std::string> *par = node->getParameters();
+        QMap<QString, QString> *par = node->getParameters();
         return par;
     }
 }
 
-std::string A2lTreeModel::getNodeName(const QModelIndex &index) const
+QString A2lTreeModel::getNodeName(const QModelIndex &index) const
 {
     Node *node = nodeFromIndex(index);
     if (!node)
@@ -270,11 +270,11 @@ QMimeData *A2lTreeModel::mimeData(const QModelIndexList &indexes) const
          if (index.isValid())
          {
 
-             QString path = QString(getNodeName(index).c_str());
+             QString path = QString(getNodeName(index));
              index = parent(index);
              while (index.isValid())
              {
-                 path = QString(getNodeName(index).c_str()) + "/" + path;
+                 path = QString(getNodeName(index)) + "/" + path;
                  index = parent(index);
              }
              mimeData->setText(path);
@@ -374,8 +374,7 @@ void A2lTreeModel::renameNode(QModelIndex index, QString newName)
         dataRemoved(nodeParent, nodeParent->childNodes.indexOf(node));
 
         // change node's name
-        node->name = new char[newName.toLocal8Bit().size() + 1];
-        strcpy_s(node->name, newName.toLocal8Bit().size() + 1, newName.toLocal8Bit().data());
+        node->name = newName;
 
         // add node to view with new name
         nodeParent->addChildNode(node);

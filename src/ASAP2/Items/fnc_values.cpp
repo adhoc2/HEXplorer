@@ -33,20 +33,20 @@ FNC_VALUES::FNC_VALUES( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"FNC_VALUES";
+    name = (QString)"FNC_VALUES";
 }
 
 FNC_VALUES::~FNC_VALUES()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> FNC_VALUES::getParameters()
+QMap<QString, QString> FNC_VALUES::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -54,7 +54,7 @@ QMap<std::string, std::string> FNC_VALUES::getParameters()
     return par;
 }
 
-char* FNC_VALUES::getPar(std::string str)
+QString FNC_VALUES::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

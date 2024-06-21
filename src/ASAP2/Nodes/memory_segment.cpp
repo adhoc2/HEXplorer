@@ -40,7 +40,7 @@ MEMORY_SEGMENT::MEMORY_SEGMENT(Node *parentNode)
     factoryOptItem = &gram->memory_segment.factoryOptItem;
 
     //opt parameters
-    occOptPar = new QMap<std::string, Occurence>;
+    occOptPar = new QMap<QString, Occurence>;
     occOptPar->insert("IF_DATA", ZeroOrMore);
 
     //Set the line where the Node starts in ASAP file
@@ -51,7 +51,7 @@ MEMORY_SEGMENT::MEMORY_SEGMENT(Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"memory_segment";
+        name = (QString)"memory_segment";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar(occOptPar);
@@ -70,23 +70,23 @@ MEMORY_SEGMENT::MEMORY_SEGMENT(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd MEMORY_SEGMENT\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end MEMORY_SEGMENT\nfind : " + s1 + " " + s2);
     }    
 }
 
 MEMORY_SEGMENT::~MEMORY_SEGMENT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
     delete occOptPar;
 }
@@ -101,20 +101,20 @@ void MEMORY_SEGMENT::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
 }
 
-TokenTyp MEMORY_SEGMENT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
+TokenTyp MEMORY_SEGMENT::parseOptPar(QMap<QString, Occurence> *nameOptPar)
 {
 
     if (nameOptPar->isEmpty())
@@ -130,7 +130,7 @@ TokenTyp MEMORY_SEGMENT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
                         if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -148,21 +148,21 @@ TokenTyp MEMORY_SEGMENT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s);
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s);
                     return token;
                 }
@@ -170,7 +170,7 @@ TokenTyp MEMORY_SEGMENT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
                     if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -188,14 +188,14 @@ TokenTyp MEMORY_SEGMENT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s);
                     return token;
                 }
@@ -205,9 +205,9 @@ TokenTyp MEMORY_SEGMENT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
     }
 }
 
-QMap<std::string, std::string> *MEMORY_SEGMENT::getParameters()
+QMap<QString, QString> *MEMORY_SEGMENT::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -215,7 +215,7 @@ QMap<std::string, std::string> *MEMORY_SEGMENT::getParameters()
     return par;
 }
 
-char* MEMORY_SEGMENT::getPar(std::string str)
+QString MEMORY_SEGMENT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

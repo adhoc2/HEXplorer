@@ -26,7 +26,7 @@ Factory<Node,HEADER> HEADER::nodeFactory;
 
 bool nodeLessThan( const Node *a, const Node *b )
 {
-   if (strcmp(b->name , a->name) > 0)
+    if (QString::compare(b->name , a->name) > 0)
        return true;
    else return false;
 }
@@ -47,7 +47,7 @@ HEADER::HEADER( Node *parentNode)
     factoryOptItem = &gram->header.factoryOptItem;
 
     //define optional Parameters
-    occOptPar = new QMap<std::string, Occurence>;
+    occOptPar = new QMap<QString, Occurence>;
     occOptPar->insert("PROJECT_NO", ZeroOrOne);
     occOptPar->insert("VERSION", ZeroOrOne);
 
@@ -56,7 +56,7 @@ HEADER::HEADER( Node *parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"HEADER";
+    name = (QString)"HEADER";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar(occOptPar);
@@ -75,23 +75,23 @@ HEADER::HEADER( Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd HEADER\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end HEADER\nfind : " + s1 + " " + s2);
     }   
 }
 
 HEADER::~HEADER()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
     delete occOptPar;
 }
@@ -107,19 +107,19 @@ void HEADER::parseFixPar(QList<TokenTyp> *typePar)
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
             char *c = new char[lex->getLexem().length() + 1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
 }
 
-TokenTyp HEADER::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
+TokenTyp HEADER::parseOptPar(QMap<QString, Occurence> *nameOptPar)
 {
 
     if (nameOptPar->isEmpty())
@@ -135,7 +135,7 @@ TokenTyp HEADER::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
                         if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -153,21 +153,21 @@ TokenTyp HEADER::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s);
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s);
                     return token;
                 }
@@ -175,7 +175,7 @@ TokenTyp HEADER::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
                     if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -193,14 +193,14 @@ TokenTyp HEADER::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s);
                     return token;
                 }
@@ -211,9 +211,9 @@ TokenTyp HEADER::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
 }
 
 
-QMap<std::string, std::string> *HEADER::getParameters()
+QMap<QString, QString> *HEADER::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -221,7 +221,7 @@ QMap<std::string, std::string> *HEADER::getParameters()
     return par;
 }
 
-char* HEADER::getPar(std::string str)
+QString HEADER::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

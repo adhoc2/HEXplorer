@@ -33,21 +33,21 @@ ECU_ADDRESS::ECU_ADDRESS(Node *parentNode) : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"ecu_address";
+    name = (QString)"ecu_address";
 }
 
 
 ECU_ADDRESS::~ECU_ADDRESS()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> ECU_ADDRESS::getParameters()
+QMap<QString, QString> ECU_ADDRESS::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> ECU_ADDRESS::getParameters()
     return par;
 }
 
-char* ECU_ADDRESS::getPar(std::string str)
+QString ECU_ADDRESS::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

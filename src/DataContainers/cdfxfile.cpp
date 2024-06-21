@@ -148,8 +148,7 @@ CdfxFile::CdfxFile(QString fullCdfxFileFileName, WorkProject *parentWP, QString 
 {
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     fullPath = fullCdfxFileFileName;
-    name = new char[(QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1];
-    strcpy_s(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1,  (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
+    name = QFileInfo(fullPath).fileName();
 
     valueProgBar = 0;
     maxValueProgbar = 0;
@@ -236,7 +235,7 @@ CdfxFile::CdfxFile(QString fullCdfxFileFileName, WorkProject *parentWP, QString 
 
 CdfxFile::~CdfxFile()
 {
-    delete[] name;
+    
     qDeleteAll(listSwInstance);
 }
 
@@ -1316,13 +1315,13 @@ void CdfxFile::swInstance2Data()
     }
  }
 
-int CdfxFile::getNumByte(std::string str)
+int CdfxFile::getNumByte(QString str)
 {
-    return nByte.value(str.c_str());
+    return nByte.value(str);
 }
 // -------------------------------//
 
-std::string CdfxFile::pixmap()
+QString CdfxFile::pixmap()
 {
     return ":/icones/excel.png";
 }
@@ -1471,14 +1470,14 @@ void CdfxFile::setFullName(QString fullName)
             FormCompare *fcomp = (FormCompare*)obj;
             if (fcomp->getCdf1() == this)
             {
-                 QString str = QFileInfo(getParentWp()->getFullA2lFileName().c_str()).fileName()
+                 QString str = QFileInfo(getParentWp()->getFullA2lFileName()).fileName()
                                + "/"
                                + QFileInfo(fullPath).fileName();
                  fcomp->setDataset1(str);
             }
             else if (fcomp->getCdf2() == this)
             {
-                QString str = QFileInfo(getParentWp()->getFullA2lFileName().c_str()).fileName()
+                QString str = QFileInfo(getParentWp()->getFullA2lFileName()).fileName()
                               + "/"
                               + QFileInfo(fullPath).fileName();
                  fcomp->setDataset2(str);

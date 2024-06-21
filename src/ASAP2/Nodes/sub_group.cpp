@@ -43,7 +43,7 @@ SUB_GROUP::SUB_GROUP(Node *parentNode)
 
     //Parse Mandatory PARAMETERS
     //parseFixPar(typePar, namePar ,in);
-    name = (char*)"SUB_GROUP";
+    name = (QString)"SUB_GROUP";
 
     //Parse optional PARAMETERS
     //TokenTyp token = parseOptPar(in);
@@ -67,29 +67,29 @@ SUB_GROUP::SUB_GROUP(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd SUB_GROUP\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end SUB_GROUP\nfind : " + s1 + " " + s2);
     }
 }
 
 SUB_GROUP::~SUB_GROUP()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> *SUB_GROUP::getParameters()
+QMap<QString, QString> *SUB_GROUP::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -97,7 +97,7 @@ QMap<std::string, std::string> *SUB_GROUP::getParameters()
     return par;
 }
 
-std::string  SUB_GROUP::pixmap()
+QString  SUB_GROUP::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -118,14 +118,14 @@ TokenTyp SUB_GROUP::parseSubgroupList()
 QStringList SUB_GROUP::getCharList()
 {
     QStringList list;
-    foreach(std::string str, subgroupList)
+    foreach(QString str, subgroupList)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
     return list;
 }
 
-char* SUB_GROUP::getPar(std::string str)
+QString SUB_GROUP::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

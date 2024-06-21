@@ -36,20 +36,20 @@ CPU_TYPE::CPU_TYPE( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"cpu_type";
+        name = (QString)"cpu_type";
 }
 
 CPU_TYPE::~CPU_TYPE()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> CPU_TYPE::getParameters()
+QMap<QString, QString> CPU_TYPE::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -57,7 +57,7 @@ QMap<std::string, std::string> CPU_TYPE::getParameters()
     return par;
 }
 
-char* CPU_TYPE::getPar(std::string str)
+QString CPU_TYPE::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

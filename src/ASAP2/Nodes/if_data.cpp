@@ -30,7 +30,7 @@ IF_DATA::IF_DATA(Node *parentNode)
 
 IF_DATA::~IF_DATA()
 {
-    delete[] name;
+
 }
 
 void IF_DATA::parse()
@@ -39,12 +39,11 @@ void IF_DATA::parse()
     TokenTyp token = lex->getNextToken();
     if (token == Identifier)
     {
-        name = new char[lex->getLexem().length() + 1];
-        strcpy_s(name, lex->getLexem().length() + 1, lex->getLexem().c_str());
+        name = lex->getLexem();
     }
     else
     {
-        QString s(lex->toString(token).c_str());
+        QString s(lex->toString(token));
         this->showError("expected token : Identifier\nfind token : " + s);
     }
     this->a2lLine = lex->getLine();

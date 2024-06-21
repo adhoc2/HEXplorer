@@ -41,7 +41,7 @@ class Node
 {
     public:
         Node(Node *parent, A2lLexer *lexer = 0, QStringList *error = 0);
-        Node(char* nodeName = NULL);
+        Node(QString nodeName = "");
         bool operator < (const Node & node);
         virtual ~Node();
 
@@ -49,13 +49,13 @@ class Node
         {
             return "";
         }
-        virtual std::string pixmap()
+        virtual QString pixmap()
         {
             return _pixmap;
         }       
-        virtual QMap<std::string, std::string> *getParameters()
+        virtual QMap<QString, QString> *getParameters()
         {
-            QMap<std::string, std::string> *map = new QMap<std::string, std::string>;
+            QMap<QString, QString> *map = new QMap<QString, QString>;
             return map;
         }
         virtual QMap<QString, QString> *getOptItems(){
@@ -63,7 +63,7 @@ class Node
             return map;
         }
 
-        std::string fixPar(QString str);
+        QString fixPar(QString str);
         QString getFullTreePath();
         void addChildNode (Node *child);
         void insertChildNode (Node *child);
@@ -71,7 +71,7 @@ class Node
         void addOptItem (Item *item);
         void setParentNode(Node *node);
         void sortChildrensName();
-        bool isChild(std::string str);
+        bool isChild(QString str);
         bool isChild(Node *data, bool bl = false);
         int childCount() const;
         int columnCount() const;
@@ -86,8 +86,8 @@ class Node
 
         A2lLexer *lex;
         int a2lLine;
-        std::string _pixmap;
-        char *name;
+        QString _pixmap;
+        QString name;
         QList<Node*> childNodes;
         QList<Item*> optItems;
         QStringList *errorList;

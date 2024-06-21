@@ -34,13 +34,12 @@ WorkProject::WorkProject(QString fullFileName, A2lTreeModel *model, MDImain *par
 
     if (QString::compare(displayName, "") != 0)
     {
-        name = new char[displayName.toLocal8Bit().size() + 1];
-        strcpy_s(name, displayName.toLocal8Bit().size() + 1, displayName.toLocal8Bit().data());
+        name = displayName;
+
     }
     else
     {
-        name = new char[(QFileInfo(fullFileName).fileName()).toLocal8Bit().size() + 1];
-        strcpy_s(name, (QFileInfo(fullFileName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullFileName).fileName().toLocal8Bit().data());
+        name = QFileInfo(fullFileName).fileName();
     }
 
 }
@@ -51,7 +50,7 @@ WorkProject::~WorkProject()
 
 QString WorkProject::fullName()
 {
-    return getFullA2lFileName().c_str();
+    return getFullA2lFileName();
 }
 
 void WorkProject::attach(QObject *o)
@@ -354,7 +353,7 @@ QString WorkProject::getFullNodeName()
         return "xxx";
 }
 
-std::string WorkProject::pixmap()
+QString WorkProject::pixmap()
 {
     return ":/icones/milky_cartable.png";
 }

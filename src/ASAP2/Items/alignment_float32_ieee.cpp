@@ -33,20 +33,20 @@ ALIGNMENT_FLOAT32_IEEE::ALIGNMENT_FLOAT32_IEEE( Node *parentNode)  : Item(parent
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"alignment_float32_ieee";
+    name = (QString)"alignment_float32_ieee";
 }
 
 ALIGNMENT_FLOAT32_IEEE::~ALIGNMENT_FLOAT32_IEEE()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> ALIGNMENT_FLOAT32_IEEE::getParameters()
+QMap<QString, QString> ALIGNMENT_FLOAT32_IEEE::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -54,7 +54,7 @@ QMap<std::string, std::string> ALIGNMENT_FLOAT32_IEEE::getParameters()
     return par;
 }
 
-char* ALIGNMENT_FLOAT32_IEEE::getPar(std::string str)
+QString ALIGNMENT_FLOAT32_IEEE::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

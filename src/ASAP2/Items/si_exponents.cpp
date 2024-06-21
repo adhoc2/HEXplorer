@@ -36,21 +36,21 @@ SI_EXPONENTS::SI_EXPONENTS( Node *parentNode) : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"SI_EXPONENTS";
+        name = (QString)"SI_EXPONENTS";
 }
 
 
 SI_EXPONENTS::~SI_EXPONENTS()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> SI_EXPONENTS::getParameters()
+QMap<QString, QString> SI_EXPONENTS::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -58,7 +58,7 @@ QMap<std::string, std::string> SI_EXPONENTS::getParameters()
     return par;
 }
 
-char* SI_EXPONENTS::getPar(std::string str)
+QString SI_EXPONENTS::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

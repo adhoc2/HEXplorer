@@ -36,21 +36,21 @@ DEFAULT_VALUE::DEFAULT_VALUE(Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"default_value";
+        name = (QString)"default_value";
 }
 
 DEFAULT_VALUE::~DEFAULT_VALUE()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> DEFAULT_VALUE::getParameters()
+QMap<QString, QString> DEFAULT_VALUE::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -58,7 +58,7 @@ QMap<std::string, std::string> DEFAULT_VALUE::getParameters()
     return par;
 }
 
-char* DEFAULT_VALUE::getPar(std::string str)
+QString DEFAULT_VALUE::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

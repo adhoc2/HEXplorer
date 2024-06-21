@@ -29,15 +29,15 @@ class COEFFS_LINEAR : public Item
     public:
         COEFFS_LINEAR(Node *parentNode);
         ~COEFFS_LINEAR();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, COEFFS_LINEAR> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // COEFFS_LINEAR_H

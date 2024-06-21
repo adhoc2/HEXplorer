@@ -33,20 +33,20 @@ EXTENDED_LIMITS::EXTENDED_LIMITS(Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"EXTENDED_LIMITS";
+    name = (QString)"EXTENDED_LIMITS";
 }
 
 EXTENDED_LIMITS::~EXTENDED_LIMITS()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> EXTENDED_LIMITS::getParameters()
+QMap<QString, QString> EXTENDED_LIMITS::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -54,7 +54,7 @@ QMap<std::string, std::string> EXTENDED_LIMITS::getParameters()
     return par;
 }
 
-char* EXTENDED_LIMITS::getPar(std::string str)
+QString EXTENDED_LIMITS::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

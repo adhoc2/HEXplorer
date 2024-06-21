@@ -33,22 +33,22 @@ MATRIX_DIM::MATRIX_DIM( Node *parentNode) : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"MATRIX_DIM";
+    name = (QString)"MATRIX_DIM";
 }
 
 
 MATRIX_DIM::~MATRIX_DIM()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> MATRIX_DIM::getParameters()
+QMap<QString, QString> MATRIX_DIM::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -56,7 +56,7 @@ QMap<std::string, std::string> MATRIX_DIM::getParameters()
     return par;
 }
 
-char* MATRIX_DIM::getPar(std::string str)
+QString MATRIX_DIM::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

@@ -46,7 +46,7 @@ FUNCTION::FUNCTION( Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"function";
+        name = (QString)"function";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar();
@@ -66,14 +66,14 @@ FUNCTION::FUNCTION( Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd FUNCTION\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end FUNCTION\nfind : " + s1 + " " + s2);
     }
 
@@ -82,9 +82,9 @@ FUNCTION::FUNCTION( Node *parentNode)
 
 FUNCTION::~FUNCTION()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
@@ -98,14 +98,14 @@ void FUNCTION::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
@@ -136,17 +136,17 @@ TokenTyp FUNCTION::parseOptPar()
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
-                    if (nameOptPar.contains(lexem.c_str()))
+                    QString lexem = lex->getLexem();
+                    if (nameOptPar.contains(lexem))
                     {
-                        if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                        if (nameOptPar.value(lexem) == ZeroOrOne)
                         {
-                           nameOptPar.insert(lexem.c_str(), Zero);
+                           nameOptPar.insert(lexem, Zero);
                            Node  *instance = factoryOptNode->value(lexem)->createInstance( this);
                            this->addChildNode(instance);
                            token = nextToken();
                         }
-                        else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                        else if (nameOptPar.value(lexem) == ZeroOrMore)
                         {
                             Node  *instance = factoryOptNode->value(lexem)->createInstance( this);
                             this->addChildNode(instance);
@@ -154,21 +154,21 @@ TokenTyp FUNCTION::parseOptPar()
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(s + " is not a keyword accepted in FUNCTION block ");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s2(lex->getLexem().c_str());
+                    QString s2(lex->getLexem());
                     this->showError("unknown keyword in grammar " + s2 );
                     return token;
                 }
@@ -176,17 +176,17 @@ TokenTyp FUNCTION::parseOptPar()
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
-                if (nameOptPar.contains(lexem.c_str()))
+                QString lexem = lex->getLexem();
+                if (nameOptPar.contains(lexem))
                 {
-                    if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                    if (nameOptPar.value(lexem) == ZeroOrOne)
                     {
-                        nameOptPar.insert(lexem.c_str(), Zero);
+                        nameOptPar.insert(lexem, Zero);
                         Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
-                    else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                    else if (nameOptPar.value(lexem) == ZeroOrMore)
                     {
                         Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
@@ -194,14 +194,14 @@ TokenTyp FUNCTION::parseOptPar()
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -211,9 +211,9 @@ TokenTyp FUNCTION::parseOptPar()
     }
 }
 
-QMap<std::string, std::string> *FUNCTION::getParameters()
+QMap<QString, QString> *FUNCTION::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -221,12 +221,12 @@ QMap<std::string, std::string> *FUNCTION::getParameters()
     return par;
 }
 
-std::string FUNCTION::pixmap()
+QString FUNCTION::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
 
-char* FUNCTION::getPar(std::string str)
+QString FUNCTION::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

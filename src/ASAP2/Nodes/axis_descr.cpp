@@ -58,7 +58,7 @@ AXIS_DESCR::AXIS_DESCR( Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"axis_descr";
+        name = (QString)"axis_descr";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar(occOptPar);
@@ -77,23 +77,23 @@ AXIS_DESCR::AXIS_DESCR( Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd AXIS_DESCR\nfind token : " + s );
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end AXIS_DESCR\nfind : " + s1 + " " + s2 );
     }    
 }
 
 AXIS_DESCR::~AXIS_DESCR()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
     delete occOptPar;
 }
@@ -107,21 +107,16 @@ void AXIS_DESCR::parseFixPar(QList<TokenTyp> *typePar)
         token = this->nextToken();
         if (token == typePar->at(i))
         {
-            //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1 ,lex->getLexem().c_str());
-            parameters.append(c);
+            parameters.append(lex->getLexem());
         }
         else if(typePar->at(i) == Float && token == Integer)
         {
-            char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
-            parameters.append(c);
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s );
         }
     }
@@ -143,39 +138,39 @@ TokenTyp AXIS_DESCR::parseOptPar(QHash<QString, Occurence> *nameOptPar)
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
-                        if (this->occOptPar->value(lexem.c_str()) == ZeroOrOne)
+                        if (this->occOptPar->value(lexem) == ZeroOrOne)
                         {
-                            this->occOptPar->insert(lexem.c_str(), Zero);
-                            Node  *instance = factoryOptNode->value(lexem.c_str())->createInstance(this);
+                            this->occOptPar->insert(lexem, Zero);
+                            Node  *instance = factoryOptNode->value(lexem)->createInstance(this);
                             this->addChildNode(instance);
                             token = nextToken();
                         }
-                        else if (this->occOptPar->value(lexem.c_str()) == ZeroOrMore)
+                        else if (this->occOptPar->value(lexem) == ZeroOrMore)
                         {
-                            Node  *instance = factoryOptNode->value(lexem.c_str())->createInstance( this);
+                            Node  *instance = factoryOptNode->value(lexem)->createInstance( this);
                             this->addChildNode(instance);
                             token = nextToken();
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -183,32 +178,32 @@ TokenTyp AXIS_DESCR::parseOptPar(QHash<QString, Occurence> *nameOptPar)
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
-                    if (this->occOptPar->value(lexem.c_str()) == ZeroOrOne)
+                    if (this->occOptPar->value(lexem) == ZeroOrOne)
                     {
-                        this->occOptPar->insert(lexem.c_str(), Zero);
-                        Item  *instance = factoryOptItem->value(lexem.c_str())->createInstance( this);
+                        this->occOptPar->insert(lexem, Zero);
+                        Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
-                    else if (this->occOptPar->value(lexem.c_str()) == ZeroOrMore)
+                    else if (this->occOptPar->value(lexem) == ZeroOrMore)
                     {
-                        Item  *instance = factoryOptItem->value(lexem.c_str())->createInstance( this);
+                        Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -218,9 +213,9 @@ TokenTyp AXIS_DESCR::parseOptPar(QHash<QString, Occurence> *nameOptPar)
     }
 }
 
-QMap<std::string, std::string> *AXIS_DESCR::getParameters()
+QMap<QString, QString> *AXIS_DESCR::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -228,7 +223,7 @@ QMap<std::string, std::string> *AXIS_DESCR::getParameters()
     return par;
 }
 
-char* AXIS_DESCR::getPar(std::string str)
+QString AXIS_DESCR::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

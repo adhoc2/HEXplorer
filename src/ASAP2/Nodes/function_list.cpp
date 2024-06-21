@@ -45,7 +45,7 @@ FUNCTION_LIST::FUNCTION_LIST(Node *parentNode)
 
     //Parse Mandatory PARAMETERS
     //parseFixPar(typePar, namePar ,in);
-    name = (char*)"FUNCTION_LIST";
+    name = (QString)"FUNCTION_LIST";
 
     //Parse optional PARAMETERS
     //TokenTyp token = parseOptPar(in);
@@ -69,29 +69,29 @@ FUNCTION_LIST::FUNCTION_LIST(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd FUNCTION_LIST\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end FUNCTION_LIST\nfind : " + s1 + " " + s2);
     }
 }
 
 FUNCTION_LIST::~FUNCTION_LIST()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> *FUNCTION_LIST::getParameters()
+QMap<QString, QString> *FUNCTION_LIST::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -99,7 +99,7 @@ QMap<std::string, std::string> *FUNCTION_LIST::getParameters()
     return par;
 }
 
-std::string  FUNCTION_LIST::pixmap()
+QString  FUNCTION_LIST::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -120,14 +120,14 @@ TokenTyp FUNCTION_LIST::parseListChar()
 QStringList FUNCTION_LIST::getCharList()
 {
     QStringList list;
-    foreach(std::string str, subsetList)
+    foreach(QString str, subsetList)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
     return list;
 }
 
-char* FUNCTION_LIST::getPar(std::string str)
+QString FUNCTION_LIST::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

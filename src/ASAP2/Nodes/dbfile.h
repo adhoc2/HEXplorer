@@ -32,7 +32,7 @@ class DBFILE : public Node
         DBFILE(Node *parentNode, QString sqlConnection, QString fullFileName = "" );
         ~DBFILE();
 
-        std::string pixmap();
+        QString pixmap();
         QString fullName();
         QString getSqlConnection();
 
@@ -42,7 +42,7 @@ class DBFILE : public Node
         void getA2mlVersion();
         QString sqlConnection;
 
-        QMap<std::string, std::string> *optParameters;
+        QMap<QString, QString> *optParameters;
 
 };
 

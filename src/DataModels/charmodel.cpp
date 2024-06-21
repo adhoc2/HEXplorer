@@ -82,14 +82,14 @@ QVariant CharModel::data(const QModelIndex &index, int role) const
                 }
                 else if (column == 1)
                 {
-                    QString str = label->fixPar("LongIdentifier").c_str();
+                    QString str = label->fixPar("LongIdentifier");
                     return str;
                 }
                 else if (column == 2)
                 {
                     //return cmp->getPar("Unit");
                     if (cmp)
-                        return cmp->fixPar("Unit").c_str();
+                        return cmp->fixPar("Unit");
 
                 }
                 else if (column == 3)
@@ -99,37 +99,37 @@ QVariant CharModel::data(const QModelIndex &index, int role) const
 
                 else if (column == 4)
                 {
-                    QString str = label->fixPar("Adress").c_str();
+                    QString str = label->fixPar("Adress");
                     return str;
                 }
                 else if (column == 5)
                 {
-                    QString str = label->fixPar("Type").c_str();
+                    QString str = label->fixPar("Type");
                     return str;
                 }
                 else if (column == 6)
                 {
-                    QString str = label->fixPar("Conversion").c_str();
+                    QString str = label->fixPar("Conversion");
                     return str;
                 }
                 else if (column == 7)
                 {
-                    QString str = label->fixPar("Deposit").c_str();
+                    QString str = label->fixPar("Deposit");
                     return str;
                 }
                 else if (column == 8)
                 {
-                    QString str = label->fixPar("MaxDiff").c_str();
+                    QString str = label->fixPar("MaxDiff");
                     return str;
                 }
                 else if (column == 9)
                 {
-                    QString str = label->fixPar("LowerLimit").c_str();
+                    QString str = label->fixPar("LowerLimit");
                     return str;
                 }
                 else if (column == 10)
                 {
-                    QString str = label->fixPar("UpperLimit").c_str();
+                    QString str = label->fixPar("UpperLimit");
                     return str;
                 }
                 else

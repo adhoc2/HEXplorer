@@ -30,8 +30,7 @@ void Worker::process()
     A2LFILE* nodeA2l = new A2LFILE(0, lexer, errorList, fullA2lName);
 
     // change the name
-    nodeA2l->name = new char[(QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1];
-    strcpy_s(nodeA2l->name, (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+    nodeA2l->name = QFileInfo(fullA2lName).fileName();
 
     // stop timer
     qint64  elapsedTime = timer.elapsed();

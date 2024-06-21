@@ -36,20 +36,20 @@ USER::USER( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"user";
+        name = (QString)"user";
 }
 
 USER::~USER()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> USER::getParameters()
+QMap<QString, QString> USER::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -57,7 +57,7 @@ QMap<std::string, std::string> USER::getParameters()
     return par;
 }
 
-char* USER::getPar(std::string str)
+QString USER::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

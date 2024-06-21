@@ -148,10 +148,10 @@ void SurfaceGraphModifier::setPlotProperties()
     COMPU_METHOD *cpmX = m_data->getCompuMethodAxisX();
     QString name = "";
     if (axisX)
-        name.append(axisX->fixPar("InputQuantity").c_str());
+        name.append(axisX->fixPar("InputQuantity"));
     QString unit = "";
     if (cpmX)
-        unit.append(cpmX->fixPar("Unit").c_str());
+        unit.append(cpmX->fixPar("Unit"));
     QString titleX =  name + " - " + unit;
     m_graph->axisX()->setTitle("AxisX :" + titleX);
     m_graph->axisX()->setTitleVisible(true);
@@ -172,10 +172,10 @@ void SurfaceGraphModifier::setPlotProperties()
     COMPU_METHOD *cpmY = m_data->getCompuMethodAxisY();
     name = "";
     if (axisY)
-        name.append(axisY->fixPar("InputQuantity").c_str());
+        name.append(axisY->fixPar("InputQuantity"));
     unit = "";
     if (cpmY)
-        unit.append(cpmY->fixPar("Unit").c_str());
+        unit.append(cpmY->fixPar("Unit"));
     QString titleY =  name + " - " + unit;
     m_graph->axisZ()->setTitle("AxisY : " + titleY);
     m_graph->axisZ()->setTitleVisible(true);

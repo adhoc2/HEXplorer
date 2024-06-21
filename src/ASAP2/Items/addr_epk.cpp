@@ -34,22 +34,22 @@ ADDR_EPK::ADDR_EPK(Node *parentNode) : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"addr_epk";
+    name = (QString)"addr_epk";
 }
 
 
 ADDR_EPK::~ADDR_EPK()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> ADDR_EPK::getParameters()
+QMap<QString, QString> ADDR_EPK::getParameters()
 {    
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -57,7 +57,7 @@ QMap<std::string, std::string> ADDR_EPK::getParameters()
     return par;
 }
 
-char* ADDR_EPK::getPar(std::string str)
+QString ADDR_EPK::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

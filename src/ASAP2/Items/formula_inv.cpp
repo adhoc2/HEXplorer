@@ -36,20 +36,20 @@ FORMULA_INV::FORMULA_INV( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"formula_inv";
+        name = (QString)"formula_inv";
 }
 
 FORMULA_INV::~FORMULA_INV()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> FORMULA_INV::getParameters()
+QMap<QString, QString> FORMULA_INV::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -57,7 +57,7 @@ QMap<std::string, std::string> FORMULA_INV::getParameters()
     return par;
 }
 
-char* FORMULA_INV::getPar(std::string str)
+QString FORMULA_INV::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

@@ -79,11 +79,11 @@ QVariant MeasModel::data(const QModelIndex &index, int role) const
                 if (column == 0)
                 {
                     return QString(label->name);
-                    //return label->fixPar("Identifier").c_str();
+                    //return label->fixPar("Identifier");
                 }
                 else if (column == 1)
                 {
-                    QString str = label->fixPar("LongIdentifier").c_str();
+                    QString str = label->fixPar("LongIdentifier");
                     return str;
                 }
                 else if (column == 2)
@@ -103,32 +103,32 @@ QVariant MeasModel::data(const QModelIndex &index, int role) const
                 }
                 else if (column == 4)
                 {
-                    QString str = label->fixPar("DataType").c_str();
+                    QString str = label->fixPar("DataType");
                     return str;
                 }
                 else if (column == 5)
                 {
-                    QString str = label->fixPar("Conversion").c_str();
+                    QString str = label->fixPar("Conversion");
                     return str;
                 }
                 else if (column == 6)
                 {
-                    QString str = label->fixPar("Resolution").c_str();
+                    QString str = label->fixPar("Resolution");
                     return str;
                 }
                 else if (column == 7)
                 {
-                    QString str = label->fixPar("Accuracy").c_str();
+                    QString str = label->fixPar("Accuracy");
                     return str;
                 }
                 else if (column == 8)
                 {
-                    QString str = label->fixPar("LowerLimit").c_str();
+                    QString str = label->fixPar("LowerLimit");
                     return str;
                 }
                 else if (column == 9)
                 {
-                    QString str = label->fixPar("UpperLimit").c_str();
+                    QString str = label->fixPar("UpperLimit");
                     return str;
                 }
                 else

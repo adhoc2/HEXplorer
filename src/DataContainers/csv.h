@@ -33,7 +33,7 @@ public:
     Csv(QString fullCsvFileName, WorkProject *parentWP, QString modName, QObject *parent = 0);
     ~Csv();
 
-    std::string pixmap();
+    QString pixmap();
     QString fullName();
     QStringList getListNameData();
     void checkDisplay();
@@ -41,7 +41,7 @@ public:
     bool save(QString fileName = "");
     void setFullName(QString fullName);
     bool readFile();
-    int getNumByte(std::string str);
+    int getNumByte(QString str);
 
 public slots:
     void attach(QObject*o);

@@ -29,15 +29,15 @@ class MAX_REFRESH : public Item
     public:
         MAX_REFRESH( Node *parentNode);
         ~MAX_REFRESH();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,MAX_REFRESH> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // MAX_REFRESH_H

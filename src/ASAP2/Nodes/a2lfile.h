@@ -38,7 +38,7 @@ class A2LFILE : public Node
                 QStringList *errorList, QString fullFileName = "");       
         ~A2LFILE();
 
-        std::string pixmap();
+        QString pixmap();
         QString fullName();
         PROJECT *getProject();
         bool isConform();
@@ -52,7 +52,7 @@ class A2LFILE : public Node
         void getA2mlVersion();
         bool parsed;
 
-        QMap<std::string, std::string> *optParameters;
+        QMap<QString, QString> *optParameters;
 
 };
 

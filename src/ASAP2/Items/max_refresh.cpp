@@ -33,21 +33,21 @@ MAX_REFRESH::MAX_REFRESH( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"MAX_REFRESH";
+    name = (QString)"MAX_REFRESH";
 }
 
 MAX_REFRESH::~MAX_REFRESH()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> MAX_REFRESH::getParameters()
+QMap<QString, QString> MAX_REFRESH::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> MAX_REFRESH::getParameters()
     return par;
 }
 
-char* MAX_REFRESH::getPar(std::string str)
+QString MAX_REFRESH::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

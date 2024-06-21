@@ -38,20 +38,20 @@ class RECORD_LAYOUT : public Node
         RECORD_LAYOUT( Node *parentNode);
         ~RECORD_LAYOUT();
 
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node,RECORD_LAYOUT> nodeFactory;
-        std::string pixmap();
-        char* getPar(std::string str);
+        QString pixmap();
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         void parseFixPar(QList<TokenTyp> *typePar);
         TokenTyp parseOptPar();

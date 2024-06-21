@@ -11,8 +11,7 @@ WorkingDirectory::WorkingDirectory(QString rootPath, A2lTreeModel *model = NULL,
     this->_pixmap = ":/icones/milky_classeur.png";
 
     //node name
-    char* name = new char[(QFileInfo(rootPath).fileName()).toLocal8Bit().size() + 1];
-    strcpy_s(name, (QFileInfo(rootPath).fileName()).toLocal8Bit().size() + 1, (QFileInfo(rootPath).fileName()).toLocal8Bit().data());
+    QString name = (QFileInfo(rootPath).fileName());
     this->name = name;
     this->rootPath = rootPath;
 
@@ -42,7 +41,7 @@ WorkingDirectory::WorkingDirectory(QString rootPath, A2lTreeModel *model = NULL,
 
 WorkingDirectory::~WorkingDirectory()
 {
-    delete name;
+
 }
 
 void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
@@ -64,8 +63,7 @@ void WorkingDirectory::parseDir(QString dirPath, WorkProject *wp)
         dirHasA2l = 1;
 
         //create a node subFolder
-        char* name = new char[dir.dirName().length() + 1];
-        strcpy_s(name, dir.dirName().length() + 1, dir.dirName().toLocal8Bit().data());
+        QString name = dir.dirName();
         subDir = new TreeDirectory(name);
         subDir->setPath(dirPath);
         subDir->setParentNode(wp);

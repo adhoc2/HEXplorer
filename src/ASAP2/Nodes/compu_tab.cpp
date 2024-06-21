@@ -46,7 +46,7 @@ COMPU_TAB::COMPU_TAB(Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"compu_tab";
+        name = (QString)"compu_tab";
 
     //special for compu_tab
     parsePairs();
@@ -68,23 +68,23 @@ COMPU_TAB::COMPU_TAB(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd COMPU_TAB\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end COMPU_TAB\nfind : " + s1 + " " + s2);
     }
 }
 
 COMPU_TAB::~COMPU_TAB()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
@@ -98,14 +98,14 @@ void COMPU_TAB::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
@@ -114,7 +114,7 @@ void COMPU_TAB::parseFixPar(QList<TokenTyp> *typePar)
 TokenTyp COMPU_TAB::parseOptPar()
 {
     //opt parameters
-    QMap<std::string, Occurence> nameOptPar;
+    QMap<QString, Occurence> nameOptPar;
     nameOptPar.insert("DEFAULT_VALUE", ZeroOrOne);
     nameOptPar.insert("DEFAULT_VALUE_NUMERIC", ZeroOrOne);
 
@@ -131,7 +131,7 @@ TokenTyp COMPU_TAB::parseOptPar()
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (nameOptPar.contains(lexem))
                     {
                         if (nameOptPar.value(lexem) == ZeroOrOne)
@@ -149,21 +149,21 @@ TokenTyp COMPU_TAB::parseOptPar()
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -171,7 +171,7 @@ TokenTyp COMPU_TAB::parseOptPar()
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (nameOptPar.contains(lexem))
                 {
                     if (nameOptPar.value(lexem) == ZeroOrOne)
@@ -189,14 +189,14 @@ TokenTyp COMPU_TAB::parseOptPar()
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -206,9 +206,9 @@ TokenTyp COMPU_TAB::parseOptPar()
     }
 }
 
-QMap<std::string, std::string> *COMPU_TAB::getParameters()
+QMap<QString, QString> *COMPU_TAB::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -223,7 +223,7 @@ QMap<std::string, std::string> *COMPU_TAB::getParameters()
     return par;
 }
 
-std::string  COMPU_TAB::pixmap()
+QString  COMPU_TAB::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -241,25 +241,25 @@ void COMPU_TAB::parsePairs()
         token = lex->getNextToken();
         if ((token == Integer) || (token == Float))
         {
-           QString str = lex->getLexem().c_str();
+           QString str = lex->getLexem();
            key = str.toFloat();
            listKeyPairs.append(key);
            token = lex->getNextToken();
            if ((token == Integer) || (token == Float))
            {
-               QString value = lex->getLexem().c_str();
-               valuePairs.insert(key, value.toStdString());
-               listValuePairs.append(value.toStdString());
+               QString value = lex->getLexem();
+               valuePairs.insert(key, value);
+               listValuePairs.append(value);
            }
            else
            {
-                QString s(lex->toString(token).c_str());
+                QString s(lex->toString(token));
                 showError("expected token : Integer or Float \nfind token : " + s);
            }
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             showError("expected token : Integer or Float \nfind token : " + s);
         }
     }
@@ -269,7 +269,7 @@ QString COMPU_TAB::getValue(float i)
 {
     int ind = listKeyPairs.indexOf(i);
     if (ind >= 0)
-        return listValuePairs.at(ind).c_str();
+        return listValuePairs.at(ind);
     else
         return "ERROR";
 
@@ -284,7 +284,7 @@ int COMPU_TAB::getPos(QString str)
        return -1;
 }
 
-char* COMPU_TAB::getPar(std::string str)
+QString COMPU_TAB::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);
@@ -298,9 +298,9 @@ QList<float> COMPU_TAB::getKeys()
 QStringList COMPU_TAB::getValueList()
 {
     QStringList list;
-    foreach (std::string str, listValuePairs)
+    foreach (QString str, listValuePairs)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
 
     return list;

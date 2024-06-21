@@ -53,8 +53,8 @@ class LexerDcm : public QObject
         ~LexerDcm();
 
         TokenTyp getNextToken(QTextStream &in);
-        std::string toString(TokenTyp type);
-        std::string getLexem();
+        QString toString(TokenTyp type);
+        QString getLexem();
         TokenTyp getToken() {return actToken;}
         int getLine();
         int getIndex();
@@ -72,7 +72,7 @@ class LexerDcm : public QObject
         BufferDcm *buffer;
         void incLine();
         int nTotalLines;
-        std::string lexem;
+        QString lexem;
         TokenTyp actToken;
         QHash<QString, TokenTyp> KeywordsMap;
         TokenTyp begin(QTextStream &in, char ch);

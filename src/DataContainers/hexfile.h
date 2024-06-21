@@ -66,7 +66,7 @@ class HexFile : public QObject, public DataContainer
 
         // methods
         void attach(QObject*o);
-        int getNumByte(std::string str);
+        int getNumByte(QString str);
         void exportSubsetList2Csv(QStringList subsetList);
         void exportSubsetList2Cdf(QStringList subsetList);
         bool isValidAddress(QString address);
@@ -80,10 +80,10 @@ class HexFile : public QObject, public DataContainer
         QStringList writeHex();
         QString getHexValue(QString address, int offset, int commonAlignmentByte, QString _byteOrder = "");
         QStringList getHexValues(QString address, int offset, int commonAlignmentByte, int size, QString _byteOrder = "");
-        QList<double> getDecValues(double address, int commonAlignmentByte, int size, std::string type, QString _byteOrder = "");
+        QList<double> getDecValues(double address, int commonAlignmentByte, int size, QString type, QString _byteOrder = "");
         QString fullName();
         QList<int> checkFmtcMonotony(bool *bl);
-        std::string pixmap();
+        QString pixmap();
         PROJECT *getA2lFileProject();
         QList<QObject*> getOwners();
 
@@ -128,7 +128,7 @@ class HexFile : public QObject, public DataContainer
         void setValues(unsigned int IAddr, QStringList hexList, int commonAlignmentByte, QString _byteOrder = "");
         QString checksum(QString str);
         unsigned int tzn(unsigned int v);
-        QString dec2hex(double dec, std::string type);
+        QString dec2hex(double dec, QString type);
 
     signals:
         //void lineParsed(int,int);

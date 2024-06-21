@@ -29,15 +29,15 @@ class SYSTEM_CONSTANT : public Item
     public:
         SYSTEM_CONSTANT( Node *parentNode);
         ~SYSTEM_CONSTANT();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, SYSTEM_CONSTANT> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // SYSTEM_CONSTANT_H

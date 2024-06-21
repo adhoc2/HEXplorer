@@ -49,8 +49,7 @@ Dcm::Dcm(QString fullDcmFileName, WorkProject *parentWP, QString modName, QObjec
 {
     a2lProject = (PROJECT*)getParentWp()->a2lFile->getProject();
     fullPath = fullDcmFileName;
-    name = new char[(QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1];
-    strcpy_s(name, (QFileInfo(fullPath).fileName()).toLocal8Bit().size() + 1, (QFileInfo(fullPath).fileName()).toLocal8Bit().data());
+    name = QFileInfo(fullPath).fileName();
     maxValueProgbar = 0;
     valueProgBar = 0;
     //omp_init_lock(&lock);
@@ -129,7 +128,7 @@ Dcm::Dcm(QString fullDcmFileName, WorkProject *parentWP, QString modName, QObjec
 Dcm::~Dcm()
 {
     //omp_destroy_lock(&lock);
-    delete[] name;
+    
 }
 
 
@@ -166,7 +165,7 @@ bool Dcm::readFile()
     while(token == Comment)
     {
         token = mylex.getNextToken(in);
-        qDebug() << mylex.toString(token).c_str() <<  mylex.getLexem().c_str();
+        qDebug() << mylex.toString(token) <<  mylex.getLexem();
 
     }
 
@@ -174,10 +173,10 @@ bool Dcm::readFile()
     if (token == Keyword && mylex.getLexem() == "KONSERVIERUNG_FORMAT")
     {
         token = mylex.getNextToken(in);
-        qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+        qDebug() << mylex.toString(token) << mylex.getLexem();
         if (token == Float)
         {
-            double version = QString(mylex.getLexem().c_str()).toDouble();
+            double version = QString(mylex.getLexem()).toDouble();
             if (version < 2)
                 return false;
         }
@@ -188,12 +187,12 @@ bool Dcm::readFile()
     }
 
     token = mylex.getNextToken(in);
-    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+    qDebug() << mylex.toString(token) << mylex.getLexem();
 
     //parse the datas
     while (!in.atEnd())
     {        
-        qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+        qDebug() << mylex.toString(token) << mylex.getLexem();
 
         if (token == Keyword && mylex.getLexem() == "FUNKTIONEN")
         {
@@ -206,18 +205,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "FESTWERT")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -229,7 +228,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -240,14 +239,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 //bool ok = false;
@@ -262,7 +261,7 @@ bool Dcm::readFile()
                     }
 
                     //read Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
 
                     if (token == Keyword && ( mylex.getLexem() == "WERT"))
                     {
@@ -274,14 +273,14 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                         }
 
                         while (token ==  Identifier)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                         }
@@ -313,7 +312,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                         }
@@ -354,7 +353,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -364,18 +363,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "TEXTSTRING")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -387,7 +386,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -398,14 +397,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 //bool ok = false;
@@ -420,7 +419,7 @@ bool Dcm::readFile()
                     }
 
                     //read Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
 
                     if (token == Keyword && ( mylex.getLexem() == "WERT"))
                     {
@@ -432,7 +431,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                         }
@@ -462,8 +461,8 @@ bool Dcm::readFile()
                         QString text;
                         if (token ==  String)
                         {
-                            text = mylex.getLexem().c_str();
-                            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                            text = mylex.getLexem();
+                            qDebug() << mylex.toString(token) << mylex.getLexem();
                             token = mylex.getNextToken(in);
                         }                   
 
@@ -501,7 +500,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -511,18 +510,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "FESTWERTEBLOCK")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -534,7 +533,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -545,14 +544,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 if (data)
@@ -566,7 +565,7 @@ bool Dcm::readFile()
                     }
 
                     //read Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
 
 
                     // in case a label is twice in the subset!!
@@ -581,7 +580,7 @@ bool Dcm::readFile()
                             token = mylex.getNextToken(in);
                             while (token ==  Integer || token == Float)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 list.append(str);
                                 token = mylex.getNextToken(in);
                             }
@@ -609,7 +608,7 @@ bool Dcm::readFile()
                             token = mylex.getNextToken(in);
                             while (token ==  String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 list.append(str);
                                 token = mylex.getNextToken(in);
                             }
@@ -651,7 +650,7 @@ bool Dcm::readFile()
                 //check for Keyword END
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -660,18 +659,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "KENNLINIE")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -683,7 +682,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -694,14 +693,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 if (data)
@@ -716,7 +715,7 @@ bool Dcm::readFile()
                     }
 
                     //read axis X values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     if (token == Keyword && ( mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X"))
                     {
                         // in case a label is twice in the subset!!
@@ -727,7 +726,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float || token == String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                             if (mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X")
@@ -757,7 +756,7 @@ bool Dcm::readFile()
                     }
 
                     //read Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     if (token == Keyword && ( mylex.getLexem() == "WERT" || mylex.getLexem() == "TEXT"))
                     {
                         // in case a label is twice in the subset!!
@@ -768,7 +767,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float || token == String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                             if (mylex.getLexem() == "WERT" || mylex.getLexem() == "TEXT")
@@ -810,7 +809,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -819,18 +818,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "FESTKENNLINIE")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -842,7 +841,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -853,14 +852,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 if (data)
@@ -875,7 +874,7 @@ bool Dcm::readFile()
                     }
 
                     //read axis X values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     if (token == Keyword && ( mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X"))
                     {
                         // in case a label is twice in the subset!!
@@ -886,7 +885,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float || token == String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                             if (mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X")
@@ -916,7 +915,7 @@ bool Dcm::readFile()
                     }
 
                     //read Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     if (token == Keyword && ( mylex.getLexem() == "WERT" || mylex.getLexem() == "TEXT"))
                     {
                         // in case a label is twice in the subset!!
@@ -927,7 +926,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float || token == String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             list.append(str);
                             token = mylex.getNextToken(in);
                             if (mylex.getLexem() == "WERT" || mylex.getLexem() == "TEXT")
@@ -969,7 +968,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -978,18 +977,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "GRUPPENKENNLINIE")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -1001,7 +1000,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -1012,14 +1011,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
                 if (data)
                 {
@@ -1033,7 +1032,7 @@ bool Dcm::readFile()
                     }
 
                     //read axis X values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     data->clearX();
                     QStringList listX;
                     while (token == Keyword && ( mylex.getLexem() == "ST/X" ||mylex.getLexem() == "ST_TX/X" ))
@@ -1042,7 +1041,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float || token == String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             listX.append(str);
                             token = mylex.getNextToken(in);
                             if (mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X")
@@ -1068,7 +1067,7 @@ bool Dcm::readFile()
 
 
                     //read Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     // in case a label is twice in the subset!!
                     data->clearY();
                     data->clearZ();
@@ -1082,7 +1081,7 @@ bool Dcm::readFile()
                             token = mylex.getNextToken(in);
                             while (token ==  Integer || token == Float || token == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 list.append(str);
                                 token = mylex.getNextToken(in);
                                 if (mylex.getLexem() == "WERT" || mylex.getLexem() == "TEXT")
@@ -1169,7 +1168,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -1178,18 +1177,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "KENNFELD")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -1201,7 +1200,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -1212,14 +1211,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 if (data)
@@ -1234,7 +1233,7 @@ bool Dcm::readFile()
                     }
 
                     //read axis X values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     data->clearX();
                     QStringList listX;
                     while (token == Keyword && ( mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X" ))
@@ -1243,7 +1242,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float || token == String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             listX.append(str);
                             token = mylex.getNextToken(in);
                         }
@@ -1265,7 +1264,7 @@ bool Dcm::readFile()
 
 
                     //read Y and Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     // in case a label is twice in the subset!!
                     data->clearY();
                     data->clearZ();
@@ -1279,7 +1278,7 @@ bool Dcm::readFile()
                             token = mylex.getNextToken(in);
                             while (token ==  Integer || token == Float || token == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 list.append(str);
                                 token = mylex.getNextToken(in);
                             }
@@ -1307,7 +1306,7 @@ bool Dcm::readFile()
                             token = mylex.getNextToken(in);
                             while (token ==  Integer || token == Float || token == String)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 list.append(str);
                                 token = mylex.getNextToken(in);
                             }
@@ -1349,7 +1348,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -1358,18 +1357,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "GRUPPENKENNFELD")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -1381,7 +1380,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -1392,14 +1391,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 if (data)
@@ -1414,7 +1413,7 @@ bool Dcm::readFile()
                     }
 
                     //read axis X values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     QStringList listX;
                     data->clearX();
                     while (token == Keyword && ( mylex.getLexem() == "ST/X"))
@@ -1423,7 +1422,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             listX.append(str);
                             token = mylex.getNextToken(in);
                         }
@@ -1449,7 +1448,7 @@ bool Dcm::readFile()
 //                    }
 
                     //read Y and Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     // in case a label is twice in the subset!!
                     data->clearY();
                     data->clearZ();
@@ -1463,7 +1462,7 @@ bool Dcm::readFile()
                             token = mylex.getNextToken(in);
                             while (token ==  Integer || token == Float)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 list.append(str);
                                 token = mylex.getNextToken(in);
                             }
@@ -1491,7 +1490,7 @@ bool Dcm::readFile()
                             token = mylex.getNextToken(in);
                             while (token ==  Integer || token == Float)
                             {
-                                QString str = mylex.getLexem().c_str();
+                                QString str = mylex.getLexem();
                                 list.append(str);
                                 token = mylex.getNextToken(in);
                             }
@@ -1616,7 +1615,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -1625,18 +1624,18 @@ bool Dcm::readFile()
         else if (token == Keyword && mylex.getLexem() == "STUETZSTELLENVERTEILUNG")
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
 
             if (token == Identifier)
             {
                 // create a data if not already created
                 Data *data = NULL;
-                if (!getData(mylex.getLexem().c_str()))
+                if (!getData(mylex.getLexem()))
                 {
                     //get the characteristic node from a2l
                     Node *nodeChar = a2lProject->getNode("MODULE/" + getModuleName() + "/CHARACTERISTIC");
                     Node *nodeAxis = a2lProject->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
-                    Node *label = nodeChar->getNode(mylex.getLexem().c_str());
+                    Node *label = nodeChar->getNode(mylex.getLexem());
                     if (label)
                     {
                         //create a data
@@ -1648,7 +1647,7 @@ bool Dcm::readFile()
                     }
                     else
                     {
-                        Node *label2 = nodeAxis->getNode(mylex.getLexem().c_str());
+                        Node *label2 = nodeAxis->getNode(mylex.getLexem());
                         if (label2)
                         {
                             //create a data
@@ -1659,14 +1658,14 @@ bool Dcm::readFile()
                         }
                         else
                         {
-                            outList.append("read Dcm file : " + QString(mylex.getLexem().c_str()) + " not found into "
+                            outList.append("read Dcm file : " + QString(mylex.getLexem()) + " not found into "
                                            + QString(this->getParentWp()->a2lFile->name));
                         }
                     }
                 }
                 else
                 {
-                    data = getData(mylex.getLexem().c_str());
+                    data = getData(mylex.getLexem());
                 }
 
                 if (data)
@@ -1681,7 +1680,7 @@ bool Dcm::readFile()
                     }
 
                     //read axis Z values
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     data->clearZ();
                     QStringList listZ;
                     while (token == Keyword && ( mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X"))
@@ -1690,7 +1689,7 @@ bool Dcm::readFile()
                         token = mylex.getNextToken(in);
                         while (token ==  Integer || token == Float || token == String)
                         {
-                            QString str = mylex.getLexem().c_str();
+                            QString str = mylex.getLexem();
                             listZ.append(str);
                             token = mylex.getNextToken(in);
                             if (mylex.getLexem() == "ST/X" || mylex.getLexem() == "ST_TX/X")
@@ -1742,7 +1741,7 @@ bool Dcm::readFile()
                 if (token == Keyword && ( mylex.getLexem() == "END"))
                 {
 
-                    qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+                    qDebug() << mylex.toString(token) << mylex.getLexem();
                     token = mylex.getNextToken(in);
                 }
 
@@ -1752,7 +1751,7 @@ bool Dcm::readFile()
         else if (token == Comment)
         {
             token = mylex.getNextToken(in);
-            qDebug() << mylex.toString(token).c_str() << mylex.getLexem().c_str();
+            qDebug() << mylex.toString(token) << mylex.getLexem();
         }
         else
         {
@@ -1877,14 +1876,14 @@ void Dcm::setFullName(QString fullName)
             FormCompare *fcomp = (FormCompare*)obj;
             if (fcomp->getDcm1() == this)
             {
-                 QString str = QFileInfo(getParentWp()->getFullA2lFileName().c_str()).fileName()
+                 QString str = QFileInfo(getParentWp()->getFullA2lFileName()).fileName()
                                + "/"
                                + QFileInfo(fullPath).fileName();
                  fcomp->setDataset1(str);
             }
             else if (fcomp->getDcm2() == this)
             {
-                QString str = QFileInfo(getParentWp()->getFullA2lFileName().c_str()).fileName()
+                QString str = QFileInfo(getParentWp()->getFullA2lFileName()).fileName()
                               + "/"
                               + QFileInfo(fullPath).fileName();
                  fcomp->setDataset2(str);
@@ -1918,7 +1917,7 @@ void Dcm::detach(QObject *o)
         delete this;
 }
 
-std::string Dcm::pixmap()
+QString Dcm::pixmap()
 {
     return ":/icones/excel.png";
 }
@@ -1934,7 +1933,7 @@ void Dcm::checkProgressStream(int n)
 
 }
 
-int Dcm::getNumByte(std::string str)
+int Dcm::getNumByte(QString str)
 {
-    return nByte.value(str.c_str());
+    return nByte.value(str);
 }

@@ -32,24 +32,24 @@ class Item
         Item(Node *parentNod);
         virtual ~Item();
 
-        virtual QMap<std::string, std::string> getParameters()
+        virtual QMap<QString, QString> getParameters()
         {
-            QMap<std::string, std::string> map;
+            QMap<QString, QString> map;
             return map;
         }
         TokenTyp nextToken();
         void parseFixPar(QList<TokenTyp> *typePar);
-        std::string getName() const
+        QString getName() const
         {
-            std::string str = name;
+            QString str = name;
             return str;
         }
-        char* name;
+        QString name;
 
     protected:
         Node *parentNode;
         void showError(QString str);
-        QList<char*> parameters;
+        QList<QString> parameters;
     };
 
 #endif // ITEM_H

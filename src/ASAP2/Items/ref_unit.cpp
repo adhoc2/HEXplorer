@@ -36,20 +36,20 @@ REF_UNIT::REF_UNIT( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"ref_unit";
+        name = (QString)"ref_unit";
 }
 
 REF_UNIT::~REF_UNIT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> REF_UNIT::getParameters()
+QMap<QString, QString> REF_UNIT::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -57,7 +57,7 @@ QMap<std::string, std::string> REF_UNIT::getParameters()
     return par;
 }
 
-char* REF_UNIT::getPar(std::string str)
+QString REF_UNIT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

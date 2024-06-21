@@ -34,10 +34,11 @@ bool Buffer::isFull()
     return state;
 }
 
-void Buffer::read(QTextStream *in)
+void Buffer::read(QTextStream* in)
 {
     QChar c;
     *in >> c;
+    //QChar c = in->read(1)[0];
 
     //if (c != 0 && c < 128)
     if (c != 0)
@@ -89,7 +90,6 @@ QChar Buffer::getAndClear()
 
 QChar Buffer::getValue()
 {
-    //char c = value;
     return value;
 }
 
@@ -122,12 +122,12 @@ A2lLexer::~A2lLexer()
     delete buffer;
 }
 
-std::string A2lLexer::getLexem()
+QString A2lLexer::getLexem()
 {
-    return lexem.toStdString();
+    return lexem;
 }
 
-std::string A2lLexer::toString(TokenTyp type)
+QString A2lLexer::toString(TokenTyp type)
 {
     switch (type)
     {

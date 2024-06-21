@@ -35,7 +35,7 @@ PROJECT::PROJECT(Node *parentNode, A2lLexer *lexer)
     factoryOptItem = &gram->project.factoryOptItem;
 
     //optional parameters
-    occOptPar = new QMap<std::string, Occurence>;
+    occOptPar = new QMap<QString, Occurence>;
     occOptPar->insert("HEADER", ZeroOrOne);
     occOptPar->insert("MODULE", ZeroOrMore);    
 
@@ -47,7 +47,7 @@ PROJECT::PROJECT(Node *parentNode, A2lLexer *lexer)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"project";
+        name = (QString)"project";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar(occOptPar);
@@ -61,8 +61,8 @@ PROJECT::PROJECT(Node *parentNode, A2lLexer *lexer)
         }
         else
         {			
-            QString s(lex->toString(token).c_str());
-            this->showError("expected token : BlockEnd PROJECT\nfind token : " + s + " " + QString(lex->getLexem().c_str()));
+            QString s(lex->toString(token));
+            this->showError("expected token : BlockEnd PROJECT\nfind token : " + s + " " + QString(lex->getLexem()));
         }
     }
     else if ((token == Eof || token == Identifier) && lex->getLexem() == "CHUNKend")
@@ -76,8 +76,8 @@ PROJECT::PROJECT(Node *parentNode, A2lLexer *lexer)
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end PROJECT\nfind : " + s1 + " " + s2);
     }
 
@@ -88,9 +88,9 @@ PROJECT::PROJECT(Node *parentNode, A2lLexer *lexer)
 PROJECT::~PROJECT()
 {    
    //qDeleteAll(parameters);
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 
    delete occOptPar;
@@ -106,20 +106,20 @@ void PROJECT::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
 }
 
-TokenTyp PROJECT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
+TokenTyp PROJECT::parseOptPar(QMap<QString, Occurence> *nameOptPar)
 {
 
     if (nameOptPar->isEmpty())
@@ -135,7 +135,7 @@ TokenTyp PROJECT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                 token = nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
                         if (occOptPar->value(lexem) == ZeroOrOne)
@@ -153,7 +153,7 @@ TokenTyp PROJECT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!isChild("MODULE"))
                                 {
                                     Node *Char = new Node(this, lex, errorList);
-                                    Char->name = (char*)"MODULE";
+                                    Char->name = (QString)"MODULE";
                                     addChildNode(Char);
                                     Char->_pixmap = "";
                                 }
@@ -164,21 +164,21 @@ TokenTyp PROJECT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         showError("unknown Keyword : " + s);
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     showError("expected token : BlockBegin or Keyword\nfind token : " + s);
                     return token;
                 }
@@ -186,7 +186,7 @@ TokenTyp PROJECT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
                     if (occOptPar->value(lexem) == ZeroOrOne)
@@ -204,14 +204,14 @@ TokenTyp PROJECT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     showError("unknown Keyword : " + s);
                     return token;
                 }
@@ -221,14 +221,14 @@ TokenTyp PROJECT::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
     }
 }
 
-std::string PROJECT::pixmap()
+QString PROJECT::pixmap()
 {
     return ":/icones/MacHD.png";
 }
 
-QMap<std::string, std::string> *PROJECT::getParameters()
+QMap<QString, QString> *PROJECT::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -236,7 +236,7 @@ QMap<std::string, std::string> *PROJECT::getParameters()
     return par;
 }
 
-char* PROJECT::getPar(std::string str)
+QString PROJECT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

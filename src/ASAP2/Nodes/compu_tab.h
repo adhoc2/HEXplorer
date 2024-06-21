@@ -33,10 +33,10 @@ class COMPU_TAB : public Node
         ~COMPU_TAB();
         static Factory<Node, COMPU_TAB> nodeFactory;
 
-        QMap<std::string, std::string> *getParameters();
-        std::string pixmap();
+        QMap<QString, QString> *getParameters();
+        QString pixmap();
         int getPos(QString str);
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
         //to access data Pairs data
         QString getValue(float i);
@@ -46,15 +46,15 @@ class COMPU_TAB : public Node
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
-        QMap<float, std::string> valuePairs;
+        QList<QString> *namePar;
+        QList<QString> parameters;
+        QMap<float, QString> valuePairs;
         QList<float> listKeyPairs;
-        QList<std::string> listValuePairs;
+        QList<QString> listValuePairs;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
 
         void parsePairs();

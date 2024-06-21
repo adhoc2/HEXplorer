@@ -36,22 +36,22 @@ S_REC_LAYOUT::S_REC_LAYOUT( Node *parentNode) : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"s_rec_layout";
+        name = (QString)"s_rec_layout";
 }
 
 
 S_REC_LAYOUT::~S_REC_LAYOUT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> S_REC_LAYOUT::getParameters()
+QMap<QString, QString> S_REC_LAYOUT::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -59,7 +59,7 @@ QMap<std::string, std::string> S_REC_LAYOUT::getParameters()
     return par;
 }
 
-char* S_REC_LAYOUT::getPar(std::string str)
+QString S_REC_LAYOUT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

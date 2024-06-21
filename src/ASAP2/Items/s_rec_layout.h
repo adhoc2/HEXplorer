@@ -29,16 +29,16 @@ class S_REC_LAYOUT : public Item
     public:
         S_REC_LAYOUT( Node *parentNode);
         ~S_REC_LAYOUT();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,S_REC_LAYOUT> itemFactory;
         static void initialize();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // S_REC_LAYOUT_H

@@ -49,7 +49,7 @@ RECORD_LAYOUT::RECORD_LAYOUT(Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"record_layout";
+        name = (QString)"record_layout";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar();
@@ -68,23 +68,23 @@ RECORD_LAYOUT::RECORD_LAYOUT(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd RECORD_LAYOUT\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end RECORD_LAYOUT\nfind : " + s1 + " " + s2);
     }
 }
 
 RECORD_LAYOUT::~RECORD_LAYOUT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
@@ -98,14 +98,14 @@ void RECORD_LAYOUT::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
@@ -114,7 +114,7 @@ void RECORD_LAYOUT::parseFixPar(QList<TokenTyp> *typePar)
 TokenTyp RECORD_LAYOUT::parseOptPar()
 {
     //opt parameters
-    QMap<std::string, Occurence> nameOptPar;
+    QMap<QString, Occurence> nameOptPar;
     nameOptPar.insert("NO_AXIS_PTS_X", ZeroOrOne);
     nameOptPar.insert("NO_AXIS_PTS_Y", ZeroOrOne);
     nameOptPar.insert("AXIS_PTS_X", ZeroOrOne);
@@ -143,7 +143,7 @@ TokenTyp RECORD_LAYOUT::parseOptPar()
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (nameOptPar.contains(lexem))
                     {
                         if (nameOptPar.value(lexem) == ZeroOrOne)
@@ -161,21 +161,21 @@ TokenTyp RECORD_LAYOUT::parseOptPar()
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -183,7 +183,7 @@ TokenTyp RECORD_LAYOUT::parseOptPar()
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (nameOptPar.contains(lexem))
                 {
                     if (nameOptPar.value(lexem) == ZeroOrOne)
@@ -201,14 +201,14 @@ TokenTyp RECORD_LAYOUT::parseOptPar()
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be declared once");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -218,9 +218,9 @@ TokenTyp RECORD_LAYOUT::parseOptPar()
     }
 }
 
-QMap<std::string, std::string> *RECORD_LAYOUT::getParameters()
+QMap<QString, QString> *RECORD_LAYOUT::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -228,12 +228,12 @@ QMap<std::string, std::string> *RECORD_LAYOUT::getParameters()
     return par;
 }
 
-std::string RECORD_LAYOUT::pixmap()
+QString RECORD_LAYOUT::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
 
-char* RECORD_LAYOUT::getPar(std::string str)
+QString RECORD_LAYOUT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

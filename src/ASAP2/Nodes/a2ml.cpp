@@ -31,7 +31,7 @@ A2ML::A2ML( Node *parentNode)
 void A2ML::parse()
 {
 
-    this->name = (char*)"A2ML";
+    this->name = (QString)"A2ML";
     this->a2lLine = lex->getLine();
 
     lex->getNextToken();

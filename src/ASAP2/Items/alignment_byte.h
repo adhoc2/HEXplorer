@@ -29,15 +29,15 @@ class ALIGNMENT_BYTE : public Item
     public:
         ALIGNMENT_BYTE(Node *parentNode);
         ~ALIGNMENT_BYTE();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,ALIGNMENT_BYTE> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // ALIGNMENT_BYTE_H

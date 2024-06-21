@@ -31,26 +31,26 @@ class FIX_AXIS_PAR_LIST : public Node
     public:
         FIX_AXIS_PAR_LIST(Node *parentNode);
         ~FIX_AXIS_PAR_LIST();
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node, FIX_AXIS_PAR_LIST> nodeFactory;
-        char* getPar(std::string str);
-        QList<std::string> *getAxisValues();
+        QString getPar(QString str);
+        QList<QString> *getAxisValues();
 
 
     private:
         // specific for this node Characteristic
-        QList<std::string> *axis_values;
+        QList<QString> *axis_values;
 
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
         void parseFixPar(QList<TokenTyp> *typePar);
 
         // Opt parameters
         QHash<QString, Occurence> *occOptPar;
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
         TokenTyp parseOptPar(QHash<QString, Occurence> *nameOptPar);
 };
 

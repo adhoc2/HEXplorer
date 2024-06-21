@@ -37,21 +37,21 @@ class MOD_COMMON : public Node
     public:
         MOD_COMMON( Node *parentNode);
         ~MOD_COMMON();
-        QMap<std::string, std::string> *getParameters();
-        char* fixPar(int n);
+        QMap<QString, QString> *getParameters();
+        QString fixPar(int n);
         static Factory<Node,MOD_COMMON> nodeFactory;
-        std::string pixmap();
-        char* getPar(std::string str);
+        QString pixmap();
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         void parseFixPar(QList<TokenTyp> *typePar);
         TokenTyp parseOptPar();

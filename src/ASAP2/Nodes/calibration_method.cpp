@@ -40,7 +40,7 @@ CALIBRATION_METHOD::CALIBRATION_METHOD(Node *parentNode)
     factoryOptItem = &gram->calibration_method.factoryOptItem;
 
     //opt parameters
-    occOptPar = new QMap<std::string, Occurence>;
+    occOptPar = new QMap<QString, Occurence>;
     occOptPar->insert("CALIBRATION_HANDLE", ZeroOrMore);
 
     //Set the line where the Node starts in ASAP file
@@ -51,7 +51,7 @@ CALIBRATION_METHOD::CALIBRATION_METHOD(Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"calibration_method";
+        name = (QString)"calibration_method";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar(occOptPar);
@@ -70,23 +70,23 @@ CALIBRATION_METHOD::CALIBRATION_METHOD(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd CALIBRATION_METHOD\nfind token : " + s );
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end CALIBRATION_METHOD\nfind : " + s1 + " " + s2 );
     }    
 }
 
 CALIBRATION_METHOD::~CALIBRATION_METHOD()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
     delete occOptPar;
 }
@@ -101,20 +101,20 @@ void CALIBRATION_METHOD::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }        
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s );
         }
     }
 }
 
-TokenTyp CALIBRATION_METHOD::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
+TokenTyp CALIBRATION_METHOD::parseOptPar(QMap<QString, Occurence> *nameOptPar)
 {
 
     if (nameOptPar->isEmpty())
@@ -130,7 +130,7 @@ TokenTyp CALIBRATION_METHOD::parseOptPar(QMap<std::string, Occurence> *nameOptPa
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
                         if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -148,21 +148,21 @@ TokenTyp CALIBRATION_METHOD::parseOptPar(QMap<std::string, Occurence> *nameOptPa
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -170,7 +170,7 @@ TokenTyp CALIBRATION_METHOD::parseOptPar(QMap<std::string, Occurence> *nameOptPa
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
                     if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -188,14 +188,14 @@ TokenTyp CALIBRATION_METHOD::parseOptPar(QMap<std::string, Occurence> *nameOptPa
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -205,9 +205,9 @@ TokenTyp CALIBRATION_METHOD::parseOptPar(QMap<std::string, Occurence> *nameOptPa
     }
 }
 
-QMap<std::string, std::string> *CALIBRATION_METHOD::getParameters()
+QMap<QString, QString> *CALIBRATION_METHOD::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -215,7 +215,7 @@ QMap<std::string, std::string> *CALIBRATION_METHOD::getParameters()
     return par;
 }
 
-char* CALIBRATION_METHOD::getPar(std::string str)
+QString CALIBRATION_METHOD::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

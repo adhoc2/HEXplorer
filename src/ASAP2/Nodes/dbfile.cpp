@@ -28,7 +28,7 @@ DBFILE::DBFILE(Node *parentNode, QString sqlConnection, QString fullFileName)
     : Node()
 {
     //initialize
-    optParameters = new QMap<std::string, std::string>;
+    optParameters = new QMap<QString, QString>;
     fullA2lName = fullFileName;
     this->sqlConnection = sqlConnection;
 
@@ -38,7 +38,6 @@ DBFILE::DBFILE(Node *parentNode, QString sqlConnection, QString fullFileName)
 DBFILE::~DBFILE()
 {
     delete optParameters;
-    delete[] name;
     delete errorList;
     delete lex;
 }
@@ -51,7 +50,7 @@ void DBFILE::getAsap2Version()
         return;
     }
 
-    std::string str;
+    QString str;
     TokenTyp token1 = nextToken();
 
     if (token1 == Integer)
@@ -84,7 +83,7 @@ void DBFILE::getA2mlVersion()
         return;
     }
 
-    std::string str;
+    QString str;
     TokenTyp token1 = nextToken();
 
     if (token1 == Integer)
@@ -109,7 +108,7 @@ void DBFILE::getA2mlVersion()
 
 }
 
-std::string DBFILE::pixmap()
+QString DBFILE::pixmap()
 {
     return ":/icones/milky_classeur.png";
 }

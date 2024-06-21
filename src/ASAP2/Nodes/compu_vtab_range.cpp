@@ -46,7 +46,7 @@ COMPU_VTAB_RANGE::COMPU_VTAB_RANGE(Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"compu_vtab_range";
+        name = (QString)"compu_vtab_range";
 
     //special for compu_vtab_range
     parsePairs();
@@ -68,23 +68,23 @@ COMPU_VTAB_RANGE::COMPU_VTAB_RANGE(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd COMPU_VTAB_RANGE\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end COMPU_VTAB_RANGE\nfind : " + s1 + " " + s2);
     }
 }
 
 COMPU_VTAB_RANGE::~COMPU_VTAB_RANGE()
 {
-    foreach (char* ptr, parameters)
+
     {
-        delete[] ptr;
+
     }
 }
 
@@ -98,14 +98,14 @@ void COMPU_VTAB_RANGE::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+
+
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
@@ -114,7 +114,7 @@ void COMPU_VTAB_RANGE::parseFixPar(QList<TokenTyp> *typePar)
 TokenTyp COMPU_VTAB_RANGE::parseOptPar()
 {
     //opt parameters
-    QMap<std::string, Occurence> nameOptPar;
+    QMap<QString, Occurence> nameOptPar;
     nameOptPar.insert("DEFAULT_VALUE", ZeroOrOne);
 
     if (nameOptPar.isEmpty())
@@ -130,7 +130,7 @@ TokenTyp COMPU_VTAB_RANGE::parseOptPar()
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (nameOptPar.contains(lexem))
                     {
                         if (nameOptPar.value(lexem) == ZeroOrOne)
@@ -148,21 +148,21 @@ TokenTyp COMPU_VTAB_RANGE::parseOptPar()
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s );
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s );
                     return token;
                 }
@@ -170,7 +170,7 @@ TokenTyp COMPU_VTAB_RANGE::parseOptPar()
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (nameOptPar.contains(lexem))
                 {
                     if (nameOptPar.value(lexem) == ZeroOrOne)
@@ -188,14 +188,14 @@ TokenTyp COMPU_VTAB_RANGE::parseOptPar()
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s );
                     return token;
                 }
@@ -205,9 +205,9 @@ TokenTyp COMPU_VTAB_RANGE::parseOptPar()
     }
 }
 
-QMap<std::string, std::string> *COMPU_VTAB_RANGE::getParameters()
+QMap<QString, QString> *COMPU_VTAB_RANGE::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -222,7 +222,7 @@ QMap<std::string, std::string> *COMPU_VTAB_RANGE::getParameters()
     return par;
 }
 
-std::string  COMPU_VTAB_RANGE::pixmap()
+QString  COMPU_VTAB_RANGE::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -243,7 +243,7 @@ void COMPU_VTAB_RANGE::parsePairs()
         if (token == Integer)
         {
            // get first index : key_begin
-           QString str = lex->getLexem().c_str();
+           QString str = lex->getLexem();
            key_begin = str.toInt(&bl,10);
            listKeyPairs.append(key_begin);
 
@@ -251,12 +251,12 @@ void COMPU_VTAB_RANGE::parsePairs()
            token = lex->getNextToken();
            if (token == Integer)
            {
-               QString str = lex->getLexem().c_str();
+               QString str = lex->getLexem();
                key_end = str.toInt(&bl,10);
            }
            else
            {
-                QString s(lex->toString(token).c_str());
+                QString s(lex->toString(token));
                 showError("expected token : Integer \nfind token : " + s);
            }
 
@@ -264,29 +264,29 @@ void COMPU_VTAB_RANGE::parsePairs()
            token = lex->getNextToken();
            if (token == String)
            {
-               QString value = lex->getLexem().c_str();
+               QString value = lex->getLexem();
                value.remove("\"");
 
-               listValuePairs.append(value.toStdString());
-               valuePairs.insert(key_begin, value.toStdString());
+               listValuePairs.append(value);
+               valuePairs.insert(key_begin, value);
 
                while (key_begin != key_end)
                {
                    listKeyPairs.append(key_begin + 1);
-                   valuePairs.insert(key_begin + 1, value.toStdString());
-                   valuePairs.insert(key_begin + 1, value.toStdString());
+                   valuePairs.insert(key_begin + 1, value);
+                   valuePairs.insert(key_begin + 1, value);
                    key_begin++;
                }
            }
            else
            {
-                QString s(lex->toString(token).c_str());
+                QString s(lex->toString(token));
                 showError("expected token : String \nfind token : " + s);
            }
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             showError("expected token : Ineger \nfind token : " + s);
         }
     }
@@ -297,7 +297,7 @@ QString COMPU_VTAB_RANGE::getValue(int i)
 
     int ind = listKeyPairs.indexOf(i);
     if (ind >= 0)
-        return listValuePairs.at(ind).c_str();
+        return listValuePairs.at(ind);
     else
         return "ERROR";
 
@@ -312,7 +312,7 @@ int COMPU_VTAB_RANGE::getPos(QString str)
        return -1;
 }
 
-char* COMPU_VTAB_RANGE::getPar(std::string str)
+QString COMPU_VTAB_RANGE::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);
@@ -321,9 +321,9 @@ char* COMPU_VTAB_RANGE::getPar(std::string str)
 QStringList COMPU_VTAB_RANGE::getValueList()
 {
     QStringList list;
-    foreach (std::string str, listValuePairs)
+    foreach (QString str, listValuePairs)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
 
     return list;

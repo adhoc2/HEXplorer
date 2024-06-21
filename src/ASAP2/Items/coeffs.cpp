@@ -33,21 +33,21 @@ COEFFS::COEFFS( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"COEFFS";
+    name = (QString)"COEFFS";
 }
 
 COEFFS::~COEFFS()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> COEFFS::getParameters()
+QMap<QString, QString> COEFFS::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> COEFFS::getParameters()
     return par;
 }
 
-char* COEFFS::getPar(std::string str)
+QString COEFFS::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

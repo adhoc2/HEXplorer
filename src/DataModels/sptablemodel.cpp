@@ -126,7 +126,7 @@ QVariant SpTableModel::data(const QModelIndex &index, int role) const
             else if (row - sum == 0 && column == 3)
                 return listDataModel->at(ind)->getMaxDim();
             else if (row - sum == 0 && column == 2)
-                return listDataModel->at(ind)->getUnit();
+                return listDataModel->at(ind)->getUnit().toLatin1();
 
             if (listDataModel->at(ind)->xCount() == 0) //Value
             {

@@ -63,20 +63,16 @@ void Item::parseFixPar(QList<TokenTyp> *typePar)
         token = this->nextToken();
         if (token == typePar->at(i) || (token == Integer  && typePar->at(i) == Float))
         {
-            char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
-            parameters.append(c);
+            parameters.append(this->parentNode->lex->getLexem());
         }
         else if (token == String && typePar->at(i) == StringFormat)
         {
-            char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
-            parameters.append(c);
+            parameters.append(this->parentNode->lex->getLexem());
         }
         else
         {
-            QString t(this->parentNode->lex->toString(typePar->at(i)).c_str());
-            QString s(this->parentNode->lex->toString(token).c_str());
+            QString t(this->parentNode->lex->toString(typePar->at(i)));
+            QString s(this->parentNode->lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }

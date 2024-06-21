@@ -75,7 +75,7 @@ class WorkProject :  public A2l, public Node
         MDImain *parentWidget;
         QString getFullNodeName();
         QString fullName();
-        std::string pixmap();
+        QString pixmap();
 
     private:
         QList<QObject*> owners;

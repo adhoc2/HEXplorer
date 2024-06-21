@@ -29,16 +29,16 @@ class ElementNode
 {
     public :    
         QList<TokenTyp> typePar;
-        QList<std::string> namePar;
-        QMap<std::string, FactoryPlant<Node> *>  factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  factoryOptItem;
+        QList<QString> namePar;
+        QMap<QString, FactoryPlant<Node> *>  factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  factoryOptItem;
 };
 
 class ElementItem
 {
     public :
         QList<TokenTyp> typePar;
-        QList<std::string> namePar;
+        QList<QString> namePar;
 };
 
 class A2lGrammar

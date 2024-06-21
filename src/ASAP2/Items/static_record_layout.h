@@ -29,15 +29,15 @@ class STATIC_RECORD_LAYOUT : public Item
     public:
         STATIC_RECORD_LAYOUT( Node *parentNode);
         ~STATIC_RECORD_LAYOUT();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, STATIC_RECORD_LAYOUT> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // STATIC_RECORD_LAYOUT_H

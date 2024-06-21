@@ -166,7 +166,7 @@ class Data : public QObject, public Node
         bool checkAxisZMonotony();
         COMPU_VTAB *getCompuTabAxisZ();
         QString getOutputQuantityZ();
-        std::string getDatatypeZ();
+        QString getDatatypeZ();
         int getZnbyte();
 
         bool isSizeChanged();
@@ -204,10 +204,10 @@ class Data : public QObject, public Node
         void setZ(QStringList list);
         QStringList sortByRow();
         QStringList sortByColumn();
-        QList<double> hex2dec(QStringList listHex, std::string type,  int base);
-        double hex2dec(QString hex, std::string type,  int base);
-        QStringList dec2hex(QList<double> listdec, std::string type,  int base);
-        QString dec2hex(double dec, std::string type,  int base);
+        QList<double> hex2dec(QStringList listHex, QString type,  int base);
+        double hex2dec(QString hex, QString type,  int base);
+        QStringList dec2hex(QList<double> listdec, QString type,  int base);
+        QString dec2hex(double dec, QString type,  int base);
         QStringList dec2Phys(QList<double> listdec, QString axis);
         unsigned int tzn(unsigned int v);
         int getZnbyte_Recordlayout(RECORD_LAYOUT *rcd_lyt);
@@ -235,9 +235,9 @@ class Data : public QObject, public Node
         COMPU_METHOD *compu_methodZ;
         AXIS_DESCR *axisDescrX;
         AXIS_DESCR *axisDescrY;
-        std::string datatypeX;
-        std::string datatypeY;
-        std::string datatypeZ;
+        QString datatypeX;
+        QString datatypeY;
+        QString datatypeZ;
         COMPU_VTAB *compuVTabAxisX;
         COMPU_VTAB *compuVTabAxisY;
         COMPU_VTAB *compuVTabAxisZ;

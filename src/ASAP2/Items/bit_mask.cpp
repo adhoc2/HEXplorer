@@ -33,21 +33,21 @@ BIT_MASK::BIT_MASK( Node *parentNode) : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name = (char*)"BIT_MASK";
+    name = (QString)"BIT_MASK";
 }
 
 
 BIT_MASK::~BIT_MASK()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> BIT_MASK::getParameters()
+QMap<QString, QString> BIT_MASK::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> BIT_MASK::getParameters()
     return par;
 }
 
-char* BIT_MASK::getPar(std::string str)
+QString BIT_MASK::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

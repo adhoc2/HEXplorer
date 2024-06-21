@@ -43,7 +43,7 @@ IN_MEASUREMENT::IN_MEASUREMENT( Node *parentNode)
     //Set the line where the Node starts in ASAP file
     a2lLine = lex->getLine();
 
-    name = (char*)"IN_MEASUREMENT";
+    name = (QString)"IN_MEASUREMENT";
 
     //Parse list Identifiers
     TokenTyp token = parseListChar();
@@ -65,29 +65,29 @@ IN_MEASUREMENT::IN_MEASUREMENT( Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd IN_MEASUREMENT\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end IN_MEASUREMENT\nfind : " + s1 + " " + s2);
     }
 }
 
 IN_MEASUREMENT::~IN_MEASUREMENT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> *IN_MEASUREMENT::getParameters()
+QMap<QString, QString> *IN_MEASUREMENT::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -95,7 +95,7 @@ QMap<std::string, std::string> *IN_MEASUREMENT::getParameters()
     return par;
 }
 
-std::string  IN_MEASUREMENT::pixmap()
+QString  IN_MEASUREMENT::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
@@ -116,14 +116,14 @@ TokenTyp IN_MEASUREMENT::parseListChar()
 QStringList IN_MEASUREMENT::getCharList()
 {
     QStringList list;
-    foreach(std::string str, charList)
+    foreach(QString str, charList)
     {
-        list.append(str.c_str());
+        list.append(str);
     }
     return list;
 }
 
-char* IN_MEASUREMENT::getPar(std::string str)
+QString IN_MEASUREMENT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

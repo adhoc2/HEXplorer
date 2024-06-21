@@ -45,12 +45,12 @@ class CHARACTERISTIC : public Node
         CHARACTERISTIC(Node *parentNode);
         ~CHARACTERISTIC();
 
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         QMap<QString, QString> *getOptItems();
         static Factory<Node,CHARACTERISTIC> nodeFactory;
-        std::string pixmap();
-        char* getPar(std::string str);
-        char* getPar(int i);
+        QString pixmap();
+        QString getPar(QString str);
+        QString getPar(int i);
         // specific only for this node Characteristic
         QString getSubsetName();
         void setSubset(FUNCTION *fun);
@@ -61,13 +61,13 @@ class CHARACTERISTIC : public Node
 
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
         void parseFixPar(QList<TokenTyp> *typePar);
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;        
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;        
         TokenTyp parseOptPar();
 };
 

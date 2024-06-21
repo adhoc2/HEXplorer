@@ -29,15 +29,15 @@ class ECU_ADDRESS_EXTENSION : public Item
     public:
         ECU_ADDRESS_EXTENSION(Node *parentNode);
         ~ECU_ADDRESS_EXTENSION();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,ECU_ADDRESS_EXTENSION> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // ECU_ADDRESS_EXTENSION_H

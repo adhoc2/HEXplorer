@@ -32,24 +32,24 @@ class SUB_FUNCTION : public Node
         SUB_FUNCTION( Node *parentNode);
         ~SUB_FUNCTION();
 
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node,SUB_FUNCTION> nodeFactory;
-        std::string pixmap();
+        QString pixmap();
         QStringList getCharList();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         // CHARACTERISTICS list
-        QList<std::string> charList;
+        QList<QString> charList;
 
         TokenTyp parseListChar();
         void parseFixPar(QList<TokenTyp> *typePar);

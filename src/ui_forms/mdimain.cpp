@@ -996,11 +996,11 @@ void MDImain::on_treeView_clicked(QModelIndex index)
     }
 
     //get the full path of the index into treeView
-    QString path = QString(model->getNodeName(index).c_str());
+    QString path = QString(model->getNodeName(index));
     index = model->parent(index);
     while (index.isValid())
     {
-        path = QString(model->getNodeName(index).c_str()) + "/" + path;
+        path = QString(model->getNodeName(index)) + "/" + path;
         index = model->parent(index);
     }
 }
@@ -1862,7 +1862,7 @@ void MDImain::openProject(QString &fullFileName)
 
 void MDImain::insertWp(WorkProject *wp)
 {
-    this->projectList->insert(QString(wp->getFullA2lFileName().c_str()), wp);
+    this->projectList->insert(QString(wp->getFullA2lFileName()), wp);
 }
 
 WorkProject* MDImain::getWp(QString path)
@@ -3197,7 +3197,7 @@ void MDImain::reAppendProject(WorkProject *wp)
     wp->attach(this);
 
     //insert the new created project into the projectList
-    projectList->insert(wp->getFullA2lFileName().c_str(), wp);
+    projectList->insert(wp->getFullA2lFileName(), wp);
 
     //update model
     Node* parentNode = wp->getParentNode();
@@ -3221,20 +3221,20 @@ void MDImain::showFixPar()
     QModelIndex index  = ui->treeView->selectionModel()->currentIndex();
 
     //create a dialog window
-    QMap<std::string, std::string> *param = model->getPar(index);
+    QMap<QString, QString> *param = model->getPar(index);
 
     if (param)
     {
         Dialog *diag = new Dialog();
 
-        QMap<std::string, std::string>::const_iterator i = param->constBegin();
+        QMap<QString, QString>::const_iterator i = param->constBegin();
         while (i != param->constEnd())
         {
-                diag->addItem(QString((i.key()).c_str()) + " : " + QString((i.value()).c_str()));
+                diag->addItem(QString((i.key())) + " : " + QString((i.value())));
                 ++i;
         }
 
-        diag->setWindowTitle(QString((param->value("Name")).c_str()));
+        diag->setWindowTitle(QString((param->value("Name"))));
 
         delete param;
 
@@ -4381,7 +4381,7 @@ void MDImain::compare_A2lFile()
         // get listChar1
 //        WorkProject *wp1 = projectList->value(str1);
         WorkProject *wp1 = (WorkProject*)node1;
-        QString str1 = wp1->getFullA2lFileName().c_str();
+        QString str1 = wp1->getFullA2lFileName();
         QStringList listChar1;
         QStringList listMeas1;
         if (wp1)  //to prevent any crash of the aplication
@@ -4439,7 +4439,7 @@ void MDImain::compare_A2lFile()
         // get CHAR listChar2
 //        WorkProject *wp2 = projectList->value(str2);
         WorkProject *wp2 = (WorkProject*)node2;
-        QString str2 = wp2->getFullA2lFileName().c_str();
+        QString str2 = wp2->getFullA2lFileName();
         QStringList listChar2;
         QStringList listMeas2;
         if (wp2)  //to prevent any crash of the aplication
@@ -7359,9 +7359,7 @@ void MDImain::onCreateDirectory()
     }
     else
     {
-        char* name = new char[dirName.length() + 1];
-        strcpy_s(name, dirName.length() + 1, dirName.toLocal8Bit().data());
-        TreeDirectory *subDir = new TreeDirectory(name);
+        TreeDirectory *subDir = new TreeDirectory(dirName);
         subDir->setPath(dirPath);
 
         subDir->setParentNode(wp);
@@ -7480,24 +7478,24 @@ void MDImain::clear_Output()
     ui->listWidget->clear();
 }
 
-bool MDImain::FileExists(std::string strFilename)
+bool MDImain::FileExists(QString strFilename)
 {
-  struct stat stFileInfo;
-  bool blnReturn;
-  int intStat;
+    struct stat stFileInfo;
+    bool blnReturn;
+    int intStat;
 
-  // Attempt to get the file attributes
-  intStat = stat(strFilename.c_str(),&stFileInfo);
-  if(intStat == 0)
-  {
+    // Attempt to get the file attributes
+    intStat = stat(strFilename.toStdString().c_str(),&stFileInfo);
+    if(intStat == 0)
+    {
     blnReturn = true;
-  }
-  else
-  {
+    }
+    else
+    {
     blnReturn = false;
-  }
+    }
 
-  return blnReturn;
+    return blnReturn;
 }
 
 void MDImain::setCurrentFile(const QString &fileName)

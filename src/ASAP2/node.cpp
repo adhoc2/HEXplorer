@@ -44,7 +44,7 @@ Node::Node(Node *parent, A2lLexer *lexer, QStringList *error)
     name = NULL;
 }
 
-Node::Node(char* nodeName)
+Node::Node(QString nodeName)
 {
    parentNode = 0;
    stopped = false;
@@ -102,27 +102,24 @@ Node *Node::child(QString str, bool bin)
    {
 
         Node node;
-        node.name = new char[str.length() + 1];
-        strcpy_s(node.name, str.length() + 1, str.toLocal8Bit().data());
-        //QList<Node*>::iterator i =  qBinaryFind(childNodes.begin(), childNodes.end(), &node, nodeLessThan);
+        node.name = str;
         QList<Node*>::iterator i =  std::lower_bound(childNodes.begin(), childNodes.end(), &node, nodeLessThan);
-        //QList<Node*>::iterator i =  std::lower_bound(childNodes.begin(), childNodes.end(), &node, compareNode);
 
         if (i == childNodes.end())
         {
-            delete[] node.name;
+
             return NULL;
         }
         else
         {
-            if (strcmp(((Node*)*i)->name, node.name) != 0)
+            if (QString::compare(((Node*)*i)->name, node.name) != 0)
             {
-                delete[] node.name;
+
                 return NULL;
             }
             else
             {
-                delete[] node.name;
+
                 return *i;
             }
         }
@@ -197,7 +194,7 @@ Node *Node::getParentNode()
     return parentNode;
 }
 
-bool Node::isChild(std::string str)
+bool Node::isChild(QString str)
 {
     foreach(Node *node, childNodes)
     {
@@ -270,10 +267,10 @@ Item *Node::getItem(QString str)
     return nullptr;
 }
 
-std::string Node::fixPar(QString str)
+QString Node::fixPar(QString str)
 {
-    QMap<std::string, std::string> *map = getParameters();
-    std::string tt = map->value(str.toLocal8Bit().data());
+    QMap<QString, QString> *map = getParameters();
+    QString tt = map->value(str.toLocal8Bit().data());
     delete map;
     return  tt;
 }
@@ -301,7 +298,7 @@ Node* Node::interpolationSearch(QList<Node *> sortedArray, QString str)
     {
 
         mid = low +
-                (distance(str.toStdString().c_str() , sortedArray.at(low)->name) * (high - low)) /
+                (distance(str , sortedArray.at(low)->name) * (high - low)) /
                 (distance(sortedArray.at(high)->name, sortedArray.at(low)->name));
 
         if (QString(sortedArray.at(mid)->name) < str)

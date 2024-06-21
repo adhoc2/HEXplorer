@@ -73,27 +73,21 @@ A2l::~A2l()
     workers.clear();
 }
 
-std::string A2l::getFullA2lFileName()
+QString A2l::getFullA2lFileName()
 {
     return fullA2lName.toLocal8Bit().data();
 }
 
-void A2l::setFullA2lFileName(std::string str)
-{
-    fullA2lName = QString(str.c_str());
-}
-
 void A2l::setFullA2lFileName(QString str)
 {
-    fullA2lName = str;
+    fullA2lName = QString(str);
 }
+
 
 void A2l::init()
 {
     A2LFILE *nodeA2l = new A2LFILE(fullA2lName);
-    int size = (QFileInfo(fullA2lName).fileName()).toLocal8Bit().size() + 1;
-    nodeA2l->name = new char[size];
-    strcpy_s(nodeA2l->name, size, QFileInfo(fullA2lName).fileName().toLocal8Bit().data());
+    nodeA2l->name =  QFileInfo(fullA2lName).fileName();
     a2lFile = nodeA2l;
 }
 
@@ -185,8 +179,7 @@ void A2l::parseSTA2l()
     //create an ASAP2 file Node to start parsing the complete a2l
     A2LFILE *nodeA2l = new A2LFILE(0, lexer, errorList, fullA2lName);
     QString filename = QFileInfo(fullA2lName).fileName();
-    nodeA2l->name = new char[filename.toLocal8Bit().length() + 1];
-    strcpy_s(nodeA2l->name, filename.toLocal8Bit().length() + 1, filename.toLocal8Bit().data());
+    nodeA2l->name = filename.toLocal8Bit();
     a2lFile = nodeA2l;
 
 

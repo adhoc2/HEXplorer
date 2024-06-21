@@ -29,15 +29,15 @@ class NO_AXIS_PTS_X : public Item
     public:
         NO_AXIS_PTS_X( Node *parentNode);
         ~NO_AXIS_PTS_X();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item,NO_AXIS_PTS_X> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // NO_AXIS_PTS_X_H

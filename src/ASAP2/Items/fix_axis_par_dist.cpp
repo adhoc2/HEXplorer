@@ -33,21 +33,21 @@ FIX_AXIS_PAR_DIST::FIX_AXIS_PAR_DIST( Node *parentNode)  : Item(parentNode)
 
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar);
-    name =(char*)"FIX_AXIS_PAR_DIST";
+    name =(QString)"FIX_AXIS_PAR_DIST";
 }
 
 FIX_AXIS_PAR_DIST::~FIX_AXIS_PAR_DIST()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
 
-QMap<std::string, std::string> FIX_AXIS_PAR_DIST::getParameters()
+QMap<QString, QString> FIX_AXIS_PAR_DIST::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -55,7 +55,7 @@ QMap<std::string, std::string> FIX_AXIS_PAR_DIST::getParameters()
     return par;
 }
 
-char* FIX_AXIS_PAR_DIST::getPar(std::string str)
+QString FIX_AXIS_PAR_DIST::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

@@ -38,7 +38,7 @@ MODULE::MODULE(Node *parentNode)
     factoryOptItem = &gram->module.factoryOptItem;
 
     //opt Parameters
-    occOptPar = new QMap<std::string, Occurence>;
+    occOptPar = new QMap<QString, Occurence>;
     occOptPar->insert("CHARACTERISTIC", ZeroOrMore);
     occOptPar->insert("MEASUREMENT", ZeroOrMore);
     occOptPar->insert("IF_DATA", ZeroOrMore);
@@ -66,7 +66,7 @@ MODULE::MODULE(Node *parentNode)
     }
     else
     {
-        QString str = lex->getLexem().c_str();
+        QString str = lex->getLexem();
         lex->backward();
     }
     //TokenTyp token;
@@ -93,7 +93,7 @@ MODULE::MODULE(Node *parentNode)
 
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd MODULE\nfind token : " + s);
         }
     }
@@ -107,8 +107,8 @@ MODULE::MODULE(Node *parentNode)
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end MODULE\nfind : " + s1 + " " + s2);
     }
 
@@ -124,9 +124,9 @@ MODULE::MODULE(Node *parentNode)
 
 MODULE::~MODULE()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
     delete occOptPar;
 }
@@ -141,20 +141,20 @@ void MODULE::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
 }
 
-TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
+TokenTyp MODULE::parseOptPar(QMap<QString, Occurence> *nameOptPar)
 {
     if (nameOptPar->isEmpty())
         return nextToken();
@@ -169,7 +169,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
                         if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -187,7 +187,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("CHARACTERISTIC"))
                                 {
                                     Node *Char = new Node(this, this->lex, this->errorList);
-                                    Char->name = (char*)"CHARACTERISTIC";
+                                    Char->name = (QString)"CHARACTERISTIC";
                                     this->addChildNode(Char);
                                     //Char->_pixmap = ":/icones/CHAR.bmp";
                                     Char->_pixmap = "";
@@ -201,7 +201,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("AXIS_PTS"))
                                 {
                                     Node *Axis = new Node(this, this->lex, this->errorList);
-                                    Axis->name = (char*)"AXIS_PTS";
+                                    Axis->name = (QString)"AXIS_PTS";
                                     this->addChildNode(Axis);
                                     //Axis->_pixmap = ":/icones/AXIS.bmp";
                                     Axis->_pixmap = "";
@@ -215,7 +215,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("MEASUREMENT"))
                                 {
                                     Node *Meas = new Node(this, this->lex, this->errorList);
-                                    Meas->name = (char*)"MEASUREMENT";
+                                    Meas->name = (QString)"MEASUREMENT";
                                     this->addChildNode(Meas);
                                     //Meas->_pixmap = ":/icones/MEAS.bmp";
                                     Meas->_pixmap = "";                                    
@@ -229,7 +229,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("FUNCTION"))
                                 {
                                     Node *Func = new Node(this, this->lex, this->errorList);
-                                    Func->name = (char*)"FUNCTION";
+                                    Func->name = (QString)"FUNCTION";
                                     this->addChildNode(Func);
                                     //Func->_pixmap = ":/icones/FUNCTION.bmp";
                                     Func->_pixmap = "";
@@ -242,7 +242,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("GROUP"))
                                 {
                                     Node *Grp = new Node(this, this->lex, this->errorList);
-                                    Grp->name = (char*)"GROUP";
+                                    Grp->name = (QString)"GROUP";
                                     this->addChildNode(Grp);
                                     //Func->_pixmap = ":/icones/FUNCTION.bmp";
                                     Grp->_pixmap = "";
@@ -255,7 +255,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("UNIT"))
                                 {
                                     Node *Grp = new Node(this, this->lex, this->errorList);
-                                    Grp->name = (char*)"UNIT";
+                                    Grp->name = (QString)"UNIT";
                                     this->addChildNode(Grp);
                                     //Func->_pixmap = ":/icones/FUNCTION.bmp";
                                     Grp->_pixmap = "";
@@ -268,7 +268,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("COMPU_METHOD"))
                                 {
                                     Node *Comp_m = new Node(this, this->lex, this->errorList);
-                                    Comp_m->name = (char*)"COMPU_METHOD";
+                                    Comp_m->name = (QString)"COMPU_METHOD";
                                     this->addChildNode(Comp_m);
                                     //Comp_m->_pixmap = ":/icones/COMPU_METHOD.bmp";
                                     Comp_m->_pixmap = "";
@@ -281,7 +281,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("COMPU_TAB"))
                                 {
                                     Node *Comp_v = new Node(this, this->lex, this->errorList);
-                                    Comp_v->name = (char*)"COMPU_TAB";
+                                    Comp_v->name = (QString)"COMPU_TAB";
                                     this->addChildNode(Comp_v);
                                     //Comp_v->_pixmap = ":/icones/COMPU_TAB.bmp";
                                     Comp_v->_pixmap = "";
@@ -294,7 +294,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("COMPU_VTAB"))
                                 {
                                     Node *Comp_v = new Node(this, this->lex, this->errorList);
-                                    Comp_v->name = (char*)"COMPU_VTAB";
+                                    Comp_v->name = (QString)"COMPU_VTAB";
                                     this->addChildNode(Comp_v);
                                     //Comp_v->_pixmap = ":/icones/COMPU_VTAB.bmp";
                                     Comp_v->_pixmap = "";
@@ -307,7 +307,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("COMPU_VTAB_RANGE"))
                                 {
                                     Node *Comp_v = new Node(this, this->lex, this->errorList);
-                                    Comp_v->name = (char*)"COMPU_VTAB_RANGE";
+                                    Comp_v->name = (QString)"COMPU_VTAB_RANGE";
                                     this->addChildNode(Comp_v);
                                     //Comp_v->_pixmap = ":/icones/COMPU_VTAB_RANGE.bmp";
                                     Comp_v->_pixmap = "";
@@ -320,7 +320,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!this->isChild("RECORD_LAYOUT"))
                                 {
                                     Node *Rec = new Node(this, this->lex, this->errorList);
-                                    Rec->name = (char*)"RECORD_LAYOUT";
+                                    Rec->name = (QString)"RECORD_LAYOUT";
                                     this->addChildNode(Rec);
                                     //Rec->_pixmap = ":/icones/CONV.bmp";
                                     Rec->_pixmap = "";
@@ -333,7 +333,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                                 if (!isChild("IF_DATA"))
                                 {
                                     Node *If_data = new Node(this, this->lex, this->errorList);
-                                    If_data->name = (char*)"IF_DATA";
+                                    If_data->name = (QString)"IF_DATA";
                                     this->addChildNode(If_data);
                                     //If_data->_pixmap = ":/icones/MOD_PAR.bmp";
                                     If_data->_pixmap = "";
@@ -351,21 +351,21 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s);
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s);
                     return token;
                 }
@@ -373,7 +373,7 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
                     if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -391,14 +391,14 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s);
                     return token;
                 }
@@ -409,9 +409,9 @@ TokenTyp MODULE::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
     }
 }
 
-QMap<std::string, std::string> *MODULE::getParameters()
+QMap<QString, QString> *MODULE::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -419,7 +419,7 @@ QMap<std::string, std::string> *MODULE::getParameters()
     return par;
 }
 
-char* MODULE::getPar(std::string str)
+QString MODULE::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

@@ -46,7 +46,7 @@ MEASUREMENT::MEASUREMENT( Node *parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"measurement";
+        name = (QString)"measurement";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar();
@@ -65,23 +65,23 @@ MEASUREMENT::MEASUREMENT( Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd MEASUREMENT\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end MEASUREMENT\nfind : " + s1 + " " + s2);
     }
 }
 
 MEASUREMENT::~MEASUREMENT()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
@@ -89,27 +89,22 @@ void MEASUREMENT::parseFixPar(QList<TokenTyp> *typePar)
 {
     //Mandatory PARAMETERS
     TokenTyp token;
-    //parameters = new QMap<const char*, const char*>;
+    //parameters = new QMap<const QString, const QString>;
     for (int i = 0; i < typePar->count(); i++)
     {
         token = this->nextToken();
         if (token == typePar->at(i))
         {
-            //parameters.append(lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            parameters.append(lex->getLexem());
         }
         else if(typePar->at(i) == Float && token == Integer)
         {
-            char *c = new char[parentNode->lex->getLexem().length()+1];
-            strcpy_s(c, parentNode->lex->getLexem().length()+1, parentNode->lex->getLexem().c_str());
-            parameters.append(c);
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
@@ -118,7 +113,7 @@ void MEASUREMENT::parseFixPar(QList<TokenTyp> *typePar)
 TokenTyp MEASUREMENT::parseOptPar()
 {
     //opt Parameters
-    //QMap<std::string, Occurence> nameOptPar;
+    //QMap<QString, Occurence> nameOptPar;
     QHash<QString, Occurence> nameOptPar;
     nameOptPar.insert("FORMAT", ZeroOrOne);
     nameOptPar.insert("ECU_ADDRESS", ZeroOrOne);
@@ -144,17 +139,17 @@ TokenTyp MEASUREMENT::parseOptPar()
                 token = this->nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
-                    if (nameOptPar.contains(lexem.c_str()))
+                    QString lexem = lex->getLexem();
+                    if (nameOptPar.contains(lexem))
                     {
-                        if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                        if (nameOptPar.value(lexem) == ZeroOrOne)
                         {
-                            nameOptPar.insert(lexem.c_str(), Zero);
+                            nameOptPar.insert(lexem, Zero);
                             Node  *instance = factoryOptNode->value(lexem)->createInstance( this);
                             this->addChildNode(instance);
                             token = nextToken();
                         }
-                        else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                        else if (nameOptPar.value(lexem) == ZeroOrMore)
                         {
                             Node  *instance = factoryOptNode->value(lexem)->createInstance( this);
                             this->addChildNode(instance);
@@ -162,21 +157,21 @@ TokenTyp MEASUREMENT::parseOptPar()
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("unknown Keyword : " + s);
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->toString(token).c_str());
+                    QString s(lex->toString(token));
                     this->showError("expected token : BlockBegin or Keyword\nfind token : " + s);
                     return token;
                 }
@@ -184,32 +179,32 @@ TokenTyp MEASUREMENT::parseOptPar()
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
-                if (nameOptPar.contains(lexem.c_str()))
+                QString lexem = lex->getLexem();
+                if (nameOptPar.contains(lexem))
                 {
-                    if (nameOptPar.value(lexem.c_str()) == ZeroOrOne)
+                    if (nameOptPar.value(lexem) == ZeroOrOne)
                     {
-                        nameOptPar.insert(lexem.c_str(), Zero);
+                        nameOptPar.insert(lexem, Zero);
                         Item  *instance = factoryOptItem->value(lexem)->createInstance( this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
-                    else if (nameOptPar.value(lexem.c_str()) == ZeroOrMore)
+                    else if (nameOptPar.value(lexem) == ZeroOrMore)
                     {
-                        Item  *instance = factoryOptItem->value(lexem.c_str())->createInstance(this);
+                        Item  *instance = factoryOptItem->value(lexem)->createInstance(this);
                         this->addOptItem(instance);
                         token = nextToken();
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s);
                     return token;
                 }
@@ -219,9 +214,9 @@ TokenTyp MEASUREMENT::parseOptPar()
     }
 }
 
-QMap<std::string, std::string> *MEASUREMENT::getParameters()
+QMap<QString, QString> *MEASUREMENT::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -229,12 +224,12 @@ QMap<std::string, std::string> *MEASUREMENT::getParameters()
     return par;
 }
 
-std::string MEASUREMENT::pixmap()
+QString MEASUREMENT::pixmap()
 {
     return ":/icones/CHAR.bmp";
 }
 
-char* MEASUREMENT::getPar(std::string str)
+QString MEASUREMENT::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

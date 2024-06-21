@@ -36,20 +36,20 @@ ANNOTATION_ORIGIN::ANNOTATION_ORIGIN( Node *parentNode)  : Item(parentNode)
     if (parameters.count() > 0)
         name = parameters.at(0);
     else
-        name = (char*)"annotation_origin";
+        name = (QString)"annotation_origin";
 }
 
 ANNOTATION_ORIGIN::~ANNOTATION_ORIGIN()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
 }
 
-QMap<std::string, std::string> ANNOTATION_ORIGIN::getParameters()
+QMap<QString, QString> ANNOTATION_ORIGIN::getParameters()
 {
-    QMap<std::string, std::string> par;
+    QMap<QString, QString> par;
     for (int i = 0; i < namePar->count(); i++)
     {
         par.insert(namePar->at(i), parameters.at(i));
@@ -57,7 +57,7 @@ QMap<std::string, std::string> ANNOTATION_ORIGIN::getParameters()
     return par;
 }
 
-char* ANNOTATION_ORIGIN::getPar(std::string str)
+QString ANNOTATION_ORIGIN::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

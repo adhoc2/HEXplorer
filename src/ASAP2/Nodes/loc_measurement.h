@@ -32,24 +32,24 @@ class LOC_MEASUREMENT : public Node
         LOC_MEASUREMENT( Node *parentNode);
         ~LOC_MEASUREMENT();
 
-        QMap<std::string, std::string> *getParameters();
+        QMap<QString, QString> *getParameters();
         static Factory<Node,LOC_MEASUREMENT> nodeFactory;
-        std::string pixmap();
+        QString pixmap();
         QStringList getCharList();
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         // Fix parameters
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        QList<char*> parameters;
+        QList<QString> *namePar;
+        QList<QString> parameters;
 
         // Opt parameters
-        QMap<std::string, FactoryPlant<Node> *>  *factoryOptNode;
-        QMap<std::string, FactoryPlant<Item> *>  *factoryOptItem;
+        QMap<QString, FactoryPlant<Node> *>  *factoryOptNode;
+        QMap<QString, FactoryPlant<Item> *>  *factoryOptItem;
 
         // CHARACTERISTICS list
-        QList<std::string> charList;
+        QList<QString> charList;
 
         TokenTyp parseListChar();
         void parseFixPar(QList<TokenTyp> *typePar);

@@ -70,8 +70,8 @@ class A2lLexer : public QObject
         ~A2lLexer();
 
         virtual TokenTyp getNextToken();
-        virtual std::string toString(TokenTyp type);
-        virtual std::string getLexem();
+        virtual QString toString(TokenTyp type);
+        virtual QString getLexem();
         virtual int getLine();
         virtual void initialize();
         virtual void backward();

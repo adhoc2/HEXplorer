@@ -29,15 +29,15 @@ class ANNOTATION_LABEL : public Item
     public:
         ANNOTATION_LABEL(Node *parentNode);
         ~ANNOTATION_LABEL();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, ANNOTATION_LABEL> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // ANNOTATION_LABEL_H

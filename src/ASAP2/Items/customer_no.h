@@ -29,15 +29,15 @@ class CUSTOMER_NO : public Item
     public:
         CUSTOMER_NO(Node *parentNode);
         ~CUSTOMER_NO();
-        QMap<std::string, std::string> getParameters();
+        QMap<QString, QString> getParameters();
         static Factory<Item, CUSTOMER_NO> itemFactory;
-        char* getPar(std::string str);
+        QString getPar(QString str);
 
     private:
         //void parseFixPar(QList<TokenTyp> *typePar);
         QList<TokenTyp> *typePar;
-        QList<std::string> *namePar;
-        //QList<char*> parameters;
+        QList<QString> *namePar;
+        //QList<QString> parameters;
 };
 
 #endif // CUSTOMER_NO_H

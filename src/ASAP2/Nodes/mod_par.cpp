@@ -40,7 +40,7 @@ MOD_PAR::MOD_PAR(Node *parentNode)
     factoryOptItem = &gram->mod_par.factoryOptItem;
 
     //opt parameters
-    occOptPar = new QMap<std::string, Occurence>;
+    occOptPar = new QMap<QString, Occurence>;
     occOptPar->insert("VERSION", ZeroOrOne);
     occOptPar->insert("EPK", ZeroOrOne);
     occOptPar->insert("CUSTOMER", ZeroOrOne);
@@ -62,7 +62,7 @@ MOD_PAR::MOD_PAR(Node *parentNode)
     //Parse Mandatory PARAMETERS
     parseFixPar(typePar );
 
-    name = (char*)"MOD_PAR";
+    name = (QString)"MOD_PAR";
 
     //Parse optional PARAMETERS
     TokenTyp token = parseOptPar(occOptPar);
@@ -81,23 +81,23 @@ MOD_PAR::MOD_PAR(Node *parentNode)
         }
         else
         {
-            QString s(lex->toString(token).c_str());
+            QString s(lex->toString(token));
             this->showError("expected token : BlockEnd MOD_PAR\nfind token : " + s);
         }
     }
     else
     {
-        QString s1(lex->toString(token).c_str());
-        QString s2(lex->getLexem().c_str());
+        QString s1(lex->toString(token));
+        QString s2(lex->getLexem());
         this->showError("expected end MOD_PAR\nfind : " + s1 + " " + s2);
     }    
 }
 
 MOD_PAR::~MOD_PAR()
 {
-    foreach (char* ptr, parameters)
+    
     {
-        delete[] ptr;
+        
     }
     delete occOptPar;
 }
@@ -112,20 +112,20 @@ void MOD_PAR::parseFixPar(QList<TokenTyp> *typePar)
         if (token == typePar->at(i))
         {
             //parameters.insert(namePar->at(i), lex->getLexem());
-            char *c = new char[lex->getLexem().length()+1];
-            strcpy_s(c, lex->getLexem().length()+1, lex->getLexem().c_str());
-            parameters.append(c);
+            
+            
+            parameters.append(lex->getLexem());
         }
         else
         {
-            QString t(lex->toString(typePar->at(i)).c_str());
-            QString s(lex->toString(token).c_str());
+            QString t(lex->toString(typePar->at(i)));
+            QString s(lex->toString(token));
             this->showError("expected token : " + t +"\nfind token : " + s);
         }
     }
 }
 
-TokenTyp MOD_PAR::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
+TokenTyp MOD_PAR::parseOptPar(QMap<QString, Occurence> *nameOptPar)
 {
 
     if (nameOptPar->isEmpty())
@@ -141,7 +141,7 @@ TokenTyp MOD_PAR::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                 token = nextToken();
                 if (token == Keyword)
                 {
-                    std::string lexem = lex->getLexem();
+                    QString lexem = lex->getLexem();
                     if (factoryOptNode->contains(lexem))
                     {
                         if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -159,21 +159,21 @@ TokenTyp MOD_PAR::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                         }
                         else
                         {
-                            QString s(lexem.c_str());
+                            QString s(lexem);
                             this->showError(" Keyword : " + s + " can only be once declared");
                             return token;
                         }
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError("Keyword  " + s + " not in MOD_PAR grammar");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lex->getLexem().c_str());
+                    QString s(lex->getLexem());
                     this->showError("unknown Keyword : " + s);
                     return token;
                 }
@@ -181,7 +181,7 @@ TokenTyp MOD_PAR::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
             //Items
             else if (token == Keyword)
             {
-                std::string lexem = lex->getLexem();
+                QString lexem = lex->getLexem();
                 if (factoryOptItem->contains(lexem))
                 {
                     if (this->occOptPar->value(lexem) == ZeroOrOne)
@@ -199,14 +199,14 @@ TokenTyp MOD_PAR::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
                     }
                     else
                     {
-                        QString s(lexem.c_str());
+                        QString s(lexem);
                         this->showError(" Keyword : " + s + " can only be once declared");
                         return token;
                     }
                 }
                 else
                 {
-                    QString s(lexem.c_str());
+                    QString s(lexem);
                     this->showError("unknown Keyword : " + s);
                     return token;
                 }
@@ -216,9 +216,9 @@ TokenTyp MOD_PAR::parseOptPar(QMap<std::string, Occurence> *nameOptPar)
     }
 }
 
-QMap<std::string, std::string> *MOD_PAR::getParameters()
+QMap<QString, QString> *MOD_PAR::getParameters()
 {
-    QMap<std::string, std::string> *par = new QMap<std::string, std::string>;
+    QMap<QString, QString> *par = new QMap<QString, QString>;
     for (int i = 0; i < namePar->count(); i++)
     {
         par->insert(namePar->at(i), parameters.at(i));
@@ -226,7 +226,7 @@ QMap<std::string, std::string> *MOD_PAR::getParameters()
     return par;
 }
 
-char* MOD_PAR::getPar(std::string str)
+QString MOD_PAR::getPar(QString str)
 {
     int i = namePar->indexOf(str);
     return parameters.at(i);

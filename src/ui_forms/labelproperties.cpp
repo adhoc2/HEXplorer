@@ -25,14 +25,14 @@ void LabelProperties::displayProperties()
     if (label)
     {
         //display fix parameters
-        QMap<std::string, std::string> *map = label->getParameters();
+        QMap<QString, QString> *map = label->getParameters();
         ui->tableWidget->setRowCount(map->count());
         int i = 0;
-        foreach (std::string str, map->keys())
+        foreach (QString str, map->keys())
         {
-            QTableWidgetItem *item = new QTableWidgetItem(str.c_str());
+            QTableWidgetItem *item = new QTableWidgetItem(str);
             ui->tableWidget->setItem(i, 0, item);
-            QTableWidgetItem *item1 = new QTableWidgetItem(QString(map->value(str).c_str()));
+            QTableWidgetItem *item1 = new QTableWidgetItem(QString(map->value(str)));
             ui->tableWidget->setItem(i, 1, item1);
             i++;
         }

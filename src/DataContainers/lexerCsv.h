@@ -52,18 +52,18 @@ class LexerCsv : public QObject
         ~LexerCsv();
 
         TokenTyp getNextToken(QTextStream &in);
-        std::string toString(TokenTyp type);
-        std::string getLexem();
+        QString toString(TokenTyp type);
+        QString getLexem();
         TokenTyp getToken() {return actToken;}
         int getLine();
         void initialize();
         void backward(QTextStream &in);
 
-        char valueSeparator;
-        char decimalPointSeparator;
-        char commentIndicator;
-        char stringDelimiter;
-        char unitDelimiter;
+        QChar valueSeparator;
+        QChar decimalPointSeparator;
+        QChar commentIndicator;
+        QChar stringDelimiter;
+        QChar unitDelimiter;
 
     private:
 
@@ -71,7 +71,7 @@ class LexerCsv : public QObject
         BufferCsv *buffer;
         void incLine();
         int nTotalLines;
-        std::string lexem;
+        QString lexem;
         TokenTyp actToken;
         QHash<QString, TokenTyp> KeywordsMap;
         TokenTyp begin(QTextStream &in, char ch);
