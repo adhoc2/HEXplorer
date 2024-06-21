@@ -233,6 +233,7 @@ set(SRCS
     myappicon.rc
     space_shuttle.ico
     version.h.ini
+    ../.gitignore
 )
 
 
