@@ -5,6 +5,7 @@ It allows you to edit, modify and save calibration files used for example in aut
 Project with Qt6 framework starts from 1.0.0.
 
 Important remarks: 
+- NOT the complete ASAM norm is implemented: keywords are missing.
 - The a2l lexer and parser are fully written from scratch without any external libraries except Qt when needed.
 - For performance goals, HEXplorer embeds QScintilla library as a text editor and Qwt as a 2D plot framework.
 - all the keywords possibly used into a A2L file from ASAM2 are not yet implemented.
