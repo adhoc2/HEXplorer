@@ -65,6 +65,14 @@
 #include "treedirectory.h"
 #include "QKeySequence"
 #include "onlineupdater.h"
+
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+
 #include "qdebug.h"
 
 MDImain::MDImain(QWidget *parent) : QMainWindow(parent), ui(new Ui::MDImain)
@@ -203,6 +211,10 @@ MDImain::MDImain(QWidget *parent) : QMainWindow(parent), ui(new Ui::MDImain)
     }
     else
         this->setStyle("white");
+
+
+    //Get userName
+    getUserName();
 }
 
 MDImain::~MDImain()
@@ -482,7 +494,7 @@ void MDImain::createActions()
 
     saveA2lDB = new QAction(tr("Save A2l into DB"), this);
     saveA2lDB->setIcon(QIcon(":/icones/milky_exportBaril.png"));
-    connect(saveA2lDB, SIGNAL(triggered()), this, SLOT(exportA2lDb()));
+    //connect(saveA2lDB, SIGNAL(triggered()), this, SLOT(exportA2lDb()));
     saveA2lDB->setDisabled(true);
 
     duplicateDatacontainer = new QAction(tr("Duplicate"), this);
@@ -1539,8 +1551,8 @@ void MDImain::on_actionAbout_triggered()
                    "This software uses external libraries :\n"
                    "   - Qt framework " + QT_VERSION_STR + "\n"
                    "   - QScintilla 2.14 (as efficient text editor)\n"
-                   "   - Qwt 6.2.0 (as 2D graph plotter)\n"
-                   " christophe.hoel@liebherr.com";
+                   "   - Qwt 6.2.0 (as 2D graph plotter)\n\n"
+                   " christophe.hoel@gmail.com";
 
     //QTextCodec *codec = QTextCodec::codecForName("ISO 8859-1");
     //QString string = codec->toUnicode(encodedString);
@@ -6164,7 +6176,7 @@ void MDImain::saveAs_SrecFile(QModelIndex index)
     }
 
     //copy the orginal file to a new one
-    QModelIndex newIndex = on_actionDuplicate_DataContainer_triggered(fileName);
+    on_actionDuplicate_DataContainer_triggered(fileName);
 
     //save the dataset changes on disk file
     //save_SrecFile(newIndex);
@@ -7447,7 +7459,7 @@ void MDImain::resizeColumn0()
     ui->treeView->resizeColumnToContents(0);
 }
 
-void MDImain::tabWidget_currentChanged()
+void MDImain::tabWidget_currentChanged(int )
 {
     myWidget = this->ui->tabWidget->currentWidget();
     if (myWidget)
@@ -7673,21 +7685,101 @@ void MDImain::setValueProgressBar(int n, int max)
 
 QString MDImain::getUserName()
 {
-#ifdef win32
+#ifdef WIN32
     TCHAR userName[MAX_PATH];
     DWORD userNameSize = sizeof(userName) / sizeof(userName[0]);
-    if (GetUserName(userName, &userNameSize)) {
-            qDebug() << "Windows Username:" << QString::fromWCharArray(userName);
-            return QString::fromWCharArray(userName);
-        } else {
-            qDebug() << "Failed to retrieve Windows username";
-            return "";
-        }
+    if (GetUserName(userName, &userNameSize))
+    {
+        QNetworkAccessManager manager;
+        QUrl url("https://nexus.lmb.liebherr.i/repository/raw-pd1/HEXplorer_repo/users.json");
+        readJsonFile(&manager, url, QString::fromWCharArray(userName));
+        qDebug() << "Windows Username:" << QString::fromWCharArray(userName);
+        return QString::fromWCharArray(userName);
+    } else
+    {
+        qDebug() << "Failed to retrieve Windows username";
+        return "";
+    }
 #else
     return "no username";
 #endif
 
 }
+
+void MDImain::readJsonFile(QNetworkAccessManager* manager, const QUrl& url, QString user)
+{
+    QNetworkRequest request(url);
+    QNetworkReply* reply = manager->get(request);
+
+    // Use QEventLoop to wait for the network request to complete
+    QEventLoop eventLoop;
+    QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
+    eventLoop.exec();  // This will block until the reply is finished
+
+    if (reply->error() == QNetworkReply::NoError)
+    {
+        QByteArray response = reply->readAll();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
+        if (!jsonDoc.isNull())
+        {
+            QJsonObject jsonObj = jsonDoc.object();
+
+            QString key = user;
+
+            if (jsonObj.contains(key) && jsonObj[key].isDouble())
+            {
+                // If the key exists and the value is a number, increment it
+                int currentValue = jsonObj[key].toInt();
+                jsonObj[key] = currentValue + 1;
+            }
+            else
+            {
+                // If the key does not exist, create it with value 1
+                jsonObj[key] = 1;
+            }
+
+            // Convert the modified JSON object back to a QJsonDocument
+            QJsonDocument modifiedJsonDoc(jsonObj);
+            QByteArray modifiedJsonData = modifiedJsonDoc.toJson();
+
+            // Save the modified JSON back to the server
+            QNetworkRequest putRequest(reply->url());
+            putRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+            QString concatenated = "px9TApa9:5CyCZuBf_-fXkYQY6XzQqeQJ2jN8CZeWJ88pSTkEyM0h";
+            QByteArray data = concatenated.toLocal8Bit().toBase64();
+            QString headerData = "Basic " + data;
+            putRequest.setRawHeader("Authorization", headerData.toLocal8Bit());
+
+            QNetworkReply* putReply = reply->manager()->put(putRequest, modifiedJsonData);
+
+            // Use QEventLoop to wait for the network request to complete
+            QEventLoop eventLoopPut;
+            QObject::connect(putReply, &QNetworkReply::finished, &eventLoopPut, &QEventLoop::quit);
+            eventLoopPut.exec();  // This will block until the reply is finished
+
+            if (putReply->error() == QNetworkReply::NoError)
+            {
+                qDebug() << "JSON successfully saved to the server.";
+            } else
+            {
+                qDebug() << "Error saving JSON to the server:" << putReply->errorString();
+            }
+
+            putReply->deleteLater();
+
+        }
+        else
+        {
+            qDebug() << "Failed to parse JSON.";
+        }
+    }
+    else
+    {
+        qDebug() << "Error reading JSON from the server:" << reply->errorString();
+    }
+    reply->deleteLater();
+}
+
 
 //-------------------- Dark side ---------------------//
 

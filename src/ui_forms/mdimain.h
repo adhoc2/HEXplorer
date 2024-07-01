@@ -20,6 +20,7 @@
 #ifndef MDIMAIN_H
 #define MDIMAIN_H
 
+#include "qnetworkaccessmanager.h"
 #include <QtWidgets/QMainWindow>
 #include <QModelIndex>
 #include <QProgressBar>
@@ -81,6 +82,7 @@ private:
     QFileSystemModel *fmodel;
     //bool persistDB( QSqlDatabase memdb, QString filename, bool save );
     QString getUserName();
+    void readJsonFile(QNetworkAccessManager* manager, const QUrl& url, QString user);
     QString strippedName(const QString &fullFileName);
     enum { MaxRecentFiles = 5};
     QAction *recentFileActs[MaxRecentFiles];
@@ -183,7 +185,7 @@ private slots:
      void on_actionSave_session_triggered();
      void fplotData();
      void on_listWidget_customContextMenuRequested();
-     void tabWidget_currentChanged();
+     void tabWidget_currentChanged(int);
      void quicklookFile();
      void compare_HexFile();
      bool save_File();
@@ -239,7 +241,7 @@ private slots:
      void on_actionOpen_Working_Directory_triggered();
      void on_actionClose_Working_Directory_triggered();
      void on_actionUpdateWorkingDirectory_triggered();
-     QModelIndex on_actionDuplicate_DataContainer_triggered(QString fullFileName = "");
+     QModelIndex on_actionDuplicate_DataContainer_triggered(QString str = "");
      void on_actionRename_file_triggered();
      void onCopyDataset();
      void onPasteDataset();
