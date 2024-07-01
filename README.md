@@ -2,7 +2,7 @@
 HEXplorer is a A2L and HEX/SREC file parser and editor.
 It allows you to edit, modify and save calibration files used for example in automotive into Engine Control Units.
 
-Project with Qt6 framework starts from 1.0.0.
+Project with Qt6 framework starts from 1.1.0.
 
 Important remarks: 
 - NOT the complete ASAM norm is implemented: keywords are missing.
