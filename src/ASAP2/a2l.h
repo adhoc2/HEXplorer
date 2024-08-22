@@ -62,7 +62,7 @@ class A2l : public QObject
         bool is_Ok;
         int progressVal;
         int progBarMaxValue;
-        void openA2l();        
+        void openA2l();
         void parseSTA2l();
         bool parseOpenMPA2l();
         void readSubset();

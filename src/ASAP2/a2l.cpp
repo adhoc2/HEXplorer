@@ -109,7 +109,7 @@ void A2l::parse()
     QString lexerType = "";
     QSettings settings(qApp->organizationName(), qApp->applicationName());
 
-    if (QThread::idealThreadCount() > 1 && !myDebug && settings.value("openMP") == true)
+    if (QThread::idealThreadCount() > 1 && !myDebug && settings.value("qThread") == true)
     {
         //parseOpenMPA2l();
         //multiThread = "openMP";
@@ -143,6 +143,7 @@ void A2l::parse()
 
 // ------------- Parser types --------------------
 
+
 void A2l::parseSTA2l()
 {
     //open the selected file
@@ -159,6 +160,7 @@ void A2l::parseSTA2l()
 
     qint64 size = file.size();
     file.close();
+
 
     // set the maximum for the progressbar
     progBarMaxValue = size;

@@ -387,7 +387,7 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
                 else
                     chkBox->setChecked(true);
 
-                connect(chkBox, &QCheckBox::stateChanged, this, [=]() { this->selectColumns2Hide(headerMap.key(value), value); });
+                connect(chkBox, &QCheckBox::checkStateChanged, this, [=]() { this->selectColumns2Hide(headerMap.key(value), value); });
 
 
 //                QAction *action = new QAction(value);
