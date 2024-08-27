@@ -2,22 +2,22 @@
  <ApplicationName>{AnyApplication}</ApplicationName>
  <ApplicationVersion>1.0.0</ApplicationVersion>
  <Checksum>true</Checksum>
- <SHA1>559a05f887d4aab3c9454ef1f626c5aa9609fecc</SHA1>
- <MetadataName>2024-07-01-1714_meta.7z</MetadataName>
+ <SHA1>c6e5b749efd59e20364f8b477e2b7da0273b27dd</SHA1>
+ <MetadataName>2024-08-27-1101_meta.7z</MetadataName>
  <PackageUpdate>
   <Name>com.adhoc2.hexplorer</Name>
   <DisplayName>HEXplorer</DisplayName>
   <Description>HEXplorer App</Description>
-  <Version>1.1.0</Version>
-  <ReleaseDate>2024-07-01</ReleaseDate>
+  <Version>1.1.1</Version>
+  <ReleaseDate>2024-08-27</ReleaseDate>
   <Default>script</Default>
   <Script>installscript.qs</Script>
-  <UpdateFile CompressedSize="19294855" OS="Any" UncompressedSize="67370263"/>
-  <DownloadableArchives>generic.7z,iconengines.7z,imageformats.7z,networkinformation.7z,platforms.7z,styles.7z,tls.7z,translations.7z,content.7z</DownloadableArchives>
+  <UpdateFile CompressedSize="18844566" OS="Any" UncompressedSize="66359759"/>
+  <DownloadableArchives>iconengines.7z,imageformats.7z,networkinformation.7z,platforms.7z,styles.7z,tls.7z,translations.7z,content.7z</DownloadableArchives>
   <UserInterfaces>page.ui</UserInterfaces>
   <Licenses>
    <License file="GNU_license.txt" name="GNU Public License Agreement"/>
   </Licenses>
-  <SHA1>105c763fcc172501c4ff45b2622f24bc9dd3132f</SHA1>
+  <SHA1>822e77e3326b51966e39800f2696263403318687</SHA1>
  </PackageUpdate>
 </Updates>

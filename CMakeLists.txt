@@ -2,7 +2,7 @@
 # You may attempt to use it for building too, by modifying this file here.
 
 cmake_minimum_required(VERSION 3.5)
-project(HEXplorer VERSION 1.1.0 LANGUAGES CXX)
+project(HEXplorer VERSION 1.1.1 LANGUAGES CXX)
 
 # Configure a header file to pass the version number to the source code
 configure_file(
