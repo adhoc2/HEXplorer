@@ -54,6 +54,7 @@
 
 #define CAST2(val, type) *(type*)&val
 
+QReadWriteLock lock;
 
 // _______________ class SrecFile Ctor/Dtor___________________//
 
@@ -601,12 +602,17 @@ void SrecFile:: readAllData()
     if (1)
     {        
         QProgressDialog dialog;
-        dialog.setLabelText(QString("Reading SREC file : progressing using %1 thread(s)...").arg(QThread::idealThreadCount()));
+        int amountofthreads = 2;
+        //dialog.setLabelText(QString("Reading SREC file : progressing using %1 thread(s)...").arg(QThread::idealThreadCount()));
+        dialog.setLabelText(QString("Reading SREC file : progressing using %1 thread(s)...").arg(amountofthreads));
 
         QFutureWatcher<Data*> futureWatcher;
-        QObject::connect(&futureWatcher, SIGNAL(finished()), &dialog, SLOT(reset()));
-        QObject::connect(&futureWatcher, SIGNAL(progressRangeChanged(int,int)), &dialog, SLOT(setRange(int,int)));
-        QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)), &dialog, SLOT(setValue(int)));
+        //QObject::connect(&futureWatcher, SIGNAL(finished()), &dialog, SLOT(reset()));
+        //QObject::connect(&futureWatcher, SIGNAL(progressRangeChanged(int,int)), &dialog, SLOT(setRange(int,int)));
+        //QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)), &dialog, SLOT(setValue(int)));
+        QObject::connect(&futureWatcher, &QFutureWatcher<Data*>::finished, &dialog, &QProgressDialog::reset);
+        QObject::connect(&futureWatcher, &QFutureWatcher<Data*>::progressRangeChanged, &dialog, &QProgressDialog::setRange);
+        QObject::connect(&futureWatcher, &QFutureWatcher<Data*>::progressValueChanged, &dialog, &QProgressDialog::setValue);
 
         // Start the computation
         QList<Node*> _myList;
@@ -615,7 +621,12 @@ void SrecFile:: readAllData()
         if (nodeAxis)
             _myList << nodeAxis->childNodes;
         std::sort(_myList.begin(), _myList.end(), nodeLessThan);
-        futureWatcher.setFuture(QtConcurrent::mapped(_myList, std::bind(&SrecFile::runCreateDataMapped2, this, std::placeholders::_1)));
+
+        QThreadPool threadPool;
+        threadPool.setMaxThreadCount(amountofthreads);
+
+        //futureWatcher.setFuture(QtConcurrent::mapped(_myList, std::bind(&SrecFile::runCreateDataMapped2, this, std::placeholders::_1)));
+        futureWatcher.setFuture(QtConcurrent::mapped(&threadPool, _myList, [this](Node* node) { return runCreateDataMapped2(node); }));
         dialog.exec();
         futureWatcher.waitForFinished();
 
@@ -786,6 +797,7 @@ Data* SrecFile::runCreateDataMapped(const QString &str)
 
 Data* SrecFile::runCreateDataMapped2(const Node *node)
 {
+    //QReadLocker readLock(&lock);
     QString type = typeid(*node).name();
     if (type.toLower().endsWith("characteristic"))
     {

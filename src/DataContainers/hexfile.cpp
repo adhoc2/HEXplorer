@@ -574,21 +574,32 @@ void HexFile::readAllData()
     Node *nodeAxis = a2l->getProject()->getNode("MODULE/" + getModuleName() + "/AXIS_PTS");
 
     QProgressDialog dialog;
-    dialog.setLabelText(QString("Reading HEX file : progressing using %1 thread(s)...").arg(QThread::idealThreadCount()));
+    int amountofthreads = 2;
+    //dialog.setLabelText(QString("Reading HEX file : progressing using %1 thread(s)...").arg(QThread::idealThreadCount()));
+    dialog.setLabelText(QString("Reading HEX file : progressing using %1 thread(s)...").arg(amountofthreads));
 
     QFutureWatcher<Data*> futureWatcher;
-    QObject::connect(&futureWatcher, SIGNAL(finished()), &dialog, SLOT(reset()));
-    QObject::connect(&futureWatcher, SIGNAL(progressRangeChanged(int,int)), &dialog, SLOT(setRange(int,int)));
-    QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)), &dialog, SLOT(setValue(int)));
+    //QObject::connect(&futureWatcher, SIGNAL(finished()), &dialog, SLOT(reset()));
+    //QObject::connect(&futureWatcher, SIGNAL(progressRangeChanged(int,int)), &dialog, SLOT(setRange(int,int)));
+    //QObject::connect(&futureWatcher, SIGNAL(progressValueChanged(int)), &dialog, SLOT(setValue(int)));
+    QObject::connect(&futureWatcher, &QFutureWatcher<Data*>::finished, &dialog, &QProgressDialog::reset);
+    QObject::connect(&futureWatcher, &QFutureWatcher<Data*>::progressRangeChanged, &dialog, &QProgressDialog::setRange);
+    QObject::connect(&futureWatcher, &QFutureWatcher<Data*>::progressValueChanged, &dialog, &QProgressDialog::setValue);
+
 
     // Start the computation
-        QList<Node*> _myList;
+    QList<Node*> _myList;
     if (nodeChar)
         _myList << nodeChar->childNodes;
     if (nodeAxis)
         _myList << nodeAxis->childNodes;
     std::sort(_myList.begin(), _myList.end(), nodeLessThan);
-    futureWatcher.setFuture(QtConcurrent::mapped(_myList, std::bind(&HexFile::runCreateDataMapped, this, std::placeholders::_1)));
+
+    QThreadPool threadPool;
+    threadPool.setMaxThreadCount(amountofthreads);
+
+    //futureWatcher.setFuture(QtConcurrent::mapped(_myList, std::bind(&HexFile::runCreateDataMapped, this, std::placeholders::_1)));
+    futureWatcher.setFuture(QtConcurrent::mapped(&threadPool, _myList, [this](Node* node) { return runCreateDataMapped(node); }));
 
     dialog.exec();
     futureWatcher.waitForFinished();

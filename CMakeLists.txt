@@ -1,6 +1,8 @@
 # Created by and for Qt Creator This file was created for editing the project sources only.
 # You may attempt to use it for building too, by modifying this file here.
 
+# msvc release compile flags : /MD /O2 /Ob2 /GL /Gy /MP /fp:fast /DNDEBUG
+
 cmake_minimum_required(VERSION 3.5)
 project(HEXplorer VERSION 1.1.1 LANGUAGES CXX)
 
