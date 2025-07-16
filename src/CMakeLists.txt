@@ -259,7 +259,8 @@ if(WIN32)
         set(QSCINTILLA_LIB "libqscintilla2_qt6.a")
         set(QWT_LIB "libqwt.a")
     elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
+        target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_23)
+        target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -Wno-ignored-attributes)
         set(LIB_DIR "/libs/build/llvm/")
         set(QSCINTILLA_LIB "libqscintilla2_qt6.a")
         set(QWT_LIB "libqwt.a")
@@ -272,7 +273,7 @@ if(WIN32)
 
     link_directories(${CMAKE_SOURCE_DIR}/${LIB_DIR})
 
-    # Link the custom library to your target
+    # Link the custom library to the target
     target_link_libraries(
         ${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
         ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QSCINTILLA_LIB}
@@ -308,6 +309,7 @@ set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
     ${BUNDLE_ID_OPTION}
     WIN32_EXECUTABLE TRUE
     MACOSX_BUNDLE TRUE
+
     MACOSX_BUNDLE_BUNDLE_NAME ${CMAKE_PROJECT_NAME}
     MACOSX_BUNDLE_GUI_IDENTIFIER "com.adhoc2.hexplorer"
     MACOSX_BUNDLE_VERSION_STRING "${PROJECT_VERSION}"

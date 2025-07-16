@@ -1518,16 +1518,22 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
     {
         bool bl;
         NUMBER *item = (NUMBER*)node->getItem("NUMBER");
-        nPtsAxisX = ((QString)item->getPar("Number")).toInt(&bl, 10);
-
-
-        //AXIS_PTS_X
-        QString str;
-        for (uint i = 0; i < nPtsAxisX; i++)
+        if (item)
         {
-            listX.append(str.setNum(i));
+            nPtsAxisX = ((QString)item->getPar("Number")).toInt(&bl, 10);
+
+            //AXIS_PTS_X
+            QString str;
+            for (uint i = 0; i < nPtsAxisX; i++)
+            {
+                listX.append(str.setNum(i));
+            }
+            size = 4;
         }
-        size = 4;
+        else
+        {
+            size = 3;
+        }
     }
     else
     {

@@ -30,11 +30,11 @@ WorkingDirectory::WorkingDirectory(QString rootPath, A2lTreeModel *model = NULL,
     //parse rootPath
     parseDir(rootPath);
 
-    QObject::connect(&fileWatcher, &QFileSystemWatcher::directoryChanged, [=](const QString &path) {
+    QObject::connect(&fileWatcher, &QFileSystemWatcher::directoryChanged, [=, this](const QString &path) {
      this->directoryChanged(path);
      } );
 
-    QObject::connect(&fileWatcher, &QFileSystemWatcher::fileChanged, [=](const QString &path) {
+    QObject::connect(&fileWatcher, &QFileSystemWatcher::fileChanged, [=, this](const QString &path) {
      this->fileChanged(path);
      } );
 }

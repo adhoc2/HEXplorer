@@ -387,7 +387,7 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
                 else
                     chkBox->setChecked(true);
 
-                connect(chkBox, &QCheckBox::checkStateChanged, this, [=]() { this->selectColumns2Hide(headerMap.key(value), value); });
+                connect(chkBox, &QCheckBox::checkStateChanged, this, [=, this]() { this->selectColumns2Hide(headerMap.key(value), value); });
 
 
 //                QAction *action = new QAction(value);
@@ -404,7 +404,7 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
             }
 
             QAction *action = new QAction("show/hide columns");
-            connect(action, &QAction::triggered, this, [=]() { this->funHideColumns(); });
+            connect(action, &QAction::triggered, this, [=, this]() { this->funHideColumns(); });
             menu->addAction(action);
 
             menu->addSeparator();
@@ -425,11 +425,11 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
             if (index.column() == 1)
             {
                 QAction *actionFilter = new QAction("Filter");
-                connect(actionFilter, &QAction::triggered, this, [=]() { this->setFilter_Pattern(); });
+                connect(actionFilter, &QAction::triggered, this, [=, this]() { this->setFilter_Pattern(); });
                 menu->addAction(actionFilter);
 
                 QAction *actionResetFilter = new QAction("reset Filter");
-                connect(actionResetFilter, &QAction::triggered, this, [=]() { this->filterColumn_Name(""); });
+                connect(actionResetFilter, &QAction::triggered, this, [=, this]() { this->filterColumn_Name(""); });
                 menu->addAction(actionResetFilter);
             }
 
@@ -449,16 +449,16 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
                     if (values.contains(value))
                         action->setChecked(true);
                     if (action->isChecked())
-                        connect(action, &QAction::triggered, this, [=]() { this->filterColumn(action->text(), false); });
+                        connect(action, &QAction::triggered, this, [=, this]() { this->filterColumn(action->text(), false); });
                     else
-                        connect(action, &QAction::triggered, this, [=]() { this->filterColumn(action->text(), true); });
+                        connect(action, &QAction::triggered, this, [=, this]() { this->filterColumn(action->text(), true); });
                 }
             }
             menu->addAction(resetAllFilters);
 
             menu->addSeparator();
             QAction *importLab = new QAction("import Lab file");
-            connect(importLab, &QAction::triggered, this, [=]() { this->importLabFileinObdView(); });
+            connect(importLab, &QAction::triggered, this, [=, this]() { this->importLabFileinObdView(); });
             menu->addAction(importLab);
             menu->addSeparator();
             menu->addAction(saveAs);
@@ -705,7 +705,7 @@ void SpreadsheetView::setFilter_Pattern()
     QLineEdit *txt = new QLineEdit();
     QString pattern = "";
     txt->setText(pattern);
-    connect(txt, &QLineEdit::textChanged, this, [=]() { this->filterColumn_Name(txt->text()); });
+    connect(txt, &QLineEdit::textChanged, this, [=, this]() { this->filterColumn_Name(txt->text()); });
     txt->show();
 }
 

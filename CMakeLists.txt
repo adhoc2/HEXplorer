@@ -4,7 +4,7 @@
 # msvc release compile flags : /MD /O2 /Ob2 /GL /Gy /MP /fp:fast /DNDEBUG
 
 cmake_minimum_required(VERSION 3.5)
-project(HEXplorer VERSION 1.1.1 LANGUAGES CXX)
+project(HEXplorer VERSION 1.1.2 LANGUAGES CXX)
 
 # Configure a header file to pass the version number to the source code
 configure_file(
