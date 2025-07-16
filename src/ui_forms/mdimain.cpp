@@ -1541,6 +1541,11 @@ void MDImain::on_actionAbout_triggered()
     QByteArray compiler = "";
     #if defined(_MSC_VER)
         compiler = "MSVC version " + QByteArray::number(_MSC_VER) +  " compiler.";
+    #elif defined(__clang__)
+        compiler = "Clang/LLVM version " +
+                   QByteArray::number(__clang_major__) + "." +
+                   QByteArray::number(__clang_minor__) + "." +
+                   QByteArray::number(__clang_patchlevel__) + " compiler.";
     #elif defined(__GNUC__)
         compiler = "GCC version " + QByteArray::number(__GNUC__) + "." + QByteArray::number(__GNUC_MINOR__) + "." +
                 QByteArray::number(__GNUC_PATCHLEVEL__) +  " compiler.";
