@@ -21,7 +21,6 @@
 #include <QtWidgets>
 #include <QtCore>
 //#include <omp.h>
-#include <typeinfo>
 #include <qtconcurrentrun.h>
 #include <QFutureWatcher>
 #include <sys/stat.h>
@@ -39,7 +38,6 @@
 #include "treemodelcompleter.h"
 #include "a2ltreemodel.h"
 #include "mdimain.h"
-#include "ui_mdimain.h"
 #include "workproject.h"
 #include "chtextedit.h"
 #include "a2lfile.h"
@@ -232,7 +230,7 @@ void MDImain::setStyle(QString style)
     {
 
         QFile file(":/files/darkstyle.qss");
-        file.open(QIODevice::ReadOnly);
+        bool _open = file.open(QIODevice::ReadOnly);
         QString s;
         QTextStream in(&file);
         s.append(in.readAll());
@@ -3766,7 +3764,7 @@ void MDImain::export_ListData()
     settings.setValue("currentLabPath", currentLabPath);
 
     QFile file(fileName);
-    file.open(QFile::WriteOnly);
+    bool _open = file.open(QFile::WriteOnly);
     QTextStream out(&file);
     QApplication::setOverrideCursor(Qt::WaitCursor);
     foreach (QString str, strList)

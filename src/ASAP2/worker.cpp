@@ -2,6 +2,7 @@
 #include "a2lfile.h"
 #include "lexer.h"
 #include <QFileInfo>
+#include <qelapsedtimer.h>
 
 Worker::Worker(const QString& data, const QString& fileName,  QObject *parent)
     :  QObject(parent), str(data), fullA2lName(fileName)

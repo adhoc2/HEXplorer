@@ -24,6 +24,7 @@
 #include <QtAlgorithms>
 #include <QFileInfo>
 #include <WidgetsViews/workproject.h>
+#include <qelapsedtimer.h>
 #include <typeinfo>
 #include <math.h>
 #include <limits.h>
