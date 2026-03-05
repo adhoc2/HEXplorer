@@ -194,7 +194,7 @@ set(SRCS_DATAMODELS
     DataModels/FandRmodel.cpp    DataModels/FandRModel.h
     DataModels/graphmodel.cpp    DataModels/graphmodel.h
     DataModels/measmodel.cpp DataModels/measmodel.h
-    DataModels/obdMergeModel.cpp    DataModels/obdMergeModel.h
+    DataModels/ObdMergeModel.cpp    DataModels/ObdMergeModel.h
     DataModels/obdsortfilterproxymodel.cpp  DataModels/obdsortfilterproxymodel.h
     DataModels/sptablemodel.cpp  DataModels/sptablemodel.h
     DataModels/sptablemodelHex.cpp   DataModels/sptablemodelHex.h
@@ -240,6 +240,8 @@ set(SRCS
 # Add the executable target
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${CMAKE_PROJECT_NAME} MANUAL_FINALIZATION  ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS}
+        DataModels/obdMergeModelEcu4.cpp
+        DataModels/ObdMergeModelEcu4.h
 
     )
 else()

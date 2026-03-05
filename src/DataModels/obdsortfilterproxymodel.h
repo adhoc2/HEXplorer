@@ -2,7 +2,8 @@
 #define OBDSORTFILTERPROXYMODEL_H
 
 #include <QSortFilterProxyModel>
-#include "obdMergeModel.h"
+#include "ObdMergeModel.h"
+#include "ObdMergeModelEcu4.h"
 #include "data.h"
 
 
@@ -13,6 +14,7 @@ class obdSortFilterProxyModel: public QSortFilterProxyModel
 
 public:
     obdSortFilterProxyModel(QObject *parent = 0, ObdMergeModel *obdModel = 0);
+    obdSortFilterProxyModel(QObject *parent = 0, ObdMergeModelEcu4 *obdModel = 0);
 
     QString getFilter() const { return filter; }
     void setFilter(const QString &str);

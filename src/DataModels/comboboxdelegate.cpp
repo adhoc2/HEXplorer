@@ -21,7 +21,7 @@
 #include "data.h"
 #include "sptablemodel.h"
 #include "comparemodel.h"
-#include "obdMergeModel.h"
+#include "ObdMergeModel.h"
 #include "Nodes/compu_vtab.h"
 #include "obdsortfilterproxymodel.h"
 #include <typeinfo>

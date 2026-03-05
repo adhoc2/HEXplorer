@@ -1,8 +1,15 @@
 #include "obdsortfilterproxymodel.h"
-#include "obdMergeModel.h"
+#include "ObdMergeModel.h"
 #include "qdebug.h"
 
 obdSortFilterProxyModel::obdSortFilterProxyModel(QObject *parent, ObdMergeModel *obdModel)
+    : QSortFilterProxyModel(parent)
+{
+    setSourceModel(obdModel);
+    //connect(obdModel, SIGNAL(dataChanged()), this , SLOT(setFilterRegExp("")));
+}
+
+obdSortFilterProxyModel::obdSortFilterProxyModel(QObject *parent, ObdMergeModelEcu4 *obdModel)
     : QSortFilterProxyModel(parent)
 {
     setSourceModel(obdModel);

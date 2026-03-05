@@ -32,7 +32,8 @@
 #include "measmodel.h"
 #include "charmodel.h"
 #include "FandRModel.h"
-#include "obdMergeModel.h"
+#include "ObdMergeModel.h"
+#include "ObdMergeModelEcu4.h"
 #include "obdsortfilterproxymodel.h"
 #include "a2ltreemodel.h"
 #include "treemodelcompleter.h"
@@ -4137,11 +4138,20 @@ void MDImain::editObd_Merge()
                 //view->setModel(obdModel);
                 srec->attach(view);
 
-                //create a new model for obdMerge function
-                ObdMergeModel *obdModel = new ObdMergeModel(srec);
+                //create a new model for obdMerge function based on a2l type
+                //add a sort and filter model
+                obdSortFilterProxyModel *proxyModel = nullptr;
+                if (node->fullName().endsWith(".s37"))
+                {
+                    ObdMergeModelEcu4 *obdModel = new ObdMergeModelEcu4(srec);
+                    proxyModel = new obdSortFilterProxyModel(this, obdModel);
+                }
+                else
+                {
+                    ObdMergeModel *obdModel = new ObdMergeModel(srec);
+                    proxyModel = new obdSortFilterProxyModel(this, obdModel);
+                }
 
-                //sort and filter model
-                obdSortFilterProxyModel *proxyModel = new obdSortFilterProxyModel(this, obdModel);
 
                 view->setModel(proxyModel);
                 view->setSortingEnabled(true);

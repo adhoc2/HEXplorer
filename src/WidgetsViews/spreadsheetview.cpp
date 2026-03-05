@@ -26,7 +26,7 @@
 #include "sptablemodelHex.h"
 #include "comparemodel.h"
 #include "graphmodel.h"
-#include "obdMergeModel.h"
+#include "ObdMergeModel.h"
 #include "comboboxdelegate.h"
 #include "dialogeditastext.h"
 #include "dialogbitdisplay.h"
@@ -35,7 +35,7 @@
 #include "formcompare.h"
 #include "dialogdatadimension.h"
 #include "labelproperties.h"
-#include "obdMergeModel.h"
+#include "ObdMergeModel.h"
 #include "obdsortfilterproxymodel.h"
 #include "dialogchooseexportformat.h"
 
