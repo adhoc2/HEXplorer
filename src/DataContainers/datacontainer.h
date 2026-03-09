@@ -36,6 +36,7 @@ public:
     QString getModuleName();
     void setModuleName(QString moduleName);
     Data *getData(QString str);
+    QList<Data*> getDataByPrefix(const QString& prefix);
     QList<Data*> getModifiedData();
     void resetAllModifiedData();
     void updateChildNodes(Data* data, bool add);

@@ -444,7 +444,7 @@ bool ObdMergeModel::setData(const QModelIndex &index, const QVariant &value, int
 
 
            //update the tableView
-           emit dataChanged(index, index);
+           //emit dataChanged(index, index);
 
            return true;
         }
@@ -476,7 +476,7 @@ bool ObdMergeModel::resetData(const QModelIndexList &indexList, int role)
 
 
                    //update the tableView
-                   emit dataChanged(index, index);
+                   //emit dataChanged(index, index);
                    //return true;
                 }
                 else
@@ -485,11 +485,10 @@ bool ObdMergeModel::resetData(const QModelIndexList &indexList, int role)
 
        }
     }
-
-    //update the tableView
-    QModelIndex topLeft = indexList.at(0);
-    QModelIndex btmRight = indexList.at(indexList.count() - 1);
-    emit dataChanged(topLeft, btmRight);
+    // emit only once datachanged
+    QModelIndex topLeft  = indexList.first();
+    QModelIndex bottomRight = indexList.last();
+    emit dataChanged(topLeft, bottomRight);
 
     return true;
 }
@@ -512,7 +511,7 @@ bool ObdMergeModel::undoData(const QModelIndexList &indexList, int role)
                    data->undoValZ(0);
 
                    //update the tableView
-                   emit dataChanged(index, index);
+                   //emit dataChanged(index, index);
                    //return true;
                 }
                 else

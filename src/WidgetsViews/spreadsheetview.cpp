@@ -1021,13 +1021,26 @@ void SpreadsheetView::factorM()
                 else if (name.toLower().endsWith("obdsortfilterproxymodel"))
                 {
                     obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
-                    ObdMergeModel *obdModel = (ObdMergeModel*)proxyModel->sourceModel();
                     QModelIndex indexSource = proxyModel->mapToSource(index);
-                    obdModel->setData(indexSource,QString::number(val * fac,'f'), Qt::EditRole);
+
+                    ObdMergeModel *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel());
+                    if (obdModel)
+                        obdModel->setData(indexSource,QString::number(val * fac,'f'), Qt::EditRole);
+                    else
+                    {
+                        ObdMergeModelEcu4 *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel());
+                        if (obdModel)
+                            obdModel->setData(indexSource,QString::number(val * fac,'f'), Qt::EditRole);
+                    }
                 }
             }
         }
     }
+
+    // emit only once datachanged
+    QModelIndex topLeft  = indexList.first();
+    QModelIndex bottomRight = indexList.last();
+    emit model()->dataChanged(topLeft, bottomRight);
 
     //reselect the indexes in view
     foreach(QModelIndex index, indexList)
@@ -1093,14 +1106,27 @@ void SpreadsheetView::factorD()
                 else if (name.toLower().endsWith("obdsortfilterproxymodel"))
                 {
                     obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
-                    ObdMergeModel *obdModel = (ObdMergeModel*)proxyModel->sourceModel();
                     QModelIndex indexSource = proxyModel->mapToSource(index);
-                    obdModel->setData(indexSource,QString::number(val / fac,'f'), Qt::EditRole);
+
+                    ObdMergeModel *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel());
+                    if (obdModel)
+                        obdModel->setData(indexSource,QString::number(val * fac,'f'), Qt::EditRole);
+                    else
+                    {
+                        ObdMergeModelEcu4 *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel());
+                        if (obdModel)
+                            obdModel->setData(indexSource,QString::number(val / fac,'f'), Qt::EditRole);
+                    }
                 }
             }
         }
-
     }
+
+    // emit only once datachanged
+    QModelIndex topLeft  = indexList.first();
+    QModelIndex bottomRight = indexList.last();
+    emit model()->dataChanged(topLeft, bottomRight);
+
 
     //reselect the indexes in view
     foreach(QModelIndex index, indexList)
@@ -1123,10 +1149,11 @@ void SpreadsheetView::offsetP()
     {
         return;
     }
-    if (name.toLower().endsWith("obdmergemodel"))
-    {
-        return;
-    }
+
+    // if (name.toLower().endsWith("obdmergemodel"))
+    // {
+    //     return;
+    // }
 
     bool ok;
     QString valueStr  = QInputDialog::getText(this, tr("HEXplorer::offset(+)"),
@@ -1143,6 +1170,7 @@ void SpreadsheetView::offsetP()
         {
             return;
         }
+
         if (name.toLower().endsWith("obdsortfilterproxymodel"))
         {
             //identify source Index
@@ -1155,15 +1183,42 @@ void SpreadsheetView::offsetP()
 
 
             //apply the modification
-            ObdMergeModel *obdModel = (ObdMergeModel*)proxyModel->sourceModel();
-            foreach (QModelIndex indexSource, indexListSource)
+            ObdMergeModel *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel());
+            if (obdModel)
             {
-                //calculate the new value to be set
-                double val = obdModel->data(indexSource, Qt::DisplayRole).toDouble();
-                bool b;
-                double offset = valueStr.toDouble(&b);
+                foreach (QModelIndex indexSource, indexListSource)
+                {
+                    //calculate the new value to be set
+                    double val = obdModel->data(indexSource, Qt::DisplayRole).toDouble();
+                    bool b;
+                    double offset = valueStr.toDouble(&b);
 
-                obdModel->setData(indexSource,QString::number(val + offset,'f'), Qt::EditRole);
+                    obdModel->setData(indexSource,QString::number(val + offset,'f'), Qt::EditRole);
+                }
+                // emit only once datachanged
+                QModelIndex topLeft  = indexList.first();
+                QModelIndex bottomRight = indexList.last();
+                emit model()->dataChanged(topLeft, bottomRight);
+            }
+            else
+            {
+                ObdMergeModelEcu4 *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel());
+                if (obdModel)
+                {
+                    foreach (QModelIndex indexSource, indexListSource)
+                    {
+                        //calculate the new value to be set
+                        double val = obdModel->data(indexSource, Qt::DisplayRole).toDouble();
+                        bool b;
+                        double offset = valueStr.toDouble(&b);
+
+                        obdModel->setData(indexSource,QString::number(val + offset,'f'), Qt::EditRole);
+                    }
+                    // emit only once datachanged
+                    QModelIndex topLeft  = indexList.first();
+                    QModelIndex bottomRight = indexList.last();
+                    emit model()->dataChanged(topLeft, bottomRight);
+                }
             }
         }
         else
@@ -1187,13 +1242,6 @@ void SpreadsheetView::offsetP()
                     else if (name.toLower().endsWith("graphmodel"))
                     {
                         ((GraphModel*)model())->setData(index, indexList,QString::number(val + offset,'f'), Qt::EditRole);
-                    }
-                    else if (name.toLower().endsWith("obdsortfilterproxymodel"))
-                    {
-                        obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
-                        ObdMergeModel *obdModel = (ObdMergeModel*)proxyModel->sourceModel();
-                        QModelIndex indexSource = proxyModel->mapToSource(index);
-                        obdModel->setData(indexSource,QString::number(val + offset,'f'), Qt::EditRole);
                     }
                 }
             }
@@ -1243,15 +1291,42 @@ void SpreadsheetView::offsetM()
 
 
             //apply the modification
-            ObdMergeModel *obdModel = (ObdMergeModel*)proxyModel->sourceModel();
-            foreach (QModelIndex indexSource, indexListSource)
+            ObdMergeModel *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel());
+            if (obdModel)
             {
-                //calculate the new value to be set
-                double val = obdModel->data(indexSource, Qt::DisplayRole).toDouble();
-                bool b;
-                double offset = valueStr.toDouble(&b);
+                foreach (QModelIndex indexSource, indexListSource)
+                {
+                    //calculate the new value to be set
+                    double val = obdModel->data(indexSource, Qt::DisplayRole).toDouble();
+                    bool b;
+                    double offset = valueStr.toDouble(&b);
 
-                obdModel->setData(indexSource,QString::number(val - offset,'f'), Qt::EditRole);
+                    obdModel->setData(indexSource,QString::number(val - offset,'f'), Qt::EditRole);
+                }
+                // emit only once datachanged
+                QModelIndex topLeft  = indexList.first();
+                QModelIndex bottomRight = indexList.last();
+                emit model()->dataChanged(topLeft, bottomRight);
+            }
+            else
+            {
+                ObdMergeModelEcu4 *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel());
+                if (obdModel)
+                {
+                    foreach (QModelIndex indexSource, indexListSource)
+                    {
+                        //calculate the new value to be set
+                        double val = obdModel->data(indexSource, Qt::DisplayRole).toDouble();
+                        bool b;
+                        double offset = valueStr.toDouble(&b);
+
+                        obdModel->setData(indexSource,QString::number(val - offset,'f'), Qt::EditRole);
+                    }
+                    // emit only once datachanged
+                    QModelIndex topLeft  = indexList.first();
+                    QModelIndex bottomRight = indexList.last();
+                    emit model()->dataChanged(topLeft, bottomRight);
+                }
             }
         }
         else // other initial models (not linked to OBD view)
@@ -1378,9 +1453,15 @@ void SpreadsheetView::resetM()
             indexListSource.append(indexSource);
 
         }
-        ObdMergeModel *obdModel = (ObdMergeModel*)proxyModel->sourceModel();
-        obdModel->resetData(indexListSource,  Qt::EditRole);
-
+        ObdMergeModel *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel());
+        if (obdModel)
+            obdModel->resetData(indexListSource,  Qt::EditRole);
+        else
+        {
+            ObdMergeModelEcu4 *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel());
+            if (obdModel)
+                obdModel->resetData(indexListSource,  Qt::EditRole);
+        }
     }
 }
 
@@ -1428,8 +1509,15 @@ void SpreadsheetView::undoM()
             indexListSource.append(indexSource);
 
         }
-        ObdMergeModel *obdModel = (ObdMergeModel*)proxyModel->sourceModel();
-        obdModel->undoData(indexListSource,  Qt::EditRole);
+        ObdMergeModel *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel());
+        if (obdModel)
+            obdModel->undoData(indexListSource,  Qt::EditRole);
+        else
+        {
+            ObdMergeModelEcu4 *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel());
+            if (obdModel)
+                obdModel->undoData(indexListSource,  Qt::EditRole);
+        }
 
     }
 

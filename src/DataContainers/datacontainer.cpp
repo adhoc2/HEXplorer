@@ -110,6 +110,41 @@ Data *DataContainer::getData(QString str)
     }
 }
 
+// Assumptions:
+// - listData is a QList<Data*> kept sorted by Data->name (ascending).
+// - Data has a QString field named `name`.
+
+static bool DataNameLess(const Data* a, const Data* b) {
+    return a->name < b->name;
+}
+
+QList<Data*> DataContainer::getDataByPrefix(const QString& prefix)
+{
+    QList<Data*> result;
+    if (listData.isEmpty())
+        return result;
+
+    // If empty prefix should return all, uncomment the next line:
+    // if (prefix.isEmpty()) return listData;
+
+    // Create a key Data just for comparison (no heap allocation needed).
+    Data key;
+    key.name = prefix;
+
+    // Find the first position where name >= prefix
+    auto it = std::lower_bound(listData.begin(), listData.end(), &key, DataNameLess);
+
+    // Collect all entries starting with prefix
+    for (; it != listData.end(); ++it) {
+        Data* d = *it;
+        if (!d->name.startsWith(prefix))  // Qt::CaseSensitive by default
+            break;
+        result.push_back(d);
+    }
+
+    return result;
+}
+
 QList<Data*> DataContainer::getModifiedData()
 {
     return modifiedData;

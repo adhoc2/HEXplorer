@@ -74,9 +74,6 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
     listDataNameInView.clear();
     listErrorCode.clear();
 
-    QStringList listErrorEndings({"Prio", "Inc", "Dec", "PreThd", "DebounceBehavior", "SetTimeMsOrNbOcc",
-                                 "ResetTimeMsOrNbOcc", "EventType", "AgiCycIdn", "AgiCycThd", "OperCycIdn",
-                                 "OperCycThd", "ExclsnCdn", "FltReactnId", "DelayId","InhbnMask"});
 
     QList<Data*> listData;
     if (listLab.isEmpty())
@@ -101,18 +98,11 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
         if (!listDataNameInView.contains(nameStr))
         {
             QString nameEnd = nameStr.split(".").last();
-            //qDebug() << nameEnd;
-            if (listErrorEndings.contains(nameEnd))
+            QString nameBegin = "";
+
+            if (nameEnd.compare("Prio", Qt::CaseSensitive) == 0)
             {
-                QString nameBegin = "";
-                if (nameEnd == "FltReactnId" || nameEnd == "DelayId")
-                {
-                    nameBegin = nameStr.split("Frm_A[").first();
-                }
-                else
-                {
-                    nameBegin = nameStr.split("_C.").first();
-                }
+                nameBegin = nameStr.split("_C.").first();
 
                 //check if errorCode has been previously created
                 //if not create a new one
@@ -120,152 +110,45 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
                 if (!error)
                 {
                     error = new ErrorCode(nameBegin);
+                    listErrorCode.append(error);
                 }
 
-                //listDataNameInView.append(nameStr);
+                // add the Pcode in DTC field
                 error->dtc = data->getComment().remove("DTC-ID: ");
                 error->dtc.remove("\"");
                 error->dtc.remove("\"");
 
-                Data* _data = dataContainer->getData(nameBegin + "_C.Prio");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.Inc");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.Dec");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.PreThd");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.DebounceBehavior");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.SetTimeMsOrNbOcc");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.ResetTimeMsOrNbOcc");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.EventType");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.AgiCycIdn");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.AgiCycThd");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.OperCycIdn");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.OperCycThd");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.ExclsnCdn");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "_C.InhbnMask");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[0].FltReactnId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[1].FltReactnId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[2].FltReactnId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[3].FltReactnId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[4].FltReactnId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[5].FltReactnId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[6].FltReactnId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[0].DelayId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[1].DelayId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[2].DelayId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[3].DelayId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[4].DelayId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[5].DelayId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }
-                _data = dataContainer->getData(nameBegin + "Frm_A[6].DelayId");
-                if (_data) {
-                    listDataNameInView.append(_data->getName());
-                }               
-
-                this->listErrorCode.append(error);
-            }            
-            else if (nameStr.contains("Inhbn_A["))
-            {
-                QString nameBegin = nameStr.split("Inhbn_A[").first();
-                QString nameEnd = nameStr.split("Inhbn_A[").last().remove("]");
-
-                ErrorCode* error = getErrorCode(nameBegin);
-                if (!error)
+                // fill listDataNameInView to be used for export
+                QList<Data*> _listData = dataContainer->getDataByPrefix(nameBegin + "_C.");
+                for (Data* data : _listData)
                 {
-                    error = new ErrorCode(nameBegin);
+                    error->listData.append(data);
+                    listDataNameInView.append(data->getName());
                 }
-            }
+
+                _listData = dataContainer->getDataByPrefix(nameBegin + "FrmMask_C.");
+                for (Data* data : _listData)
+                {
+                    error->listData.append(data);
+                    listDataNameInView.append(data->getName());
+                }
+
+                _listData = dataContainer->getDataByPrefix(nameBegin + "Inhbn_");
+                for (Data* data : _listData)
+                {
+                    error->listData.append(data);
+                    listDataNameInView.append(data->getName());
+                }
+            }            
+
         }
     }
 
     nRow = this->listErrorCode.count();
-    nColumn = 53;
+    nColumn = 100;
 
     this->endResetModel();
 
-}
-
-void ObdMergeModelEcu4::setErrorCodes(QStringList list)
-{
-    this->listErrorCodes(list);
 }
 
 int ObdMergeModelEcu4::rowCount(const QModelIndex &parent) const
@@ -438,13 +321,11 @@ bool ObdMergeModelEcu4::setData(const QModelIndex &index, const QVariant &value,
         Data* data = this->getData(row, col);
         if (data)
         {
-
             //set the value
             data->setZ(0, value.toString());
 
-
            //update the tableView
-           emit dataChanged(index, index);
+           //emit dataChanged(index, index);
 
            return true;
         }
@@ -452,9 +333,8 @@ bool ObdMergeModelEcu4::setData(const QModelIndex &index, const QVariant &value,
             return false;
     }
 
-    emit obdDataChanged();
+   //emit obdDataChanged();
     return true;
-
 }
 
 bool ObdMergeModelEcu4::resetData(const QModelIndexList &indexList, int role)
@@ -476,7 +356,7 @@ bool ObdMergeModelEcu4::resetData(const QModelIndexList &indexList, int role)
 
 
                    //update the tableView
-                   emit dataChanged(index, index);
+                   //emit dataChanged(index, index);
                    //return true;
                 }
                 else
@@ -512,7 +392,7 @@ bool ObdMergeModelEcu4::undoData(const QModelIndexList &indexList, int role)
                    data->undoValZ(0);
 
                    //update the tableView
-                   emit dataChanged(index, index);
+                   //emit dataChanged(index, index);
                    //return true;
                 }
                 else
@@ -542,139 +422,33 @@ QVariant ObdMergeModelEcu4::headerData(int section, Qt::Orientation orientation,
     switch (role)
     {
         case Qt::DisplayRole :
-            {
+        {
             if (orientation == Qt::Horizontal)
             {
                 if (section == 0)
                 {
-                    return "Pcode";
+                    return "Default code";
                 }
                 else if (section == 1)
                 {
-                    return "Error name";
+                    return "Default name";
                 }
-                else if (section == 2)
-                {
-                    return "Inc";
-                }
-                else if (section == 3)
-                {
-                    return "Dec";
-                }
-                else if (section == 4)
-                {
-                    return "PreThd";
-                }
-                else if (section == 5)
-                {
-                    return "Debounce";
-                }
-                else if (section == 6)
-                {
-                    return "SetTime";
-                }
-                else if (section == 7)
-                {
-                    return "ResetTime";
-                }
-                else if (section == 8)
-                {
-                    return "EventType";
-                }
-                else if (section == 9)
-                {
-                    return "Prio";
-                }
-                else if (section == 10)
-                {
-                    return "AgiCycIdn";
-                }
-                else if (section == 11)
-                {
-                    return "AgiCycThd";
-                }
-                else if (section == 12)
-                {
-                    return "OperCycIdn";
-                }
-                else if (section == 13)
-                {
-                    return "OperCycThd";
-                }
-                else if (section == 14)
-                {
-                    return "ExclsnCdn";
-                }
-                else if (section == 15)
-                {
-                    return "reaction_0";
-                }
-                else if (section == 16)
-                {
-                    return "delay_0";
-                }
-                else if (section == 17)
-                {
-                    return "reaction_1";
-                }
-                else if (section == 18)
-                {
-                    return "delay_1";
-                }
-                else if (section == 19)
-                {
-                    return "reaction_2";
-                }
-                else if (section == 20)
-                {
-                    return "delay_2";
-                }
-                else if (section == 21)
-                {
-                    return "reaction_3";
-                }
-                else if (section == 22)
-                {
-                    return "delay_3";
-                }
-                else if (section == 23)
-                {
-                    return "reaction_4";
-                }
-                else if (section == 24)
-                {
-                    return "delay_4";
-                }
-                else if (section == 25)
-                {
-                    return "reaction_5";
-                }
-                else if (section == 26)
-                {
-                    return "delay_5";
-                }
-                else if (section == 27)
-                {
-                    return "reaction_6";
-                }
-                else if (section == 28)
-                {
-                    return "delay_6";
-                }
-                else if (section == 29)
-                {
-                    return "InhbnMask";
-                }
-                else if (section >= 30)
-                {
-                    return "Inhbn_A[" + QString::number(section - 30) + "]";
-                }
-            }
                 else
-                    return QVariant();
-
+                {
+                    if (section <= (listErrorCode.at(0)->listData.count() + 1))
+                    {
+                        QString sectionName = listErrorCode.at(0)->listData.at(section - 2)->getName().split(listErrorCode.at(0)->name).last();
+                        if (sectionName.startsWith("_C."))
+                            sectionName = sectionName.split("_C.").last();
+                        return sectionName;
+                    }
+                }
             }
-            break;
+            else
+                return QVariant();
+
+        }
+        break;
 
         case Qt::DecorationRole: // The data to be rendered as a decoration in the form of an icon.
             break;
@@ -726,43 +500,12 @@ int ObdMergeModelEcu4::getRow() const
 
 Data* ObdMergeModelEcu4::getData(const int row, const int col) const
 {
-    QString dataName = "";
-    dataName += listErrorCode.at(row)->name;
-    if (col == 2) {  dataName += "_C.Inc";  }
-    else if (col == 3)   {  dataName += "_C.Dec";   }
-    else if (col == 4)  {  dataName += "_C.PreThd";   }
-    else if (col == 5)  {  dataName += "_C.DebounceBehavior";   }
-    else if (col == 6)  {  dataName += "_C.SetTimeMsOrNbOcc";   }
-    else if (col == 7)  {  dataName += "_C.ResetTimeMsOrNbOcc";   }
-    else if (col == 8)  {  dataName += "_C.EventType";   }
-    else if (col == 9)  {  dataName += "_C.Prio"; }
-    else if (col == 10)   {  dataName += "_C.AgiCycIdn";   }
-    else if (col == 11)  {  dataName += "_C.AgiCycThd";   }
-    else if (col == 12)  {  dataName += "_C.OperCycIdn"; }
-    else if (col == 13)   {  dataName += "_C.OperCycThd";   }
-    else if (col == 14)  {  dataName += "_C.ExclsnCdn";   }
-    else if (col == 15)  {  dataName += "Frm_A[0].FltReactnId"; }
-    else if (col == 16)  {  dataName += "Frm_A[0].DelayId"; }
-    else if (col == 17)  {  dataName += "Frm_A[1].FltReactnId"; }
-    else if (col == 18)  {  dataName += "Frm_A[1].DelayId"; }
-    else if (col == 19)  {  dataName += "Frm_A[2].FltReactnId"; }
-    else if (col == 20)  {  dataName += "Frm_A[2].DelayId"; }
-    else if (col == 21)  {  dataName += "Frm_A[3].FltReactnId"; }
-    else if (col == 22)  {  dataName += "Frm_A[3].DelayId"; }
-    else if (col == 23)  {  dataName += "Frm_A[4].FltReactnId"; }
-    else if (col == 24)  {  dataName += "Frm_A[4].DelayId"; }
-    else if (col == 25)  {  dataName += "Frm_A[5].FltReactnId"; }
-    else if (col == 26)  {  dataName += "Frm_A[5].DelayId"; }
-    else if (col == 27)  {  dataName += "Frm_A[6].FltReactnId"; }
-    else if (col == 28)  {  dataName += "Frm_A[6].DelayId"; }
-    else if (col == 29)  {  dataName += "_C.InhbnMask"; }
-    else if (col >= 30)
+    if (col >= 2 && col <= listErrorCode.at(row)->listData.count() + 1)
     {
-        dataName += "Inhbn_A[" + QString::number(col - 30) + "]";
+        Data* data = listErrorCode.at(row)->listData.at(col - 2);
+        return data;
     }
-
-    Data *data = dataContainer->getData(dataName);
-    return data;
+    else return nullptr;
 }
 
 bool ObdMergeModelEcu4::exportAs(QString format)

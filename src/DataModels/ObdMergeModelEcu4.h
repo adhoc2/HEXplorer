@@ -54,7 +54,6 @@ class ObdMergeModelEcu4 : public QAbstractTableModel
         bool exportAs(QString format);
         bool exportModifsAs(QString format);
         DataContainer* getDataContainer() {return dataContainer;}
-        void setErrorCodes(QStringList list);
 
     private:
         QList<ErrorCode*> listErrorCode;

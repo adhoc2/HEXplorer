@@ -11,6 +11,7 @@ public:
 
     QString name;
     QString dtc;
+    QList<Data*> listData;
 
 
 };

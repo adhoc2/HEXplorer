@@ -1152,7 +1152,7 @@ void MDImain::showContextMenu(QPoint)
                 menu.addAction(resetAllChangedData);
                 menu.addAction(sortBySubset);
                 menu.addMenu(toolsMenu);
-                menu.addAction(editFnR);
+                //menu.addAction(editFnR);
                 menu.addAction(editObdMerge);
                 menu.addAction(spaceRecover);
                 menu.addSeparator();
@@ -1172,7 +1172,7 @@ void MDImain::showContextMenu(QPoint)
                 // if Srecfile not read do not open context menu
                 if (srec->isRead())
                 {
-                    editFnR->setDisabled(false);
+                    //editFnR->setDisabled(false);
                     editObdMerge->setDisabled(false);
                     spaceRecover->setDisabled(true);
                     if (srec->getModifiedData().isEmpty())
@@ -4160,11 +4160,7 @@ void MDImain::editObd_Merge()
                 //sorting functions
                 //view->setSortingEnabled(true);
                 view->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-                view->setColumnWidth(1,350);
-                view->setColumnWidth(2, 50);
-                view->setColumnWidth(3, 50);
-                view->setColumnWidth(4, 50);
-                view->setColumnWidth(5, 50);
+                view->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
                 //add a new tab with the spreadsheet
                 QIcon icon;
@@ -4177,7 +4173,7 @@ void MDImain::editObd_Merge()
                 view->setAlternatingRowColors(true);
 
                 //write output
-                writeOutput("OBD merge edited.");
+                writeOutput("OBD matrix view edited.");
             }
             else if (name.toLower().endsWith("cdfxfile"))
             {

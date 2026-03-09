@@ -69,8 +69,22 @@ bool obdSortFilterProxyModel::filterAcceptsRow(int sourceRow,const QModelIndex &
 Data* obdSortFilterProxyModel::getData(QModelIndex indexProxy)
 {
     QModelIndex indexSourceModel = mapToSource(indexProxy);
-    Data* data = ((ObdMergeModel*)sourceModel())->getData(indexSourceModel.row(), indexSourceModel.column());
-    return data;
+    ObdMergeModel* model = qobject_cast<ObdMergeModel*>(this->sourceModel());
+    if (model)
+    {
+        Data* data = model->getData(indexSourceModel.row(), indexSourceModel.column());
+        return data;
+    }
+    else
+    {
+        ObdMergeModelEcu4* modelecu4 = qobject_cast<ObdMergeModelEcu4*>(this->sourceModel());
+        if (modelecu4)
+        {
+            Data* data = modelecu4->getData(indexSourceModel.row(), indexSourceModel.column());
+            return data;
+        }
+        else return nullptr;
+    }
 }
 
 QStringList obdSortFilterProxyModel::getUniqueValues(int column)
