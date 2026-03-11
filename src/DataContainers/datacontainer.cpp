@@ -124,9 +124,6 @@ QList<Data*> DataContainer::getDataByPrefix(const QString& prefix)
     if (listData.isEmpty())
         return result;
 
-    // If empty prefix should return all, uncomment the next line:
-    // if (prefix.isEmpty()) return listData;
-
     // Create a key Data just for comparison (no heap allocation needed).
     Data key;
     key.name = prefix;

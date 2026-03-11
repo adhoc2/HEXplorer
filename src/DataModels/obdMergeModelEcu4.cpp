@@ -29,7 +29,7 @@ ObdMergeModelEcu4::ObdMergeModelEcu4(SrecFile *srecFile, QObject *parent)
     nRow = 0;
     nColumn = 0;
     dataContainer = srecFile;
-    listErrorCodes();
+    this->listErrorCodes();
 
 }
 
@@ -39,7 +39,7 @@ ObdMergeModelEcu4::ObdMergeModelEcu4(CdfxFile *cdfx, QObject *parent)
     nRow = 0;
     nColumn = 0;
     dataContainer = cdfx;
-    listErrorCodes();
+    this->listErrorCodes();
 }
 
 ObdMergeModelEcu4::ObdMergeModelEcu4(Dcm *dcm, QObject *parent)
@@ -48,7 +48,7 @@ ObdMergeModelEcu4::ObdMergeModelEcu4(Dcm *dcm, QObject *parent)
     nRow = 0;
     nColumn = 0;
     dataContainer = dcm;
-    listErrorCodes();
+    this->listErrorCodes();
 }
 
 ObdMergeModelEcu4::ObdMergeModelEcu4(Csv *csv, QObject *parent)
@@ -57,9 +57,8 @@ ObdMergeModelEcu4::ObdMergeModelEcu4(Csv *csv, QObject *parent)
     nRow = 0;
     nColumn = 0;
     dataContainer = csv;
-    listErrorCodes();
+    this->listErrorCodes();
 }
-
 
 ObdMergeModelEcu4::~ObdMergeModelEcu4()
 {
@@ -75,72 +74,43 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
     listErrorCode.clear();
 
 
-    QList<Data*> listData;
-    if (listLab.isEmpty())
-    {
-        listData = dataContainer->listData;
-    }
-    else
-    {
-        foreach (QString str, listLab)
-        {
-            Data* data = dataContainer->getData(str);
-            if (data)
-            {
-                listData.append(data);
-            }
-        }
-    }
-
+    QList<Data*> listData = dataContainer->listData;
     foreach (Data *data, listData)
     {
         QString nameStr(data->getName());
-        if (!listDataNameInView.contains(nameStr))
+        QString nameEnd = nameStr.split(".").last();
+
+        if (nameEnd.compare("Prio", Qt::CaseSensitive) == 0)
         {
-            QString nameEnd = nameStr.split(".").last();
-            QString nameBegin = "";
+            QString nameBegin = nameStr.split("_C.").first();
 
-            if (nameEnd.compare("Prio", Qt::CaseSensitive) == 0)
+            //ErrorCode* error = getErrorCode(nameBegin);
+            ErrorCode* error = new ErrorCode(nameBegin);
+            listErrorCode.append(error);
+
+            // add the Pcode in DTC field
+            error->dtc = data->getComment().remove("\"");
+
+            // fill listDataNameInView to be used for export
+            QList<Data*> _listData = dataContainer->getDataByPrefix(nameBegin);
+            for (Data* data : _listData)
             {
-                nameBegin = nameStr.split("_C.").first();
-
-                //check if errorCode has been previously created
-                //if not create a new one
-                ErrorCode* error = getErrorCode(nameBegin);
-                if (!error)
-                {
-                    error = new ErrorCode(nameBegin);
-                    listErrorCode.append(error);
-                }
-
-                // add the Pcode in DTC field
-                error->dtc = data->getComment().remove("DTC-ID: ");
-                error->dtc.remove("\"");
-                error->dtc.remove("\"");
-
-                // fill listDataNameInView to be used for export
-                QList<Data*> _listData = dataContainer->getDataByPrefix(nameBegin + "_C.");
-                for (Data* data : _listData)
+                if (data->getName().startsWith(nameBegin + "_C."))
                 {
                     error->listData.append(data);
                     listDataNameInView.append(data->getName());
                 }
-
-                _listData = dataContainer->getDataByPrefix(nameBegin + "FrmMask_C.");
-                for (Data* data : _listData)
+                if (data->getName().startsWith(nameBegin + "FrmMask_C."))
                 {
                     error->listData.append(data);
                     listDataNameInView.append(data->getName());
                 }
-
-                _listData = dataContainer->getDataByPrefix(nameBegin + "Inhbn_");
-                for (Data* data : _listData)
+                if (data->getName().startsWith(nameBegin + "Inhbn_"))
                 {
                     error->listData.append(data);
                     listDataNameInView.append(data->getName());
                 }
-            }            
-
+            }
         }
     }
 
@@ -195,9 +165,7 @@ QVariant ObdMergeModelEcu4::data(const QModelIndex &index, int role) const
                        return "";
                }
 
-
                return QVariant();
-
             }
             break;
 
@@ -236,9 +204,9 @@ QVariant ObdMergeModelEcu4::data(const QModelIndex &index, int role) const
             {
                 if (column == 0)
                 {
-                   QFont font;
-                   font.setBold(true);
-                   return font;
+                   //QFont font;
+                   //font.setBold(true);
+                   //return font;
                 }
             }
             break;

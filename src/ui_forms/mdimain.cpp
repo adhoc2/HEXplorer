@@ -341,8 +341,8 @@ void MDImain::createActions()
     connect(editFnR, SIGNAL(triggered()), this, SLOT(editFandR()));
     editFnR->setDisabled(true);
 
-    editObdMerge = new QAction(tr("Edit OBD matrix view"), this);
-    editObdMerge->setIcon(QIcon(":/icones/milky_outils.png"));
+    editObdMerge = new QAction(tr("Edit OBD matrix"), this);
+    editObdMerge->setIcon(QIcon(":/icones/OBD.png"));
     connect(editObdMerge, SIGNAL(triggered()), this, SLOT(editObd_Merge()));
     editObdMerge->setDisabled(true);
 
@@ -4166,10 +4166,10 @@ void MDImain::editObd_Merge()
                 QIcon icon;
                 icon.addFile(":/icones/milky_outils.png");
                 ui->tabWidget->addTab(view, icon, srec->name);
+                tabList->insert(srec->name, view);
 
                 //set new view as activated
                 ui->tabWidget->setCurrentWidget(view);
-
                 view->setAlternatingRowColors(true);
 
                 //write output
@@ -7436,6 +7436,17 @@ void MDImain::updateView()
         {
             FormCompare *fcomp = (FormCompare*)widget;
             fcomp->resetModel();
+        }
+        else if (name.toLower().endsWith("spreadsheetview"))
+        {
+            SpreadsheetView* view = (SpreadsheetView*)widget;
+            QModelIndexList listIndex = view->selectionModel()->selectedIndexes();
+            emit view->reset();
+            if (!listIndex.isEmpty())
+            {
+                view->selectionModel()->select(listIndex.at(0), QItemSelectionModel::Select);
+                view->setCurrentIndex(listIndex.at(0));
+            }
         }
     }
 }

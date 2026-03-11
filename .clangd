@@ -1,0 +1,11 @@
+CompileFlags:
+  Remove: [-I/usr/include, -I/usr/local/include]
+  Add: [-Isrc, -fPIC, -fexceptions]
+
+Index:
+  External:
+    - IgnoreDirs: [build, external, third_party, moc, uic, autogen, .git]
+
+Diagnostics:
+  ClangTidy:
+    Add: modernize-*, readability-*, performance-*

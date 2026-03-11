@@ -193,5 +193,6 @@
         <file>icones/stylesheet-vline.png</file>
         <file>files/darkstyle_org.qss</file>
         <file>icones/arrow-down-icon-png-6703.png</file>
+        <file>icones/OBD.png</file>
     </qresource>
 </RCC>
