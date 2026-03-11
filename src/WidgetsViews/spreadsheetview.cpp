@@ -19,7 +19,6 @@
 
 #include <QtWidgets>
 #include <QTableWidgetSelectionRange>
-#include <typeinfo>
 
 #include "spreadsheetview.h"
 #include "sptablemodel.h"
@@ -544,34 +543,43 @@ void SpreadsheetView::saveObdViewAs()
     DialogChooseExportFormat *chooseFormat = new DialogChooseExportFormat(&exportFormat, this);
     chooseFormat->exec();
 
-    //get the hex and a2l nodes
-    QString name = typeid(model()).name();
-
-    if (exportFormat == "cdf" && name.toLower().endsWith("obdsortfilterproxymodel"))
+    if (exportFormat == "cdf" && model()->inherits("obdSortFilterProxyModel"))
     {
         obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model());
-        ObdMergeModel *obdModel = static_cast<ObdMergeModel*>(proxyModel->sourceModel());
-        obdModel->exportAs("cdfx");
+        if (auto *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel())) {
+            obdModel->exportAs("cdfx");
+        }
+        else if (auto *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel())) {
+            obdModel->exportAs("cdfx");
+        }
 
         // display information
         MDImain *win = (MDImain*)this->mdimain;
         win->writeOutput("export OBD view into cdfx file performed with success.");
     }
-    else if (exportFormat == "csv" && name.toLower().endsWith("obdsortfilterproxymodel"))
+    else if (exportFormat == "csv" && model()->inherits("obdSortFilterProxyModel"))
     {
-        obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model());
-        ObdMergeModel *obdModel = static_cast<ObdMergeModel*>(proxyModel->sourceModel());
-        obdModel->exportAs("csv");
+        obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model()); 
+        if (auto *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel())) {
+            obdModel->exportAs("csv");
+        }
+        else if (auto *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel())) {
+            obdModel->exportAs("csv");
+        }
 
         // display information
         MDImain *win = (MDImain*)this->mdimain;
         win->writeOutput("export OBD view into csv file performed with success.");
     }
-    else if (exportFormat == "dcm" && name.toLower().endsWith("obdsortfilterproxymodel"))
+    else if (exportFormat == "dcm" && model()->inherits("obdSortFilterProxyModel"))
     {
         obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model());
-        ObdMergeModel *obdModel = static_cast<ObdMergeModel*>(proxyModel->sourceModel());
-        obdModel->exportAs("dcm");
+        if (auto *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel())) {
+            obdModel->exportAs("dcm");
+        }
+        else if (auto *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel())) {
+            obdModel->exportAs("dcm");
+        }
 
         // display information
         MDImain *win = (MDImain*)this->mdimain;
@@ -599,8 +607,12 @@ void SpreadsheetView::saveObdViewModifsAs()
     if (exportFormat == "cdf" && name.toLower().endsWith("obdsortfilterproxymodel"))
     {
         obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model());
-        ObdMergeModel *obdModel = static_cast<ObdMergeModel*>(proxyModel->sourceModel());
-        obdModel->exportModifsAs("cdfx");
+        if (auto *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel())) {
+            obdModel->exportModifsAs("cdfx");
+        }
+        else if (auto *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel())) {
+            obdModel->exportModifsAs("cdfx");
+        }
 
         // display information
         MDImain *win = (MDImain*)this->mdimain;
@@ -609,8 +621,12 @@ void SpreadsheetView::saveObdViewModifsAs()
     else if (exportFormat == "csv" && name.toLower().endsWith("obdsortfilterproxymodel"))
     {
         obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model());
-        ObdMergeModel *obdModel = static_cast<ObdMergeModel*>(proxyModel->sourceModel());
-        obdModel->exportModifsAs("csv");
+        if (auto *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel())) {
+            obdModel->exportModifsAs("csv");
+        }
+        else if (auto *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel())) {
+            obdModel->exportModifsAs("csv");
+        }
 
         // display information
         MDImain *win = (MDImain*)this->mdimain;
@@ -619,8 +635,12 @@ void SpreadsheetView::saveObdViewModifsAs()
     else if (exportFormat == "dcm" && name.toLower().endsWith("obdsortfilterproxymodel"))
     {
         obdSortFilterProxyModel *proxyModel = static_cast<obdSortFilterProxyModel*>(model());
-        ObdMergeModel *obdModel = static_cast<ObdMergeModel*>(proxyModel->sourceModel());
-        obdModel->exportModifsAs("dcm");
+        if (auto *obdModel = qobject_cast<ObdMergeModelEcu4*>(proxyModel->sourceModel())) {
+            obdModel->exportModifsAs("dcm");
+        }
+        else if (auto *obdModel = qobject_cast<ObdMergeModel*>(proxyModel->sourceModel())) {
+            obdModel->exportModifsAs("dcm");
+        }
 
         // display information
         MDImain *win = (MDImain*)this->mdimain;
