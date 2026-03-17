@@ -17,6 +17,7 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
+#include "freezetablewidget.h"
 #include "ui_forms/ui_mdimain.h"
 #include <QtWidgets>
 #include <QtCore>
@@ -1154,6 +1155,7 @@ void MDImain::showContextMenu(QPoint)
                 menu.addMenu(toolsMenu);
                 //menu.addAction(editFnR);
                 menu.addAction(editObdMerge);
+                editObdMerge->setDisabled(true);
                 menu.addAction(spaceRecover);
                 menu.addSeparator();
                 menu.addAction(copyDataset);
@@ -4094,7 +4096,6 @@ void MDImain::editFandR()
 
             //write output
             writeOutput("failure and reaction edited.");
-
         }
     }
 
@@ -4119,6 +4120,7 @@ void MDImain::editObd_Merge()
             return;
         }
 
+
         int row = index.row();
         if ( row < 0)
         {
@@ -4132,11 +4134,6 @@ void MDImain::editObd_Merge()
             {
                 //get the Wp
                 SrecFile *srec = (SrecFile*)node;
-
-                //create a new spreadSheet and attach the model
-                SpreadsheetView *view = new SpreadsheetView(this);
-                //view->setModel(obdModel);
-                srec->attach(view);
 
                 //create a new model for obdMerge function based on a2l type
                 //add a sort and filter model
@@ -4152,13 +4149,18 @@ void MDImain::editObd_Merge()
                     proxyModel = new obdSortFilterProxyModel(this, obdModel);
                 }
 
+                //create a new spreadSheet and attach the model
+                //SpreadsheetView *view = new SpreadsheetView(this);
+                FreezeTableWidget *view = new FreezeTableWidget(proxyModel);
+                srec->attach(view);
 
-                view->setModel(proxyModel);
+                //sort
+                //view->setModel(proxyModel);
                 view->setSortingEnabled(true);
                 proxyModel->sort(1, Qt::AscendingOrder);
+                view->sortByColumn(1, Qt::AscendingOrder);
 
-                //sorting functions
-                //view->setSortingEnabled(true);
+                //headers
                 view->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
                 view->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 

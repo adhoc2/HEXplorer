@@ -354,7 +354,7 @@ QVariant ObdMergeModel::data(const QModelIndex &index, int role) const
                 if (column == 0)
                 {
                    QFont font;
-                   font.setBold(true);
+                   font.setBold(false);
                    return font;
                 }
             }

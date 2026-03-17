@@ -35,6 +35,7 @@ class SpreadsheetView : public QTableView
         QWidget* mdimain;
         QAction *export2Excel;
         QAction *changeSize;
+        QAction *selectAll;
         QAction *selectAllLabel;
         QAction *axisXInterpolate;
         QAction *axisYInterpolate;
@@ -48,6 +49,7 @@ class SpreadsheetView : public QTableView
         QAction *offsetMinus;
         QAction *fillAllWith;
         QAction *copyAction;
+        QAction *copyActionAllWithHeaders;
         QAction *pasteAction;
         QAction *pasteActionObd;
         QAction *plotAction;
@@ -88,6 +90,7 @@ class SpreadsheetView : public QTableView
         void offsetM();
         void fillAll();
         void copy();
+        void copyAllWithHeaders(bool asCsv,bool includeHiddenColumns);
         void paste();
         void pasteObdView();
         void plot();

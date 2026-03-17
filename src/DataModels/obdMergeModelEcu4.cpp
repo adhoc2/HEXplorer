@@ -26,10 +26,13 @@
 ObdMergeModelEcu4::ObdMergeModelEcu4(SrecFile *srecFile, QObject *parent)
     :QAbstractTableModel(parent)
 {
-    nRow = 0;
-    nColumn = 0;
-    dataContainer = srecFile;
-    this->listErrorCodes();
+    if (srecFile->isRead())
+    {
+        nRow = 0;
+        nColumn = 0;
+        dataContainer = srecFile;
+        this->listErrorCodes();
+    }
 
 }
 
@@ -115,7 +118,8 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
     }
 
     nRow = this->listErrorCode.count();
-    nColumn = 100;
+    //nColumn = 100;
+    nColumn = this->listErrorCode.at(0)->listData.count() + 2;
 
     this->endResetModel();
 
@@ -405,7 +409,9 @@ QVariant ObdMergeModelEcu4::headerData(int section, Qt::Orientation orientation,
                 {
                     if (section <= (listErrorCode.at(0)->listData.count() + 1))
                     {
-                        QString sectionName = listErrorCode.at(0)->listData.at(section - 2)->getName().split(listErrorCode.at(0)->name).last();
+                        //QString sectionName = listErrorCode.at(0)->listData.at(section - 2)->getName().split(listErrorCode.at(0)->name).last();
+                        int sourceCol = sourceData(section);
+                        QString sectionName = listErrorCode.at(0)->listData.at(sourceCol - 2)->getName().split(listErrorCode.at(0)->name).last();
                         if (sectionName.startsWith("_C."))
                             sectionName = sectionName.split("_C.").last();
                         return sectionName;
@@ -466,11 +472,25 @@ int ObdMergeModelEcu4::getRow() const
     return 0;
 }
 
+int ObdMergeModelEcu4::sourceData(int col) const
+{
+    QVector<int> mapping;
+    mapping << 0 << 1 << 63 << 62 << 39 << 40 << 61 << 37 << 38 << 59 << 60 << 57 << 58
+            << 41 << 42 << 43 << 44 << 45 << 46 << 47 << 48 << 49 << 50 << 51 << 52 << 53 << 54 << 55 << 56
+            << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15
+            << 16 << 17 << 18 << 19 << 20 << 21 << 22 << 23 << 24 << 25 << 26 << 27 << 28 << 29 << 30 << 31 << 32 << 33 << 34 << 35 << 36;
+
+
+    return mapping.at(col);
+}
+
 Data* ObdMergeModelEcu4::getData(const int row, const int col) const
 {
     if (col >= 2 && col <= listErrorCode.at(row)->listData.count() + 1)
     {
-        Data* data = listErrorCode.at(row)->listData.at(col - 2);
+        int sourceCol = sourceData(col);
+        //Data* data = listErrorCode.at(row)->listData.at(col - 2);
+        Data* data = listErrorCode.at(row)->listData.at(sourceCol - 2);
         return data;
     }
     else return nullptr;

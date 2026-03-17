@@ -37,6 +37,7 @@
 #include "ObdMergeModel.h"
 #include "obdsortfilterproxymodel.h"
 #include "dialogchooseexportformat.h"
+#include <QKeyCombination>
 
 
 SpreadsheetView::SpreadsheetView(QWidget *parent):QTableView(parent)
@@ -48,7 +49,7 @@ SpreadsheetView::SpreadsheetView(QWidget *parent):QTableView(parent)
     setItemDelegate(combo);
 
     QHeaderView *header = horizontalHeader();
-    connect(header, SIGNAL(sectionResized(int,int,int)), this, SLOT(myResize(int,int,int)));
+    connect(header, SIGNAL(sectionResized(int,int,int)), this, SLOT(myResize(int)));
 
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(updateActions(QModelIndex)));
 
@@ -74,9 +75,18 @@ void SpreadsheetView::createActions()
     connect(changeSize, SIGNAL(triggered()), this, SLOT(changeLabelSize()));
     this->addAction(changeSize);
 
+    selectAll = new QAction(tr("Select All"), this);
+    //selectAll->setShortcut(Qt::CTRL | Qt::Key_A);
+    //connect(selectAll, SIGNAL(triggered()), this, SLOT(selectAll()));
+    selectAll->setShortcuts(QKeySequence::SelectAll);
+    selectAll->setShortcutContext(Qt::WidgetWithChildrenShortcut);
+    connect(selectAll, &QAction::triggered, this, &QAbstractItemView::selectAll);
+    this->addAction(selectAll);
+
     selectAllLabel = new QAction(tr("&Interpolate X axis"), this);
     selectAllLabel->setShortcut(tr("Ctrl+A"));
     connect(selectAllLabel, SIGNAL(triggered()), this, SLOT(selectAll_label()));
+    selectAllLabel->setDisabled(true);
     this->addAction(selectAllLabel);
 
     axisXInterpolate = new QAction(tr("&Interpolate X axis"), this);
@@ -157,6 +167,13 @@ void SpreadsheetView::createActions()
     connect(copyAction, SIGNAL(triggered()), this, SLOT(copy()));
     this->addAction(copyAction);
 
+    copyActionAllWithHeaders = new QAction(tr("Copy All (with headers)"), this);
+    copyActionAllWithHeaders->setIcon(QIcon(":/icones/copy.png"));
+    copyActionAllWithHeaders->setShortcutContext(Qt::WidgetShortcut);
+    copyActionAllWithHeaders->setShortcut(QKeyCombination(Qt::ControlModifier | Qt::ShiftModifier, Qt::Key_C));
+    connect(copyActionAllWithHeaders, &QAction::triggered, this, [this]{this->copyAllWithHeaders(false , false); });
+    this->addAction(copyActionAllWithHeaders);
+
     pasteAction = new QAction(tr("&Paste"), this);
     pasteAction->setIcon(QIcon(":/icones/paste.png"));
     pasteAction->setShortcut(tr("Ctrl+V"));
@@ -172,7 +189,6 @@ void SpreadsheetView::createActions()
     pasteActionObd->setStatusTip(tr("Paste the current selection's contents "));
     connect(pasteActionObd, SIGNAL(triggered()), this, SLOT(pasteObdView()));
     this->addAction(pasteActionObd);
-
 
     plotAction = new QAction(tr("&Graph"), this);
     plotAction->setShortcut(Qt::Key_F4);
@@ -387,19 +403,6 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
                     chkBox->setChecked(true);
 
                 connect(chkBox, &QCheckBox::checkStateChanged, this, [this, headerMap,value]() { this->selectColumns2Hide(headerMap.key(value), value); });
-
-
-//                QAction *action = new QAction(value);
-//                menuHideCol->addAction(action);
-//                action->setCheckable(true);
-//                if (hiddenValues.contains(value))
-//                    action->setChecked(false);
-//                else
-//                    action->setChecked(true);
-//                if (action->isChecked())
-//                    connect(action, &QAction::toggled, this, [=]() { this->hide_Columns(headerMap.key(value), value); });
-//                else
-//                    connect(action, &QAction::toggled, this, [=]() { this->show_Columns(headerMap.key(value), value); });
             }
 
             QAction *action = new QAction("show/hide columns");
@@ -413,11 +416,13 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
             menu->addAction(factorMulti);
             menu->addAction(factorDiv);
             menu->addSeparator();
+            menu->addAction(selectAll);
             menu->addAction(undoModif);
             menu->addAction(resetModif);
             menu->addSeparator();
             menu->addAction(findObdView);
             menu->addAction(copyAction);
+            menu->addAction(copyActionAllWithHeaders);
             menu->addAction(pasteActionObd);
             menu->addSeparator();
 
@@ -838,9 +843,6 @@ void SpreadsheetView::copy()
         QString str;
         for (int i = 0; i < rowCount; ++i)
         {
-            //new line into file
-//            if (i > 0)
-//                str.append("\n");
 
             //get the row from tableView
             QStringList listVal;
@@ -872,6 +874,82 @@ void SpreadsheetView::copy()
          QApplication::restoreOverrideCursor();
     }
 }
+
+
+void SpreadsheetView::copyAllWithHeaders(bool asCsv /*= false*/,bool includeHiddenColumns /*= false*/)
+{
+    // Set a wait cursor (like your original function)
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+
+    auto *model = this->model();
+    if (!model) {
+        QApplication::restoreOverrideCursor();
+        return;
+    }
+
+    const int rowCount = model->rowCount();
+    const int colCount = model->columnCount();
+    if (rowCount <= 0 || colCount <= 0) {
+        QApplication::restoreOverrideCursor();
+        return;
+    }
+
+    const QString delim = asCsv ? QStringLiteral(",") : QStringLiteral("\t");
+
+    // Build the list of columns in current VISUAL order (skip hidden if requested)
+    QHeaderView *hHeader = this->horizontalHeader();
+    QList<int> visualCols;
+    visualCols.reserve(colCount);
+    for (int v = 0; v < colCount; ++v) {
+        const int logical = hHeader->logicalIndex(v); // visual -> logical
+        if (!includeHiddenColumns && this->isColumnHidden(logical))
+            continue;
+        visualCols.push_back(logical);
+    }
+    if (visualCols.isEmpty()) {
+        QApplication::restoreOverrideCursor();
+        return;
+    }
+
+    QString out;
+    out.reserve(8192);
+
+    // 1) Header row
+    {
+        QStringList headerFields;
+        headerFields.reserve(visualCols.size());
+        for (int logical : visualCols) {
+            const QString text = model->headerData(logical, Qt::Horizontal, Qt::DisplayRole).toString();
+            headerFields << text;
+        }
+        out += headerFields.join(delim) + QLatin1Char('\n');
+    }
+
+    // 2) Data rows (in the current proxy/view order)
+    for (int r = 0; r < rowCount; ++r) {
+        QStringList fields;
+        fields.reserve(visualCols.size());
+        for (int logical : visualCols) {
+            const QModelIndex idx = model->index(r, logical);
+            const QString cell = model->data(idx, Qt::DisplayRole).toString();
+            fields << cell;
+        }
+        out += fields.join(delim);
+        if (r < rowCount - 1)
+            out += QLatin1Char('\n');
+    }
+
+    // Write to clipboard (plain text is enough for Excel; TSV/CSV will paste fine)
+    if (QClipboard *cb = QGuiApplication::clipboard()) {
+        auto *md = new QMimeData();
+        md->setText(out);
+
+        cb->setMimeData(md);
+    }
+
+    QApplication::restoreOverrideCursor();
+}
+
 
 void SpreadsheetView::paste()
 {

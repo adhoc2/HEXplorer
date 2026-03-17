@@ -24,6 +24,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QModelIndex>
 #include <QProgressBar>
+#include <qidentityproxymodel.h>
 
 class Node;
 class QsciLexerXML;
@@ -50,6 +51,7 @@ namespace Ui
 {
     class MDImain;
 }
+
 
 class MDImain : public QMainWindow
 {

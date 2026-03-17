@@ -28,6 +28,7 @@
 #include "csv.h"
 #include "errorcode.h"
 #include <QObject>
+#include <qidentityproxymodel.h>
 
 
 class ObdMergeModelEcu4 : public QAbstractTableModel
@@ -44,6 +45,7 @@ class ObdMergeModelEcu4 : public QAbstractTableModel
         int rowCount(const QModelIndex &parent) const;
         int columnCount(const QModelIndex &parent) const;
         int getRow() const;
+        int sourceData(int col) const;
         Data* getData(const int row, const int col) const;
         QVariant data(const QModelIndex &index, int role) const;
         bool setData(const QModelIndex &index, const QVariant &value, int role);
@@ -68,5 +70,6 @@ class ObdMergeModelEcu4 : public QAbstractTableModel
     signals:
         void obdDataChanged();
 };
+
 
 #endif // OBDMERGEMODELECU4_H
