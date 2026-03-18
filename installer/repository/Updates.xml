@@ -2,8 +2,6 @@
  <ApplicationName>{AnyApplication}</ApplicationName>
  <ApplicationVersion>1.0.0</ApplicationVersion>
  <Checksum>true</Checksum>
- <SHA1>3084089972b53a957fb006ddc32786d0ad61c015</SHA1>
- <MetadataName>2026-03-11-1325_meta.7z</MetadataName>
  <PackageUpdate>
   <Name>com.adhoc2.hexplorer</Name>
   <DisplayName>HEXplorer</DisplayName>
@@ -12,12 +10,14 @@
   <ReleaseDate>2026-04-01</ReleaseDate>
   <Default>script</Default>
   <Script>installscript.qs</Script>
-  <UpdateFile CompressedSize="19786881" OS="Any" UncompressedSize="71395615"/>
+  <UpdateFile CompressedSize="19791024" OS="Any" UncompressedSize="71448351"/>
   <DownloadableArchives>generic.7z,iconengines.7z,imageformats.7z,networkinformation.7z,platforms.7z,styles.7z,tls.7z,translations.7z,content.7z</DownloadableArchives>
   <UserInterfaces>page.ui</UserInterfaces>
   <Licenses>
    <License file="GNU_license.txt" name="GNU Public License Agreement"/>
   </Licenses>
-  <SHA1>13b78de789d1e1363bcdfa7d8419e04d39b783ed</SHA1>
+  <SHA1>3bfb6bf6ea8a84b6c4f45c41cc43b7051a46c74b</SHA1>
  </PackageUpdate>
+ <SHA1>be272d0f978d404e4b56e84e2ce3305eb86e4a79</SHA1>
+ <MetadataName>2026-03-18-0635_meta.7z</MetadataName>
 </Updates>
