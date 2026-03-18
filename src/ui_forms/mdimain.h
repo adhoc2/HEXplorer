@@ -24,7 +24,9 @@
 #include <QtWidgets/QMainWindow>
 #include <QModelIndex>
 #include <QProgressBar>
+#include <qheaderview.h>
 #include <qidentityproxymodel.h>
+#include <qpainter.h>
 
 class Node;
 class QsciLexerXML;

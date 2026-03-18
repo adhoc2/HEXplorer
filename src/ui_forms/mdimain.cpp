@@ -4161,8 +4161,8 @@ void MDImain::editObd_Merge()
                 view->sortByColumn(1, Qt::AscendingOrder);
 
                 //headers
-                view->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-                view->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+                view->resizeColumnsToContents();
+                view->resizeRowsToContents();
 
                 //add a new tab with the spreadsheet
                 QIcon icon;
