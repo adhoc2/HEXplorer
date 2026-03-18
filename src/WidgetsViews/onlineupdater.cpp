@@ -101,23 +101,31 @@ void OnlineUpdater::parseXml(const QByteArray &xmlData)
 
         if (ret == QMessageBox::Yes)
         {
-            QString maintenanceToolPath = QCoreApplication::applicationDirPath() + "/maintenancetool.exe";
-            QProcess *myProcess = new QProcess();
-            myProcess->start(maintenanceToolPath, QStringList() << "--updater");
+            QString maintenanceToolPath =
+                QCoreApplication::applicationDirPath() + "/maintenancetool.exe";
 
-            if(myProcess->waitForFinished())
+            QStringList args;
+            args << "--updater";
+
+            bool started = QProcess::startDetached(maintenanceToolPath, args);
+            if (started)
             {
-                QProcess *myProcess = new QProcess();
-                myProcess->startDetached(QApplication::applicationFilePath(), QStringList());
-                mdiMain->close();
+                // fermeture propre si event loop active
+                if (QCoreApplication::instance()->thread()->isRunning())
+                    qApp->quit();
+                else
+                    ::exit(0); // fallback si appelé avant exec()
             }
+            else
+            {
+                QMessageBox::warning(nullptr, "Update", "Failed to start maintenance tool.");
+            }
+
             return;
         }
         else
             return;
     }
-
-
 }
 
 void OnlineUpdater::fetchXmlFile(const QUrl &url)

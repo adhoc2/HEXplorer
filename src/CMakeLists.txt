@@ -244,6 +244,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         DataModels/ObdMergeModelEcu4.h
         version.h
 
+
     )
 else()
     add_executable(${CMAKE_PROJECT_NAME} ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})

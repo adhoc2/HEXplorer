@@ -58,6 +58,7 @@ Component.prototype.createOperations = function()
             // Register update and uninstall operations
             component.addOperation("CreateShortcut", "@TargetDir@/HEXplorer.exe", "@StartMenuDir@/HEXplorer.lnk", "workingDirectory=@TargetDir@");
             component.addOperation("CreateShortcut", "@TargetDir@/maintenancetool.exe", "@StartMenuDir@/uninstall HEXplorer.lnk", "workingDirectory=@TargetDir@");
+            //component.addOperation("Execute", "@TargetDir@/HEXplorer.exe", "", "arguments=;workingDirectory=@TargetDir@;waitForFinished=false");
         }
 	
     } catch (e)
