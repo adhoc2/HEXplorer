@@ -75,6 +75,7 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
     nColumn = 0;
     listDataNameInView.clear();
     listErrorCode.clear();
+    listHeaderString.clear();
 
 
     QList<Data*> listData = dataContainer->listData;
@@ -114,6 +115,72 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
                     listDataNameInView.append(data->getName());
                 }
             }
+
+            //Get the header string
+            listHeaderString = {
+                "_C.SetTimeMsOrNbOcc",
+                "_C.ResetTimeMsOrNbOcc",
+                "_C.DebounceBehavior",
+                "_C.EventType",
+                "_C.Prio",
+                "_C.AgiCycIdn",
+                "_C.AgiCycThd",
+                "_C.OperCycIdn",
+                "_C.OperCycThd",
+                "_C.ExclsnCdn.Mask",
+                "_C.ExclsnCdn.B.AmbientCold",
+                "_C.ExclsnCdn.B.AmbientHot",
+                "_C.ExclsnCdn.B.BattleMode",
+                "_C.ExclsnCdn.B.EngineCold",
+                "_C.ExclsnCdn.B.EngineHot",
+                "_C.ExclsnCdn.B.EngineNotRunning",
+                "_C.ExclsnCdn.B.EngineRunning",
+                "_C.ExclsnCdn.B.HighAltitude",
+                "_C.ExclsnCdn.B.LowBatteryVoltage",
+                "_C.ExclsnCdn.B.N_A_14",
+                "_C.ExclsnCdn.B.N_A_15",
+                "_C.ExclsnCdn.B.NotIdleLoad",
+                "_C.ExclsnCdn.B.NotIdleSpeed",
+                "_C.ExclsnCdn.B.Safety",
+                "_C.ExclsnCdn.B.WakeUp",
+                "_C.ExclsnCdn.B.WakeUpWithPostDrive",
+                "FrmMask_C.AirChrgrProtnByBoostPMax",
+                "FrmMask_C.AirChrgrProtnByMdl",
+                "FrmMask_C.ChkOfEngLampOn",
+                "FrmMask_C.DataRecTrig",
+                "FrmMask_C.DiagLimnAtPwrUp",
+                "FrmMask_C.DiagLimnElec",
+                "FrmMask_C.DiagLimnMon",
+                "FrmMask_C.DiagLimnPnd",
+                "FrmMask_C.DpfRgnDi",
+                "FrmMask_C.EgrDi",
+                "FrmMask_C.EngNoxMdlAdpvDi",
+                "FrmMask_C.EngStop",
+                "FrmMask_C.EngStopReq",
+                "FrmMask_C.EngStopWithOvrd",
+                "FrmMask_C.EngTqLimn1",
+                "FrmMask_C.EngTqLimn2",
+                "FrmMask_C.ExhBrkVlvCtrlDi",
+                "FrmMask_C.ExhBrkVlvDi",
+                "FrmMask_C.FanCtrlDi",
+                "FrmMask_C.LampMntnOn",
+                "FrmMask_C.LampOfProtnOn",
+                "FrmMask_C.LimpMod",
+                "FrmMask_C.LimpModForFuPHi",
+                "FrmMask_C.MilOn",
+                "FrmMask_C.ScrDosgFbStgyDi",
+                "FrmMask_C.ScrDosgStgyDi",
+                "FrmMask_C.ScrLineHeatgDi",
+                "FrmMask_C.ScrTankHeatgDi",
+                "FrmMask_C.WstgtCtrlDi",
+                "FrmMask_C.WstgtDi",
+                "Inhbn_Tbl[0]",
+                "Inhbn_Tbl[1]",
+                "Inhbn_Tbl[2]",
+                "Inhbn_Tbl[3]",
+                "Inhbn_Tbl[4]",
+                "_C.InhbnMask"
+            };
         }
     }
 
@@ -410,8 +477,7 @@ QVariant ObdMergeModelEcu4::headerData(int section, Qt::Orientation orientation,
                     if (section <= (listErrorCode.at(0)->listData.count() + 1))
                     {
                         //QString sectionName = listErrorCode.at(0)->listData.at(section - 2)->getName().split(listErrorCode.at(0)->name).last();
-                        int sourceCol = sourceData(section);
-                        QString sectionName = listErrorCode.at(0)->listData.at(sourceCol - 2)->getName().split(listErrorCode.at(0)->name).last();
+                        QString sectionName = listHeaderString.at(section - 2);
                         if (sectionName.startsWith("_C."))
                             sectionName = sectionName.split("_C.").last();
                         return sectionName;
@@ -472,27 +538,21 @@ int ObdMergeModelEcu4::getRow() const
     return 0;
 }
 
-int ObdMergeModelEcu4::sourceData(int col) const
+Data* findDataByName(const QList<Data*>& list, const QString& dataName)
 {
-    QVector<int> mapping;
-    mapping << 0 << 1 << 63 << 62 << 39 << 40 << 61 << 37 << 38 << 59 << 60 << 57
-            << 41 << 42 << 43 << 44 << 45 << 46 << 47 << 48 << 49 << 50 << 51 << 52 << 53 << 54 << 55 << 56
-            << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15
-            << 16 << 17 << 18 << 19 << 20 << 21 << 22 << 23 << 24 << 25 << 26 << 27 << 28 << 29 << 30 << 31 << 32 << 33 << 34 << 35 << 36 << 58
-/* empty cells*/
-            << 64 << 65 << 66 << 67 << 68 << 69 << 70 << 71 << 72 << 73 << 74 << 75 << 76 << 77 << 78 << 79 << 80;
+    auto it = std::find_if(list.begin(), list.end(),
+                           [&](Data* d){ return d && d->name == dataName; });
 
-
-    return mapping.at(col);
+    return (it != list.end()) ? *it : nullptr;
 }
 
 Data* ObdMergeModelEcu4::getData(const int row, const int col) const
 {
     if (col >= 2 && col <= listErrorCode.at(row)->listData.count() + 1)
     {
-        int sourceCol = sourceData(col);
         //Data* data = listErrorCode.at(row)->listData.at(col - 2);
-        Data* data = listErrorCode.at(row)->listData.at(sourceCol - 2);
+        QString dataName = listErrorCode.at(row)->name + listHeaderString.at(col - 2);
+        Data* data = findDataByName(listErrorCode.at(row)->listData, dataName);
         return data;
     }
     else return nullptr;

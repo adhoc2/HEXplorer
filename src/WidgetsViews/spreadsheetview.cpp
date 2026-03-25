@@ -491,6 +491,12 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
     menu->exec(QCursor::pos());
 }
 
+void SpreadsheetView::showContextMenu(QPoint p)
+{
+    this->contextMenuEvent(p);
+}
+
+
 void SpreadsheetView::findInObdView()
 {
     bool ok;

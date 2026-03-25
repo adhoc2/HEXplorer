@@ -29,6 +29,7 @@ class SpreadsheetView : public QTableView
     public:
         SpreadsheetView(QWidget *parent = 0);
         ~SpreadsheetView();
+        void showContextMenu( QPoint p );
 
 
     private:

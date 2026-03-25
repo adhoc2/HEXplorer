@@ -59,6 +59,7 @@ class ObdMergeModelEcu4 : public QAbstractTableModel
 
     private:
         QList<ErrorCode*> listErrorCode;
+        QList<QString> listHeaderString;
         ErrorCode* getErrorCode(QString name);
         QStringList listDataNameInView;
         DataContainer *dataContainer;

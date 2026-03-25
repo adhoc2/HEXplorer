@@ -7733,73 +7733,103 @@ void MDImain::readJsonFile(QNetworkAccessManager* manager, const QUrl& url, QStr
     QNetworkRequest request(url);
     QNetworkReply* reply = manager->get(request);
 
-    // Use QEventLoop to wait for the network request to complete
+    // Attendre la fin du GET
     QEventLoop eventLoop;
     QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
-    eventLoop.exec();  // This will block until the reply is finished
+    eventLoop.exec();
 
-    if (reply->error() == QNetworkReply::NoError)
+    if (reply->error() != QNetworkReply::NoError)
     {
-        QByteArray response = reply->readAll();
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
-        if (!jsonDoc.isNull())
+        qDebug() << "Error reading JSON from server:" << reply->errorString();
+        reply->deleteLater();
+        return;
+    }
+
+    QByteArray response = reply->readAll();
+    reply->deleteLater();
+
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
+    if (jsonDoc.isNull() || !jsonDoc.isObject())
+    {
+        qDebug() << "Failed to parse JSON.";
+        return;
+    }
+
+    QJsonObject jsonObj = jsonDoc.object();
+    QString key = user;
+
+    // Lire version application
+    QString appVersion = qApp ? qApp->applicationVersion()
+                              : QCoreApplication::applicationVersion();
+
+    // Timestamp ISO 8601
+    QString lastSeen = QDateTime::currentDateTimeUtc().toString(Qt::ISODate);
+
+    QJsonObject userObj;
+
+    if (jsonObj.contains(key))
+    {
+        if (jsonObj[key].isObject())
         {
-            QJsonObject jsonObj = jsonDoc.object();
+            userObj = jsonObj[key].toObject();
 
-            QString key = user;
-
-            if (jsonObj.contains(key) && jsonObj[key].isDouble())
-            {
-                // If the key exists and the value is a number, increment it
-                int currentValue = jsonObj[key].toInt();
-                jsonObj[key] = currentValue + 1;
-            }
-            else
-            {
-                // If the key does not exist, create it with value 1
-                jsonObj[key] = 1;
-            }
-
-            // Convert the modified JSON object back to a QJsonDocument
-            QJsonDocument modifiedJsonDoc(jsonObj);
-            QByteArray modifiedJsonData = modifiedJsonDoc.toJson();
-
-            // Save the modified JSON back to the server
-            QNetworkRequest putRequest(reply->url());
-            putRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-            QString concatenated = "px9TApa9:5CyCZuBf_-fXkYQY6XzQqeQJ2jN8CZeWJ88pSTkEyM0h";
-            QByteArray data = concatenated.toLocal8Bit().toBase64();
-            QString headerData = "Basic " + data;
-            putRequest.setRawHeader("Authorization", headerData.toLocal8Bit());
-
-            QNetworkReply* putReply = reply->manager()->put(putRequest, modifiedJsonData);
-
-            // Use QEventLoop to wait for the network request to complete
-            QEventLoop eventLoopPut;
-            QObject::connect(putReply, &QNetworkReply::finished, &eventLoopPut, &QEventLoop::quit);
-            eventLoopPut.exec();  // This will block until the reply is finished
-
-            if (putReply->error() == QNetworkReply::NoError)
-            {
-                qDebug() << "JSON successfully saved to the server.";
-            } else
-            {
-                qDebug() << "Error saving JSON to the server:" << putReply->errorString();
-            }
-
-            putReply->deleteLater();
-
+            int currentCount = userObj.value("count").toInt(0);
+            userObj["count"] = currentCount + 1;
+            userObj["version"] = appVersion;
+            userObj["lastSeen"] = lastSeen;
+        }
+        else if (jsonObj[key].isDouble())
+        {
+            int currentCount = jsonObj[key].toInt();
+            userObj["count"] = currentCount + 1;
+            userObj["version"] = appVersion;
+            userObj["lastSeen"] = lastSeen;
         }
         else
         {
-            qDebug() << "Failed to parse JSON.";
+            userObj["count"] = 1;
+            userObj["version"] = appVersion;
+            userObj["lastSeen"] = lastSeen;
         }
     }
     else
     {
-        qDebug() << "Error reading JSON from the server:" << reply->errorString();
+        userObj["count"] = 1;
+        userObj["version"] = appVersion;
+        userObj["lastSeen"] = lastSeen;
     }
-    reply->deleteLater();
+
+    jsonObj[key] = userObj;
+
+    QJsonDocument modifiedJsonDoc(jsonObj);
+    QByteArray modifiedJsonData = modifiedJsonDoc.toJson(QJsonDocument::Compact);
+
+    // Envoi PUT
+    QNetworkRequest putRequest(url);
+    putRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QString concatenated = "px9TApa9:5CyCZuBf_-fXkYQY6XzQqeQJ2jN8CZeWJ88pSTkEyM0h";
+    QByteArray data = concatenated.toLocal8Bit().toBase64();
+    QString headerData = "Basic " + data;
+    putRequest.setRawHeader("Authorization", headerData.toLocal8Bit());
+
+    QNetworkReply* putReply = manager->put(putRequest, modifiedJsonData);
+
+    QEventLoop eventLoopPut;
+    QObject::connect(putReply, &QNetworkReply::finished, &eventLoopPut, &QEventLoop::quit);
+    eventLoopPut.exec();
+
+    if (putReply->error() == QNetworkReply::NoError)
+    {
+        qDebug() << "JSON successfully saved to the server.";
+    }
+    else
+    {
+        qDebug() << "Error saving JSON to the server:" << putReply->errorString();
+        qDebug() << "Response:" << putReply->readAll();
+    }
+
+    putReply->deleteLater();
 }
 
 

@@ -110,11 +110,23 @@ void OnlineUpdater::parseXml(const QByteArray &xmlData)
             bool started = QProcess::startDetached(maintenanceToolPath, args);
             if (started)
             {
-                // fermeture propre si event loop active
-                if (QCoreApplication::instance()->thread()->isRunning())
-                    qApp->quit();
+
+                if (QCoreApplication::instance()
+                    && QCoreApplication::instance()->thread()->isRunning())
+                {
+                    // Event loop active → planifie un quit dans 1 seconde
+                    QTimer::singleShot(std::chrono::seconds(1),
+                                       qApp,
+                                       &QCoreApplication::quit);
+                }
                 else
-                    ::exit(0); // fallback si appelé avant exec()
+                {
+                    // Event loop pas encore lancée → dors 1s puis termine le process
+                    QThread::sleep(1);
+                    ::exit(0); // ou _exit(0) si tu veux éviter les destructeurs C++
+                }
+
+
             }
             else
             {

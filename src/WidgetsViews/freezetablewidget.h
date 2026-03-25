@@ -137,6 +137,7 @@ private:
 private slots:
       void updateSectionWidth(int logicalIndex, int oldSize, int newSize);
       void updateSectionHeight(int logicalIndex, int oldSize, int newSize);
+      void showCustomContextMenu(const QPoint &pos);
 
 };
 #endif // FREEZETABLEWIDGET_H
