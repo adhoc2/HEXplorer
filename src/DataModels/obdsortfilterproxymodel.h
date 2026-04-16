@@ -29,9 +29,10 @@ public:
 
 
 protected:
+    bool filterAcceptsRow_old(int sourceRow, const QModelIndex &sourceParent) const ;
     bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const override;
     //bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
-
+    bool lessThan(const QModelIndex &left, const QModelIndex &right) const override;
 
 private:
     bool dateInRange(const QDate &date) const;

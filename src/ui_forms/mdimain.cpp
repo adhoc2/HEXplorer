@@ -17,7 +17,7 @@
 //
 // please contact the author at : christophe.hoel@gmail.com
 
-#include "freezetablewidget.h"
+#include "spreadsheetviewwithfrozencol.h"
 #include "ui_forms/ui_mdimain.h"
 #include <QtWidgets>
 #include <QtCore>
@@ -4151,7 +4151,7 @@ void MDImain::editObd_Merge()
 
                 //create a new spreadSheet and attach the model
                 //SpreadsheetView *view = new SpreadsheetView(this);
-                FreezeTableWidget *view = new FreezeTableWidget(proxyModel);
+                SpreadsheetViewWithFrozenCol *view = new SpreadsheetViewWithFrozenCol(proxyModel);
                 srec->attach(view);
 
                 //sort

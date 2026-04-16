@@ -1,8 +1,8 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
-#ifndef FREEZETABLEWIDGET_H
-#define FREEZETABLEWIDGET_H
+#ifndef SPREADSHEETVIEWWITHFROZENCOL_H
+#define SPREADSHEETVIEWWITHFROZENCOL_H
 
 #include "spreadsheetview.h"
 #include <QTableView>
@@ -115,12 +115,12 @@ private:
     Qt::SortOrder m_sortOrder = Qt::AscendingOrder;
 };
 
-class FreezeTableWidget : public SpreadsheetView {
+class SpreadsheetViewWithFrozenCol : public SpreadsheetView {
      Q_OBJECT
 
 public:
-      FreezeTableWidget(QAbstractItemModel * model);
-      ~FreezeTableWidget();
+      SpreadsheetViewWithFrozenCol(QAbstractItemModel * model);
+      ~SpreadsheetViewWithFrozenCol();
 
 
 protected:
@@ -129,7 +129,7 @@ protected:
       void scrollTo (const QModelIndex & index, ScrollHint hint = EnsureVisible) override;
 
 private:
-      QTableView *frozenTableView;
+      QTableView *frozenColsView;
       void init();
       void updateFrozenTableGeometry();
 
@@ -140,4 +140,4 @@ private slots:
       void showCustomContextMenu(const QPoint &pos);
 
 };
-#endif // FREEZETABLEWIDGET_H
+#endif // SPREADSHEETVIEWWITHFROZENCOL_H

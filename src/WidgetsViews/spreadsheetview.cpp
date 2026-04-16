@@ -43,6 +43,7 @@
 SpreadsheetView::SpreadsheetView(QWidget *parent):QTableView(parent)
 {
     createActions();
+
     connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextMenuEvent(QPoint)));
     setContextMenuPolicy(Qt::CustomContextMenu);
     ComboBoxDelegate *combo = new ComboBoxDelegate(this);
@@ -193,7 +194,7 @@ void SpreadsheetView::createActions()
     plotAction = new QAction(tr("&Graph"), this);
     plotAction->setShortcut(Qt::Key_F4);
     plotAction->setIcon(QIcon(":/icones/AXIS.bmp"));
-    plotAction->setStatusTip(tr("plot the currebt selected label"));
+    plotAction->setStatusTip(tr("plot the current selected label"));
     connect(plotAction, SIGNAL(triggered()), this, SLOT(plot()));
     this->addAction(plotAction);
 
@@ -426,16 +427,16 @@ void SpreadsheetView::contextMenuEvent ( QPoint p )
             menu->addAction(pasteActionObd);
             menu->addSeparator();
 
-            if (index.column() == 1)
-            {
-                QAction *actionFilter = new QAction("Filter");
-                connect(actionFilter, &QAction::triggered, this, [this]() { this->setFilter_Pattern(); });
-                menu->addAction(actionFilter);
+            // if (index.column() == 1)
+            // {
+            //     QAction *actionFilter = new QAction("Filter");
+            //     connect(actionFilter, &QAction::triggered, this, [this]() { this->setFilter_Pattern(); });
+            //     menu->addAction(actionFilter);
 
-                QAction *actionResetFilter = new QAction("reset Filter");
-                connect(actionResetFilter, &QAction::triggered, this, [this]() { this->filterColumn_Name(""); });
-                menu->addAction(actionResetFilter);
-            }
+            //     QAction *actionResetFilter = new QAction("reset Filter");
+            //     connect(actionResetFilter, &QAction::triggered, this, [this]() { this->filterColumn_Name(""); });
+            //     menu->addAction(actionResetFilter);
+            // }
 
             if (index.column() > 1)
             {
@@ -544,6 +545,7 @@ void SpreadsheetView::resetAll_Filters()
     {
         obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
         proxyModel->resetAllFilters();
+        QTimer::singleShot(0, this, SLOT(resizeRowsToContents()));
     }
 }
 

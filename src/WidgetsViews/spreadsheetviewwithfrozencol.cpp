@@ -1,80 +1,80 @@
 // Copyright (C) 2016 The Qt Company Ltd.
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
-#include "freezetablewidget.h"
+#include "spreadsheetviewwithfrozencol.h"
 #include <QScrollBar>
 #include <QHeaderView>
 #include <qcheckbox.h>
 #include <qmenu.h>
 #include <qwidgetaction.h>
 
-FreezeTableWidget::FreezeTableWidget(QAbstractItemModel * model)
+SpreadsheetViewWithFrozenCol::SpreadsheetViewWithFrozenCol(QAbstractItemModel * model)
 {
     setModel(model);
-    frozenTableView = new QTableView(this);
+    frozenColsView = new QTableView(this);
 
     init();
 }
 
-FreezeTableWidget::~FreezeTableWidget()
+SpreadsheetViewWithFrozenCol::~SpreadsheetViewWithFrozenCol()
 {
-      delete frozenTableView;
+      delete frozenColsView;
 }
 
-void FreezeTableWidget::init()
+void SpreadsheetViewWithFrozenCol::init()
 {
     // set Model and global aspect
-    frozenTableView->setModel(model());
-    frozenTableView->setFocusPolicy(Qt::NoFocus);
-    frozenTableView->verticalHeader()->hide();
-    frozenTableView->setAlternatingRowColors(true);
-    frozenTableView->setSortingEnabled(true);
-    frozenTableView->sortByColumn(1, Qt::AscendingOrder);
+    frozenColsView->setModel(model());
+    frozenColsView->setFocusPolicy(Qt::NoFocus);
+    frozenColsView->verticalHeader()->hide();
+    frozenColsView->setAlternatingRowColors(true);
+    frozenColsView->setSortingEnabled(true);
+    frozenColsView->sortByColumn(1, Qt::AscendingOrder);
 
     // context Menu
-    frozenTableView->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(frozenTableView, &QWidget::customContextMenuRequested,
-            this, &FreezeTableWidget::showCustomContextMenu);
+    frozenColsView->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(frozenColsView, &QWidget::customContextMenuRequested,
+            this, &SpreadsheetViewWithFrozenCol::showCustomContextMenu);
 
     // horizonzal header displayed vertically (Frozen + Main)
-    auto *vHeaderFrozen = new VerticalHeader(Qt::Horizontal, frozenTableView);
-    frozenTableView->setHorizontalHeader(vHeaderFrozen);
+    auto *vHeaderFrozen = new VerticalHeader(Qt::Horizontal, frozenColsView);
+    frozenColsView->setHorizontalHeader(vHeaderFrozen);
 
     auto *vHeaderMain = new VerticalHeader(Qt::Horizontal, this);
     setHorizontalHeader(vHeaderMain);
 
     // stack main headers under frozenTableView headers
-    horizontalHeader()->stackUnder(frozenTableView);
-    verticalHeader()->stackUnder(frozenTableView);
+    horizontalHeader()->stackUnder(frozenColsView);
+    verticalHeader()->stackUnder(frozenColsView);
 
     // Synchronise col and rows size
     connect(horizontalHeader(), &QHeaderView::sectionResized,
-            this, &FreezeTableWidget::updateSectionWidth);
+            this, &SpreadsheetViewWithFrozenCol::updateSectionWidth);
     connect(verticalHeader(), &QHeaderView::sectionResized,
-            this, &FreezeTableWidget::updateSectionHeight);
-    frozenTableView->setColumnWidth(0, columnWidth(0));
-    frozenTableView->setColumnWidth(1, columnWidth(1));
+            this, &SpreadsheetViewWithFrozenCol::updateSectionHeight);
+    frozenColsView->setColumnWidth(0, columnWidth(0));
+    frozenColsView->setColumnWidth(1, columnWidth(1));
 
     // hide col >= 2 of frozenTableView
     for (int col = 2; col < model()->columnCount(); ++col)
-        frozenTableView->setColumnHidden(col, true);
+        frozenColsView->setColumnHidden(col, true);
 
     // Scrollbars synchronised (main + frozen)
     setHorizontalScrollMode(ScrollPerPixel);
     setVerticalScrollMode(ScrollPerPixel);
-    frozenTableView->setVerticalScrollMode((ScrollPerPixel));
-    frozenTableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    frozenTableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    frozenColsView->setVerticalScrollMode((ScrollPerPixel));
+    frozenColsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    frozenColsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    connect(frozenTableView->verticalScrollBar(), &QAbstractSlider::valueChanged,
+    connect(frozenColsView->verticalScrollBar(), &QAbstractSlider::valueChanged,
             verticalScrollBar(), &QAbstractSlider::setValue);
 
     connect(verticalScrollBar(), &QAbstractSlider::valueChanged,
-            frozenTableView->verticalScrollBar(), &QAbstractSlider::setValue);
+            frozenColsView->verticalScrollBar(), &QAbstractSlider::setValue);
 
     // Synchronise order selection indicator (Frozen + Main)
     auto *mainHeader   = horizontalHeader();
-    auto *frozenHeader = frozenTableView->horizontalHeader();
+    auto *frozenHeader = frozenColsView->horizontalHeader();
     connect(mainHeader, &QHeaderView::sortIndicatorChanged,
             this,[frozenHeader](int col, Qt::SortOrder order)
             {
@@ -95,29 +95,29 @@ void FreezeTableWidget::init()
             vHeaderFrozen, &VerticalHeader::setSortIndicator);
 
     // Global positionning and display
-    viewport()->stackUnder(frozenTableView);
-    frozenTableView->setSelectionModel(selectionModel());
-    frozenTableView->show();
+    viewport()->stackUnder(frozenColsView);
+    frozenColsView->setSelectionModel(selectionModel());
+    frozenColsView->show();
 
     updateFrozenTableGeometry();
 }
 
-void FreezeTableWidget::updateSectionWidth(int logicalIndex, int /* oldSize */, int newSize)
+void SpreadsheetViewWithFrozenCol::updateSectionWidth(int logicalIndex, int /* oldSize */, int newSize)
 {
 
     if (logicalIndex == 0 || logicalIndex == 1) {
-        frozenTableView->setColumnWidth(logicalIndex, newSize);
+        frozenColsView->setColumnWidth(logicalIndex, newSize);
         updateFrozenTableGeometry();
     }
 
 }
 
-void FreezeTableWidget::updateSectionHeight(int logicalIndex, int /* oldSize */, int newSize)
+void SpreadsheetViewWithFrozenCol::updateSectionHeight(int logicalIndex, int /* oldSize */, int newSize)
 {
-      frozenTableView->setRowHeight(logicalIndex, newSize);
+      frozenColsView->setRowHeight(logicalIndex, newSize);
 }
 
-void FreezeTableWidget::resizeEvent(QResizeEvent * event)
+void SpreadsheetViewWithFrozenCol::resizeEvent(QResizeEvent * event)
 {
       QTableView::resizeEvent(event);
       updateFrozenTableGeometry();
@@ -129,38 +129,38 @@ void FreezeTableWidget::resizeEvent(QResizeEvent * event)
     }
  }
 
- QModelIndex FreezeTableWidget::moveCursor(CursorAction cursorAction,
+ QModelIndex SpreadsheetViewWithFrozenCol::moveCursor(CursorAction cursorAction,
                                            Qt::KeyboardModifiers modifiers)
  {
      QModelIndex current = QTableView::moveCursor(cursorAction, modifiers);
 
      if (cursorAction == MoveLeft && current.column() > 1
-         && visualRect(current).topLeft().x() < frozenWidth(this, frozenTableView)) {
+         && visualRect(current).topLeft().x() < frozenWidth(this, frozenColsView)) {
 
          const int newValue = horizontalScrollBar()->value()
          + visualRect(current).topLeft().x()
-             - frozenWidth(this, frozenTableView);
+             - frozenWidth(this, frozenColsView);
          horizontalScrollBar()->setValue(newValue);
      }
      return current;
  }
 
-void FreezeTableWidget::scrollTo (const QModelIndex & index, ScrollHint hint){
+void SpreadsheetViewWithFrozenCol::scrollTo (const QModelIndex & index, ScrollHint hint){
     if (index.column() > 1)
         QTableView::scrollTo(index, hint);
 }
 
-void FreezeTableWidget::updateFrozenTableGeometry()
+void SpreadsheetViewWithFrozenCol::updateFrozenTableGeometry()
 {
-    frozenTableView->setGeometry(
+    frozenColsView->setGeometry(
         verticalHeader()->width(),                 // x
         0,                                         // y
-        frozenWidth(this, frozenTableView) + 1,             // largeur (le +1 évite une ligne d’1 px)
+        frozenWidth(this, frozenColsView) + 1,             // largeur (le +1 évite une ligne d’1 px)
         viewport()->height() + horizontalHeader()->height() // hauteur
         );
 }
 
-void FreezeTableWidget::showCustomContextMenu(const QPoint &pos)
+void SpreadsheetViewWithFrozenCol::showCustomContextMenu(const QPoint &pos)
 {
     SpreadsheetView* parentView = qobject_cast<SpreadsheetView*>(this);
 
@@ -168,7 +168,8 @@ void FreezeTableWidget::showCustomContextMenu(const QPoint &pos)
         return;
 
     // Appelle le menu prévu dans SpreadsheetView
-    parentView->showContextMenu(mapToGlobal(pos));
+    //parentView->showContextMenu(mapToGlobal(pos));
+    parentView->showContextMenu(pos);
 }
 
 

@@ -16,7 +16,26 @@ obdSortFilterProxyModel::obdSortFilterProxyModel(QObject *parent, ObdMergeModelE
     //connect(obdModel, SIGNAL(dataChanged()), this , SLOT(setFilterRegExp("")));
 }
 
-bool obdSortFilterProxyModel::filterAcceptsRow(int sourceRow,const QModelIndex &sourceParent) const
+bool obdSortFilterProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
+{
+    QVariant leftData  = sourceModel()->data(left);
+    QVariant rightData = sourceModel()->data(right);
+
+    // Tentative de conversion numérique
+    bool ok1 = false, ok2 = false;
+    double n1 = leftData.toString().toDouble(&ok1);
+    double n2 = rightData.toString().toDouble(&ok2);
+
+    // Si les 2 valeurs sont numériques → tri numérique
+    if (ok1 && ok2)
+        return n1 < n2;
+
+    // Sinon → tri texte normal
+    return QString::localeAwareCompare(leftData.toString(), rightData.toString()) < 0;
+}
+
+
+bool obdSortFilterProxyModel::filterAcceptsRow_old(int sourceRow,const QModelIndex &sourceParent) const
 {
 
     bool bl = true;
@@ -64,6 +83,42 @@ bool obdSortFilterProxyModel::filterAcceptsRow(int sourceRow,const QModelIndex &
          }
         return bl && bl_reaction;
     }
+}
+
+bool obdSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+    // Pour chaque colonne ayant un filtre
+    for (int col : filtersMap.keys())
+    {
+        QModelIndex index = sourceModel()->index(sourceRow, col, sourceParent);
+        QString cellText = sourceModel()->data(index).toString();
+
+        // Liste des valeurs filtrantes sur cette colonne
+        const QList<QString> filterValues = filtersMap.values(col);
+
+        bool columnMatches = false;
+
+        // Une colonne est valide si au moins un filtre correspond
+        for (const QString &value : filterValues)
+        {
+            QRegularExpression regex(
+                value,
+                QRegularExpression::CaseInsensitiveOption
+                );
+
+            if (cellText.contains(regex)) {
+                columnMatches = true;
+                break;
+            }
+        }
+
+        // Si la colonne ne matche aucun filtre → ligne rejetée
+        if (!columnMatches)
+            return false;
+    }
+
+    // Toutes les colonnes filtrées sont validées → ligne acceptée
+    return true;
 }
 
 Data* obdSortFilterProxyModel::getData(QModelIndex indexProxy)
@@ -148,8 +203,14 @@ void obdSortFilterProxyModel::removeFilters(QList<int> list, QString filter)
 
 void obdSortFilterProxyModel::resetAllFilters()
 {
-    this->filtersMap.clear();
+    filtersMap.clear();
 
-    QRegularExpression regExp("");
-    this->setFilterRegularExpression(regExp);
+    beginResetModel();
+
+    // Vide réellement le filtre du QSortFilterProxyModel
+    setFilterRegularExpression(QRegularExpression());
+
+    // Force Qt à recalculer le contenu filtré
+    endResetModel();
+
 }

@@ -2,7 +2,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 # Find the Qt6 components
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS REQUIRED Core Gui Widgets Xml Network Concurrent PrintSupport DataVisualization)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS REQUIRED Core Gui Widgets Xml Network Concurrent PrintSupport Graphs GraphsWidgets)
 
 # Find OpenMP
 #find_package(OpenMP REQUIRED)
@@ -212,7 +212,7 @@ set(SRCS_WIDGETSVIEWS
     WidgetsViews/finddialog.cpp    WidgetsViews/finddialog.h
     WidgetsViews/locationdialog.cpp   WidgetsViews/locationdialog.h
     WidgetsViews/scrollbar.cpp    WidgetsViews/scrollbar.h
-    WidgetsViews/freezetablewidget.cpp    WidgetsViews/freezetablewidget.h
+    WidgetsViews/spreadsheetviewwithfrozencol.cpp    WidgetsViews/spreadsheetviewwithfrozencol.h
     WidgetsViews/myqlineedit.cpp    WidgetsViews/myqlineedit.h
     WidgetsViews/projectlistwidget.cpp    WidgetsViews/projectlistwidget.h
     WidgetsViews/mytreeview.cpp WidgetsViews/mytreeview.h
@@ -224,7 +224,7 @@ set(SRCS_PLOT
     PlotGraph/canvaspicker.cpp     PlotGraph/canvaspicker.h
     PlotGraph/plot.cpp    PlotGraph/plot.h
     PlotGraph/scrollzoomer.cpp    PlotGraph/scrollzoomer.h
-    PlotGraph/surfacegraph.cpp    PlotGraph/surfacegraph.h
+    #PlotGraph/surfacegraph.cpp    PlotGraph/surfacegraph.h
     PlotGraph/zoomer.h PlotGraph/zoomer.cpp)
 
 set(SRCS 
@@ -243,6 +243,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         DataModels/obdMergeModelEcu4.cpp
         DataModels/ObdMergeModelEcu4.h
         version.h
+        PlotGraph/surfacegraph.cpp
 
 
     )
@@ -253,7 +254,7 @@ endif()
 
 # Link the Qt6 and openMP libraries to the executable
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Xml
-    Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Concurrent Qt${QT_VERSION_MAJOR}::PrintSupport Qt${QT_VERSION_MAJOR}::DataVisualization)
+    Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Concurrent Qt${QT_VERSION_MAJOR}::PrintSupport Qt${QT_VERSION_MAJOR}::Graphs  Qt${QT_VERSION_MAJOR}::GraphsWidgets)
     #OpenMP::OpenMP_CXX)
 
 if(WIN32)
