@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qwt_dyngrid_layout.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qwt_dyngrid_layout.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,51 +31,41 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSQwtDynGridLayoutENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSQwtDynGridLayoutENDCLASS = QtMocHelpers::stringData(
-    "QwtDynGridLayout"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN16QwtDynGridLayoutE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSQwtDynGridLayoutENDCLASS[] = {
+template <> constexpr inline auto QwtDynGridLayout::qt_create_metaobjectdata<qt_meta_tag_ZN16QwtDynGridLayoutE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "QwtDynGridLayout"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+    };
+    QtMocHelpers::UintData qt_properties {
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<QwtDynGridLayout, qt_meta_tag_ZN16QwtDynGridLayoutE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject QwtDynGridLayout::staticMetaObject = { {
     QMetaObject::SuperData::link<QLayout::staticMetaObject>(),
-    qt_meta_stringdata_CLASSQwtDynGridLayoutENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSQwtDynGridLayoutENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN16QwtDynGridLayoutE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN16QwtDynGridLayoutE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSQwtDynGridLayoutENDCLASS_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<QwtDynGridLayout, std::true_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN16QwtDynGridLayoutE_t>.metaTypes,
     nullptr
 } };
 
 void QwtDynGridLayout::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    (void)_o;
-    (void)_id;
+    auto *_t = static_cast<QwtDynGridLayout *>(_o);
+    (void)_t;
     (void)_c;
+    (void)_id;
     (void)_a;
 }
 
@@ -87,7 +77,7 @@ const QMetaObject *QwtDynGridLayout::metaObject() const
 void *QwtDynGridLayout::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSQwtDynGridLayoutENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN16QwtDynGridLayoutE_t>.strings))
         return static_cast<void*>(this);
     return QLayout::qt_metacast(_clname);
 }

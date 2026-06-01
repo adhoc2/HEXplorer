@@ -101,10 +101,13 @@ bool obdSortFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex 
         // Une colonne est valide si au moins un filtre correspond
         for (const QString &value : filterValues)
         {
+            //QRegularExpression regex(value, QRegularExpression::CaseInsensitiveOption);
+
             QRegularExpression regex(
-                value,
+                "^" + QRegularExpression::escape(value) + "$",
                 QRegularExpression::CaseInsensitiveOption
                 );
+
 
             if (cellText.contains(regex)) {
                 columnMatches = true;
@@ -160,6 +163,7 @@ QStringList obdSortFilterProxyModel::getUniqueValues(int column)
 
 void obdSortFilterProxyModel::addFilter(int column, QString filter)
 {
+    beginFilterChange();
     if (column == 1)
     {
         this->filtersMap.remove(column);
@@ -167,38 +171,47 @@ void obdSortFilterProxyModel::addFilter(int column, QString filter)
     this->filtersMap.insert(column,filter);
     qDebug() << "add filter : " + filter;
 
-    QRegularExpression regExp("");
-    this->setFilterRegularExpression(regExp);
+    //QRegularExpression regExp("");
+    //this->setFilterRegularExpression(regExp);
+
+    endFilterChange();
 }
 
 void obdSortFilterProxyModel::addFilters(QList<int> list, QString filter)
 {
+    beginFilterChange();
     foreach (int i, list)
     {
         this->filtersMap.insert(i,filter);
     }
 
-    QRegularExpression regExp("");
-    this->setFilterRegularExpression(regExp);
+    //QRegularExpression regExp("");
+    //this->setFilterRegularExpression(regExp);
+    endFilterChange();
 }
 
 void obdSortFilterProxyModel::removeFilter(int column, QString filter)
 {
+    beginFilterChange();
     this->filtersMap.remove(column, filter);
 
-    QRegularExpression regExp("");
-    this->setFilterRegularExpression(regExp);
+    //QRegularExpression regExp("");
+    //this->setFilterRegularExpression(regExp);
+    endFilterChange();
 }
 
 void obdSortFilterProxyModel::removeFilters(QList<int> list, QString filter)
 {
+    beginFilterChange();
+
     foreach (int i, list)
     {
         this->filtersMap.remove(i,filter);
     }
 
-    QRegularExpression regExp("");
-    this->setFilterRegularExpression(regExp);
+    //QRegularExpression regExp("");
+    //this->setFilterRegularExpression(regExp);
+    endFilterChange();
 }
 
 void obdSortFilterProxyModel::resetAllFilters()

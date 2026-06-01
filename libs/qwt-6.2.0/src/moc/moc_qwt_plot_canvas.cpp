@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qwt_plot_canvas.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qwt_plot_canvas.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,108 +31,77 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSQwtPlotCanvasENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSQwtPlotCanvasENDCLASS = QtMocHelpers::stringData(
-    "QwtPlotCanvas",
-    "replot",
-    "",
-    "invalidateBackingStore",
-    "borderPath",
-    "QPainterPath",
-    "borderRadius"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN13QwtPlotCanvasE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSQwtPlotCanvasENDCLASS[] = {
+template <> constexpr inline auto QwtPlotCanvas::qt_create_metaobjectdata<qt_meta_tag_ZN13QwtPlotCanvasE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "QwtPlotCanvas",
+        "replot",
+        "",
+        "invalidateBackingStore",
+        "borderPath",
+        "QPainterPath",
+        "QRect",
+        "borderRadius"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       3,   14, // methods
-       1,   37, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   32,    2, 0x0a,    2 /* Public */,
-
- // methods: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,   33,    2, 0x02,    3 /* Public */,
-       4,    1,   34,    2, 0x102,    4 /* Public | MethodIsConst  */,
-
- // slots: parameters
-    QMetaType::Void,
-
- // methods: parameters
-    QMetaType::Void,
-    0x80000000 | 5, QMetaType::QRect,    2,
-
- // properties: name, type, flags
-       6, QMetaType::Double, 0x00015103, uint(-1), 0,
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+        // Slot 'replot'
+        QtMocHelpers::SlotData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'invalidateBackingStore'
+        QtMocHelpers::MethodData<void()>(3, 2, QMC::AccessPublic, QMetaType::Void),
+        // Method 'borderPath'
+        QtMocHelpers::MethodData<QPainterPath(const QRect &) const>(4, 2, QMC::AccessPublic, 0x80000000 | 5, {{
+            { 0x80000000 | 6, 2 },
+        }}),
+    };
+    QtMocHelpers::UintData qt_properties {
+        // property 'borderRadius'
+        QtMocHelpers::PropertyData<double>(7, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<QwtPlotCanvas, qt_meta_tag_ZN13QwtPlotCanvasE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject QwtPlotCanvas::staticMetaObject = { {
     QMetaObject::SuperData::link<QFrame::staticMetaObject>(),
-    qt_meta_stringdata_CLASSQwtPlotCanvasENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSQwtPlotCanvasENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN13QwtPlotCanvasE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN13QwtPlotCanvasE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSQwtPlotCanvasENDCLASS_t,
-        // property 'borderRadius'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<QwtPlotCanvas, std::true_type>,
-        // method 'replot'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'invalidateBackingStore'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'borderPath'
-        QtPrivate::TypeAndForceComplete<QPainterPath, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QRect &, std::false_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN13QwtPlotCanvasE_t>.metaTypes,
     nullptr
 } };
 
 void QwtPlotCanvas::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+    auto *_t = static_cast<QwtPlotCanvas *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<QwtPlotCanvas *>(_o);
-        (void)_t;
         switch (_id) {
         case 0: _t->replot(); break;
         case 1: _t->invalidateBackingStore(); break;
-        case 2: { QPainterPath _r = _t->borderPath((*reinterpret_cast< std::add_pointer_t<QRect>>(_a[1])));
-            if (_a[0]) *reinterpret_cast< QPainterPath*>(_a[0]) = std::move(_r); }  break;
+        case 2: { QPainterPath _r = _t->borderPath((*reinterpret_cast<std::add_pointer_t<QRect>>(_a[1])));
+            if (_a[0]) *reinterpret_cast<QPainterPath*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
-    } else if (_c == QMetaObject::ReadProperty) {
-        auto *_t = static_cast<QwtPlotCanvas *>(_o);
-        (void)_t;
+    }
+    if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< double*>(_v) = _t->borderRadius(); break;
+        case 0: *reinterpret_cast<double*>(_v) = _t->borderRadius(); break;
         default: break;
         }
-    } else if (_c == QMetaObject::WriteProperty) {
-        auto *_t = static_cast<QwtPlotCanvas *>(_o);
-        (void)_t;
+    }
+    if (_c == QMetaObject::WriteProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: _t->setBorderRadius(*reinterpret_cast< double*>(_v)); break;
+        case 0: _t->setBorderRadius(*reinterpret_cast<double*>(_v)); break;
         default: break;
         }
-    } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
 }
 
@@ -144,7 +113,7 @@ const QMetaObject *QwtPlotCanvas::metaObject() const
 void *QwtPlotCanvas::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSQwtPlotCanvasENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN13QwtPlotCanvasE_t>.strings))
         return static_cast<void*>(this);
     if (!strcmp(_clname, "QwtPlotAbstractCanvas"))
         return static_cast< QwtPlotAbstractCanvas*>(this);
@@ -160,11 +129,13 @@ int QwtPlotCanvas::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 3;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 3;
-    }else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+    }
+    if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);

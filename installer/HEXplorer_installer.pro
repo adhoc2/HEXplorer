@@ -1,6 +1,6 @@
 TEMPLATE = aux
 
-# C:\Qt\6.10.0\msvc2022_64\bin\windeployqt.exe C:\Users\lmbhoc2\Documents\code\HEXplorer\build\Desktop_Qt_6_10_0_MSVC2022_64bit-Release\src\HEXplorer.exe
+# C:\Qt\6.11.0\msvc2022_64\bin\windeployqt.exe C:\Users\lmbhoc2\Documents\code\HEXplorer\build\Desktop_Qt_6_11_0_MSVC2022_64bit-Release\src\HEXplorer.exe
 # C:\Qt\Tools\QtInstallerFramework\4.11\bin\repogen -p path\to\spackages path\HEXplorer_repo
 # C:\Qt\Tools\QtInstallerFramework\4.11\bin\repogen.exe --update-new-components -p path\to\packages  path\to\HEXplorer_repo
 

@@ -25,6 +25,7 @@
 #include <QList>
 #include <QString>
 #include <QTextStream>
+#include <QIODevice>
 #include <QHash>
 
 
@@ -46,7 +47,7 @@ enum Occurence
 class Buffer
 {
     public:
-        Buffer();
+        Buffer();        
         void read(QTextStream *in);
         void read(QTextStream &in);
         QChar getAndClear();

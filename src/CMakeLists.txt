@@ -169,8 +169,8 @@ set(SRCS_NODES
 set(SRCS_LEXER
     ASAP2/a2lgrammar.h
     ASAP2/basefactory.h
-    ASAP2/lexer.cpp
-    ASAP2/lexer.h
+
+
 )
 
 set(SRCS_DATACONTAINERS
@@ -244,8 +244,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         DataModels/ObdMergeModelEcu4.h
         version.h
         PlotGraph/surfacegraph.cpp
-
-
+        ASAP2/lexer.h
+        ASAP2/lexer.cpp
     )
 else()
     add_executable(${CMAKE_PROJECT_NAME} ${SRCS} ${SRCS_LEXER} ${SRCS_NODES} ${SRCS_ITEMS} ${SRCS_DATACONTAINERS} ${SRCS_DATAMODELS} ${SRCS_WIDGETSVIEWS} ${SRCS_PLOT} ${UI_FORMS})
@@ -276,6 +276,7 @@ if(WIN32)
         set(LIB_DIR "/libs/build/msvc/")
         set(QSCINTILLA_LIB "qscintilla2_qt6.lib")
         set(QWT_LIB "qwt.lib")
+        set(QWTD_LIB "qwtd.lib")
     endif()
 
     link_directories(${CMAKE_SOURCE_DIR}/${LIB_DIR})
@@ -284,7 +285,8 @@ if(WIN32)
     target_link_libraries(
         ${CMAKE_PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
         ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QSCINTILLA_LIB}
-        ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QWT_LIB})
+        optimized ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QWT_LIB}
+        debug ${CMAKE_SOURCE_DIR}/${LIB_DIR}/${QWTD_LIB})
 
     # Add preprocessor definitions
     target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE QT_DLL QSCINTILLA_DLL QWT_DLL)

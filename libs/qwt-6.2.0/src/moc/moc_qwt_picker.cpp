@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qwt_picker.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qwt_picker.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,262 +31,192 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSQwtPickerENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSQwtPickerENDCLASS = QtMocHelpers::stringData(
-    "QwtPicker",
-    "activated",
-    "",
-    "on",
-    "selected",
-    "polygon",
-    "appended",
-    "pos",
-    "moved",
-    "removed",
-    "changed",
-    "selection",
-    "setEnabled",
-    "isEnabled",
-    "resizeMode",
-    "ResizeMode",
-    "trackerMode",
-    "DisplayMode",
-    "trackerPen",
-    "trackerFont",
-    "rubberBand",
-    "RubberBand",
-    "rubberBandPen",
-    "NoRubberBand",
-    "HLineRubberBand",
-    "VLineRubberBand",
-    "CrossRubberBand",
-    "RectRubberBand",
-    "EllipseRubberBand",
-    "PolygonRubberBand",
-    "UserRubberBand",
-    "AlwaysOff",
-    "AlwaysOn",
-    "ActiveOnly",
-    "Stretch",
-    "KeepSize"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN9QwtPickerE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSQwtPickerENDCLASS[] = {
+template <> constexpr inline auto QwtPicker::qt_create_metaobjectdata<qt_meta_tag_ZN9QwtPickerE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "QwtPicker",
+        "activated",
+        "",
+        "on",
+        "selected",
+        "QPolygon",
+        "polygon",
+        "appended",
+        "QPoint",
+        "pos",
+        "moved",
+        "removed",
+        "changed",
+        "selection",
+        "setEnabled",
+        "isEnabled",
+        "resizeMode",
+        "ResizeMode",
+        "trackerMode",
+        "DisplayMode",
+        "trackerPen",
+        "QPen",
+        "trackerFont",
+        "QFont",
+        "rubberBand",
+        "RubberBand",
+        "rubberBandPen",
+        "NoRubberBand",
+        "HLineRubberBand",
+        "VLineRubberBand",
+        "CrossRubberBand",
+        "RectRubberBand",
+        "EllipseRubberBand",
+        "PolygonRubberBand",
+        "UserRubberBand",
+        "AlwaysOff",
+        "AlwaysOn",
+        "ActiveOnly",
+        "Stretch",
+        "KeepSize"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       7,   14, // methods
-       7,   77, // properties
-       3,  112, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       6,       // signalCount
-
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   56,    2, 0x06,   11 /* Public */,
-       4,    1,   59,    2, 0x06,   13 /* Public */,
-       6,    1,   62,    2, 0x06,   15 /* Public */,
-       8,    1,   65,    2, 0x06,   17 /* Public */,
-       9,    1,   68,    2, 0x06,   19 /* Public */,
-      10,    1,   71,    2, 0x06,   21 /* Public */,
-
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      12,    1,   74,    2, 0x0a,   23 /* Public */,
-
- // signals: parameters
-    QMetaType::Void, QMetaType::Bool,    3,
-    QMetaType::Void, QMetaType::QPolygon,    5,
-    QMetaType::Void, QMetaType::QPoint,    7,
-    QMetaType::Void, QMetaType::QPoint,    7,
-    QMetaType::Void, QMetaType::QPoint,    7,
-    QMetaType::Void, QMetaType::QPolygon,   11,
-
- // slots: parameters
-    QMetaType::Void, QMetaType::Bool,    2,
-
- // properties: name, type, flags
-      13, QMetaType::Bool, 0x00015003, uint(-1), 0,
-      14, 0x80000000 | 15, 0x0001510b, uint(-1), 0,
-      16, 0x80000000 | 17, 0x0001510b, uint(-1), 0,
-      18, QMetaType::QPen, 0x00015103, uint(-1), 0,
-      19, QMetaType::QFont, 0x00015103, uint(-1), 0,
-      20, 0x80000000 | 21, 0x0001510b, uint(-1), 0,
-      22, QMetaType::QPen, 0x00015103, uint(-1), 0,
-
- // enums: name, alias, flags, count, data
-      21,   21, 0x0,    8,  127,
-      17,   17, 0x0,    3,  143,
-      15,   15, 0x0,    2,  149,
-
- // enum data: key, value
-      23, uint(QwtPicker::NoRubberBand),
-      24, uint(QwtPicker::HLineRubberBand),
-      25, uint(QwtPicker::VLineRubberBand),
-      26, uint(QwtPicker::CrossRubberBand),
-      27, uint(QwtPicker::RectRubberBand),
-      28, uint(QwtPicker::EllipseRubberBand),
-      29, uint(QwtPicker::PolygonRubberBand),
-      30, uint(QwtPicker::UserRubberBand),
-      31, uint(QwtPicker::AlwaysOff),
-      32, uint(QwtPicker::AlwaysOn),
-      33, uint(QwtPicker::ActiveOnly),
-      34, uint(QwtPicker::Stretch),
-      35, uint(QwtPicker::KeepSize),
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+        // Signal 'activated'
+        QtMocHelpers::SignalData<void(bool)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Bool, 3 },
+        }}),
+        // Signal 'selected'
+        QtMocHelpers::SignalData<void(const QPolygon &)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 5, 6 },
+        }}),
+        // Signal 'appended'
+        QtMocHelpers::SignalData<void(const QPoint &)>(7, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 8, 9 },
+        }}),
+        // Signal 'moved'
+        QtMocHelpers::SignalData<void(const QPoint &)>(10, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 8, 9 },
+        }}),
+        // Signal 'removed'
+        QtMocHelpers::SignalData<void(const QPoint &)>(11, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 8, 9 },
+        }}),
+        // Signal 'changed'
+        QtMocHelpers::SignalData<void(const QPolygon &)>(12, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 5, 13 },
+        }}),
+        // Slot 'setEnabled'
+        QtMocHelpers::SlotData<void(bool)>(14, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Bool, 2 },
+        }}),
+    };
+    QtMocHelpers::UintData qt_properties {
+        // property 'isEnabled'
+        QtMocHelpers::PropertyData<bool>(15, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable),
+        // property 'resizeMode'
+        QtMocHelpers::PropertyData<enum ResizeMode>(16, 0x80000000 | 17, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'trackerMode'
+        QtMocHelpers::PropertyData<enum DisplayMode>(18, 0x80000000 | 19, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'trackerPen'
+        QtMocHelpers::PropertyData<QPen>(20, 0x80000000 | 21, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'trackerFont'
+        QtMocHelpers::PropertyData<QFont>(22, 0x80000000 | 23, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'rubberBand'
+        QtMocHelpers::PropertyData<enum RubberBand>(24, 0x80000000 | 25, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'rubberBandPen'
+        QtMocHelpers::PropertyData<QPen>(26, 0x80000000 | 21, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+    };
+    QtMocHelpers::UintData qt_enums {
+        // enum 'RubberBand'
+        QtMocHelpers::EnumData<enum RubberBand>(25, 25, QMC::EnumFlags{}).add({
+            {   27, RubberBand::NoRubberBand },
+            {   28, RubberBand::HLineRubberBand },
+            {   29, RubberBand::VLineRubberBand },
+            {   30, RubberBand::CrossRubberBand },
+            {   31, RubberBand::RectRubberBand },
+            {   32, RubberBand::EllipseRubberBand },
+            {   33, RubberBand::PolygonRubberBand },
+            {   34, RubberBand::UserRubberBand },
+        }),
+        // enum 'DisplayMode'
+        QtMocHelpers::EnumData<enum DisplayMode>(19, 19, QMC::EnumFlags{}).add({
+            {   35, DisplayMode::AlwaysOff },
+            {   36, DisplayMode::AlwaysOn },
+            {   37, DisplayMode::ActiveOnly },
+        }),
+        // enum 'ResizeMode'
+        QtMocHelpers::EnumData<enum ResizeMode>(17, 17, QMC::EnumFlags{}).add({
+            {   38, ResizeMode::Stretch },
+            {   39, ResizeMode::KeepSize },
+        }),
+    };
+    return QtMocHelpers::metaObjectData<QwtPicker, qt_meta_tag_ZN9QwtPickerE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject QwtPicker::staticMetaObject = { {
     QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_CLASSQwtPickerENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSQwtPickerENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN9QwtPickerE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN9QwtPickerE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSQwtPickerENDCLASS_t,
-        // property 'isEnabled'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // property 'resizeMode'
-        QtPrivate::TypeAndForceComplete<ResizeMode, std::true_type>,
-        // property 'trackerMode'
-        QtPrivate::TypeAndForceComplete<DisplayMode, std::true_type>,
-        // property 'trackerPen'
-        QtPrivate::TypeAndForceComplete<QPen, std::true_type>,
-        // property 'trackerFont'
-        QtPrivate::TypeAndForceComplete<QFont, std::true_type>,
-        // property 'rubberBand'
-        QtPrivate::TypeAndForceComplete<RubberBand, std::true_type>,
-        // property 'rubberBandPen'
-        QtPrivate::TypeAndForceComplete<QPen, std::true_type>,
-        // enum 'RubberBand'
-        QtPrivate::TypeAndForceComplete<QwtPicker::RubberBand, std::true_type>,
-        // enum 'DisplayMode'
-        QtPrivate::TypeAndForceComplete<QwtPicker::DisplayMode, std::true_type>,
-        // enum 'ResizeMode'
-        QtPrivate::TypeAndForceComplete<QwtPicker::ResizeMode, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<QwtPicker, std::true_type>,
-        // method 'activated'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
-        // method 'selected'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPolygon &, std::false_type>,
-        // method 'appended'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>,
-        // method 'moved'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>,
-        // method 'removed'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPoint &, std::false_type>,
-        // method 'changed'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const QPolygon &, std::false_type>,
-        // method 'setEnabled'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN9QwtPickerE_t>.metaTypes,
     nullptr
 } };
 
 void QwtPicker::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+    auto *_t = static_cast<QwtPicker *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<QwtPicker *>(_o);
-        (void)_t;
         switch (_id) {
-        case 0: _t->activated((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 1: _t->selected((*reinterpret_cast< std::add_pointer_t<QPolygon>>(_a[1]))); break;
-        case 2: _t->appended((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
-        case 3: _t->moved((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
-        case 4: _t->removed((*reinterpret_cast< std::add_pointer_t<QPoint>>(_a[1]))); break;
-        case 5: _t->changed((*reinterpret_cast< std::add_pointer_t<QPolygon>>(_a[1]))); break;
-        case 6: _t->setEnabled((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 0: _t->activated((*reinterpret_cast<std::add_pointer_t<bool>>(_a[1]))); break;
+        case 1: _t->selected((*reinterpret_cast<std::add_pointer_t<QPolygon>>(_a[1]))); break;
+        case 2: _t->appended((*reinterpret_cast<std::add_pointer_t<QPoint>>(_a[1]))); break;
+        case 3: _t->moved((*reinterpret_cast<std::add_pointer_t<QPoint>>(_a[1]))); break;
+        case 4: _t->removed((*reinterpret_cast<std::add_pointer_t<QPoint>>(_a[1]))); break;
+        case 5: _t->changed((*reinterpret_cast<std::add_pointer_t<QPolygon>>(_a[1]))); break;
+        case 6: _t->setEnabled((*reinterpret_cast<std::add_pointer_t<bool>>(_a[1]))); break;
         default: ;
         }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        {
-            using _t = void (QwtPicker::*)(bool );
-            if (_t _q_method = &QwtPicker::activated; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 0;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtPicker::*)(const QPolygon & );
-            if (_t _q_method = &QwtPicker::selected; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 1;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtPicker::*)(const QPoint & );
-            if (_t _q_method = &QwtPicker::appended; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 2;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtPicker::*)(const QPoint & );
-            if (_t _q_method = &QwtPicker::moved; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 3;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtPicker::*)(const QPoint & );
-            if (_t _q_method = &QwtPicker::removed; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 4;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtPicker::*)(const QPolygon & );
-            if (_t _q_method = &QwtPicker::changed; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 5;
-                return;
-            }
-        }
-    } else if (_c == QMetaObject::ReadProperty) {
-        auto *_t = static_cast<QwtPicker *>(_o);
-        (void)_t;
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (QwtPicker::*)(bool )>(_a, &QwtPicker::activated, 0))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtPicker::*)(const QPolygon & )>(_a, &QwtPicker::selected, 1))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtPicker::*)(const QPoint & )>(_a, &QwtPicker::appended, 2))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtPicker::*)(const QPoint & )>(_a, &QwtPicker::moved, 3))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtPicker::*)(const QPoint & )>(_a, &QwtPicker::removed, 4))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtPicker::*)(const QPolygon & )>(_a, &QwtPicker::changed, 5))
+            return;
+    }
+    if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< bool*>(_v) = _t->isEnabled(); break;
-        case 1: *reinterpret_cast< ResizeMode*>(_v) = _t->resizeMode(); break;
-        case 2: *reinterpret_cast< DisplayMode*>(_v) = _t->trackerMode(); break;
-        case 3: *reinterpret_cast< QPen*>(_v) = _t->trackerPen(); break;
-        case 4: *reinterpret_cast< QFont*>(_v) = _t->trackerFont(); break;
-        case 5: *reinterpret_cast< RubberBand*>(_v) = _t->rubberBand(); break;
-        case 6: *reinterpret_cast< QPen*>(_v) = _t->rubberBandPen(); break;
+        case 0: *reinterpret_cast<bool*>(_v) = _t->isEnabled(); break;
+        case 1: *reinterpret_cast<enum ResizeMode*>(_v) = _t->resizeMode(); break;
+        case 2: *reinterpret_cast<enum DisplayMode*>(_v) = _t->trackerMode(); break;
+        case 3: *reinterpret_cast<QPen*>(_v) = _t->trackerPen(); break;
+        case 4: *reinterpret_cast<QFont*>(_v) = _t->trackerFont(); break;
+        case 5: *reinterpret_cast<enum RubberBand*>(_v) = _t->rubberBand(); break;
+        case 6: *reinterpret_cast<QPen*>(_v) = _t->rubberBandPen(); break;
         default: break;
         }
-    } else if (_c == QMetaObject::WriteProperty) {
-        auto *_t = static_cast<QwtPicker *>(_o);
-        (void)_t;
+    }
+    if (_c == QMetaObject::WriteProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: _t->setEnabled(*reinterpret_cast< bool*>(_v)); break;
-        case 1: _t->setResizeMode(*reinterpret_cast< ResizeMode*>(_v)); break;
-        case 2: _t->setTrackerMode(*reinterpret_cast< DisplayMode*>(_v)); break;
-        case 3: _t->setTrackerPen(*reinterpret_cast< QPen*>(_v)); break;
-        case 4: _t->setTrackerFont(*reinterpret_cast< QFont*>(_v)); break;
-        case 5: _t->setRubberBand(*reinterpret_cast< RubberBand*>(_v)); break;
-        case 6: _t->setRubberBandPen(*reinterpret_cast< QPen*>(_v)); break;
+        case 0: _t->setEnabled(*reinterpret_cast<bool*>(_v)); break;
+        case 1: _t->setResizeMode(*reinterpret_cast<enum ResizeMode*>(_v)); break;
+        case 2: _t->setTrackerMode(*reinterpret_cast<enum DisplayMode*>(_v)); break;
+        case 3: _t->setTrackerPen(*reinterpret_cast<QPen*>(_v)); break;
+        case 4: _t->setTrackerFont(*reinterpret_cast<QFont*>(_v)); break;
+        case 5: _t->setRubberBand(*reinterpret_cast<enum RubberBand*>(_v)); break;
+        case 6: _t->setRubberBandPen(*reinterpret_cast<QPen*>(_v)); break;
         default: break;
         }
-    } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
 }
 
@@ -298,7 +228,7 @@ const QMetaObject *QwtPicker::metaObject() const
 void *QwtPicker::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSQwtPickerENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN9QwtPickerE_t>.strings))
         return static_cast<void*>(this);
     if (!strcmp(_clname, "QwtEventPattern"))
         return static_cast< QwtEventPattern*>(this);
@@ -314,11 +244,13 @@ int QwtPicker::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 7;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 7;
-    }else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+    }
+    if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
@@ -330,42 +262,36 @@ int QwtPicker::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void QwtPicker::activated(bool _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 0, nullptr, _t1);
 }
 
 // SIGNAL 1
 void QwtPicker::selected(const QPolygon & _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1);
 }
 
 // SIGNAL 2
 void QwtPicker::appended(const QPoint & _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1);
 }
 
 // SIGNAL 3
 void QwtPicker::moved(const QPoint & _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 3, nullptr, _t1);
 }
 
 // SIGNAL 4
 void QwtPicker::removed(const QPoint & _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 4, nullptr, _t1);
 }
 
 // SIGNAL 5
 void QwtPicker::changed(const QPolygon & _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 5, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 5, nullptr, _t1);
 }
 QT_WARNING_POP

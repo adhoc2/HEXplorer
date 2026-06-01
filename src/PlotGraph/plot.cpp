@@ -31,8 +31,7 @@
 #include "cdfxfile.h"
 #include "dcmfile.h"
 
-
-Plot::Plot(GraphModel *mod, QString type) : QwtPlot()
+Plot::Plot(GraphModel *mod, QWidget *parent, QString type) : QwtPlot(parent)
 {
     setAutoReplot(false);
 

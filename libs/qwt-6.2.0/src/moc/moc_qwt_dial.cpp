@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qwt_dial.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qwt_dial.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,129 +31,98 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSQwtDialENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSQwtDialENDCLASS = QtMocHelpers::stringData(
-    "QwtDial",
-    "lineWidth",
-    "frameShadow",
-    "Shadow",
-    "mode",
-    "Mode",
-    "origin",
-    "minScaleArc",
-    "maxScaleArc",
-    "Plain",
-    "Raised",
-    "Sunken",
-    "RotateNeedle",
-    "RotateScale"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN7QwtDialE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSQwtDialENDCLASS[] = {
+template <> constexpr inline auto QwtDial::qt_create_metaobjectdata<qt_meta_tag_ZN7QwtDialE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "QwtDial",
+        "lineWidth",
+        "frameShadow",
+        "Shadow",
+        "mode",
+        "Mode",
+        "origin",
+        "minScaleArc",
+        "maxScaleArc",
+        "Plain",
+        "Raised",
+        "Sunken",
+        "RotateNeedle",
+        "RotateScale"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       6,   14, // properties
-       2,   44, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
- // properties: name, type, flags
-       1, QMetaType::Int, 0x00015103, uint(-1), 0,
-       2, 0x80000000 | 3, 0x0001510b, uint(-1), 0,
-       4, 0x80000000 | 5, 0x0001510b, uint(-1), 0,
-       6, QMetaType::Double, 0x00015103, uint(-1), 0,
-       7, QMetaType::Double, 0x00015103, uint(-1), 0,
-       8, QMetaType::Double, 0x00015103, uint(-1), 0,
-
- // enums: name, alias, flags, count, data
-       3,    3, 0x0,    3,   54,
-       5,    5, 0x0,    2,   60,
-
- // enum data: key, value
-       9, uint(QwtDial::Plain),
-      10, uint(QwtDial::Raised),
-      11, uint(QwtDial::Sunken),
-      12, uint(QwtDial::RotateNeedle),
-      13, uint(QwtDial::RotateScale),
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+    };
+    QtMocHelpers::UintData qt_properties {
+        // property 'lineWidth'
+        QtMocHelpers::PropertyData<int>(1, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'frameShadow'
+        QtMocHelpers::PropertyData<enum Shadow>(2, 0x80000000 | 3, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'mode'
+        QtMocHelpers::PropertyData<enum Mode>(4, 0x80000000 | 5, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'origin'
+        QtMocHelpers::PropertyData<double>(6, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'minScaleArc'
+        QtMocHelpers::PropertyData<double>(7, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'maxScaleArc'
+        QtMocHelpers::PropertyData<double>(8, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+    };
+    QtMocHelpers::UintData qt_enums {
+        // enum 'Shadow'
+        QtMocHelpers::EnumData<enum Shadow>(3, 3, QMC::EnumFlags{}).add({
+            {    9, Shadow::Plain },
+            {   10, Shadow::Raised },
+            {   11, Shadow::Sunken },
+        }),
+        // enum 'Mode'
+        QtMocHelpers::EnumData<enum Mode>(5, 5, QMC::EnumFlags{}).add({
+            {   12, Mode::RotateNeedle },
+            {   13, Mode::RotateScale },
+        }),
+    };
+    return QtMocHelpers::metaObjectData<QwtDial, qt_meta_tag_ZN7QwtDialE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject QwtDial::staticMetaObject = { {
     QMetaObject::SuperData::link<QwtAbstractSlider::staticMetaObject>(),
-    qt_meta_stringdata_CLASSQwtDialENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSQwtDialENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN7QwtDialE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN7QwtDialE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSQwtDialENDCLASS_t,
-        // property 'lineWidth'
-        QtPrivate::TypeAndForceComplete<int, std::true_type>,
-        // property 'frameShadow'
-        QtPrivate::TypeAndForceComplete<Shadow, std::true_type>,
-        // property 'mode'
-        QtPrivate::TypeAndForceComplete<Mode, std::true_type>,
-        // property 'origin'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // property 'minScaleArc'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // property 'maxScaleArc'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // enum 'Shadow'
-        QtPrivate::TypeAndForceComplete<QwtDial::Shadow, std::true_type>,
-        // enum 'Mode'
-        QtPrivate::TypeAndForceComplete<QwtDial::Mode, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<QwtDial, std::true_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN7QwtDialE_t>.metaTypes,
     nullptr
 } };
 
 void QwtDial::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-if (_c == QMetaObject::ReadProperty) {
-        auto *_t = static_cast<QwtDial *>(_o);
-        (void)_t;
+    auto *_t = static_cast<QwtDial *>(_o);
+    if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< int*>(_v) = _t->lineWidth(); break;
-        case 1: *reinterpret_cast< Shadow*>(_v) = _t->frameShadow(); break;
-        case 2: *reinterpret_cast< Mode*>(_v) = _t->mode(); break;
-        case 3: *reinterpret_cast< double*>(_v) = _t->origin(); break;
-        case 4: *reinterpret_cast< double*>(_v) = _t->minScaleArc(); break;
-        case 5: *reinterpret_cast< double*>(_v) = _t->maxScaleArc(); break;
+        case 0: *reinterpret_cast<int*>(_v) = _t->lineWidth(); break;
+        case 1: *reinterpret_cast<enum Shadow*>(_v) = _t->frameShadow(); break;
+        case 2: *reinterpret_cast<enum Mode*>(_v) = _t->mode(); break;
+        case 3: *reinterpret_cast<double*>(_v) = _t->origin(); break;
+        case 4: *reinterpret_cast<double*>(_v) = _t->minScaleArc(); break;
+        case 5: *reinterpret_cast<double*>(_v) = _t->maxScaleArc(); break;
         default: break;
         }
-    } else if (_c == QMetaObject::WriteProperty) {
-        auto *_t = static_cast<QwtDial *>(_o);
-        (void)_t;
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: _t->setLineWidth(*reinterpret_cast< int*>(_v)); break;
-        case 1: _t->setFrameShadow(*reinterpret_cast< Shadow*>(_v)); break;
-        case 2: _t->setMode(*reinterpret_cast< Mode*>(_v)); break;
-        case 3: _t->setOrigin(*reinterpret_cast< double*>(_v)); break;
-        case 4: _t->setMinScaleArc(*reinterpret_cast< double*>(_v)); break;
-        case 5: _t->setMaxScaleArc(*reinterpret_cast< double*>(_v)); break;
-        default: break;
-        }
-    } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
-    (void)_o;
-    (void)_id;
-    (void)_c;
-    (void)_a;
+    if (_c == QMetaObject::WriteProperty) {
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setLineWidth(*reinterpret_cast<int*>(_v)); break;
+        case 1: _t->setFrameShadow(*reinterpret_cast<enum Shadow*>(_v)); break;
+        case 2: _t->setMode(*reinterpret_cast<enum Mode*>(_v)); break;
+        case 3: _t->setOrigin(*reinterpret_cast<double*>(_v)); break;
+        case 4: _t->setMinScaleArc(*reinterpret_cast<double*>(_v)); break;
+        case 5: _t->setMaxScaleArc(*reinterpret_cast<double*>(_v)); break;
+        default: break;
+        }
+    }
 }
 
 const QMetaObject *QwtDial::metaObject() const
@@ -164,7 +133,7 @@ const QMetaObject *QwtDial::metaObject() const
 void *QwtDial::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSQwtDialENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN7QwtDialE_t>.strings))
         return static_cast<void*>(this);
     return QwtAbstractSlider::qt_metacast(_clname);
 }

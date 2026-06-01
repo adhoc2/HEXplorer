@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'RandomPlot.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'RandomPlot.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,122 +31,82 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSRandomPlotENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSRandomPlotENDCLASS = QtMocHelpers::stringData(
-    "RandomPlot",
-    "running",
-    "",
-    "elapsed",
-    "ms",
-    "clear",
-    "stop",
-    "append",
-    "timeout",
-    "count",
-    "appendPoint"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN10RandomPlotE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSRandomPlotENDCLASS[] = {
+template <> constexpr inline auto RandomPlot::qt_create_metaobjectdata<qt_meta_tag_ZN10RandomPlotE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "RandomPlot",
+        "running",
+        "",
+        "elapsed",
+        "ms",
+        "clear",
+        "stop",
+        "append",
+        "timeout",
+        "count",
+        "appendPoint"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       6,   14, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       2,       // signalCount
-
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   50,    2, 0x06,    1 /* Public */,
-       3,    1,   53,    2, 0x06,    3 /* Public */,
-
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    0,   56,    2, 0x0a,    5 /* Public */,
-       6,    0,   57,    2, 0x0a,    6 /* Public */,
-       7,    2,   58,    2, 0x0a,    7 /* Public */,
-      10,    0,   63,    2, 0x08,   10 /* Private */,
-
- // signals: parameters
-    QMetaType::Void, QMetaType::Bool,    2,
-    QMetaType::Void, QMetaType::Int,    4,
-
- // slots: parameters
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,    8,    9,
-    QMetaType::Void,
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+        // Signal 'running'
+        QtMocHelpers::SignalData<void(bool)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Bool, 2 },
+        }}),
+        // Signal 'elapsed'
+        QtMocHelpers::SignalData<void(int)>(3, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 4 },
+        }}),
+        // Slot 'clear'
+        QtMocHelpers::SlotData<void()>(5, 2, QMC::AccessPublic, QMetaType::Void),
+        // Slot 'stop'
+        QtMocHelpers::SlotData<void()>(6, 2, QMC::AccessPublic, QMetaType::Void),
+        // Slot 'append'
+        QtMocHelpers::SlotData<void(int, int)>(7, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 8 }, { QMetaType::Int, 9 },
+        }}),
+        // Slot 'appendPoint'
+        QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
+    };
+    QtMocHelpers::UintData qt_properties {
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<RandomPlot, qt_meta_tag_ZN10RandomPlotE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject RandomPlot::staticMetaObject = { {
     QMetaObject::SuperData::link<IncrementalPlot::staticMetaObject>(),
-    qt_meta_stringdata_CLASSRandomPlotENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSRandomPlotENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN10RandomPlotE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN10RandomPlotE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSRandomPlotENDCLASS_t,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<RandomPlot, std::true_type>,
-        // method 'running'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
-        // method 'elapsed'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'clear'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'stop'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'append'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        // method 'appendPoint'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN10RandomPlotE_t>.metaTypes,
     nullptr
 } };
 
 void RandomPlot::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+    auto *_t = static_cast<RandomPlot *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<RandomPlot *>(_o);
-        (void)_t;
         switch (_id) {
-        case 0: _t->running((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 1: _t->elapsed((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 0: _t->running((*reinterpret_cast<std::add_pointer_t<bool>>(_a[1]))); break;
+        case 1: _t->elapsed((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 2: _t->clear(); break;
         case 3: _t->stop(); break;
-        case 4: _t->append((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 4: _t->append((*reinterpret_cast<std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[2]))); break;
         case 5: _t->appendPoint(); break;
         default: ;
         }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        {
-            using _t = void (RandomPlot::*)(bool );
-            if (_t _q_method = &RandomPlot::running; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 0;
-                return;
-            }
-        }
-        {
-            using _t = void (RandomPlot::*)(int );
-            if (_t _q_method = &RandomPlot::elapsed; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 1;
-                return;
-            }
-        }
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (RandomPlot::*)(bool )>(_a, &RandomPlot::running, 0))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (RandomPlot::*)(int )>(_a, &RandomPlot::elapsed, 1))
+            return;
     }
 }
 
@@ -158,7 +118,7 @@ const QMetaObject *RandomPlot::metaObject() const
 void *RandomPlot::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSRandomPlotENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN10RandomPlotE_t>.strings))
         return static_cast<void*>(this);
     return IncrementalPlot::qt_metacast(_clname);
 }
@@ -172,7 +132,8 @@ int RandomPlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 6;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 6;
@@ -183,14 +144,12 @@ int RandomPlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void RandomPlot::running(bool _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 0, nullptr, _t1);
 }
 
 // SIGNAL 1
 void RandomPlot::elapsed(int _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1);
 }
 QT_WARNING_POP

@@ -84,7 +84,6 @@ QVariant CompareModel::data(const QModelIndex &index, int role) const
         }
         else if (row > listDataIndex.at(mid))
         {
-            //if (row < listDataIndex.at(mid + 1))
             if (row < (listDataIndex.at(mid) + listDat1->at(mid)->size + listDat2->at(mid)->size))
             {
                 ind = mid;

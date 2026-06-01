@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qwt_abstract_scale.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qwt_abstract_scale.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,101 +31,75 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSQwtAbstractScaleENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSQwtAbstractScaleENDCLASS = QtMocHelpers::stringData(
-    "QwtAbstractScale",
-    "lowerBound",
-    "upperBound",
-    "scaleMaxMajor",
-    "scaleMaxMinor",
-    "scaleStepSize"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN16QwtAbstractScaleE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSQwtAbstractScaleENDCLASS[] = {
+template <> constexpr inline auto QwtAbstractScale::qt_create_metaobjectdata<qt_meta_tag_ZN16QwtAbstractScaleE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "QwtAbstractScale",
+        "lowerBound",
+        "upperBound",
+        "scaleMaxMajor",
+        "scaleMaxMinor",
+        "scaleStepSize"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       5,   14, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
- // properties: name, type, flags
-       1, QMetaType::Double, 0x00015103, uint(-1), 0,
-       2, QMetaType::Double, 0x00015103, uint(-1), 0,
-       3, QMetaType::Int, 0x00015103, uint(-1), 0,
-       4, QMetaType::Int, 0x00015103, uint(-1), 0,
-       5, QMetaType::Double, 0x00015103, uint(-1), 0,
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+    };
+    QtMocHelpers::UintData qt_properties {
+        // property 'lowerBound'
+        QtMocHelpers::PropertyData<double>(1, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'upperBound'
+        QtMocHelpers::PropertyData<double>(2, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'scaleMaxMajor'
+        QtMocHelpers::PropertyData<int>(3, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'scaleMaxMinor'
+        QtMocHelpers::PropertyData<int>(4, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'scaleStepSize'
+        QtMocHelpers::PropertyData<double>(5, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<QwtAbstractScale, qt_meta_tag_ZN16QwtAbstractScaleE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject QwtAbstractScale::staticMetaObject = { {
     QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_CLASSQwtAbstractScaleENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSQwtAbstractScaleENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN16QwtAbstractScaleE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN16QwtAbstractScaleE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSQwtAbstractScaleENDCLASS_t,
-        // property 'lowerBound'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // property 'upperBound'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // property 'scaleMaxMajor'
-        QtPrivate::TypeAndForceComplete<int, std::true_type>,
-        // property 'scaleMaxMinor'
-        QtPrivate::TypeAndForceComplete<int, std::true_type>,
-        // property 'scaleStepSize'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<QwtAbstractScale, std::true_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN16QwtAbstractScaleE_t>.metaTypes,
     nullptr
 } };
 
 void QwtAbstractScale::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-if (_c == QMetaObject::ReadProperty) {
-        auto *_t = static_cast<QwtAbstractScale *>(_o);
-        (void)_t;
+    auto *_t = static_cast<QwtAbstractScale *>(_o);
+    if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< double*>(_v) = _t->lowerBound(); break;
-        case 1: *reinterpret_cast< double*>(_v) = _t->upperBound(); break;
-        case 2: *reinterpret_cast< int*>(_v) = _t->scaleMaxMajor(); break;
-        case 3: *reinterpret_cast< int*>(_v) = _t->scaleMaxMinor(); break;
-        case 4: *reinterpret_cast< double*>(_v) = _t->scaleStepSize(); break;
+        case 0: *reinterpret_cast<double*>(_v) = _t->lowerBound(); break;
+        case 1: *reinterpret_cast<double*>(_v) = _t->upperBound(); break;
+        case 2: *reinterpret_cast<int*>(_v) = _t->scaleMaxMajor(); break;
+        case 3: *reinterpret_cast<int*>(_v) = _t->scaleMaxMinor(); break;
+        case 4: *reinterpret_cast<double*>(_v) = _t->scaleStepSize(); break;
         default: break;
         }
-    } else if (_c == QMetaObject::WriteProperty) {
-        auto *_t = static_cast<QwtAbstractScale *>(_o);
-        (void)_t;
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: _t->setLowerBound(*reinterpret_cast< double*>(_v)); break;
-        case 1: _t->setUpperBound(*reinterpret_cast< double*>(_v)); break;
-        case 2: _t->setScaleMaxMajor(*reinterpret_cast< int*>(_v)); break;
-        case 3: _t->setScaleMaxMinor(*reinterpret_cast< int*>(_v)); break;
-        case 4: _t->setScaleStepSize(*reinterpret_cast< double*>(_v)); break;
-        default: break;
-        }
-    } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
-    (void)_o;
-    (void)_id;
-    (void)_c;
-    (void)_a;
+    if (_c == QMetaObject::WriteProperty) {
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setLowerBound(*reinterpret_cast<double*>(_v)); break;
+        case 1: _t->setUpperBound(*reinterpret_cast<double*>(_v)); break;
+        case 2: _t->setScaleMaxMajor(*reinterpret_cast<int*>(_v)); break;
+        case 3: _t->setScaleMaxMinor(*reinterpret_cast<int*>(_v)); break;
+        case 4: _t->setScaleStepSize(*reinterpret_cast<double*>(_v)); break;
+        default: break;
+        }
+    }
 }
 
 const QMetaObject *QwtAbstractScale::metaObject() const
@@ -136,7 +110,7 @@ const QMetaObject *QwtAbstractScale::metaObject() const
 void *QwtAbstractScale::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSQwtAbstractScaleENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN16QwtAbstractScaleE_t>.strings))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }

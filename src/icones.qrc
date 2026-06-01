@@ -194,5 +194,6 @@
         <file>files/darkstyle_org.qss</file>
         <file>icones/arrow-down-icon-png-6703.png</file>
         <file>icones/OBD.png</file>
+        <file>files/dummy.qml</file>
     </qresource>
 </RCC>

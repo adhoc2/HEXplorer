@@ -1576,6 +1576,10 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
             AXIS_PTS_REF *axisPtsRef = (AXIS_PTS_REF*)axisDescrX->getItem("AXIS_PTS_REF");
             QString nameAxisX = axisPtsRef->getPar("AxisPoints");
             AXIS_PTS *axisPtsX = (AXIS_PTS*)project->getNode("MODULE/" + moduleName + "/AXIS_PTS/" + nameAxisX);
+            if (axisPtsX == nullptr)
+            {
+                return;
+            }
 
             //BYTE_ORDER axisX
             Byte_Order *byteOrder = (Byte_Order*)axisPtsX->getItem("BYTE_ORDER");
@@ -1815,6 +1819,10 @@ void Data::readHexValues(CHARACTERISTIC* node, PROJECT *pro, DataContainer* data
             AXIS_PTS_REF *axisPtsRef = (AXIS_PTS_REF*)axisDescrY->getItem("AXIS_PTS_REF");
             QString nameAxisY = axisPtsRef->getPar("AxisPoints");
             AXIS_PTS *axisPtsY = (AXIS_PTS*)project->getNode("MODULE/" + moduleName + "/AXIS_PTS/" + nameAxisY);
+            if (axisPtsY == nullptr)
+            {
+                return;
+            }
 
             //BYTE_ORDER axisY
             Byte_Order *byteOrder = (Byte_Order*)axisPtsY->getItem("BYTE_ORDER");

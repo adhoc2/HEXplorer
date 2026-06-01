@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qwt_abstract_slider.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qwt_abstract_slider.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,198 +31,136 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSQwtAbstractSliderENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSQwtAbstractSliderENDCLASS = QtMocHelpers::stringData(
-    "QwtAbstractSlider",
-    "valueChanged",
-    "",
-    "value",
-    "sliderPressed",
-    "sliderReleased",
-    "sliderMoved",
-    "setValue",
-    "totalSteps",
-    "singleSteps",
-    "pageSteps",
-    "stepAlignment",
-    "readOnly",
-    "tracking",
-    "wrapping",
-    "invertedControls"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN17QwtAbstractSliderE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSQwtAbstractSliderENDCLASS[] = {
+template <> constexpr inline auto QwtAbstractSlider::qt_create_metaobjectdata<qt_meta_tag_ZN17QwtAbstractSliderE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "QwtAbstractSlider",
+        "valueChanged",
+        "",
+        "value",
+        "sliderPressed",
+        "sliderReleased",
+        "sliderMoved",
+        "setValue",
+        "totalSteps",
+        "singleSteps",
+        "pageSteps",
+        "stepAlignment",
+        "readOnly",
+        "tracking",
+        "wrapping",
+        "invertedControls"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       5,   14, // methods
-       9,   55, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       4,       // signalCount
-
- // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   44,    2, 0x06,   10 /* Public */,
-       4,    0,   47,    2, 0x06,   12 /* Public */,
-       5,    0,   48,    2, 0x06,   13 /* Public */,
-       6,    1,   49,    2, 0x06,   14 /* Public */,
-
- // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       7,    1,   52,    2, 0x0a,   16 /* Public */,
-
- // signals: parameters
-    QMetaType::Void, QMetaType::Double,    3,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Double,    3,
-
- // slots: parameters
-    QMetaType::Void, QMetaType::Double,    3,
-
- // properties: name, type, flags
-       3, QMetaType::Double, 0x00115103, uint(0), 0,
-       8, QMetaType::UInt, 0x00015103, uint(-1), 0,
-       9, QMetaType::UInt, 0x00015103, uint(-1), 0,
-      10, QMetaType::UInt, 0x00015103, uint(-1), 0,
-      11, QMetaType::Bool, 0x00015103, uint(-1), 0,
-      12, QMetaType::Bool, 0x00015103, uint(-1), 0,
-      13, QMetaType::Bool, 0x00015103, uint(-1), 0,
-      14, QMetaType::Bool, 0x00015103, uint(-1), 0,
-      15, QMetaType::Bool, 0x00015103, uint(-1), 0,
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+        // Signal 'valueChanged'
+        QtMocHelpers::SignalData<void(double)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Double, 3 },
+        }}),
+        // Signal 'sliderPressed'
+        QtMocHelpers::SignalData<void()>(4, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'sliderReleased'
+        QtMocHelpers::SignalData<void()>(5, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'sliderMoved'
+        QtMocHelpers::SignalData<void(double)>(6, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Double, 3 },
+        }}),
+        // Slot 'setValue'
+        QtMocHelpers::SlotData<void(double)>(7, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Double, 3 },
+        }}),
+    };
+    QtMocHelpers::UintData qt_properties {
+        // property 'value'
+        QtMocHelpers::PropertyData<double>(3, QMetaType::Double, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet | QMC::User, 0),
+        // property 'totalSteps'
+        QtMocHelpers::PropertyData<uint>(8, QMetaType::UInt, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'singleSteps'
+        QtMocHelpers::PropertyData<uint>(9, QMetaType::UInt, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'pageSteps'
+        QtMocHelpers::PropertyData<uint>(10, QMetaType::UInt, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'stepAlignment'
+        QtMocHelpers::PropertyData<bool>(11, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'readOnly'
+        QtMocHelpers::PropertyData<bool>(12, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'tracking'
+        QtMocHelpers::PropertyData<bool>(13, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'wrapping'
+        QtMocHelpers::PropertyData<bool>(14, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'invertedControls'
+        QtMocHelpers::PropertyData<bool>(15, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<QwtAbstractSlider, qt_meta_tag_ZN17QwtAbstractSliderE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject QwtAbstractSlider::staticMetaObject = { {
     QMetaObject::SuperData::link<QwtAbstractScale::staticMetaObject>(),
-    qt_meta_stringdata_CLASSQwtAbstractSliderENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSQwtAbstractSliderENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN17QwtAbstractSliderE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN17QwtAbstractSliderE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSQwtAbstractSliderENDCLASS_t,
-        // property 'value'
-        QtPrivate::TypeAndForceComplete<double, std::true_type>,
-        // property 'totalSteps'
-        QtPrivate::TypeAndForceComplete<uint, std::true_type>,
-        // property 'singleSteps'
-        QtPrivate::TypeAndForceComplete<uint, std::true_type>,
-        // property 'pageSteps'
-        QtPrivate::TypeAndForceComplete<uint, std::true_type>,
-        // property 'stepAlignment'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // property 'readOnly'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // property 'tracking'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // property 'wrapping'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // property 'invertedControls'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<QwtAbstractSlider, std::true_type>,
-        // method 'valueChanged'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<double, std::false_type>,
-        // method 'sliderPressed'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'sliderReleased'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'sliderMoved'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<double, std::false_type>,
-        // method 'setValue'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<double, std::false_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN17QwtAbstractSliderE_t>.metaTypes,
     nullptr
 } };
 
 void QwtAbstractSlider::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
+    auto *_t = static_cast<QwtAbstractSlider *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<QwtAbstractSlider *>(_o);
-        (void)_t;
         switch (_id) {
-        case 0: _t->valueChanged((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 0: _t->valueChanged((*reinterpret_cast<std::add_pointer_t<double>>(_a[1]))); break;
         case 1: _t->sliderPressed(); break;
         case 2: _t->sliderReleased(); break;
-        case 3: _t->sliderMoved((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 4: _t->setValue((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 3: _t->sliderMoved((*reinterpret_cast<std::add_pointer_t<double>>(_a[1]))); break;
+        case 4: _t->setValue((*reinterpret_cast<std::add_pointer_t<double>>(_a[1]))); break;
         default: ;
         }
-    } else if (_c == QMetaObject::IndexOfMethod) {
-        int *result = reinterpret_cast<int *>(_a[0]);
-        {
-            using _t = void (QwtAbstractSlider::*)(double );
-            if (_t _q_method = &QwtAbstractSlider::valueChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 0;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtAbstractSlider::*)();
-            if (_t _q_method = &QwtAbstractSlider::sliderPressed; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 1;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtAbstractSlider::*)();
-            if (_t _q_method = &QwtAbstractSlider::sliderReleased; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 2;
-                return;
-            }
-        }
-        {
-            using _t = void (QwtAbstractSlider::*)(double );
-            if (_t _q_method = &QwtAbstractSlider::sliderMoved; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 3;
-                return;
-            }
-        }
-    } else if (_c == QMetaObject::ReadProperty) {
-        auto *_t = static_cast<QwtAbstractSlider *>(_o);
-        (void)_t;
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (QwtAbstractSlider::*)(double )>(_a, &QwtAbstractSlider::valueChanged, 0))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtAbstractSlider::*)()>(_a, &QwtAbstractSlider::sliderPressed, 1))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtAbstractSlider::*)()>(_a, &QwtAbstractSlider::sliderReleased, 2))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (QwtAbstractSlider::*)(double )>(_a, &QwtAbstractSlider::sliderMoved, 3))
+            return;
+    }
+    if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< double*>(_v) = _t->value(); break;
-        case 1: *reinterpret_cast< uint*>(_v) = _t->totalSteps(); break;
-        case 2: *reinterpret_cast< uint*>(_v) = _t->singleSteps(); break;
-        case 3: *reinterpret_cast< uint*>(_v) = _t->pageSteps(); break;
-        case 4: *reinterpret_cast< bool*>(_v) = _t->stepAlignment(); break;
-        case 5: *reinterpret_cast< bool*>(_v) = _t->isReadOnly(); break;
-        case 6: *reinterpret_cast< bool*>(_v) = _t->isTracking(); break;
-        case 7: *reinterpret_cast< bool*>(_v) = _t->wrapping(); break;
-        case 8: *reinterpret_cast< bool*>(_v) = _t->invertedControls(); break;
+        case 0: *reinterpret_cast<double*>(_v) = _t->value(); break;
+        case 1: *reinterpret_cast<uint*>(_v) = _t->totalSteps(); break;
+        case 2: *reinterpret_cast<uint*>(_v) = _t->singleSteps(); break;
+        case 3: *reinterpret_cast<uint*>(_v) = _t->pageSteps(); break;
+        case 4: *reinterpret_cast<bool*>(_v) = _t->stepAlignment(); break;
+        case 5: *reinterpret_cast<bool*>(_v) = _t->isReadOnly(); break;
+        case 6: *reinterpret_cast<bool*>(_v) = _t->isTracking(); break;
+        case 7: *reinterpret_cast<bool*>(_v) = _t->wrapping(); break;
+        case 8: *reinterpret_cast<bool*>(_v) = _t->invertedControls(); break;
         default: break;
         }
-    } else if (_c == QMetaObject::WriteProperty) {
-        auto *_t = static_cast<QwtAbstractSlider *>(_o);
-        (void)_t;
+    }
+    if (_c == QMetaObject::WriteProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: _t->setValue(*reinterpret_cast< double*>(_v)); break;
-        case 1: _t->setTotalSteps(*reinterpret_cast< uint*>(_v)); break;
-        case 2: _t->setSingleSteps(*reinterpret_cast< uint*>(_v)); break;
-        case 3: _t->setPageSteps(*reinterpret_cast< uint*>(_v)); break;
-        case 4: _t->setStepAlignment(*reinterpret_cast< bool*>(_v)); break;
-        case 5: _t->setReadOnly(*reinterpret_cast< bool*>(_v)); break;
-        case 6: _t->setTracking(*reinterpret_cast< bool*>(_v)); break;
-        case 7: _t->setWrapping(*reinterpret_cast< bool*>(_v)); break;
-        case 8: _t->setInvertedControls(*reinterpret_cast< bool*>(_v)); break;
+        case 0: _t->setValue(*reinterpret_cast<double*>(_v)); break;
+        case 1: _t->setTotalSteps(*reinterpret_cast<uint*>(_v)); break;
+        case 2: _t->setSingleSteps(*reinterpret_cast<uint*>(_v)); break;
+        case 3: _t->setPageSteps(*reinterpret_cast<uint*>(_v)); break;
+        case 4: _t->setStepAlignment(*reinterpret_cast<bool*>(_v)); break;
+        case 5: _t->setReadOnly(*reinterpret_cast<bool*>(_v)); break;
+        case 6: _t->setTracking(*reinterpret_cast<bool*>(_v)); break;
+        case 7: _t->setWrapping(*reinterpret_cast<bool*>(_v)); break;
+        case 8: _t->setInvertedControls(*reinterpret_cast<bool*>(_v)); break;
         default: break;
         }
-    } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
 }
 
@@ -234,7 +172,7 @@ const QMetaObject *QwtAbstractSlider::metaObject() const
 void *QwtAbstractSlider::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSQwtAbstractSliderENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN17QwtAbstractSliderE_t>.strings))
         return static_cast<void*>(this);
     return QwtAbstractScale::qt_metacast(_clname);
 }
@@ -248,11 +186,13 @@ int QwtAbstractSlider::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
         _id -= 5;
-    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
         _id -= 5;
-    }else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
+    }
+    if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
@@ -264,8 +204,7 @@ int QwtAbstractSlider::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 // SIGNAL 0
 void QwtAbstractSlider::valueChanged(double _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 0, nullptr, _t1);
 }
 
 // SIGNAL 1
@@ -283,7 +222,6 @@ void QwtAbstractSlider::sliderReleased()
 // SIGNAL 3
 void QwtAbstractSlider::sliderMoved(double _t1)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+    QMetaObject::activate<void>(this, &staticMetaObject, 3, nullptr, _t1);
 }
 QT_WARNING_POP

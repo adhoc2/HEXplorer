@@ -21,10 +21,9 @@ void Worker::process()
 
     // create a new lexer
     QTextStream out(&str);
-    A2lLexer *lexer = new A2lLexer(out);;
+    A2lLexer *lexer = new A2lLexer(out);
     QStringList *errorList = new QStringList();
     lexer->initialize();
-
     connect(lexer, &A2lLexer::returnedToken, this, &Worker::progress, Qt::DirectConnection);
 
     // start parsing the file
@@ -35,11 +34,6 @@ void Worker::process()
 
     // stop timer
     qint64  elapsedTime = timer.elapsed();
-
-    //QThread::currentThread()->isInterruptionRequested();
-
-
-    //emit progress();
 
     emit resultReady(nodeA2l, elapsedTime, errorList);
 

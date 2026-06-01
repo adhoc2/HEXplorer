@@ -97,7 +97,7 @@ void ObdMergeModelEcu4::listErrorCodes(QStringList listLab)
 
             // fill listDataNameInView to be used for export
             QList<Data*> _listData = dataContainer->getDataByPrefix(nameBegin);
-            for (Data* data : _listData)
+            for (Data* data : std::as_const(_listData))
             {
                 if (data->getName().startsWith(nameBegin + "_C."))
                 {
@@ -540,8 +540,7 @@ int ObdMergeModelEcu4::getRow() const
 
 Data* findDataByName(const QList<Data*>& list, const QString& dataName)
 {
-    auto it = std::find_if(list.begin(), list.end(),
-                           [&](Data* d){ return d && d->name == dataName; });
+    auto it = std::find_if(list.begin(), list.end(), [&](Data* d){ return d && d->name == dataName; });
 
     return (it != list.end()) ? *it : nullptr;
 }

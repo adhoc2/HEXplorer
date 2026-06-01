@@ -35,8 +35,6 @@
 #include "node.h"
 #include "item.h"
 #include "qapplication.h"
-#include <string>
-
 #include <QElapsedTimer>
 #include <QFileInfo>
 #include <QDebug>

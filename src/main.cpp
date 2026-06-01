@@ -24,17 +24,23 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 
     QApplication app(argc, argv);
 
+    //app name and version
     app.setOrganizationName("Ch.Hoel");
     app.setApplicationName("HEXplorer");
     app.setApplicationVersion(APP_VERSION_STRING);
 
+    //app style
     app.setStyle("Fusion");
+    app.setFont(QFont("Segoe UI", 9));
 
     MDImain w;
     w.showMaximized();
+
+
     return app.exec();
 }
 

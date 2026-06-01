@@ -713,7 +713,8 @@ void SpreadsheetView::filterColumn(QString value, bool activate)
         if (name.toLower().endsWith("obdsortfilterproxymodel"))
         {
             obdSortFilterProxyModel *proxyModel = (obdSortFilterProxyModel*)model();
-            QList<int> listCol({11, 13, 15, 17, 19, 21, 23});
+            //QList<int> listCol({11, 13, 15, 17, 19, 21, 23});
+            QList<int> listCol;
             if (activate)
             {
                 if (listCol.contains(index.column()))

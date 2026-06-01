@@ -7,10 +7,16 @@
 *.sha1
 *.user.*
 *.py
+*.obj
+*.stash
+*.exp
+*.lib
 build/
 cert/
-libs/build/
+libs/
 installer/release/
 install/
 .qtc_clangd/
+
+
 

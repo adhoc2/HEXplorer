@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'qwt_slider.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.7.0)
+** Created by: The Qt Meta Object Compiler version 69 (Qt 6.11.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -17,8 +17,8 @@
 #include <QtCore/qxptype_traits.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'qwt_slider.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.7.0. It"
+#elif Q_MOC_OUTPUT_REVISION != 69
+#error "This file was generated using the moc from 6.11.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -31,128 +31,97 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
-
-#ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSQwtSliderENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSQwtSliderENDCLASS = QtMocHelpers::stringData(
-    "QwtSlider",
-    "orientation",
-    "Qt::Orientation",
-    "scalePosition",
-    "ScalePosition",
-    "trough",
-    "groove",
-    "handleSize",
-    "borderWidth",
-    "spacing",
-    "NoScale",
-    "LeadingScale",
-    "TrailingScale"
-);
-#else  // !QT_MOC_HAS_STRINGDATA
-#error "qtmochelpers.h not found or too old."
-#endif // !QT_MOC_HAS_STRINGDATA
+struct qt_meta_tag_ZN9QwtSliderE_t {};
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSQwtSliderENDCLASS[] = {
+template <> constexpr inline auto QwtSlider::qt_create_metaobjectdata<qt_meta_tag_ZN9QwtSliderE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "QwtSlider",
+        "orientation",
+        "Qt::Orientation",
+        "scalePosition",
+        "ScalePosition",
+        "trough",
+        "groove",
+        "handleSize",
+        "QSize",
+        "borderWidth",
+        "spacing",
+        "NoScale",
+        "LeadingScale",
+        "TrailingScale"
+    };
 
- // content:
-      12,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       7,   14, // properties
-       1,   49, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
-
- // properties: name, type, flags
-       1, 0x80000000 | 2, 0x0001510b, uint(-1), 0,
-       3, 0x80000000 | 4, 0x0001510b, uint(-1), 0,
-       5, QMetaType::Bool, 0x00015103, uint(-1), 0,
-       6, QMetaType::Bool, 0x00015103, uint(-1), 0,
-       7, QMetaType::QSize, 0x00015103, uint(-1), 0,
-       8, QMetaType::Int, 0x00015103, uint(-1), 0,
-       9, QMetaType::Int, 0x00015103, uint(-1), 0,
-
- // enums: name, alias, flags, count, data
-       4,    4, 0x0,    3,   54,
-
- // enum data: key, value
-      10, uint(QwtSlider::NoScale),
-      11, uint(QwtSlider::LeadingScale),
-      12, uint(QwtSlider::TrailingScale),
-
-       0        // eod
-};
-
+    QtMocHelpers::UintData qt_methods {
+    };
+    QtMocHelpers::UintData qt_properties {
+        // property 'orientation'
+        QtMocHelpers::PropertyData<Qt::Orientation>(1, 0x80000000 | 2, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'scalePosition'
+        QtMocHelpers::PropertyData<enum ScalePosition>(3, 0x80000000 | 4, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'trough'
+        QtMocHelpers::PropertyData<bool>(5, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'groove'
+        QtMocHelpers::PropertyData<bool>(6, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'handleSize'
+        QtMocHelpers::PropertyData<QSize>(7, 0x80000000 | 8, QMC::DefaultPropertyFlags | QMC::Writable | QMC::EnumOrFlag | QMC::StdCppSet),
+        // property 'borderWidth'
+        QtMocHelpers::PropertyData<int>(9, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+        // property 'spacing'
+        QtMocHelpers::PropertyData<int>(10, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable | QMC::StdCppSet),
+    };
+    QtMocHelpers::UintData qt_enums {
+        // enum 'ScalePosition'
+        QtMocHelpers::EnumData<enum ScalePosition>(4, 4, QMC::EnumFlags{}).add({
+            {   11, ScalePosition::NoScale },
+            {   12, ScalePosition::LeadingScale },
+            {   13, ScalePosition::TrailingScale },
+        }),
+    };
+    return QtMocHelpers::metaObjectData<QwtSlider, qt_meta_tag_ZN9QwtSliderE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
 Q_CONSTINIT const QMetaObject QwtSlider::staticMetaObject = { {
     QMetaObject::SuperData::link<QwtAbstractSlider::staticMetaObject>(),
-    qt_meta_stringdata_CLASSQwtSliderENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSQwtSliderENDCLASS,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN9QwtSliderE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN9QwtSliderE_t>.data,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSQwtSliderENDCLASS_t,
-        // property 'orientation'
-        QtPrivate::TypeAndForceComplete<Qt::Orientation, std::true_type>,
-        // property 'scalePosition'
-        QtPrivate::TypeAndForceComplete<ScalePosition, std::true_type>,
-        // property 'trough'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // property 'groove'
-        QtPrivate::TypeAndForceComplete<bool, std::true_type>,
-        // property 'handleSize'
-        QtPrivate::TypeAndForceComplete<QSize, std::true_type>,
-        // property 'borderWidth'
-        QtPrivate::TypeAndForceComplete<int, std::true_type>,
-        // property 'spacing'
-        QtPrivate::TypeAndForceComplete<int, std::true_type>,
-        // enum 'ScalePosition'
-        QtPrivate::TypeAndForceComplete<QwtSlider::ScalePosition, std::true_type>,
-        // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<QwtSlider, std::true_type>
-    >,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN9QwtSliderE_t>.metaTypes,
     nullptr
 } };
 
 void QwtSlider::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-if (_c == QMetaObject::ReadProperty) {
-        auto *_t = static_cast<QwtSlider *>(_o);
-        (void)_t;
+    auto *_t = static_cast<QwtSlider *>(_o);
+    if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast< Qt::Orientation*>(_v) = _t->orientation(); break;
-        case 1: *reinterpret_cast< ScalePosition*>(_v) = _t->scalePosition(); break;
-        case 2: *reinterpret_cast< bool*>(_v) = _t->hasTrough(); break;
-        case 3: *reinterpret_cast< bool*>(_v) = _t->hasGroove(); break;
-        case 4: *reinterpret_cast< QSize*>(_v) = _t->handleSize(); break;
-        case 5: *reinterpret_cast< int*>(_v) = _t->borderWidth(); break;
-        case 6: *reinterpret_cast< int*>(_v) = _t->spacing(); break;
+        case 0: *reinterpret_cast<Qt::Orientation*>(_v) = _t->orientation(); break;
+        case 1: *reinterpret_cast<enum ScalePosition*>(_v) = _t->scalePosition(); break;
+        case 2: *reinterpret_cast<bool*>(_v) = _t->hasTrough(); break;
+        case 3: *reinterpret_cast<bool*>(_v) = _t->hasGroove(); break;
+        case 4: *reinterpret_cast<QSize*>(_v) = _t->handleSize(); break;
+        case 5: *reinterpret_cast<int*>(_v) = _t->borderWidth(); break;
+        case 6: *reinterpret_cast<int*>(_v) = _t->spacing(); break;
         default: break;
         }
-    } else if (_c == QMetaObject::WriteProperty) {
-        auto *_t = static_cast<QwtSlider *>(_o);
-        (void)_t;
-        void *_v = _a[0];
-        switch (_id) {
-        case 0: _t->setOrientation(*reinterpret_cast< Qt::Orientation*>(_v)); break;
-        case 1: _t->setScalePosition(*reinterpret_cast< ScalePosition*>(_v)); break;
-        case 2: _t->setTrough(*reinterpret_cast< bool*>(_v)); break;
-        case 3: _t->setGroove(*reinterpret_cast< bool*>(_v)); break;
-        case 4: _t->setHandleSize(*reinterpret_cast< QSize*>(_v)); break;
-        case 5: _t->setBorderWidth(*reinterpret_cast< int*>(_v)); break;
-        case 6: _t->setSpacing(*reinterpret_cast< int*>(_v)); break;
-        default: break;
-        }
-    } else if (_c == QMetaObject::ResetProperty) {
-    } else if (_c == QMetaObject::BindableProperty) {
     }
-    (void)_o;
-    (void)_id;
-    (void)_c;
-    (void)_a;
+    if (_c == QMetaObject::WriteProperty) {
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setOrientation(*reinterpret_cast<Qt::Orientation*>(_v)); break;
+        case 1: _t->setScalePosition(*reinterpret_cast<enum ScalePosition*>(_v)); break;
+        case 2: _t->setTrough(*reinterpret_cast<bool*>(_v)); break;
+        case 3: _t->setGroove(*reinterpret_cast<bool*>(_v)); break;
+        case 4: _t->setHandleSize(*reinterpret_cast<QSize*>(_v)); break;
+        case 5: _t->setBorderWidth(*reinterpret_cast<int*>(_v)); break;
+        case 6: _t->setSpacing(*reinterpret_cast<int*>(_v)); break;
+        default: break;
+        }
+    }
 }
 
 const QMetaObject *QwtSlider::metaObject() const
@@ -163,7 +132,7 @@ const QMetaObject *QwtSlider::metaObject() const
 void *QwtSlider::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSQwtSliderENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN9QwtSliderE_t>.strings))
         return static_cast<void*>(this);
     return QwtAbstractSlider::qt_metacast(_clname);
 }

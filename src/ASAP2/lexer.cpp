@@ -23,11 +23,11 @@
 
 /**********  Class Buffer *************/
 
-Buffer::Buffer()
+
+Buffer::Buffer(): state(false),value(QChar('\0'))
 {
-    state= false;
-    value = QChar::fromLatin1(0);
 }
+
 
 bool Buffer::isFull()
 {
@@ -38,19 +38,11 @@ void Buffer::read(QTextStream* in)
 {
     QChar c;
     *in >> c;
-    //QChar c = in->read(1)[0];
-
-    //if (c != 0 && c < 128)
     if (c != 0)
     {
         value = c;
         state = true;
     }
-    // else if (c > 127)
-    // {
-    //     value = '?';
-    //     state = true;
-    // }
     else
     {
         value = QChar(0x0);
@@ -60,25 +52,18 @@ void Buffer::read(QTextStream* in)
 
 void Buffer::read(QTextStream &in)
 {
-        QChar c;
-        in >> c;
-
-        //if (c != 0 && c < 128)
-        if (c != 0)
-        {
-            value = c;
-            state = true;
-        }
-        // else if (c > 127)
-        // {
-        //     value = '?';
-        //     state = true;
-        // }
-        else
-        {
-            value = QChar::fromLatin1(0);
-            state = false;
-        }
+    QChar c;
+    in >> c;
+    if (c != 0)
+    {
+        value = c;
+        state = true;
+    }
+    else
+    {
+        value = QChar(0x0);
+        state = false;
+    }
 }
 
 QChar Buffer::getAndClear()
@@ -224,7 +209,6 @@ TokenTyp A2lLexer::getNextToken()
 {
     lexem = "";
     TokenTyp token = myUnknown;
-    // char ch;
 
     //First check if the buffer is empty or full
     //and process it if necessary
@@ -242,8 +226,6 @@ TokenTyp A2lLexer::getNextToken()
         }
         else
         {
-//            in >> ch;
-//            token = begin(in, ch);
             buffer->read(this->in);
             token = begin(buffer->getAndClear());
         }
@@ -293,12 +275,8 @@ bool A2lLexer::isLetter(QChar ch)
 
 bool A2lLexer::isA2mlSym(QChar ch)
 {
-    if (ch == '{' || ch == '}' ||
-        ch == '[' || ch == ']' ||
-        ch == '(' || ch == ')' ||
-        ch == ';' || ch == '*' ||
-        ch == '=' || ch == ',' ||
-        ch == ':')
+    if (ch == '{' || ch == '}' || ch == '[' || ch == ']' || ch == '(' || ch == ')' ||
+        ch == ';' || ch == '*' || ch == '=' || ch == ',' || ch == ':')
         return true;
     else
         return false;
@@ -311,7 +289,7 @@ TokenTyp A2lLexer::begin(QChar ch)
 
     //ignore white space and tabs and new line as first character
     while (ch == '\t'  || ch == '\r' || ch == ' ' || ch == '\n')
-    {        
+    {
         if (ch == '\n')
             line++;
         //in >> ch;
@@ -358,25 +336,12 @@ TokenTyp A2lLexer::begin(QChar ch)
         }
         else if (ch == '-')
         {
-            //token = Minus;
-            //lexem = '-';
-            //buffer->clear();
             token = this->number(ch);
         }
         else if (ch == '+')
         {
-            //token = Plus;
-            //lexem = '+';
-            //buffer->clear();
             token = this->number(ch);
         }
-        /*else if (this->isA2mlSym(ch))
-        {
-            token = new Token;
-            token = A2ml;
-            lexem += ch;
-            buffer->clear();
-        }*/
         else
         {
             lexem += ch;
@@ -529,7 +494,7 @@ TokenTyp A2lLexer::number(QChar &ch)
 
     buffer->read(in);
     while(isDigit(buffer->getValue()))
-    {        
+    {
         lexem += buffer->getAndClear();
         buffer->read(in);
     }
@@ -714,7 +679,7 @@ TokenTyp A2lLexer::getPartialString()
     if (_check == '[')
     {
         lexem += buffer->getAndClear();
-        buffer->read(in);        
+        buffer->read(in);
 
         _check = buffer->getValue();
         while (isDigit(_check) || isLetter(_check) || _check == '_')

@@ -27,16 +27,14 @@
 #include <qwt_text.h>
 #include <qwt_math.h>
 #include <math.h>
-#include "data.h"
 #include "DataModels/graphmodel.h"
-#include "DataModels/sptablemodel.h"
 
 class Plot : public QwtPlot
 {
     Q_OBJECT
 
 public:
-    Plot(GraphModel *model, QString type = "XZ");
+    Plot(GraphModel *model, QWidget* parent = NULL, QString type = "XZ");
     ~Plot();
 
     GraphModel * getModel();

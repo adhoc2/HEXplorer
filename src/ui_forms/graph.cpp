@@ -64,12 +64,12 @@ Graph::Graph(QWidget *parent, Data *dat) :  QMainWindow(parent)
 
     // create plots
     data = dat;
-    plotXZ = new Plot(model, QString("XZ"));
+    plotXZ = new Plot(model, parent, QString("XZ"));
     verticalLayout->addWidget(plotXZ);
     canvasXZ =  new CanvasPicker(this, plotXZ);
     if (dat->yCount() > 0)
     {
-        plotYZ = new Plot(model, QString("YZ"));
+        plotYZ = new Plot(model, parent, QString("YZ"));
         verticalLayout->addWidget(plotYZ);
         plotYZ->hide();
         canvasYZ =  new CanvasPicker(this, plotYZ);
@@ -136,6 +136,8 @@ void Graph::showInfo(QString text)
 
 void Graph::plot3D_q3dsurface()
 {
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGL);
+
     if (data->getY().count() <= 0)
         return;
 
@@ -150,21 +152,22 @@ void Graph::plot3D_q3dsurface()
 
     // QQuickWidget (remplace createWindowContainer)
     QQuickWidget *quickWidget = new QQuickWidget(widget);
+
     quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);
     quickWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     quickWidget->setMinimumSize(800, 600);
+
+    // Surface QtGraphs Widgets
+    Q3DSurfaceWidgetItem *surface = new Q3DSurfaceWidgetItem();
+    surface->setWidget(quickWidget);
+
+    //Création du graphe (classe que tu viens de migrer)
+    auto *modifier = new SurfaceGraphModifier(surface, data);
 
     hLayout->addWidget(quickWidget, 1);
     hLayout->addLayout(vLayout);
 
     widget->show();
-
-    // Surface QtGraphs Widgets
-    auto *surface = new Q3DSurfaceWidgetItem;
-    surface->setWidget(quickWidget);
-
-    // Création du graphe (classe que tu viens de migrer)
-    auto *modifier = new SurfaceGraphModifier(surface, data);
 }
 
 
